@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>Toolify - 올인원 웹 도구 모음</title>
+    <meta
+            name="description"
+            content="날짜 계산기, 글자수 세기, 이미지 압축기 등 자주 쓰는 기능들을 한 곳에 모은 올인원 웹 도구 모음 사이트입니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<!-- 공통 헤더 / 네비게이션 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="./" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li>
+                    <a href="tools/date-calculator/" class="active">날짜 계산기</a>
+                </li>
+                <!-- 앞으로 다른 툴 생기면 여기 li 추가 -->
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🛠 Toolify - 올인원 웹 도구</h1>
+        <p class="subtitle">
+            자주 쓰는 작은 기능들을 한 곳에 모아둔 올인원 웹 도구 모음입니다. 회원가입
+            없이 바로 브라우저에서 무료로 사용할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-list">
+            <!-- 날짜 계산기 카드 -->
+            <article class="tool-item">
+                <h2>📅 날짜 계산기</h2>
+                <p>
+                    두 날짜 사이의 일수 계산, D-Day 계산, 날짜에 N일 더하기/빼기, 평일
+                    기준 일수 계산, 날짜 목록 출력, 요일 개수 계산까지 지원하는 날짜
+                    계산기입니다.
+                </p>
+                <a class="tool-button" href="tools/date-calculator/">
+                    날짜 계산기 바로가기
+                </a>
+            </article>
+
+            <!-- 나중에 글자수 세기, 이미지 압축기 등 카드 추가 -->
+            <!--
+            <article class="tool-item">
+              <h2>✏️ 글자수 세기</h2>
+              <p>텍스트의 글자 수, 공백 포함/제외, 바이트 수를 한 번에 계산합니다.</p>
+              <a class="tool-button" href="/tools/text-counter/">글자수 세기 바로가기</a>
+            </article>
+            -->
+        </section>
+    </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

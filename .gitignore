@@ -1,0 +1,12 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# MacOS
+.DS_Store
+
+# Node (혹시 미래에 npm 쓸 경우 대비)
+node_modules/
+
+# Logs
+*.log
