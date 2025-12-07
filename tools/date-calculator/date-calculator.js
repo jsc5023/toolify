@@ -251,3 +251,29 @@ document.getElementById("wd-btn").addEventListener("click", () => {
     }
     box.textContent = lines.trim();
 });
+
+
+/* ============================================================
+   ✅ 여기부터 — "오늘 날짜를 기본값으로 자동 설정" 기능 추가
+   ============================================================ */
+
+/** yyyy-mm-dd 형태의 오늘 날짜 반환 (KST 포함 로컬 기준) */
+function getTodayStr() {
+    const now = new Date();
+    const offset = now.getTimezoneOffset();
+    const local = new Date(now.getTime() - offset * 60 * 1000);
+    return local.toISOString().slice(0, 10);
+}
+
+/** 비어 있는 input[type=date]에 기본값(오늘) 채워 넣기 */
+function initDefaultDates() {
+    const today = getTodayStr();
+    document.querySelectorAll('input[type="date"]').forEach((el) => {
+        if (!el.value) el.value = today;
+    });
+}
+
+/** 페이지 로드 후 실행 */
+document.addEventListener("DOMContentLoaded", () => {
+    initDefaultDates();
+});
