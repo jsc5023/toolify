@@ -101,5 +101,3 @@ copyBtn.addEventListener("click", async () => {
 
 // 초기 상태 업데이트
 updateStats();
-6
-
