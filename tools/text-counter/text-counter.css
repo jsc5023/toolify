@@ -1,5 +1,5 @@
 /* ============================
-   글자수 세기 전용 스타일 (단일 컬럼 레이아웃)
+   글자수 세기 전용 스타일
    ============================ */
 
 /* 섹션 전체 약간 여유 */
@@ -15,7 +15,7 @@
     align-items: center;
     padding: 10px 12px;
     margin-top: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     background: #f3f4f6;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
@@ -43,36 +43,164 @@
     border: 1px solid #d0d7de;
     resize: vertical;
     background: #ffffff;
+    margin-top: 8px;
 }
 
 /* 버튼 줄 */
-.text-counter-card .row {
+.text-counter-card .tc-button-row {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 12px;
 }
 
-.text-counter-card .row button {
+/* 전역 button 스타일 덮어쓰기 */
+.text-counter-card .tc-button-row button {
+    width: auto;
+    padding: 8px 14px;
     font-size: 14px;
-    padding: 10px 14px;
+    flex: 0 0 auto;
 }
 
-/* 통계 박스 아래 여백 추가 */
-.tc-summary-row {
-    margin-bottom: 20px !important;
+/* 보조 버튼 스타일 (초록/회색 느낌) */
+.btn-secondary {
+    background: #e5e7eb;
+    color: #111827;
 }
 
-/* 텍스트박스 윗쪽 여백도 약간 */
-.text-counter-card #text-input {
-    margin-top: 8px;
+.btn-secondary:hover {
+    background: #d1d5db;
 }
-
 
 /* 큰 화면에서도 단일 컬럼 유지 */
 @media (min-width: 900px) {
     .text-counter-card {
         max-width: 900px;
         margin: 0 auto;
+    }
+}
+
+/* ============================
+   설명 / FAQ (날짜 계산기와 톤 맞춤)
+   ============================ */
+
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+/* bullet 리스트 */
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li {
+    margin-bottom: 3px;
+}
+
+/* FAQ 리스트 */
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+/* FAQ 버튼 - 전역 button 스타일 덮어쓰기 */
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+/* 화살표 아이콘 */
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before {
+    content: "▼";
+}
+
+.faq-question:hover {
+    background: #eef2ff;
+}
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* 이 페이지에서만 footer 간격 조금 더 주기 */
+.page-wrapper .footer-text {
+    margin-top: 28px;
+}
+
+/* 모바일 조정 */
+@media (max-width: 600px) {
+    .info-section,
+    .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2 {
+        font-size: 20px;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        padding: 9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list {
+        font-size: 13px;
     }
 }

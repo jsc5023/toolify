@@ -101,3 +101,13 @@ copyBtn.addEventListener("click", async () => {
 
 // 초기 상태 업데이트
 updateStats();
+
+// =======================
+// FAQ 토글 기능
+// =======================
+document.querySelectorAll(".faq-question").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const item = btn.parentElement; // .faq-item
+        item.classList.toggle("active");
+    });
+});
