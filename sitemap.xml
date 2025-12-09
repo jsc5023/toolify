@@ -17,6 +17,13 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- 날짜 계산기 -->
+    <url>
+        <loc>https://toolify.kr/tools/text-counter/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- 개인정보 처리방침 -->
     <url>
         <loc>https://toolify.kr/privacy.html</loc>

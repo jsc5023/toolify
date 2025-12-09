@@ -1,0 +1,78 @@
+/* ============================
+   글자수 세기 전용 스타일 (단일 컬럼 레이아웃)
+   ============================ */
+
+/* 섹션 전체 약간 여유 */
+.text-counter-card {
+    padding: 8px 4px 16px;
+}
+
+/* 요약 숫자 한 줄 */
+.tc-summary-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 10px 12px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    background: #f3f4f6;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.tc-summary-row .summary-item {
+    font-size: 14px;
+    color: #374151;
+}
+
+.tc-summary-row .summary-value {
+    font-weight: 700;
+    margin-left: 4px;
+    color: #111827;
+}
+
+/* 텍스트 입력 영역 */
+.text-counter-card #text-input {
+    width: 100%;
+    min-height: 230px;
+    padding: 12px 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    resize: vertical;
+    background: #ffffff;
+}
+
+/* 버튼 줄 */
+.text-counter-card .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.text-counter-card .row button {
+    font-size: 14px;
+    padding: 10px 14px;
+}
+
+/* 통계 박스 아래 여백 추가 */
+.tc-summary-row {
+    margin-bottom: 20px !important;
+}
+
+/* 텍스트박스 윗쪽 여백도 약간 */
+.text-counter-card #text-input {
+    margin-top: 8px;
+}
+
+
+/* 큰 화면에서도 단일 컬럼 유지 */
+@media (min-width: 900px) {
+    .text-counter-card {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+}
