@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://toolify.kr/sitemap.xml
+
+#DaumWebMasterTool:ee4429fb1ae5ae379d29b8cd152d44fb9a9281490b27052bc85f74fb5bfb9a6b:ft17FGsHCSxdo3XW22Lp0w==
