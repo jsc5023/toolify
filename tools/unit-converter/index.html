@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>단위 변환기 - 길이, 무게, 온도, 면적, 속도 변환</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+        name="description"
+        content="길이, 무게, 온도, 면적, 속도 등 자주 사용하는 단위를 간편하게 변환할 수 있는 무료 단위 변환기입니다. cm↔m, kg↔lb, ℃↔℉, ㎡↔평, km/h↔m/s 등 다양한 단위 변환을 지원합니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 단위 변환기 전용 스타일 -->
+    <link rel="stylesheet" href="./unit-converter.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/unit-converter/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="단위 변환기 - 길이, 무게, 온도, 면적, 속도 변환" />
+    <meta property="og:description" content="길이, 무게, 온도, 면적, 속도 등 자주 사용하는 단위를 간편하게 변환할 수 있는 무료 단위 변환기입니다. cm↔m, kg↔lb, ℃↔℉, ㎡↔평, km/h↔m/s 등 다양한 단위 변환을 지원합니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/unit-converter/" />
+</head>
+<body>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li>
+                    <a href="../../tools/date-calculator/">날짜 계산기</a>
+                </li>
+                <li>
+                    <a href="../../tools/text-counter/">글자수 세기</a>
+                </li>
+                <li>
+                    <a href="../../tools/password-generator/">비밀번호 생성기</a>
+                </li>
+                <li>
+                    <a href="../../tools/unit-converter/" class="active">단위 변환기</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>📐 단위 변환기 (길이 / 무게 / 온도 / 면적 / 속도)</h1>
+        <p class="subtitle">
+            길이(cm, m, inch), 무게(kg, lb), 온도(℃, ℉), 면적(㎡, 평), 속도(km/h, m/s) 등
+            자주 사용하는 단위를 빠르게 변환할 수 있는 무료 단위 변환기입니다.
+        </p>
+    </header>
+
+    <main>
+        <!-- 메인 도구 영역 -->
+        <section class="tool-card">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="length">📏 길이</button>
+                <button class="tab-button" data-tab="weight">⚖ 무게</button>
+                <button class="tab-button" data-tab="temp">🌡 온도</button>
+                <button class="tab-button" data-tab="area">📐 면적</button>
+                <button class="tab-button" data-tab="speed">🚗 속도</button>
+            </div>
+
+            <!-- 길이 변환 -->
+            <div class="tab-panel active" id="tab-length">
+                <h2>길이 단위 변환</h2>
+                <p class="small mb-8">
+                    cm, m, km, inch, ft, yd, mile 사이의 길이 단위를 서로 변환할 수 있습니다.
+                </p>
+                <div class="row">
+                    <div class="field">
+                        <label for="length-value">값</label>
+                        <input type="number" id="length-value" placeholder="예: 10" />
+                    </div>
+                    <div class="field">
+                        <label for="length-from">from</label>
+                        <select id="length-from">
+                            <option value="mm">mm</option>
+                            <option value="cm" selected>cm</option>
+                            <option value="m">m</option>
+                            <option value="km">km</option>
+                            <option value="inch">inch</option>
+                            <option value="ft">ft</option>
+                            <option value="yd">yd</option>
+                            <option value="mi">mile</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="length-to">to</label>
+                        <select id="length-to">
+                            <option value="mm">mm</option>
+                            <option value="cm">cm</option>
+                            <option value="m" selected>m</option>
+                            <option value="km">km</option>
+                            <option value="inch">inch</option>
+                            <option value="ft">ft</option>
+                            <option value="yd">yd</option>
+                            <option value="mi">mile</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="length-btn">길이 변환하기</button>
+                <div id="length-result" class="result"></div>
+            </div>
+
+            <!-- 무게 변환 -->
+            <div class="tab-panel" id="tab-weight">
+                <h2>무게 단위 변환</h2>
+                <p class="small mb-8">
+                    g, kg, ton, lb, oz 사이의 무게 단위를 서로 변환할 수 있습니다.
+                </p>
+                <div class="row">
+                    <div class="field">
+                        <label for="weight-value">값</label>
+                        <input type="number" id="weight-value" placeholder="예: 3.5" />
+                    </div>
+                    <div class="field">
+                        <label for="weight-from">from</label>
+                        <select id="weight-from">
+                            <option value="g">g</option>
+                            <option value="kg" selected>kg</option>
+                            <option value="t">ton</option>
+                            <option value="lb">lb</option>
+                            <option value="oz">oz</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="weight-to">to</label>
+                        <select id="weight-to">
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="t">ton</option>
+                            <option value="lb" selected>lb</option>
+                            <option value="oz">oz</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="weight-btn">무게 변환하기</button>
+                <div id="weight-result" class="result"></div>
+            </div>
+
+            <!-- 온도 변환 -->
+            <div class="tab-panel" id="tab-temp">
+                <h2>온도 단위 변환</h2>
+                <p class="small mb-8">
+                    섭씨(℃), 화씨(℉), 켈빈(K) 사이의 온도를 서로 변환할 수 있습니다.
+                </p>
+                <div class="row">
+                    <div class="field">
+                        <label for="temp-value">값</label>
+                        <input type="number" id="temp-value" placeholder="예: 25" />
+                    </div>
+                    <div class="field">
+                        <label for="temp-from">from</label>
+                        <select id="temp-from">
+                            <option value="c" selected>℃</option>
+                            <option value="f">℉</option>
+                            <option value="k">K</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="temp-to">to</label>
+                        <select id="temp-to">
+                            <option value="c">℃</option>
+                            <option value="f" selected>℉</option>
+                            <option value="k">K</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="temp-btn">온도 변환하기</button>
+                <div id="temp-result" class="result"></div>
+            </div>
+
+            <!-- 면적 변환 -->
+            <div class="tab-panel" id="tab-area">
+                <h2>면적 단위 변환</h2>
+                <p class="small mb-8">
+                    ㎡, 평, ㎢, ft² 등 면적 단위를 서로 변환할 수 있습니다.
+                    (1평 = 3.3058㎡ 기준)
+                </p>
+                <div class="row">
+                    <div class="field">
+                        <label for="area-value">값</label>
+                        <input type="number" id="area-value" placeholder="예: 84" />
+                    </div>
+                    <div class="field">
+                        <label for="area-from">from</label>
+                        <select id="area-from">
+                            <option value="m2" selected>㎡</option>
+                            <option value="pyeong">평</option>
+                            <option value="km2">㎢</option>
+                            <option value="ft2">ft²</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="area-to">to</label>
+                        <select id="area-to">
+                            <option value="m2">㎡</option>
+                            <option value="pyeong" selected>평</option>
+                            <option value="km2">㎢</option>
+                            <option value="ft2">ft²</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="area-btn">면적 변환하기</button>
+                <div id="area-result" class="result"></div>
+            </div>
+
+            <!-- 속도 변환 -->
+            <div class="tab-panel" id="tab-speed">
+                <h2>속도 단위 변환</h2>
+                <p class="small mb-8">
+                    km/h, m/s, mph, knot 사이의 속도를 서로 변환할 수 있습니다.
+                </p>
+                <div class="row">
+                    <div class="field">
+                        <label for="speed-value">값</label>
+                        <input type="number" id="speed-value" placeholder="예: 100" />
+                    </div>
+                    <div class="field">
+                        <label for="speed-from">from</label>
+                        <select id="speed-from">
+                            <option value="kmh" selected>km/h</option>
+                            <option value="ms">m/s</option>
+                            <option value="mph">mph</option>
+                            <option value="knot">knot</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="speed-to">to</label>
+                        <select id="speed-to">
+                            <option value="kmh">km/h</option>
+                            <option value="ms" selected>m/s</option>
+                            <option value="mph">mph</option>
+                            <option value="knot">knot</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="speed-btn">속도 변환하기</button>
+                <div id="speed-result" class="result"></div>
+            </div>
+        </section>
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>단위 변환기가 필요한 순간</h2>
+            <p>
+                블로그나 보고서를 작성하다 보면 cm를 inch로, ㎡를 평으로, km/h를 m/s로
+                바꿔야 하는 경우가 자주 생깁니다. 머릿속으로 대략 계산하면 오차가
+                생기기 쉽고, 매번 검색해서 공식을 찾는 것도 번거롭습니다.
+            </p>
+
+            <ul class="info-list">
+                <li>아파트 평수(㎡ ↔ 평)를 빠르게 변환하고 싶을 때</li>
+                <li>해외 쇼핑몰의 inch, lb 단위를 cm, kg으로 바꿔 보고 싶을 때</li>
+                <li>온도(℃, ℉)를 바꿔서 날씨 정보를 비교할 때</li>
+                <li>속도(km/h ↔ m/s)를 변환해 물리 문제를 풀 때</li>
+            </ul>
+
+            <p>
+                이 페이지의 단위 변환기는 길이, 무게, 온도, 면적, 속도 등 자주 사용하는
+                단위를 한 번에 지원하도록 설계되었습니다. 입력 값과 from/to 단위를
+                선택한 뒤, 변환하기 버튼만 누르면 바로 계산 결과를 확인할 수 있습니다.
+            </p>
+            <p>
+                결과 값은 소수점 아래 적당한 자리까지만 자동으로 반올림해 표시되므로,
+                복잡한 자리수를 직접 정리할 필요 없이 바로 실무나 공부에 활용할 수
+                있습니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">소수점은 몇 자리까지 표시되나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        기본적으로는 유효 숫자 기준으로 6자리 이내에서 보기 좋게
+                        반올림해 표시합니다. 너무 긴 소수는 자동으로 잘라서
+                        보여주지만, 실제 계산은 자바스크립트의 기본 숫자 정밀도를
+                        사용하므로 일반적인 단위 변환에는 문제가 없습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">평(㎡) 변환 기준은 어떻게 되나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        1평 = 3.3058㎡ 기준을 사용합니다. 일반적으로 부동산, 인테리어에서
+                        사용하는 표준 값이며, 84㎡ 기준 약 25.4평 정도로 계산됩니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">온도(℃, ℉, K) 변환 공식은 무엇을 사용하나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        섭씨와 화씨 변환은 ℃ = (℉ − 32) × 5/9, ℉ = ℃ × 9/5 + 32 공식을
+                        사용하며, 켈빈은 K = ℃ + 273.15, ℃ = K − 273.15 공식을 사용합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js"></script>
+<!-- 단위 변환기 전용 JS -->
+<script src="./unit-converter.js"></script>
+</body>
+</html>
