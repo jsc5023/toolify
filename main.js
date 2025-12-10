@@ -42,3 +42,13 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/text-counter/"
     ]);
 });
+
+// =======================
+// FAQ 토글 기능
+// =======================
+document.querySelectorAll(".faq-question").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const item = btn.parentElement; // .faq-item
+        item.classList.toggle("active");
+    });
+});
