@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>이미지 압축기 - JPG/PNG 용량 줄이기, 사진 리사이즈</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="JPG/PNG 이미지 용량을 줄이고, 가로·세로 크기를 조절하고, PNG를 JPG로 변환할 수 있는 무료 온라인 이미지 압축기입니다. 블로그, 스마트스토어, 포트폴리오에 올릴 사진 용량 줄이기에 최적화된 도구입니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 이미지 압축기 전용 스타일 -->
+    <link rel="stylesheet" href="./image-compressor.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/image-compressor/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="이미지 압축기 - JPG/PNG 용량 줄이기, 사진 리사이즈" />
+    <meta property="og:description" content="JPG/PNG 이미지 용량 줄이기, 사진 크기 조절, PNG를 JPG로 변환까지 한 번에 할 수 있는 무료 이미지 압축기입니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/image-compressor/" />
+</head>
+<body>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li>
+                    <a href="../../tools/date-calculator/">날짜 계산기</a>
+                </li>
+                <li>
+                    <a href="../../tools/text-counter/">글자수 세기</a>
+                </li>
+                <li>
+                    <a href="../../tools/password-generator/">비밀번호 생성기</a>
+                </li>
+                <li>
+                    <a href="../../tools/unit-converter/">단위 변환기</a>
+                </li>
+                <li>
+                    <a href="../../tools/image-compressor/" class="active">이미지 압축기</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🖼️ 이미지 압축기 (JPG/PNG 용량 줄이기)</h1>
+        <p class="subtitle">
+            블로그, 스마트스토어, 포트폴리오에 올릴 사진 용량을 줄이고 싶을 때 사용하는 무료 온라인 이미지 압축기입니다.
+            JPG / PNG 이미지를 업로드하면 화질은 최대한 유지하면서 용량과 크기를 함께 줄일 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <!-- 메인 도구 영역 -->
+        <section class="tool-card image-tool-card">
+            <!-- 업로드 영역 -->
+            <div class="upload-wrapper">
+                <div id="drop-zone" class="drop-zone">
+                    <p class="drop-title">이미지 파일을 여기로 드래그하거나</p>
+                    <button type="button" id="select-files-btn">파일 선택하기</button>
+                    <p class="drop-help">JPG, PNG 파일을 여러 개 한 번에 업로드할 수 있습니다.</p>
+                    <input type="file" id="file-input" accept="image/*" multiple hidden />
+                </div>
+            </div>
+
+            <!-- 옵션 영역 -->
+            <div class="options-card">
+                <h2>압축 옵션</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <label for="quality-range">JPEG 품질 (화질)</label>
+                        <div class="range-row">
+                            <input type="range" id="quality-range" min="40" max="95" value="80" />
+                            <span id="quality-value">80%</span>
+                        </div>
+                        <p class="option-help">값이 낮을수록 용량은 줄고 화질은 떨어집니다.</p>
+                    </div>
+
+                    <div class="option-item">
+                        <label>최대 가로/세로 크기 (픽셀)</label>
+                        <div class="size-row">
+                            <div>
+                                <span class="size-label">가로</span>
+                                <input type="number" id="max-width" placeholder="예: 1920" />
+                            </div>
+                            <div>
+                                <span class="size-label">세로</span>
+                                <input type="number" id="max-height" placeholder="예: 1080" />
+                            </div>
+                        </div>
+                        <p class="option-help">비워두면 원본 크기를 유지합니다.</p>
+                    </div>
+
+                    <div class="option-item">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="convert-jpg" checked />
+                            PNG 이미지를 JPG로 변환하기
+                        </label>
+                        <p class="option-help">웹/블로그에 올릴 때 PNG보다 JPG가 용량이 훨씬 가벼운 경우가 많습니다.</p>
+                    </div>
+                </div>
+
+                <button type="button" id="compress-all-btn" class="primary-btn" disabled>
+                    선택한 옵션으로 전체 압축하기
+                </button>
+            </div>
+
+            <!-- 결과 리스트 -->
+            <div class="result-card">
+                <h2>압축 결과</h2>
+                <p class="small mb-8" id="result-summary">
+                    아직 업로드된 이미지가 없습니다. 이미지를 올리면 원본 용량과 압축 후 용량을 비교해서 보여줍니다.
+                </p>
+                <div id="image-list" class="image-list"></div>
+            </div>
+        </section>
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>이미지 압축기가 필요한 순간</h2>
+            <p>
+                요즘 스마트폰과 카메라로 찍은 사진은 한 장에 몇 MB씩 하는 경우가 많습니다.
+                블로그, 스마트스토어, 포트폴리오 사이트에 그대로 업로드하면
+                페이지 로딩 속도가 느려지고, 용량 제한에 걸리거나, 검색 노출에도 악영향을 줄 수 있습니다.
+            </p>
+            <p>
+                이 이미지 압축기는 <strong>웹에 올리기 좋은 수준으로 사진 용량을 줄이는 데 초점</strong>을 맞췄습니다.
+                화질은 최대한 유지하면서 용량과 가로·세로 크기를 함께 줄여,
+                방문자 입장에서는 빠르게, 작성자 입장에서는 편하게 이미지를 관리할 수 있도록 도와줍니다.
+            </p>
+
+            <ul class="info-list">
+                <li>블로그 글에 넣을 사진 용량을 줄이고 싶을 때</li>
+                <li>스마트스토어·쿠팡 상품 상세 이미지가 너무 무거울 때</li>
+                <li>포트폴리오 사이트/이력서 PDF에 넣을 이미지 최적화가 필요할 때</li>
+                <li>메일 첨부 용량 제한 때문에 사진 크기를 줄여야 할 때</li>
+            </ul>
+
+            <p>
+                JPG / PNG 파일을 여러 장 한 번에 올린 뒤, 품질(화질)을 조절하고,
+                최대 가로·세로 크기를 지정한 후, PNG 이미지를 JPG로 변환하는 옵션까지 선택할 수 있습니다.
+                압축 결과는 이미지별로 원본 용량과 압축 후 용량, 절감률을 표 형태로 바로 확인할 수 있어
+                “이 정도면 충분하다” 싶은 지점을 직접 조정해볼 수 있습니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">이미지 품질(화질) 80%면 많이 떨어지나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        일반적인 블로그·웹용 이미지에서는 75~85% 구간이
+                        <strong>눈에 띄는 화질 손실 없이 용량을 크게 줄이는 구간</strong>으로 많이 사용됩니다.
+                        아주 세밀한 그래픽 작업물이 아니라면 80% 전후에서 압축했을 때
+                        대부분의 환경에서 충분히 깔끔하게 보입니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">가로·세로 크기는 꼭 줄여야 하나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        꼭 줄일 필요는 없지만, 스마트폰 원본 사진처럼
+                        3000px 이상인 이미지를 그대로 올리면 용량이 매우 커집니다.
+                        보통 웹에서는 긴 변 기준 1280~1920px 정도면 충분한 경우가 많으니,
+                        상황에 맞게 최대 가로·세로 크기를 지정해 주면 용량을 더 많이 줄일 수 있습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">PNG를 JPG로 바꾸면 뭐가 좋은가요?</button>
+                <div class="faq-answer">
+                    <p>
+                        PNG는 배경이 투명하거나, 선명한 아이콘·로고에 적합하지만
+                        <strong>사진</strong>에는 오히려 용량이 더 커지는 경우가 많습니다.
+                        일반적인 사진은 JPG로 저장하는 편이 용량 면에서 훨씬 유리합니다.
+                        투명 배경이 꼭 필요한 이미지가 아니라면 PNG → JPG 변환을 추천드립니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">내 이미지가 서버에 저장되나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        이 도구는 브라우저 안에서만 동작하도록 설계할 수 있습니다.
+                        즉, 이미지를 서버로 업로드하지 않고, 내 PC(브라우저) 안에서만
+                        압축·변환을 수행한 뒤 결과 파일을 내려받게 만드는 방식입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js"></script>
+<!-- 이미지 압축기 전용 JS -->
+<script src="./image-compressor.js"></script>
+</body>
+</html>
