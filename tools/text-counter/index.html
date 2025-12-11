@@ -32,6 +32,57 @@
             content="무료 온라인 글자수 세기 도구입니다. 공백 포함/제외 글자 수, 단어 수, 줄 수, 바이트 수(UTF-8)를 실시간으로 계산할 수 있습니다."
     />
     <meta property="og:url" content="https://toolify.kr/tools/text-counter/" />
+
+    <!-- 글자수 세기 FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "공백 포함과 제외 글자 수는 어떻게 다른가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "공백 포함은 띄어쓰기와 줄바꿈까지 한 글자로 계산하고, 공백 제외는 한글과 알파벳, 숫자 같은 실제 문자만 세어 순수한 내용 분량을 확인하는 데 쓰입니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "단어 수는 어떤 기준으로 계산되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "띄어쓰기, 탭, 줄바꿈 등 공백을 기준으로 텍스트를 나눠 단어 개수를 셉니다. 연속된 공백이나 특수문자만 있는 구간은 단어로 보지 않습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "줄 수는 어떻게 계산되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "줄바꿈 문자를 기준으로 줄 수를 계산하며, 마지막 줄에 줄바꿈이 없어도 내용이 있으면 한 줄로 계산합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "바이트 수는 어떤 기준인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "UTF-8 인코딩을 기준으로 한글은 보통 2~3바이트, 영문자와 숫자는 1바이트로 계산합니다. 서비스마다 인코딩이 달라 실제 제한값과는 약간 차이가 날 수 있습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "서비스마다 글자 수가 다르게 나오는 이유는 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "공백 포함 여부, 이모지와 특수문자 처리 방식, 인코딩 설정이 서비스마다 달라 같은 글이라도 글자 수와 바이트 수가 조금씩 다르게 집계될 수 있습니다."
+                    }
+                }
+            ]
+        }
+    </script>
+
 </head>
 <body>
 <!-- 공통 헤더 -->

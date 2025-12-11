@@ -30,6 +30,41 @@
     <meta property="og:title" content="무료 단위 변환기 - 길이, 무게, 온도, 면적, 속도 변환" />
     <meta property="og:description" content="길이, 무게, 온도, 면적, 속도 등 자주 사용하는 단위를 간편하게 변환할 수 있는 무료 단위 변환기입니다. cm↔m, kg↔lb, ℃↔℉, ㎡↔평, km/h↔m/s 등 다양한 단위 변환을 지원합니다." />
     <meta property="og:url" content="https://toolify.kr/tools/unit-converter/" />
+
+    <!-- 단위 변환기 FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "소수점은 몇 자리까지 표시되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "일반적인 사용을 위해 유효 숫자 기준 대략 6자리 안에서 보기 좋게 반올림해 보여 줍니다. 내부 계산은 자바스크립트 기본 정밀도를 사용합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "평과 제곱미터 변환 기준은 어떻게 되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "부동산과 인테리어에서 많이 쓰는 1평은 3.3058제곱미터 값을 기준으로 사용합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "온도 변환에는 어떤 공식을 사용하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "섭씨와 화씨는 섭씨는 화씨에서 32를 빼고 5를 곱한 뒤 9로 나누는 공식, 화씨는 섭씨에 9를 곱하고 5로 나눈 값에 32를 더하는 공식을 사용합니다. 켈빈은 섭씨에 273.15를 더하거나 빼는 표준 공식을 따릅니다."
+                    }
+                }
+            ]
+        }
+    </script>
+
 </head>
 <body>
 <!-- 공통 헤더 -->
