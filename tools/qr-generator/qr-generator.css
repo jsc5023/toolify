@@ -1,0 +1,232 @@
+/* QR 코드 생성기 전용 스타일 */
+/* 공통 style.css 이후에 로드됨 */
+
+.qr-tool-card {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.qr-tool-card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.qr-form .field {
+    margin-bottom: 12px;
+}
+
+.qr-form label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+#qr-text {
+    width: 100%;
+    resize: vertical;
+}
+
+.qr-options-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.qr-options-row .field {
+    flex: 1 1 0;
+    min-width: 130px;
+}
+
+.qr-options-row .field input,
+.qr-options-row .field select {
+    width: 100%;
+}
+
+.qr-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.qr-buttons button {
+    min-width: 140px;
+}
+
+.qr-buttons .secondary {
+    background: #ffffff;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+}
+
+.qr-buttons .secondary:hover {
+    background: #f3f4f6;
+}
+
+/* 미리보기 영역 */
+
+.qr-preview-wrapper h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.qr-preview {
+    min-height: 260px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-preview canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.qr-placeholder {
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.qr-tip {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* 기존 info/faq 공통 스타일 재사용 */
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li {
+    margin-bottom: 3px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before {
+    content: "▼";
+}
+
+.faq-question:hover {
+    background: #eef2ff;
+}
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* 이 페이지에서만 footer 간격 조금 더 주기 */
+.page-wrapper .footer-text {
+    margin-top: 28px;
+}
+
+/* 모바일 조정 */
+@media (max-width: 900px) {
+    .qr-tool-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .qr-preview {
+        min-height: 220px;
+    }
+}
+
+@media (max-width: 600px) {
+    .info-section,
+    .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2 {
+        font-size: 20px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list {
+        font-size: 13px;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        padding: 9px 10px 9px 28px;
+    }
+}

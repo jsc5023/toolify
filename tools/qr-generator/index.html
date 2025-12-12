@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 QR 코드 생성기 - URL, 텍스트를 이미지로 만들기</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="URL, 텍스트를 바로 스캔 가능한 QR 코드 이미지로 만들어 주는 무료 QR 코드 생성기입니다. 사이즈, 여백, 오류 복원 레벨을 선택하고 PNG 파일로 다운로드할 수 있습니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- QR 코드 생성기 전용 스타일 -->
+    <link rel="stylesheet" href="./qr-generator.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/qr-generator/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 QR 코드 생성기 - URL, 텍스트를 이미지로 만들기" />
+    <meta property="og:description" content="URL, 텍스트를 바로 스캔 가능한 QR 코드 이미지로 만들어 주는 무료 QR 코드 생성기입니다. 사이즈, 여백, 오류 복원 레벨을 선택하고 PNG 파일로 다운로드할 수 있습니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/qr-generator/" />
+
+    <!-- QR 코드 생성기 FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "생성한 QR 코드는 어디에 저장되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "모든 QR 코드는 사용자의 브라우저 안에서만 생성되며, Toolify 서버로 전송되지 않습니다. 다운로드한 PNG 파일만 사용자의 기기에 저장됩니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "상업적인 용도로 사용해도 되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "이 QR 코드 생성기는 무료로 제공되며, 일반적인 범위에서 명함, 전단지, 블로그, 쇼핑몰 등 상업적인 용도로 자유롭게 사용하셔도 됩니다. 단, QR 코드에 담는 내용 자체의 저작권이나 이용 약관은 사용자가 직접 확인해야 합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "QR 코드 크기와 오류 복원 레벨은 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "크기는 픽셀 단위로 128~512px 사이에서 선택할 수 있으며, 오류 복원 레벨은 L/M/Q/H 네 가지를 지원합니다. 레벨이 높을수록 QR 일부가 가려져도 인식되지만, 데이터 용량이 커질 수 있습니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+<body>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li><a href="../../tools/date-calculator/">날짜 계산기</a></li>
+                <li><a href="../../tools/text-counter/">글자수 세기</a></li>
+                <li><a href="../../tools/password-generator/">비밀번호 생성기</a></li>
+                <li><a href="../../tools/unit-converter/">단위 변환기</a></li>
+                <li><a href="../../tools/image-compressor/">이미지 압축기</a></li>
+                <li><a href="../../tools/qr-generator/" class="active">QR 코드 생성기</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🔳 QR 코드 생성기 (URL / 텍스트)</h1>
+        <p class="subtitle">
+            사이트 주소나 텍스트를 입력하면 바로 스캔 가능한 QR 코드 이미지를 만들어 주는
+            무료 QR 코드 생성기입니다. 크기, 여백, 오류 복원 레벨을 선택하고 PNG 파일로 다운로드할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <!-- 메인 도구 영역 -->
+        <section class="tool-card qr-tool-card">
+            <h2>QR 코드 만들기</h2>
+            <p class="small mb-8">
+                URL(웹사이트 주소) 또는 일반 텍스트를 입력한 뒤, 옵션을 선택하고
+                <strong>QR 코드 생성하기</strong> 버튼을 누르면 아래에서 미리보기를 확인할 수 있습니다.
+            </p>
+
+            <div class="qr-form">
+                <div class="field">
+                    <label for="qr-text">내용 (URL 또는 텍스트)</label>
+                    <textarea id="qr-text" rows="3" placeholder="예: https://toolify.kr/ 또는 간단한 메모 내용을 입력하세요."></textarea>
+                </div>
+
+                <div class="qr-options-row">
+                    <div class="field">
+                        <label for="qr-size">크기 (px)</label>
+                        <select id="qr-size">
+                            <option value="128">128 x 128</option>
+                            <option value="192">192 x 192</option>
+                            <option value="256" selected>256 x 256</option>
+                            <option value="320">320 x 320</option>
+                            <option value="384">384 x 384</option>
+                            <option value="512">512 x 512</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="qr-margin">여백 (margin)</label>
+                        <select id="qr-margin">
+                            <option value="0">0</option>
+                            <option value="2" selected>2</option>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="qr-level">오류 복원 레벨</label>
+                        <select id="qr-level">
+                            <option value="L">L (낮음)</option>
+                            <option value="M" selected>M (보통)</option>
+                            <option value="Q">Q (높음)</option>
+                            <option value="H">H (매우 높음)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="qr-options-row">
+                    <div class="field">
+                        <label for="qr-foreground">QR 색상</label>
+                        <input type="color" id="qr-foreground" value="#000000" />
+                    </div>
+                    <div class="field">
+                        <label for="qr-background">배경 색상</label>
+                        <input type="color" id="qr-background" value="#ffffff" />
+                    </div>
+                </div>
+
+                <div class="qr-buttons">
+                    <button id="qr-generate-btn">QR 코드 생성하기</button>
+                    <button id="qr-download-btn" class="secondary">PNG로 다운로드</button>
+                </div>
+            </div>
+
+            <div class="qr-preview-wrapper">
+                <h3>미리보기</h3>
+                <div id="qr-preview" class="qr-preview">
+                    <p class="qr-placeholder">
+                        내용을 입력하고 “QR 코드 생성하기” 버튼을 누르면<br />
+                        여기에 QR 코드가 표시됩니다.
+                    </p>
+                </div>
+                <p class="qr-tip">
+                    * 생성된 QR 코드는 브라우저 상에서만 만들어지며, 서버에는 전송되지 않습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>QR 코드 생성기가 필요한 순간</h2>
+            <p>
+                명함, 전단지, 포스터, 블로그 글, 스마트스토어 상세페이지 등에서 긴 URL을 직접
+                입력하도록 안내하기보다는 QR 코드를 함께 넣어두는 것이 훨씬 편리합니다.
+                카메라로 찍기만 하면 바로 사이트로 이동할 수 있기 때문입니다.
+            </p>
+            <p>
+                또한 와이파이 접속 정보나 간단한 문구, 쿠폰 코드, 이벤트 페이지 등도 QR 코드로
+                만들어두면 오프라인 환경에서도 빠르게 전달할 수 있습니다.
+            </p>
+
+            <ul class="info-list">
+                <li>블로그나 쇼핑몰 주소를 명함이나 전단지에 넣고 싶을 때</li>
+                <li>이벤트 페이지, 설문 링크 등을 쉽게 배포하고 싶을 때</li>
+                <li>카페·가게에서 와이파이 비밀번호를 손님에게 편하게 안내하고 싶을 때</li>
+                <li>프레젠테이션 자료에서 참가자들이 바로 접속할 수 있는 링크를 제공하고 싶을 때</li>
+            </ul>
+
+            <p>
+                이 페이지의 QR 코드 생성기는 입력한 내용이 서버로 저장되지 않고 브라우저 안에서만
+                처리되도록 설계되었습니다. 생성된 이미지는 PNG 파일로 바로 다운로드하여
+                인쇄물이나 이미지 편집 프로그램에 붙여 넣어 사용할 수 있습니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">생성한 QR 코드에 입력한 내용이 서버에 저장되나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        아닙니다. 이 QR 코드 생성기는 자바스크립트만으로 동작하며,
+                        입력한 내용은 브라우저 메모리 안에서만 사용됩니다.
+                        Toolify 서버로 전송되거나 저장되지 않으므로 안심하고 사용하실 수 있습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">QR 코드가 잘 인식되지 않을 때는 어떻게 해야 하나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        크기를 더 크게 설정하거나 오류 복원 레벨을 M 이상으로 높여 보세요.
+                        또한 너무 긴 내용을 한 번에 넣기보다는 URL 단축 서비스를 활용해
+                        링크를 짧게 만든 뒤 QR 코드로 변환하는 것이 인식률 향상에 도움이 됩니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">색상을 자유롭게 바꿔도 되나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        일반적으로 배경은 흰색에 가깝게, QR 코드 색상은 진한 색(검은색 계열)을 사용하는 것이 좋습니다.
+                        너무 연한 색이나 배경과 구분이 잘 되지 않는 색을 사용하면 일부 카메라에서 인식이 어려울 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js"></script>
+<!-- QR 라이브러리 (qrcodejs) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- QR 코드 생성기 전용 JS -->
+<script src="./qr-generator.js"></script>
+</body>
+</html>
