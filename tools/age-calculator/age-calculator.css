@@ -1,0 +1,293 @@
+/* 나이 계산기 전용 스타일 */
+/* 공통 style.css 이후에 로드됨 */
+
+.age-tool-card{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+/* 옵션/결과 카드 */
+.options-card,
+.result-card{
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    padding:16px 16px 18px;
+    background:#ffffff;
+}
+
+.options-card h2,
+.result-card h2{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+/* 입력 그리드: 2컬럼 */
+.options-grid{
+    display:grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap:14px 20px;
+    margin-bottom:14px;
+}
+
+.option-item label{
+    font-size:14px;
+    font-weight:700;
+    display:block;
+    margin-bottom:6px;
+}
+
+.option-item input[type="date"]{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+    background:#fff;
+}
+
+.option-item input[type="date"]:focus{
+    outline:none;
+    border-color:#a5b4fc;
+    box-shadow:0 0 0 3px rgba(79,70,229,0.15);
+}
+
+.option-help{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:6px;
+}
+
+/* ✅ 기준일 아래 버튼 줄(데스크탑/모바일 공통) */
+.quick-inline{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+/* 버튼(작지 않게 + 터치 편하게) */
+.mini-btn{
+    flex:1;                 /* ✅ 3개 균등 */
+    padding:12px 0;
+    font-size:13px;
+    border-radius:999px;
+    border:1px solid #e5e7eb;
+    background:#ffffff;
+    color:#4f46e5;
+    font-weight:800;
+    cursor:pointer;
+    white-space:nowrap;
+    text-align:center;
+}
+
+.mini-btn:hover{
+    background:#eef2ff;
+    border-color:#c7d2fe;
+}
+
+.mini-btn.primary{
+    background:#4f46e5;
+    color:#fff;
+    border-color:#4f46e5;
+}
+
+.mini-btn.primary:hover{
+    background:#4338ca;
+}
+
+/* 메인 계산 버튼 */
+.primary-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:11px 16px;
+    border-radius:12px;
+    border:none;
+    background:#4f46e5;
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:background 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.primary-btn:disabled{
+    background:#d1d5db;
+    color:#6b7280;
+    cursor:default;
+    box-shadow:none;
+    transform:none;
+}
+
+.primary-btn:not(:disabled):hover{
+    background:#4338ca;
+    box-shadow:0 4px 10px rgba(79, 70, 229, 0.25);
+    transform:translateY(-1px);
+}
+
+/* 결과 그리드 */
+.result-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:12px;
+    margin-top:10px;
+}
+
+.result-item{
+    border:1px solid #e5e7eb;
+    background:#f9fafb;
+    border-radius:12px;
+    padding:12px;
+}
+
+.result-label{
+    font-size:12px;
+    color:#6b7280;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.result-value{
+    font-size:20px;
+    font-weight:900;
+    color:#111827;
+    line-height:1.2;
+}
+
+.result-sub{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:6px;
+    line-height:1.45;
+}
+
+/* info / faq (이미지 압축기와 동일 구조) */
+.info-section,
+.faq-section{
+    max-width:720px;
+    margin:40px auto 0;
+    padding:0 16px;
+}
+
+.info-section h2,
+.faq-section h2{
+    font-size:22px;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+.info-section p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#444;
+    font-size:14px;
+}
+
+/* bullet 리스트 */
+.info-list{
+    margin:8px 0 14px;
+    padding-left:18px;
+    font-size:14px;
+    color:#444;
+}
+
+.info-list li{
+    margin-bottom:3px;
+}
+
+/* FAQ */
+.faq-item{
+    border-bottom:1px solid #e0e0e0;
+    padding:6px 0;
+}
+
+.faq-question{
+    position:relative;
+    width:100%;
+    background:#f9fafb;
+    border:none;
+    text-align:left;
+    padding:10px 12px 10px 30px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    line-height:1.4;
+    color:#111827;
+    border-radius:8px;
+}
+
+.faq-question::before{
+    content:"▶";
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:11px;
+    color:#6b7280;
+}
+
+.faq-item.active .faq-question::before{
+    content:"▼";
+}
+
+.faq-question:hover{
+    background:#eef2ff;
+}
+
+.faq-question:focus{
+    outline:none;
+    box-shadow:0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer{
+    display:none;
+    padding:6px 2px 12px;
+    color:#555;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+/* footer 간격 */
+.page-wrapper .footer-text{
+    margin-top:28px;
+}
+
+/* 반응형 */
+@media (max-width: 800px){
+    .options-grid{
+        grid-template-columns:minmax(0, 1fr);
+    }
+
+    .result-grid{
+        grid-template-columns:minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 600px){
+    .info-section,
+    .faq-section{
+        margin-top:32px;
+        padding:0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2{
+        font-size:20px;
+    }
+
+    .faq-question{
+        font-size:14px;
+        padding:9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list{
+        font-size:13px;
+    }
+}
