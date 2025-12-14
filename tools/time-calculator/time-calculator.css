@@ -1,0 +1,138 @@
+/* 시간 계산기 전용 스타일 */
+/* 공통 style.css 이후에 로드됨 */
+
+/* ====== 날짜 계산기와 동일한 info/faq 스타일 ====== */
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li {
+    margin-bottom: 3px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before {
+    content: "▼";
+}
+
+.faq-question:hover {
+    background: #eef2ff;
+}
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.page-wrapper .footer-text {
+    margin-top: 28px;
+}
+
+@media (max-width: 600px) {
+    .info-section,
+    .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2 {
+        font-size: 20px;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        padding: 9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list {
+        font-size: 13px;
+    }
+}
+
+/* ====== 시간 계산기 폼 보조 스타일 (date-calculator의 .row 느낌에 맞춤) ====== */
+.btn-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top: 12px;
+}
+
+.btn-secondary{
+    background:#eef2ff;
+    color:#1f2937;
+}
+
+.btn-secondary:hover{
+    filter: brightness(0.98);
+}
+
+/* result / small은 style.css에 이미 있을 가능성이 높아서
+   여기서는 추가로 손대지 않음 */
