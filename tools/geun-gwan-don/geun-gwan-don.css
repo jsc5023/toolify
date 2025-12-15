@@ -1,0 +1,262 @@
+/* 근·관·돈 계산기 전용 스타일 (공통 style.css 이후 로드) */
+
+.hidden { display: none; }
+
+/* ===== 입력 영역: 세로 공간 줄이기 ===== */
+.input-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.field label{
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.unit-gram-wrap{
+    position: relative;
+}
+
+.unit-gram-wrap input{
+    padding-right: 34px;
+}
+
+.unit-gram-wrap .suffix{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.mini-hint{
+    margin-top: 6px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* ===== 근 옵션: 근일 때만 보이기 + 높이 최소화 ===== */
+.geun-options{
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.geun-head{
+    margin-bottom: 10px;
+}
+
+.geun-title{
+    font-weight: 800;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.geun-sub{
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* ✅ 3칸 그리드(모바일은 자동 2칸) */
+.preset-grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.preset-btn{
+    padding: 10px 10px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.preset-btn:hover{
+    background: #eef2ff;
+}
+
+.hint{
+    margin-top: 10px;
+    color: #6b7280;
+}
+
+/* 버튼 행 */
+.btn-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top: 12px;
+}
+
+button.secondary{
+    background:#f3f4f6;
+    color:#111827;
+}
+
+button.secondary:hover{
+    background:#e5e7eb;
+}
+
+/* 결과 카드 */
+.result-grid{
+    margin-top: 14px;
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap:10px;
+}
+
+.result-card{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:10px 12px;
+    background:#fff;
+}
+
+.result-card .label{
+    font-size:12px;
+    color:#6b7280;
+    margin-bottom:4px;
+}
+
+.result-card .value{
+    font-size:16px;
+    font-weight:800;
+    color:#111827;
+}
+
+/* ===== 설명/FAQ ===== */
+.info-section,
+.faq-section{
+    max-width:720px;
+    margin:40px auto 0;
+    padding:0 16px;
+}
+
+.info-section h2,
+.faq-section h2{
+    font-size:22px;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+.info-section p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#444;
+    font-size:14px;
+}
+
+.info-list{
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+.info-list li{ margin-bottom:3px; }
+
+.faq-item{
+    border-bottom:1px solid #e0e0e0;
+    padding:6px 0;
+}
+
+.faq-question{
+    position:relative;
+    width:100%;
+    background:#f9fafb;
+    border:none;
+    text-align:left;
+    padding:10px 12px 10px 30px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    line-height:1.4;
+    color:#111827;
+    border-radius:8px;
+}
+
+.faq-question::before{
+    content:"▶";
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:11px;
+    color:#6b7280;
+}
+
+.faq-item.active .faq-question::before{ content:"▼"; }
+
+.faq-question:hover{ background:#eef2ff; }
+
+.faq-question:focus{
+    outline:none;
+    box-shadow:0 0 0 2px rgba(37,99,235,0.35);
+}
+
+.faq-answer{
+    display:none;
+    padding:6px 2px 12px;
+    color:#555;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.faq-item.active .faq-answer{ display:block; }
+
+.page-wrapper .footer-text{ margin-top:28px; }
+
+/* ===== 모바일 대응 ===== */
+@media (max-width: 720px){
+    .input-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+    /* 3번째(1단위 g)는 다음 줄로 */
+    .input-grid .field:nth-child(3){
+        grid-column: 1 / -1;
+    }
+
+    .preset-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .result-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .info-section,
+    .faq-section{
+        margin-top:32px;
+        padding:0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2{
+        font-size:20px;
+    }
+
+    .faq-question{
+        font-size:14px;
+        padding:9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list{
+        font-size:13px;
+    }
+}

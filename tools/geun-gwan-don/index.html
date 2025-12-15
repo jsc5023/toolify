@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>근·관·돈 계산기 - 한근 몇 그램? 전통 단위 변환</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="근(斤)·관(貫)·돈(錢)을 g/kg으로 쉽게 변환하는 무료 계산기입니다. 1근(g) 기준을 직접 조정할 수 있으며, 표준(600g)·채소/과일 관행(400g)·옛 관행(375g) 프리셋도 제공합니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./geun-gwan-don.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/geun-gwan-don/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="근·관·돈 계산기 - 한근 몇 그램? 전통 단위 변환" />
+    <meta property="og:description" content="근(斤)·관(貫)·돈(錢)을 g/kg으로 간단히 변환하세요. 1근(g) 기준을 표준/시장관행/옛관행 또는 직접 입력으로 조정할 수 있습니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/geun-gwan-don/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "1돈은 몇 그램인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "일반적으로 1돈은 3.75g으로 계산합니다. 금(주얼리) 무게를 ‘돈’으로 표기할 때도 이 기준을 사용합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "1근은 몇 그램인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "일반적으로 1근은 600g(표준)으로 계산합니다. 다만 전통시장에서는 채소·과일류를 1근≈400g으로 보는 관행도 있어 혼동될 수 있습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "1관은 몇 kg인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "일반적으로 1관은 3.75kg(=3750g)이며 1000돈에 해당합니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li><a href="../../tools/date-calculator/">날짜 계산기</a></li>
+                <li><a href="../../tools/text-counter/">글자수 세기</a></li>
+                <li><a href="../../tools/password-generator/">비밀번호 생성기</a></li>
+                <li><a href="../../tools/unit-converter/">단위 변환기</a></li>
+                <li><a href="../../tools/image-compressor/">이미지 압축기</a></li>
+                <li><a href="../../tools/qr-generator/">QR 코드 생성기</a></li>
+                <li><a href="../../tools/json-formatter/">JSON 포매터</a></li>
+                <li><a href="../../tools/age-calculator/">나이 계산기</a></li>
+                <li><a href="../../tools/time-calculator/">시간 계산기</a></li>
+                <li><a href="../../tools/geun-gwan-don/" class="active">근·관·돈 계산기</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>⚖️ 근·관·돈 계산기 (전통 단위 변환)</h1>
+        <p class="subtitle">
+            근(斤)·관(貫)·돈(錢)을 g/kg으로 빠르게 변환해보세요.
+            “한 근이 몇 g인지”는 시장/품목 관행이 달라질 수 있어 <strong>1근(g) 기준을 조정</strong>할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <h2>근·관·돈 → g / kg 변환</h2>
+
+            <!-- ✅ 한 줄 입력 영역(세로 공간 최소화) -->
+            <div class="input-grid">
+                <div class="field">
+                    <label for="input-value">값</label>
+                    <input type="number" id="input-value" placeholder="예: 2.5" />
+                </div>
+
+                <div class="field">
+                    <label for="input-unit">단위</label>
+                    <select id="input-unit">
+                        <option value="geun">근(斤)</option>
+                        <option value="gwan">관(貫)</option>
+                        <option value="don">돈(錢)</option>
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                    </select>
+                </div>
+
+                <!-- ✅ 단위 옆에 g 기준을 항상 보이게 -->
+                <div class="field">
+                    <label for="unit-gram">1단위 g</label>
+                    <div class="unit-gram-wrap">
+                        <input type="number" id="unit-gram" />
+                        <span class="suffix">g</span>
+                    </div>
+                    <div class="mini-hint" id="unit-gram-hint"></div>
+                </div>
+            </div>
+
+            <!-- ✅ 근일 때만 보이는 프리셋 (체크박스 없음) -->
+            <div id="geun-options" class="geun-options hidden" aria-live="polite">
+                <div class="geun-head">
+                    <div class="geun-title">근(斤) 기준 빠른 선택</div>
+                    <div class="geun-sub">
+                        시장/품목에 따라 “한 근” 기준이 달라질 수 있어요. 판매자가 사용하는 기준을 입력하면 가장 정확합니다.
+                    </div>
+                </div>
+
+                <div class="preset-grid">
+                    <button type="button" class="preset-btn" data-gram="600">표준 600g</button>
+                    <button type="button" class="preset-btn" data-gram="400">채소·과일 400g</button>
+                    <button type="button" class="preset-btn" data-gram="375">옛 관행 375g</button>
+
+                    <button type="button" class="preset-btn" data-gram="500">고춧가루 500g</button>
+                    <button type="button" class="preset-btn" data-gram="300">고추 300g</button>
+                    <button type="button" class="preset-btn" data-gram="200">미나리 200g</button>
+
+                    <button type="button" class="preset-btn" data-gram="150">시금치 150g</button>
+                    <button type="button" class="preset-btn" data-gram="640">조선시대(약) 640g</button>
+                    <button type="button" class="preset-btn" data-gram="600">육류 관행 600g</button>
+                </div>
+
+                <p class="small hint">
+                    ※ 프리셋은 “관행 예시”입니다. 지역/시장/품목에 따라 다를 수 있어요.
+                </p>
+            </div>
+
+            <div class="btn-row">
+                <button id="calc-btn">변환하기</button>
+                <button id="copy-btn" class="secondary">결과 복사</button>
+                <button id="reset-btn" class="secondary">초기화</button>
+            </div>
+
+            <div id="result" class="result"></div>
+            <div id="result-extra" class="small"></div>
+
+            <div class="result-grid" id="result-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="info-section">
+            <h2>근·관·돈 계산기가 필요한 순간</h2>
+            <p>
+                근(斤), 관(貫), 돈(錢)은 한국에서 오래 쓰인 전통 무게 단위입니다.
+                지금도 시장(식재료), 주얼리(돈) 등에서 종종 등장하지만, g/kg로 환산하기가 번거롭죠.
+            </p>
+
+            <ul class="info-list">
+                <li>전통시장/마트에서 “한 근”을 g/kg으로 환산할 때</li>
+                <li>금·은·주얼리 무게(돈)를 그램으로 확인할 때</li>
+                <li>관(貫) 단위를 kg로 변환해 무게 감을 잡을 때</li>
+            </ul>
+
+            <p>
+                일반적으로 <strong>1돈=3.75g</strong>, <strong>1관=3.75kg(=3750g)</strong>으로 계산합니다.
+                <strong>1근</strong>은 표준으로 600g을 많이 쓰지만, 전통시장에서는 채소·과일을 400g으로 보는 관행도 있어요.
+                이 페이지는 <strong>1근(g) 기준을 직접 입력</strong>하거나 프리셋으로 빠르게 바꿔 계산할 수 있게 만들었습니다.
+            </p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">1돈은 몇 그램인가요?</button>
+                <div class="faq-answer">
+                    <p>일반적으로 1돈은 <strong>3.75g</strong>으로 계산합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">1근은 몇 그램인가요?</button>
+                <div class="faq-answer">
+                    <p>
+                        표준 기준으로는 <strong>1근=600g</strong>이 널리 알려져 있습니다.
+                        다만 시장/품목에 따라 400g 등으로 거래되는 경우가 있어, 이 계산기에서는 기준을 직접 조정할 수 있습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">1관은 몇 kg이고 몇 돈인가요?</button>
+                <div class="faq-answer">
+                    <p>일반적으로 <strong>1관=3.75kg(=3750g)</strong>, <strong>1000돈</strong>입니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./geun-gwan-don.js"></script>
+</body>
+</html>
