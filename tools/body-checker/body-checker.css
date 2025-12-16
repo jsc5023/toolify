@@ -1,0 +1,261 @@
+/* BMI + WHR 전용 스타일 */
+/* 공통 style.css 이후에 로드됨 */
+
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+/* bullet 리스트 */
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+.info-list li {
+    margin-bottom: 3px;
+}
+
+/* 입력 그리드 */
+.tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.unit-badge {
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.helper {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* 결과 박스 */
+.result-box {
+    margin-top: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.result-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.result-line {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.7;
+    margin-bottom: 4px;
+}
+
+.result-strong {
+    font-weight: 800;
+    color: #111827;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #3730a3;
+    margin-left: 6px;
+}
+
+.note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.actions button {
+    flex: 1;
+}
+
+/* 기준표 테이블 */
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 12px;
+}
+
+.bmi-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 520px; /* 모바일 가로 스크롤 대비 */
+}
+
+.bmi-table th,
+.bmi-table td {
+    border: 1px solid #e5e7eb;
+    padding: 10px 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bmi-table th {
+    background: #f9fafb;
+    font-weight: 800;
+}
+
+.bmi-table tbody tr.highlight {
+    outline: 2px solid rgba(37, 99, 235, 0.4);
+    outline-offset: -2px;
+    background: #eef2ff;
+}
+
+/* FAQ 리스트 */
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+/* 전역 button 스타일 덮어쓰기 */
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+/* 화살표 아이콘 */
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before {
+    content: "▼";
+}
+
+.faq-question:hover {
+    background: #eef2ff;
+}
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* 이 페이지에서만 footer 간격 조금 더 주기 */
+.page-wrapper .footer-text {
+    margin-top: 28px;
+}
+
+/* 모바일 조정 */
+@media (max-width: 600px) {
+    .info-section,
+    .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2 {
+        font-size: 20px;
+    }
+
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        padding: 9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list {
+        font-size: 13px;
+    }
+
+    .bmi-table {
+        font-size: 13px;
+    }
+}

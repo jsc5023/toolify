@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>한국 BMI 계산기 | 비만 기준표 · WHR(복부비만) - Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="키와 체중으로 한국 BMI 계산기를 이용해 비만도(정상·과체중·비만)를 확인하세요. 한국 BMI 비만 기준표와 WHR(복부비만 기준)로 내 상태를 함께 비교할 수 있습니다."
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./body-checker.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/body-checker/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="한국 BMI 계산기 | 비만 기준표 · WHR(복부비만)" />
+    <meta property="og:description" content="BMI 계산 + 한국 비만 기준표 + WHR(복부비만 기준)로 내 체형 상태를 한 번에 확인하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/body-checker/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "BMI 계산기는 어떻게 사용하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "키(cm)와 체중(kg)을 입력하면 BMI를 자동 계산해 한국 비만 기준에 따라 정상, 과체중, 비만 여부를 안내합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "한국 BMI 기준은 왜 WHO 기준보다 낮나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "한국을 포함한 아시아인은 같은 BMI에서도 체지방률과 대사질환 위험이 더 높아, WHO(서구 기준)보다 낮은 비만 기준을 사용합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "WHR은 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "WHR은 허리둘레를 엉덩이둘레로 나눈 값으로, 복부 중심 비만 위험을 참고할 때 사용하는 지표입니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "BMI가 정상이어도 복부비만일 수 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "네, BMI는 전체 체중 기준이라 지방 분포를 반영하지 못합니다. WHR을 함께 보면 복부비만 위험을 추가로 확인할 수 있습니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+            <ul class="nav-links">
+                <li><a href="../../tools/date-calculator/">날짜 계산기</a></li>
+                <li><a href="../../tools/text-counter/">글자수 세기</a></li>
+                <li><a href="../../tools/password-generator/">비밀번호 생성기</a></li>
+                <li><a href="../../tools/unit-converter/">단위 변환기</a></li>
+                <li><a href="../../tools/image-compressor/">이미지 압축기</a></li>
+                <li><a href="../../tools/qr-generator/">QR 코드 생성기</a></li>
+                <li><a href="../../tools/json-formatter/">JSON 포매터</a></li>
+                <li><a href="../../tools/age-calculator/">나이 계산기</a></li>
+                <li><a href="../../tools/time-calculator/">시간 계산기</a></li>
+                <li><a href="../../tools/geun-gwan-don/">근·관·돈 계산기</a></li>
+                <li><a href="../../tools/body-checker/" class="active">BMI 계산기</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🧍 한국 BMI 계산기 · 비만 기준표 · WHR(복부비만)</h1>
+        <p class="subtitle">
+            키와 체중으로 BMI를 계산하고,
+            한국 비만 기준표에서 내 구간을 바로 확인하세요.
+            허리·엉덩이 둘레를 입력하면 WHR 기준으로
+            복부비만 위험도 함께 확인할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <!-- 메인 도구 영역 -->
+        <section class="tool-card">
+            <h2>BMI 계산 (WHR 선택)</h2>
+
+            <div class="tool-grid">
+                <div class="field">
+                    <label for="height">키</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="height" placeholder="예: 170" inputmode="decimal" />
+                        <span class="unit-badge">cm</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="weight">체중</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="weight" placeholder="예: 70" inputmode="decimal" />
+                        <span class="unit-badge">kg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-grid">
+                <div class="field">
+                    <label for="sex">성별 (WHR 기준용)</label>
+                    <select id="sex">
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </select>
+                    <div class="helper">WHR(복부비만) 기준은 성별에 따라 다르게 안내됩니다.</div>
+                </div>
+
+                <div class="field">
+                    <label>WHR(선택 입력)</label>
+                    <div class="helper">허리·엉덩이 둘레를 입력하면 WHR(허리÷엉덩이)과 복부비만 위험을 함께 보여줍니다.</div>
+                </div>
+            </div>
+
+            <div class="tool-grid">
+                <div class="field">
+                    <label for="waist">허리둘레</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="waist" placeholder="예: 80" inputmode="decimal" />
+                        <span class="unit-badge">cm</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="hip">엉덩이둘레</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="hip" placeholder="예: 95" inputmode="decimal" />
+                        <span class="unit-badge">cm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="calc-btn">계산하기</button>
+                <button id="clear-btn" class="secondary">초기화</button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">결과</div>
+                <div id="bmi-line" class="result-line"></div>
+                <div id="bmi-line2" class="result-line"></div>
+                <div id="bmi-line3" class="result-line"></div>
+
+                <div style="height: 6px;"></div>
+
+                <div id="whr-line" class="result-line"></div>
+                <div id="whr-line2" class="result-line"></div>
+
+                <div id="cross-comment" class="note hidden"></div>
+
+                <div class="note">
+                    ※ 본 도구의 결과는 참고용이며, 개인별 건강 상태는 다를 수 있습니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- BMI 기준표 섹션 -->
+        <section class="info-section">
+            <h2>한국 BMI 비만 기준표</h2>
+            <p>
+                BMI는 체중과 키로 비만도를 간단히 확인하는 지표입니다.
+                한국에서는 아시아인 특성을 반영해 WHO(서구 기준)보다 낮은 기준을 사용하는 경우가 많습니다.
+            </p>
+
+            <div class="table-wrap">
+                <table class="bmi-table">
+                    <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>BMI 범위</th>
+                        <th>설명</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-key="under">
+                        <td>저체중</td>
+                        <td>18.5 미만</td>
+                        <td>영양 부족 가능</td>
+                    </tr>
+                    <tr data-key="normal">
+                        <td>정상</td>
+                        <td>18.5 ~ 22.9</td>
+                        <td>정상 범위</td>
+                    </tr>
+                    <tr data-key="over">
+                        <td>과체중(전비만)</td>
+                        <td>23.0 ~ 24.9</td>
+                        <td>비만 위험 시작</td>
+                    </tr>
+                    <tr data-key="obese1">
+                        <td>비만 1단계</td>
+                        <td>25.0 ~ 29.9</td>
+                        <td>비만</td>
+                    </tr>
+                    <tr data-key="obese2">
+                        <td>비만 2단계</td>
+                        <td>30.0 ~ 34.9</td>
+                        <td>중등도 비만</td>
+                    </tr>
+                    <tr data-key="obese3">
+                        <td>고도비만</td>
+                        <td>35.0 이상</td>
+                        <td>고위험 비만</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="helper" style="margin-top:10px;">
+                팁: 위 표에서 내 구간이 자동으로 강조 표시됩니다(계산하기 클릭).
+            </p>
+        </section>
+
+        <!-- WHR 기준표 섹션 -->
+        <section class="info-section">
+            <h2>WHR(허리-엉덩이 비율) 기준표</h2>
+            <p>
+                WHR은 허리둘레를 엉덩이둘레로 나눈 값(허리 ÷ 엉덩이)으로, 복부 중심 위험도를 참고할 때 사용합니다.
+                BMI가 정상이어도 WHR이 높은 경우 복부비만 경향이 있을 수 있습니다.
+            </p>
+
+            <div class="table-wrap">
+                <table class="bmi-table">
+                    <thead>
+                    <tr>
+                        <th>성별</th>
+                        <th>기준</th>
+                        <th>해석</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>남성</td>
+                        <td>0.90 이상</td>
+                        <td>복부비만 위험(참고)</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>0.85 이상</td>
+                        <td>복부비만 위험(참고)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="helper" style="margin-top:10px;">
+                ※ WHR은 참고 지표입니다. 정확한 건강 평가는 개인의 검사 결과와 생활습관 등을 함께 고려해야 합니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">BMI는 어떻게 계산하나요?</button>
+                <div class="faq-answer">
+                    <p>BMI = 체중(kg) ÷ 키(m)의 제곱 입니다. 예: 70kg, 170cm(1.7m)면 70 ÷ (1.7×1.7) 입니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">한국 BMI 비만 기준은 왜 WHO와 다른가요?</button>
+                <div class="faq-answer">
+                    <p>한국을 포함한 아시아권은 같은 BMI에서도 체지방률과 대사질환 위험이 더 높을 수 있어, WHO(서구 기준)보다 낮은 기준을 사용하는 경우가 많습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">WHR은 무엇인가요?</button>
+                <div class="faq-answer">
+                    <p>WHR은 허리둘레를 엉덩이둘레로 나눈 값(허리 ÷ 엉덩이)으로, 복부 중심 위험도를 참고할 때 사용합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">BMI가 정상인데도 복부비만일 수 있나요?</button>
+                <div class="faq-answer">
+                    <p>가능합니다. BMI는 전체 체중 대비 지표라서 지방 분포(복부 중심 등)를 구분하기 어렵습니다. WHR을 함께 보면 복부 중심 위험을 참고할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js"></script>
+<!-- 전용 JS -->
+<script src="./body-checker.js"></script>
+</body>
+</html>
