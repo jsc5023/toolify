@@ -9,7 +9,6 @@
             crossorigin="anonymous"></script>
 
     <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
-
     <link rel="icon" type="image/png" href="../../favicon.png" />
 
     <meta
@@ -80,45 +79,32 @@
             ]
         }
     </script>
-
 </head>
+
 <body>
-<!-- 공통 헤더 -->
+<!-- ✅ 공통 헤더 (홈과 동일 구조로 통일) -->
 <header class="site-header">
     <div class="site-header-inner">
         <a href="../../" class="logo">Toolify</a>
 
-        <nav class="main-nav">
-            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-            <ul class="nav-links">
-                <li>
-                    <a href="../../tools/date-calculator/" class="active">날짜 계산기</a>
-                </li>
-                <li>
-                    <a href="../../tools/text-counter/">글자수 세기</a>
-                </li>
-                <li>
-                    <a href="../../tools/password-generator/">비밀번호 생성기</a>
-                </li>
-                <li>
-                    <a href="../../tools/unit-converter/">단위 변환기</a>
-                </li>
-                <li>
-                    <a href="../../tools/image-compressor/">이미지 압축기</a>
-                </li>
-                <li>
-                    <a href="../../tools/qr-generator/">QR 코드 생성기</a>
-                </li>
-                <li>
-                    <a href="../../tools/json-formatter/">JSON 포매터</a>
-                </li>
-                <li><a href="../../tools/age-calculator/">나이 계산기</a></li>
-                <li><a href="../../tools/time-calculator/">시간 계산기</a></li>
-                <li><a href="../../tools/geun-gwan-don/">근·관·돈 계산기</a></li>
-                <li><a href="../../tools/body-checker/">BMI 계산기</a></li>
-                <li><a href="../../tools/base64/">Base64 인코더/디코더</a></li>
-            </ul>
-        </nav>
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
 
@@ -133,24 +119,16 @@
     </header>
 
     <main>
-        <!-- 메인 도구 영역 -->
         <section class="tool-card">
             <div class="tabs">
-                <button class="tab-button active" data-tab="diff">
-                    📏 일수 계산
-                </button>
+                <button class="tab-button active" data-tab="diff">📏 일수 계산</button>
                 <button class="tab-button" data-tab="dday">🎯 D-Day</button>
                 <button class="tab-button" data-tab="add">➕ 날짜 더하기</button>
-                <button class="tab-button" data-tab="business">
-                    🏢 평일만 계산
-                </button>
+                <button class="tab-button" data-tab="business">🏢 평일만 계산</button>
                 <button class="tab-button" data-tab="list">📅 날짜 목록</button>
-                <button class="tab-button" data-tab="weekday">
-                    📊 요일 개수
-                </button>
+                <button class="tab-button" data-tab="weekday">📊 요일 개수</button>
             </div>
 
-            <!-- 탭 1 -->
             <div class="tab-panel active" id="tab-diff">
                 <h2>두 날짜 사이 일수 계산</h2>
                 <div class="row">
@@ -171,7 +149,6 @@
                 <div id="diff-result" class="result"></div>
             </div>
 
-            <!-- 탭 2 -->
             <div class="tab-panel" id="tab-dday">
                 <h2>D-Day 계산</h2>
                 <label for="target-date">목표 날짜</label>
@@ -193,7 +170,6 @@
                 <div id="dday-extra" class="small"></div>
             </div>
 
-            <!-- 탭 3 -->
             <div class="tab-panel" id="tab-add">
                 <h2>날짜에 N일 더하기 / 빼기</h2>
                 <label for="base-date">기준 날짜</label>
@@ -218,12 +194,10 @@
                 <div id="add-extra" class="small"></div>
             </div>
 
-            <!-- 탭 4 -->
             <div class="tab-panel" id="tab-business">
                 <h2>평일(주말 제외) 기준 일수 계산</h2>
                 <p class="small mb-8">
-                    토요일, 일요일을 제외한 실제 근무일(평일)만 계산합니다. 한국 공휴일은
-                    포함되지 않습니다.
+                    토요일, 일요일을 제외한 실제 근무일(평일)만 계산합니다. 한국 공휴일은 포함되지 않습니다.
                 </p>
                 <div class="row">
                     <div>
@@ -243,12 +217,10 @@
                 <div id="biz-result" class="result"></div>
             </div>
 
-            <!-- 탭 5 -->
             <div class="tab-panel" id="tab-list">
                 <h2>날짜 목록 보기 (날짜 + 요일)</h2>
                 <p class="small mb-8">
-                    일정표를 만들 때, 시작 날짜부터 끝 날짜까지의 날짜와 요일을 한 번에
-                    보고 싶을 때 사용하세요.
+                    일정표를 만들 때, 시작 날짜부터 끝 날짜까지의 날짜와 요일을 한 번에 보고 싶을 때 사용하세요.
                 </p>
                 <div class="row">
                     <div>
@@ -265,12 +237,10 @@
                 <div id="list-box" class="box"></div>
             </div>
 
-            <!-- 탭 6 -->
             <div class="tab-panel" id="tab-weekday">
                 <h2>요일 개수 세기</h2>
                 <p class="small mb-8">
-                    한 해 동안 월요일이 몇 번 있는지, 특정 기간 동안 주말이 몇 번인지 등
-                    요일별 개수를 확인할 수 있습니다.
+                    한 해 동안 월요일이 몇 번 있는지, 특정 기간 동안 주말이 몇 번인지 등 요일별 개수를 확인할 수 있습니다.
                 </p>
                 <div class="row">
                     <div>
@@ -292,10 +262,8 @@
         <section class="info-section">
             <h2>날짜 계산기가 필요한 순간</h2>
             <p>
-                날짜 계산기는 디데이(D-Day) 계산, 시험일까지 남은 일수, 프로젝트
-                마감일까지 남은 기간, 연차 사용 계획, 여행 출발일과 복귀일 사이의 일정
-                기간 등을 빠르게 계산할 때 유용합니다. 머릿속으로 계산하면 실수하기
-                쉬운 날짜 계산을, 몇 번의 클릭만으로 정확하게 확인할 수 있습니다.
+                날짜 계산기는 디데이(D-Day) 계산, 시험일까지 남은 일수, 프로젝트 마감일까지 남은 기간,
+                연차 사용 계획, 여행 출발일과 복귀일 사이의 일정 기간 등을 빠르게 계산할 때 유용합니다.
             </p>
 
             <ul class="info-list">
@@ -307,16 +275,8 @@
 
             <p>
                 이 페이지의 날짜 계산기는 두 날짜 사이 일수 계산, 오늘 기준 D-Day 계산,
-                특정 날짜에 N일 더하기 및 빼기, 평일(주말 제외) 기준 일수 계산, 날짜와
-                요일 목록 출력, 요일별 개수 세기까지 한 번에 처리할 수 있도록
-                설계되었습니다. 단순한 D-Day 계산을 넘어, 실제 일정 관리와 업무 계획에
-                바로 활용할 수 있는 수준의 기능을 제공합니다.
-            </p>
-            <p>
-                시작일 포함 여부를 선택해 ‘하루 포함/제외’ 계산 방식을 바꿀 수 있고,
-                평일 계산 기능을 이용하면 주말을 제외한 근무일 수만 따로 확인할 수
-                있습니다. 한국 공휴일은 자동 반영되지 않지만, 기본적인 기간 계산과
-                업무일 계산에는 충분히 활용할 수 있습니다.
+                특정 날짜에 N일 더하기 및 빼기, 평일(주말 제외) 기준 일수 계산,
+                날짜와 요일 목록 출력, 요일별 개수 세기까지 한 번에 처리할 수 있도록 설계되었습니다.
             </p>
         </section>
 
@@ -326,65 +286,31 @@
 
             <div class="faq-item">
                 <button class="faq-question">D-Day는 어떻게 계산하나요?</button>
-                <div class="faq-answer">
-                    <p>
-                        D-Day는 기준 날짜에서 목표 날짜까지 남은 일수를 계산한 값입니다.
-                        오늘 기준으로 계산하면, 오늘 다음 날을 기준으로 남은 날짜를 세며
-                        목표일이 오늘인 경우 D-Day 0, 이미 지난 경우에는 D+3처럼 표시할 수 있습니다.
-                    </p>
-                </div>
+                <div class="faq-answer"><p>기준 날짜에서 목표 날짜까지 남은 일수를 계산합니다.</p></div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">두 날짜 사이 일수 계산에서 ‘시작일 포함’은 무슨 뜻인가요?</button>
-                <div class="faq-answer">
-                    <p>
-                        시작일 포함 옵션을 켜면, 시작 날짜를 하루로 포함해서 계산합니다.
-                        예를 들어 1월 1일부터 1월 3일까지 계산할 때, 시작일을 포함하면 3일,
-                        포함하지 않으면 2일로 계산됩니다. 상황에 따라 필요한 방식으로
-                        선택해서 사용하시면 됩니다.
-                    </p>
-                </div>
+                <div class="faq-answer"><p>시작 날짜를 하루로 포함할지 선택합니다.</p></div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">평일(주말 제외) 계산은 어떻게 동작하나요?</button>
-                <div class="faq-answer">
-                    <p>
-                        평일 계산 기능은 토요일과 일요일을 자동으로 제외하고
-                        월요일부터 금요일까지만 일수에 포함합니다. 다만 한국 공휴일은
-                        별도로 제외하지 않으므로, 공휴일까지 반영해야 하는 경우에는
-                        결과를 참고한 뒤 필요한 날짜를 추가로 조정해 주세요.
-                    </p>
-                </div>
+                <div class="faq-answer"><p>토/일을 제외하고 월~금만 계산합니다. 공휴일은 제외하지 않습니다.</p></div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">특정 날짜에 N일 더하기 / 빼기 기능은 언제 유용한가요?</button>
-                <div class="faq-answer">
-                    <p>
-                        프로젝트 마감일을 기준으로 일정 역산을 하거나, 오늘부터 100일 뒤
-                        날짜가 언제인지 확인할 때 유용합니다. 양수를 입력하면 미래 날짜,
-                        음수를 입력하면 과거 날짜를 계산할 수 있어, 디데이 계산이나
-                        기념일 계산에도 활용할 수 있습니다.
-                    </p>
-                </div>
+                <div class="faq-answer"><p>일정 역산, 100일/기념일 계산 등에 유용합니다.</p></div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">윤년(2월 29일)도 자동으로 계산되나요?</button>
-                <div class="faq-answer">
-                    <p>
-                        네, 윤년은 자동으로 반영되어 2월 29일이 포함된 기간도 정확하게
-                        계산됩니다. 별도로 윤년 여부를 신경 쓰지 않아도 날짜 계산 결과에
-                        자동으로 반영됩니다.
-                    </p>
-                </div>
+                <div class="faq-answer"><p>네, 자동 반영됩니다.</p></div>
             </div>
         </section>
     </main>
 
-    <!-- 하단 공통 링크 -->
     <section class="footer-text">
         <p>
             <a href="../../privacy.html">개인정보 처리방침</a> ·
@@ -394,11 +320,7 @@
     </section>
 </div>
 
-<!-- 공통 네비 JS -->
 <script src="../../main.js"></script>
-<!-- 날짜 계산기 전용 JS -->
 <script src="./date-calculator.js"></script>
-
-
 </body>
 </html>

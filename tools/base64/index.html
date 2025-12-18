@@ -74,23 +74,24 @@
     <div class="site-header-inner">
         <a href="../../" class="logo">Toolify</a>
 
-        <nav class="main-nav">
-            <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-            <ul class="nav-links">
-                <li><a href="../../tools/date-calculator/">날짜 계산기</a></li>
-                <li><a href="../../tools/text-counter/">글자수 세기</a></li>
-                <li><a href="../../tools/password-generator/">비밀번호 생성기</a></li>
-                <li><a href="../../tools/unit-converter/">단위 변환기</a></li>
-                <li><a href="../../tools/image-compressor/">이미지 압축기</a></li>
-                <li><a href="../../tools/qr-generator/">QR 코드 생성기</a></li>
-                <li><a href="../../tools/json-formatter/">JSON 포매터</a></li>
-                <li><a href="../../tools/age-calculator/">나이 계산기</a></li>
-                <li><a href="../../tools/time-calculator/">시간 계산기</a></li>
-                <li><a href="../../tools/geun-gwan-don/">근·관·돈 계산기</a></li>
-                <li><a href="../../tools/body-checker/">BMI 계산기</a></li>
-                <li><a href="../../tools/base64/" class="active">Base64 인코더/디코더</a></li>
-            </ul>
-        </nav>
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
 
