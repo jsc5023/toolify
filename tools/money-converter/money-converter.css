@@ -1,0 +1,326 @@
+/* 공통 style.css 이후에 로드됨 */
+
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li { margin-bottom: 3px; }
+
+/* ===== 돈 변환기 UI ===== */
+
+.mc-top {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.mc-modes {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mc-tab {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.mc-tab.active {
+    border-color: rgba(37, 99, 235, 0.7);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.mc-swap {
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.mc-help {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.mc-examples {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.mc-ex-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 700;
+}
+
+.mc-chip {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.mc-chip:hover { background: #f9fafb; }
+
+.mc-io {
+    display: grid;
+    gap: 10px;
+}
+
+.mc-label {
+    font-weight: 900;
+    font-size: 14px;
+    color: #111827;
+}
+
+.mc-textarea {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    outline: none;
+    background: #fff;
+    resize: vertical;
+}
+
+.mc-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    border-color: rgba(37, 99, 235, 0.65);
+}
+
+.mc-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mc-secondary {
+    background: #1118270d;
+    border: 1px solid #e5e7eb;
+}
+
+.mc-toast {
+    font-size: 13px;
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.hidden { display: none; }
+
+.mc-result {
+    margin-top: 18px;
+}
+
+.mc-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.mc-sub {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.mc-table {
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.mc-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 72px;
+    align-items: stretch;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.mc-row:last-child { border-bottom: none; }
+
+.mc-key {
+    background: #f9fafb;
+    font-weight: 900;
+    padding: 12px;
+    color: #111827;
+    display: flex;
+    align-items: center;
+}
+
+.mc-val {
+    padding: 12px;
+    color: #111827;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+}
+
+.mc-copy {
+    border: none;
+    border-left: 1px solid #f1f5f9;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.mc-copy:hover { background: #f9fafb; }
+
+.mc-note {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #ef4444;
+    line-height: 1.5;
+    min-height: 18px;
+}
+
+/* FAQ */
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before { content: "▼"; }
+
+.faq-question:hover { background: #eef2ff; }
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer { display: block; }
+
+.page-wrapper .footer-text { margin-top: 28px; }
+
+@media (max-width: 600px) {
+    .info-section, .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+    .info-section h2, .faq-section h2 { font-size: 20px; }
+    .info-section p, .faq-answer, .info-list { font-size: 13px; }
+
+    .mc-row { grid-template-columns: 76px 1fr 64px; }
+}
+
+/* ===== 전역 style.css 덮어쓰기(필수) ===== */
+
+/* 버튼들이 전역 스타일로 width:100% 먹는 경우 방지 */
+.mc-modes button,
+.mc-examples button,
+.mc-actions button,
+.mc-copy {
+    width: auto !important;
+}
+
+/* 버튼 글자색이 흰색으로 덮이는 문제 해결 */
+.mc-tab,
+.mc-swap,
+.mc-chip,
+.mc-copy,
+#convert-btn,
+#copy-all-btn {
+    color: #111827 !important;
+}
+
+/* 흰 배경 버튼/칩에서 배경/테두리 강제 */
+.mc-tab,
+.mc-chip,
+.mc-copy,
+#copy-all-btn {
+    background: #fff !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* 전환 버튼 */
+.mc-swap {
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* 입력이 "안되는 것처럼" 보이는(글자/커서 흰색) 문제 해결 */
+.mc-textarea {
+    background: #fff !important;
+    color: #111827 !important;
+    caret-color: #111827 !important;
+}
+
+/* placeholder도 혹시 흰색이면 강제 */
+.mc-textarea::placeholder {
+    color: #9ca3af !important;
+}
