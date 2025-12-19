@@ -1,0 +1,387 @@
+/* URL 인코더/디코더 전용 스타일 */
+/* 공통 style.css 이후 로드 */
+
+/* ---- 이 페이지 전용: 전역 button width/스타일 영향 차단 ---- */
+.ue-card button,
+.ue-card .ue-btn,
+.ue-card .ue-chip,
+.ue-card .ue-tab {
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+/* ---- 카드 ---- */
+.ue-card {
+    padding: 18px;
+}
+
+.ue-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ue-title {
+    margin: 0;
+}
+
+/* ---- 모드 탭 ---- */
+.ue-mode {
+    display: inline-flex;
+    gap: 8px;
+    background: #f3f4f6;
+    padding: 6px;
+    border-radius: 999px;
+}
+
+.ue-tab {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #111827;
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ue-tab.is-active {
+    background: #111827;
+    color: #fff;
+    border-color: #111827;
+}
+
+/* ---- 옵션 ---- */
+.ue-options {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.ue-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: end;
+}
+
+.ue-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.ue-field select {
+    width: 100%;
+}
+
+.ue-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.ue-checkbox {
+    font-size: 13px;
+    color: #111827;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ue-hint {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* ---- IO ---- */
+.ue-io {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.ue-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ue-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.ue-label-row label {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* 예시 칩 */
+.ue-examples {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.ue-ex-label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.ue-chip {
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ue-chip:hover {
+    background: #dbeafe;
+}
+
+/* textarea */
+.ue-textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+}
+
+/* 버튼 */
+.ue-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.ue-btn {
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    color: #111827;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ue-btn:hover {
+    background: #eef2ff;
+}
+
+.ue-primary {
+    background: #111827;
+    border-color: #111827;
+    color: #fff;
+}
+
+.ue-primary:hover {
+    background: #0b1220;
+}
+
+.ue-small {
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+}
+
+/* 메시지 */
+.ue-msg {
+    min-height: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ue-status {
+    font-size: 12px;
+    color: #2563eb;
+}
+
+.ue-error {
+    font-size: 12px;
+    color: #b91c1c;
+}
+
+/* info/faq는 기존 너 스타일 유지용 */
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li { margin-bottom: 3px; }
+
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before { content: "▼"; }
+.faq-question:hover { background: #eef2ff; }
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+.faq-item.active .faq-answer { display: block; }
+
+.page-wrapper .footer-text { margin-top: 28px; }
+
+@media (max-width: 820px) {
+    .ue-grid2 { grid-template-columns: 1fr; }
+    .ue-io { grid-template-columns: 1fr; }
+}
+
+/* ===== Mobile readability patch ===== */
+
+/* 입력/출력 영역을 더 "카드"처럼 분리 */
+.ue-col {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+/* 라벨 행을 더 진하게 + 구분감 */
+.ue-label-row {
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e5e7eb;
+    margin-bottom: 6px;
+}
+
+.ue-label-row label {
+    font-size: 14px;
+    font-weight: 900;
+}
+
+/* 라벨에 시각적 배지 느낌 */
+.ue-label-row label::before {
+    content: "●";
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 10px;
+    transform: translateY(-1px);
+    color: #111827;
+}
+
+/* 입력/결과 텍스트영역에 배경 차이를 줘서 구분 */
+#ue-input.ue-textarea {
+    background: #fff7ed;               /* 연한 주황 */
+    border: 1px solid #fed7aa;
+}
+
+#ue-output.ue-textarea {
+    background: #eff6ff;               /* 연한 파랑 */
+    border: 1px solid #bfdbfe;
+}
+
+/* textarea 기본 가독성 강화 */
+.ue-textarea {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+/* 버튼: 모바일에서는 2열 그리드로 정렬 */
+@media (max-width: 820px) {
+    .ue-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    /* 변환 버튼은 2칸 차지 */
+    .ue-actions .ue-primary {
+        grid-column: 1 / -1;
+    }
+
+    /* 예시 칩은 너무 많아 보이니 줄바꿈 여유 */
+    .ue-examples {
+        gap: 6px;
+    }
+
+    /* 복사 버튼은 너무 커보이지 않게 */
+    .ue-small {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+/* 모바일에서 상단 옵션 영역이 길어 보이면 줄이기 */
+@media (max-width: 820px) {
+    .ue-hint {
+        margin-top: 8px;
+        font-size: 12px;
+    }
+}
