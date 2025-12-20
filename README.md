@@ -74,19 +74,6 @@ toolify/
 
 ---
 
-## 🧪 로컬 실행 방법
-
-1) 저장소 클론
-```bash
-git clone https://github.com/본인아이디/toolify.git
-cd toolify
-```
-
-2) 실행
-   브라우저에서 `index.html` 열기 또는 VSCode에서 Live Server 사용
-
----
-
 ## 📝 개발 의도
 
 Toolify는 "가벼운 도구를 빠르게 제공하는 웹앱"을 목표로 개발되었습니다. 매번 검색해서 사용하는 계산기 도구들을 하나의 사이트에서 접근 가능하도록 통합하는것을 목표로 합니다.
