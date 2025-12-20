@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>한영타 변환기 - 키보드 입력 실수 복구 (자동 감지) | Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description" content="한글↔영문 자동 감지로 입력 즉시 변환합니다. 한/영 전환 실수(키보드 입력 실수)를 문장 전체 변환으로 복구하고 숫자·특수문자는 유지합니다. 대문자(Shift) 입력 패턴도 보정하여 변환 정확도를 높였습니다. 복사 버튼 제공." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./kor-eng-typo.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/kor-eng-typo/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="한영타 변환기 - 키보드 입력 실수 복구 (자동 감지)" />
+    <meta property="og:description" content="한글↔영문 자동 감지로 입력 즉시 변환. 문장 전체 변환, 숫자·특수문자 유지, 대문자(Shift) 입력 패턴 보정, 복사 버튼 제공." />
+    <meta property="og:url" content="https://toolify.kr/tools/kor-eng-typo/" />
+
+    <!-- FAQ 구조화 데이터 (페이지 FAQ와 동일하게 유지) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "한영타 변환은 어떻게 동작하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "두벌식(표준) 키보드 배열 기준으로 입력 문장을 키 매핑 방식으로 변환합니다. 자동 모드에서는 입력 내용에서 한글/영문 비율을 비교해 변환 방향을 결정합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "숫자나 특수문자도 변환되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "숫자·공백·특수문자는 그대로 유지됩니다. 한/영 키에 해당하는 문자만 변환됩니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "자동 감지가 반대로 나오면 어떻게 하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "상단에서 영→한 또는 한→영 모드로 고정해 사용하면 됩니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<!-- ✅ 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>⌨️ 한영타 변환기 (확장형)</h1>
+
+        <!-- ✅ A안: 한 문장으로 압축 -->
+        <p class="subtitle">
+            한/영 전환 실수로 찍힌 문장을 <b>즉시 복구</b>합니다. (입력 즉시 변환 · 숫자/특수문자 유지 · Shift 보정)
+        </p>
+
+        <!-- ✅ A안: 칩 2개만 -->
+        <div class="chip-row" aria-label="도구 특징 요약">
+            <span class="chip">자동 감지</span>
+            <span class="chip">숫자·특수문자 유지</span>
+        </div>
+
+        <!-- ✅ A안: 링크형 접기/펼치기 -->
+        <details class="how-details">
+            <summary class="how-summary">ⓘ 자동 감지 기준 보기</summary>
+
+            <div class="how-panel">
+                <ul class="how-list">
+                    <li>입력 문장에서 <b>한글/영문(알파벳)</b> 비율을 비교합니다.</li>
+                    <li>우세한 쪽을 기준으로 <b>변환 방향(영→한 / 한→영)</b>을 자동 결정합니다.</li>
+                    <li><b>두벌식(표준) 키보드 배열</b>을 매핑하며, <b>숫자·공백·특수문자는 유지</b>합니다.</li>
+                    <li><b>Shift(대문자) 입력</b>이 섞여 어긋나는 패턴을 보정해 정확도를 개선했습니다.</li>
+                </ul>
+                <p class="how-tip">
+                    결과가 반대로 나오면 상단에서 <b>영→한</b> 또는 <b>한→영</b> 모드로 고정해 사용하세요.
+                </p>
+            </div>
+        </details>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <div class="mode-row">
+                <div class="mode-left">
+                    <div class="mode-label">변환 모드</div>
+
+                    <div class="mode-line">
+                        <div class="mode-options" role="radiogroup" aria-label="변환 모드 선택">
+                            <label class="mode-option">
+                                <input type="radio" name="mode" value="auto" checked />
+                                자동 감지
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="mode" value="en2ko" />
+                                영 → 한
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="mode" value="ko2en" />
+                                한 → 영
+                            </label>
+                        </div>
+
+                        <!-- ✅ 감지 배지는 없애고, 라디오 옆 텍스트로 -->
+                        <span class="detect-text" id="detect-hint">감지: 자동</span>
+                    </div>
+                </div>
+
+                <div class="mode-right">
+                    <button class="btn-secondary" id="clear-btn" type="button">지우기</button>
+                </div>
+            </div>
+
+            <div class="io-grid">
+                <!-- ✅ 입력 컬럼도 '헤더 줄'을 만들어서 높이를 출력 컬럼과 동일하게 -->
+                <div class="io-col">
+                    <div class="col-head">
+                        <label for="input-text">입력</label>
+                    </div>
+                    <textarea id="input-text" placeholder="여기에 문장을 붙여넣거나 입력하세요. (입력 즉시 변환됩니다)"></textarea>
+                </div>
+
+                <div class="io-col io-col-output">
+                    <div class="col-head col-head-output">
+                        <label for="output-text" class="col-title">변환 결과</label>
+                    </div>
+
+                    <textarea id="output-text" readonly placeholder="변환 결과가 여기에 표시됩니다."></textarea>
+
+                    <button class="btn-primary copy-btn" id="copy-btn" type="button">복사</button>
+                    <div class="copy-toast" id="copy-toast" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div class="small-note">
+                * 두벌식(표준) 기준으로 변환됩니다. 변환 결과가 어색하면 모드를 수동(영→한/한→영)으로 바꿔보세요.
+            </div>
+        </section>
+
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>한영타 변환기가 필요한 순간</h2>
+            <p>
+                채팅, 메모, 검색창에서 <b>한/영 전환을 놓친 채로</b> 문장을 입력하면 다시 치기 귀찮습니다.
+                이 도구는 키보드 입력 실수를 빠르게 복구하기 위해 만들어졌습니다.
+            </p>
+            <ul class="info-list">
+                <li>한글로 써야 하는데 영어로 찍힌 문장 복구</li>
+                <li>영어로 써야 하는데 한글로 찍힌 문장 복구</li>
+                <li>문장 전체 변환 + 숫자·특수문자 유지</li>
+                <li>입력 즉시 변환 + 복사 버튼</li>
+                <li><b>Shift(대문자) 보정</b>으로 변환 정확도 개선</li>
+            </ul>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">한영타 변환은 어떻게 동작하나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        두벌식(표준) 키보드 배열 기준으로 입력 문장을 키 매핑 방식으로 변환합니다.
+                        자동 모드에서는 입력 내용에서 한글/영문 비율을 비교해 변환 방향을 결정합니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">숫자나 특수문자도 변환되나요?</button>
+                <div class="faq-answer">
+                    <p>숫자·공백·특수문자는 그대로 유지됩니다. 한/영 키에 해당하는 문자만 변환됩니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">자동 감지가 반대로 나오면 어떻게 하나요?</button>
+                <div class="faq-answer">
+                    <p>상단에서 영→한 또는 한→영 모드로 고정해 사용하면 됩니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./kor-eng-typo.js"></script>
+</body>
+</html>

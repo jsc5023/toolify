@@ -1,0 +1,358 @@
+/* 공통 style.css 이후에 로드됨 */
+
+/* ===== 상단(헤더 카드) ===== */
+.header-card .subtitle{
+    line-height:1.6;
+    color:#444;
+}
+
+/* 칩(요약 배지) */
+.chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+}
+.chip{
+    font-size:13px;
+    padding:7px 10px;
+    border:1px solid #e5e7eb;
+    border-radius:999px;
+    background:#f8fafc;
+    color:#334155;
+    white-space:nowrap;
+}
+
+/* 자동 감지 원리 (details) */
+.how-details{
+    margin-top:12px;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:12px 14px;
+    background:#fff;
+}
+.how-summary{
+    cursor:pointer;
+    font-weight:800;
+    user-select:none;
+}
+.how-details summary::-webkit-details-marker{ display:none; }
+.how-details[open]{ background:#f8fafc; }
+.how-list{
+    margin:10px 0 0 18px;
+    line-height:1.65;
+    color:#444;
+}
+.how-tip{
+    margin-top:10px;
+    color:#555;
+}
+
+/* ===== 툴 UI ===== */
+.mode-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-end;
+    margin-bottom:14px;
+}
+.mode-left{ flex:1; }
+
+.mode-label{
+    font-size:13px;
+    color:#6b7280;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.mode-line{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+}
+
+.mode-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.mode-option{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 10px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#fff;
+    font-size:13px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+.mode-option input{ cursor:pointer; }
+
+/* 감지 텍스트 (라디오 옆) */
+.detect-text{
+    font-size:12px;
+    color:#6b7280;
+    white-space:nowrap;
+    padding:6px 8px;
+    border-radius:8px;
+    background:#f3f4f6;
+    border:1px solid #e5e7eb;
+}
+
+.mode-right{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+/* 버튼 */
+.btn-primary, .btn-secondary{
+    border:none;
+    border-radius:10px;
+    padding:10px 12px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:14px;
+}
+.btn-primary{ background:#2563eb; color:#fff; }
+.btn-primary:hover{ filter:brightness(0.96); }
+.btn-secondary{
+    background:#f3f4f6;
+    color:#111827;
+    border:1px solid #e5e7eb;
+}
+.btn-secondary:hover{ background:#eef2ff; }
+
+/* ===== 입력/출력 그리드 ===== */
+.io-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:stretch;
+}
+
+/* 컬럼 */
+.io-col{
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}
+
+/* 헤더 줄: 두 컬럼 시작선 맞추기 */
+.col-head{
+    display:flex;
+    align-items:center;
+    min-height:44px;
+    margin-bottom:8px;
+}
+.col-head label{
+    font-size:14px;
+    font-weight:800;
+    color:#111827;
+    white-space:nowrap;
+}
+
+/* ✅ textarea: 스크롤만 + 높이 상향(데스크탑) */
+textarea{
+    width:100%;
+    height:320px;          /* ✅ 데스크탑 높이: 300~320 권장 → 320 */
+    min-height:320px;
+    resize:none;           /* ✅ 스크롤만 */
+    overflow:auto;
+    border-radius:14px;
+    border:1px solid #e5e7eb;
+    padding:12px 12px;
+    font-size:14px;
+    line-height:1.7;
+    outline:none;
+    box-sizing:border-box;
+}
+textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+/* ===== 복사 버튼(데스크탑: 상단 우측) ===== */
+.io-col-output .col-head-output{
+    padding-right:120px;
+    position:relative;
+    z-index:3;
+}
+
+/* 공통 style.css의 width:100% 같은 전역 버튼 스타일을 끊기 */
+.copy-btn{
+    position:absolute;
+    top:0;
+    right:0;
+
+    width:auto !important;
+    min-width:96px;
+    padding:10px 14px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:2;
+}
+
+/* 토스트: 데스크탑에서는 레이아웃 안 깨지게 absolute */
+.io-col-output{
+    padding-bottom:22px;
+}
+.copy-toast{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+
+    font-size:12px;
+    color:#2563eb;
+    min-height:16px;
+}
+
+/* 하단 안내문 */
+.small-note{
+    margin-top:10px;
+    font-size:12px;
+    color:#6b7280;
+    line-height:1.6;
+}
+
+/* ===== 날짜 계산기에서 가져온 섹션 스타일 ===== */
+.info-section,
+.faq-section{
+    max-width:720px;
+    margin:40px auto 0;
+    padding:0 16px;
+}
+.info-section h2,
+.faq-section h2{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:16px;
+}
+.info-section p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#444;
+    font-size:14px;
+}
+.info-list{
+    margin:8px 0 14px;
+    padding-left:18px;
+    font-size:14px;
+    color:#444;
+}
+.info-list li{ margin-bottom:3px; }
+
+.faq-item{
+    border-bottom:1px solid #e0e0e0;
+    padding:6px 0;
+}
+.faq-question{
+    position:relative;
+    width:100%;
+    background:#f9fafb;
+    border:none;
+    text-align:left;
+    padding:10px 12px 10px 30px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    line-height:1.4;
+    color:#111827;
+    border-radius:8px;
+}
+.faq-question::before{
+    content:"▶";
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:11px;
+    color:#6b7280;
+}
+.faq-item.active .faq-question::before{ content:"▼"; }
+.faq-question:hover{ background:#eef2ff; }
+.faq-question:focus{
+    outline:none;
+    box-shadow:0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+.faq-answer{
+    display:none;
+    padding:6px 2px 12px;
+    color:#555;
+    font-size:14px;
+    line-height:1.7;
+}
+.faq-item.active .faq-answer{ display:block; }
+
+/* ===== 반응형 ===== */
+@media (max-width: 800px){
+    .io-grid{ grid-template-columns:1fr; }
+    textarea{
+        height:260px;
+        min-height:260px;
+    }
+}
+
+/* ✅ 모바일: 라디오 3개를 한 줄로 고정 + 여백 제거 */
+@media (max-width: 640px){
+    .mode-line{
+        width:100%;
+    }
+
+    /* 3개를 grid로 딱 맞춰 한 줄에 */
+    .mode-options{
+        display:grid;
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+        gap:8px;
+        width:100%;
+    }
+
+    .mode-option{
+        justify-content:center;
+        padding:8px 6px;
+        font-size:12.5px;
+        border-radius:10px;
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .mode-option input{
+        margin:0;
+        flex:0 0 auto;
+    }
+
+    /* 감지 텍스트는 아래줄로 자연스럽게 */
+    .detect-text{
+        width:100%;
+    }
+
+    /* 모바일: 복사 버튼을 textarea 아래로 */
+    .io-col-output{ padding-bottom:0; }
+    .copy-toast{
+        position:static;
+        margin-top:8px;
+    }
+
+    .io-col-output .col-head-output{ padding-right:0; }
+    .copy-btn{
+        position:static;
+        width:100% !important;
+        margin-top:10px;
+    }
+
+    textarea{
+        height:240px;
+        min-height:240px;
+    }
+
+    .chip{ font-size:12.5px; padding:6px 9px; }
+    .how-details{ padding:10px 12px; }
+}
