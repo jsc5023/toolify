@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 텍스트 정리기 - 공백·줄바꿈·빈 줄 정리</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="붙여넣은 텍스트의 불필요한 공백, 줄바꿈, 빈 줄, 줄 끝 공백, 보이지 않는 문자를 한 번에 정리하는 무료 텍스트 정리기입니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 텍스트 정리기 전용 스타일 -->
+    <link rel="stylesheet" href="./text-cleaner.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/text-cleaner/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 텍스트 정리기 - 공백·줄바꿈·빈 줄 정리" />
+    <meta property="og:description" content="공백/줄바꿈/빈 줄/줄 끝 공백/보이지 않는 문자를 한 번에 정리합니다. 브라우저에서만 처리됩니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/text-cleaner/" />
+
+    <!-- 텍스트 정리기 FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "텍스트가 서버로 전송되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "아니요. 텍스트 정리 작업은 브라우저에서만 수행되며 서버로 전송되지 않습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "줄 끝 공백 제거는 어떤 상황에서 유용한가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "코드/문서를 복사해 붙여넣을 때 보이지 않는 줄 끝 공백 때문에 포맷이 깨지거나 diff가 지저분해지는 문제를 줄여줍니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "빈 줄 정리는 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "연속된 빈 줄이 너무 많을 때, 빈 줄을 최대 0~3개로 제한해 보기 좋게 정리합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "보이지 않는 문자 제거는 무엇을 제거하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "복사/붙여넣기 과정에서 섞일 수 있는 BOM(U+FEFF), Zero Width Space(U+200B) 등 화면에 보이지 않는 문자를 제거합니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<!-- ✅ 공통 헤더 (홈과 동일 구조로 통일) -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🧹 텍스트 정리기 (공백·줄바꿈·빈 줄)</h1>
+        <p class="subtitle">
+            불필요한 공백, 줄 끝 공백, 연속 빈 줄, 보이지 않는 문자까지 한 번에 정리하는 무료 텍스트 정리기입니다.
+            입력 즉시 자동 정리 또는 버튼 실행을 선택할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <h2>텍스트 정리</h2>
+
+            <!-- ✅ 프리셋 -->
+            <div class="preset-row">
+                <span class="small preset-label">프리셋</span>
+                <button type="button" class="preset-btn" data-preset="text">일반 텍스트</button>
+                <button type="button" class="preset-btn" data-preset="code">코드</button>
+                <button type="button" class="preset-btn" data-preset="list">리스트</button>
+            </div>
+
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <button id="paste-btn" type="button">붙여넣기</button>
+                    <button id="clear-btn" type="button" class="ghost">비우기</button>
+                </div>
+
+                <div class="toolbar-right">
+                    <label class="checkbox-inline toolbar-check">
+                        <input type="checkbox" id="live" checked />
+                        입력 즉시 정리
+                    </label>
+
+                    <button id="run-btn" type="button" class="primary">정리 실행</button>
+                    <button id="copy-btn" type="button">결과 복사</button>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <label for="input">입력</label>
+                    <textarea id="input" class="big-textarea" placeholder="여기에 텍스트를 붙여넣으세요"></textarea>
+                </div>
+                <div class="col">
+                    <label for="output">결과</label>
+                    <textarea id="output" class="big-textarea" readonly placeholder="정리된 텍스트가 여기에 표시됩니다"></textarea>
+                </div>
+            </div>
+
+            <div class="meta-row">
+                <div id="stats" class="small">입력 0자 → 결과 0자 · 변경 0</div>
+            </div>
+
+            <hr class="divider" />
+
+            <h3 class="section-title">정리 옵션 (기본)</h3>
+
+            <!-- ✅ 기본 옵션만 노출 -->
+            <div class="options-grid">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="normalize-eol" checked />
+                    개행 통일 (CRLF/CR → LF)
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="remove-trailing" checked />
+                    줄 끝 공백 제거
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="trim-lines" checked />
+                    각 줄 좌우 공백 제거
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="trim-whole" checked />
+                    전체 앞/뒤 공백 제거
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="collapse-blank-lines" checked />
+                    빈 줄 정리 (연속 빈 줄 제한)
+                </label>
+
+                <div class="row inline-row">
+                    <div>
+                        <label for="blank-max">빈 줄 최대</label>
+                        <select id="blank-max">
+                            <option value="0">0 (빈 줄 제거)</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="remove-invisible" checked />
+                    보이지 않는 문자 제거 (ZWSP/BOM 등)
+                </label>
+            </div>
+
+            <!-- ✅ 고급 옵션 토글 -->
+            <button type="button" id="advanced-toggle" class="advanced-toggle" aria-expanded="false">
+                고급 옵션 펼치기 ▾
+            </button>
+
+            <div id="advanced-panel" class="advanced-panel hidden">
+                <h3 class="section-title">고급 옵션</h3>
+
+                <div class="options-grid">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="collapse-spaces" />
+                        연속 공백/탭 1개로 줄이기
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="tabs-to-spaces" />
+                        탭을 스페이스로 변환
+                    </label>
+
+                    <div class="row inline-row">
+                        <div>
+                            <label for="tab-size">탭 → 스페이스</label>
+                            <select id="tab-size" disabled>
+                                <option value="2">2칸</option>
+                                <option value="4" selected>4칸</option>
+                                <option value="8">8칸</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="unique-lines" />
+                        중복 줄 제거 (동일한 줄 1개만 남김)
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="unique-ci" />
+                        (중복 제거) 대소문자 무시
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="sort-lines" />
+                        줄 정렬 (오름/내림)
+                    </label>
+
+                    <div class="row inline-row">
+                        <div>
+                            <label for="sort-order">정렬 순서</label>
+                            <select id="sort-order" disabled>
+                                <option value="asc" selected>오름차순</option>
+                                <option value="desc">내림차순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="sort-numeric" checked />
+                        (정렬) 숫자 포함 자연 정렬(10 > 2)
+                    </label>
+
+                    <div class="row inline-row">
+                        <div>
+                            <label for="line-prefix">각 줄 앞에 붙이기 (prefix)</label>
+                            <input type="text" id="line-prefix" class="text-input" placeholder='예: "- " 또는 "\"" ' />
+                        </div>
+                    </div>
+
+                    <div class="row inline-row">
+                        <div>
+                            <label for="line-suffix">각 줄 뒤에 붙이기 (suffix)</label>
+                            <input type="text" id="line-suffix" class="text-input" placeholder='예: "," 또는 "\"" ' />
+                        </div>
+                    </div>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="affix-nonempty" checked />
+                        prefix/suffix는 빈 줄 제외하고 적용
+                    </label>
+                </div>
+
+                <p class="small mt-8">
+                    ※ “연속 공백 1개로 줄이기”는 일반 텍스트에는 유용하지만, 코드 정렬에는 불리할 수 있습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>텍스트 정리기가 필요한 순간</h2>
+            <p>
+                문서/메일/블로그 글을 복사해 붙여넣을 때, 줄 끝 공백이나 연속된 빈 줄 때문에 보기 싫어지거나
+                포맷이 깨지는 경우가 많습니다. 텍스트 정리기는 이런 불필요한 공백과 줄바꿈을 한 번에 정리합니다.
+            </p>
+
+            <ul class="info-list">
+                <li>복사/붙여넣기 후 이상한 공백 제거</li>
+                <li>연속된 빈 줄을 보기 좋게 정리</li>
+                <li>줄 끝 공백 제거로 diff/포맷 깨짐 방지</li>
+                <li>보이지 않는 문자 제거로 “왜 이상하지?” 문제 해결</li>
+            </ul>
+
+            <p>
+                이 페이지는 브라우저에서만 동작하며, 입력한 텍스트는 서버로 전송되지 않습니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">텍스트가 서버로 전송되나요?</button>
+                <div class="faq-answer"><p>아니요. 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">줄 끝 공백 제거는 어떤 상황에서 유용한가요?</button>
+                <div class="faq-answer"><p>코드/문서 복붙 시 줄 끝 공백 때문에 포맷이 깨지거나 diff가 지저분해지는 문제를 줄여줍니다.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">빈 줄 정리는 무엇인가요?</button>
+                <div class="faq-answer"><p>연속된 빈 줄을 최대 0~3개로 제한해 깔끔하게 만듭니다.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">보이지 않는 문자는 어떤 걸 말하나요?</button>
+                <div class="faq-answer"><p>Zero Width Space, BOM 등 화면에 보이지 않지만 복사 과정에서 섞일 수 있는 문자들입니다.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./text-cleaner.js"></script>
+</body>
+</html>
