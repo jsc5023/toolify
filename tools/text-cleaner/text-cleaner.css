@@ -1,13 +1,72 @@
 /* 텍스트 정리기 전용 스타일 */
 /* 공통 style.css 이후에 로드됨 */
 
+/* ====== 모드(프리셋) ====== */
+.mode-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 12px;
+    margin: 12px 0 14px;
+}
+
+.mode-title {
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.mode-pill {
+    display: grid;
+    gap: 4px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    cursor: pointer;
+    user-select: none;
+}
+
+.mode-pill input {
+    display: none;
+}
+
+.mode-name {
+    font-weight: 800;
+    color: #111827;
+    font-size: 14px;
+}
+
+.mode-desc {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.3;
+}
+
+.mode-pill:has(input:checked) {
+    border-color: rgba(37, 99, 235, 0.55);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+}
+
+.mode-help {
+    margin-top: 10px;
+    color: #374151;
+}
+
 /* ====== 도구 본문 UI ====== */
 .toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    flex-wrap: wrap; /* 화면 좁으면 자동 줄바꿈 */
+    flex-wrap: wrap;
     margin: 10px 0 14px;
 }
 
@@ -29,7 +88,7 @@
     border-radius: 12px;
 }
 
-/* 버튼 톤: 공통 버튼이 있다면 최소한만 덮어쓰기 */
+/* 버튼 톤 */
 .toolbar .primary {
     background: #111827;
     color: #fff;
@@ -49,35 +108,6 @@
 }
 .toolbar .ghost:hover { background: #e5e7eb; }
 
-/* 프리셋 */
-.preset-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 6px 0 10px;
-}
-
-.preset-label {
-    font-weight: 700;
-    color: #374151;
-    margin-right: 4px;
-}
-
-.preset-btn {
-    width: auto !important;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    border-radius: 999px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 13px;
-}
-.preset-btn:hover {
-    background: #f9fafb;
-}
-
-/* 입력/결과 2열 */
 .two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -134,10 +164,10 @@
 }
 
 .inline-row {
-    margin-top: -6px; /* 체크박스 라인과 간격 맞추기 */
+    margin-top: -6px;
 }
 
-#tab-size, #blank-max, #sort-order {
+#tab-size, #blank-max {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #e5e7eb;
@@ -153,40 +183,75 @@
     font-size: 14px;
     outline: none;
 }
+
 .text-input:focus {
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
-    border-color: rgba(37, 99, 235, 0.5);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+    border-color: rgba(37, 99, 235, 0.55);
 }
 
 .mt-8 { margin-top: 8px; }
 
-/* 고급 옵션 토글 */
-.advanced-toggle {
-    margin-top: 12px;
-    width: auto !important;
-    border: 1px solid #e5e7eb;
+.hint-box {
     background: #f9fafb;
+    border: 1px dashed #e5e7eb;
+    padding: 10px 12px;
+    border-radius: 12px;
+}
+
+/* ====== 접기/펼치기 ====== */
+.section-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 10px 12px;
+    font-weight: 800;
     cursor: pointer;
-    font-weight: 700;
-    color: #111827;
-}
-.advanced-toggle:hover { background: #f3f4f6; }
-
-.advanced-panel {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #e5e7eb;
 }
 
-.hidden { display: none; }
+.section-toggle:hover {
+    background: #eef2ff;
+}
+
+.section-toggle .toggle-icon {
+    font-weight: 900;
+    color: #6b7280;
+}
+
+.section-toggle.danger {
+    background: #fff7ed;
+    border-color: #fed7aa;
+}
+
+.section-toggle.danger:hover {
+    background: #ffedd5;
+}
+
+.toggle-panel {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.danger-note {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    padding: 10px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
 
 /* ====== 아래는 날짜 계산기 info/faq 스타일과 동일 ====== */
-
 .info-section,
 .faq-section {
-    max-width: 720px;           /* 줄 길이 조금 줄임 */
+    max-width: 720px;
     margin: 40px auto 0;
     padding: 0 16px;
 }
@@ -205,7 +270,6 @@
     font-size: 14px;
 }
 
-/* bullet 리스트 */
 .info-list {
     margin: 8px 0 14px;
     padding-left: 18px;
@@ -217,13 +281,11 @@
     margin-bottom: 3px;
 }
 
-/* FAQ 리스트 */
 .faq-item {
     border-bottom: 1px solid #e0e0e0;
     padding: 6px 0;
 }
 
-/* 전역 button 스타일 덮어쓰기 */
 .faq-question {
     position: relative;
     width: 100%;
@@ -239,7 +301,6 @@
     border-radius: 8px;
 }
 
-/* 화살표 아이콘 */
 .faq-question::before {
     content: "▶";
     position: absolute;
@@ -275,17 +336,19 @@
     display: block;
 }
 
-/* 이 페이지에서만 footer 간격 조금 더 주기 */
 .page-wrapper .footer-text {
     margin-top: 28px;
 }
 
-/* 모바일 조정 */
+/* 반응형 */
 @media (max-width: 900px) {
     .two-col {
         grid-template-columns: 1fr;
     }
     .options-grid {
+        grid-template-columns: 1fr;
+    }
+    .mode-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -318,7 +381,6 @@
         font-size: 13px;
     }
 
-    /* 모바일에서 툴바는 왼쪽 정렬이 더 자연스러움 */
     .toolbar {
         justify-content: flex-start;
     }
