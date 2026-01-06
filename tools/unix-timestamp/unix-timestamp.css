@@ -1,0 +1,301 @@
+/* Unix Timestamp 변환기 전용 스타일 */
+/* 공통 style.css 이후에 로드됨 */
+
+.tool-subtitle {
+    margin-top: 6px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 입력 영역 */
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+@media (min-width: 720px) {
+    .input-row.two {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: end;
+    }
+}
+
+.inline-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.inline-controls label {
+    font-size: 13px;
+    color: #374151;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.select,
+.input,
+.textarea {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+}
+
+.textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.select:focus,
+.input:focus,
+.textarea:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+    border-color: rgba(37, 99, 235, 0.5);
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+/* 결과 카드 */
+.result-wrap {
+    margin-top: 14px;
+    background: #f9fafb;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.result-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.result-grid {
+    display: grid;
+    gap: 10px;
+}
+
+@media (min-width: 720px) {
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.kv {
+    background: #fff;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.kv .k {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.kv .v {
+    font-size: 14px;
+    color: #111827;
+    word-break: break-all;
+    line-height: 1.5;
+}
+
+.kv .v code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 13px;
+}
+
+.kv .copy-btn {
+    margin-top: 8px;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+}
+
+.kv .copy-btn:hover {
+    background: #eef2ff;
+}
+
+.small-muted {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* 배치 결과 테이블 */
+.table-wrap {
+    margin-top: 12px;
+    overflow-x: auto;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    background: #fff;
+}
+
+table.batch {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+table.batch th,
+table.batch td {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+table.batch th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #111827;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #1d4ed8;
+    border: 1px solid #dbeafe;
+}
+
+/* info/faq 섹션: 날짜 계산기 스타일 재사용 */
+.info-section,
+.faq-section {
+    max-width: 720px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+}
+
+.info-section h2,
+.faq-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.info-section p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: #444;
+    font-size: 14px;
+}
+
+.info-list {
+    margin: 8px 0 14px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: #444;
+}
+
+.info-list li {
+    margin-bottom: 3px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 6px 0;
+}
+
+.faq-question {
+    position: relative;
+    width: 100%;
+    background: #f9fafb;
+    border: none;
+    text-align: left;
+    padding: 10px 12px 10px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #111827;
+    border-radius: 8px;
+}
+
+.faq-question::before {
+    content: "▶";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.faq-item.active .faq-question::before {
+    content: "▼";
+}
+
+.faq-question:hover {
+    background: #eef2ff;
+}
+
+.faq-question:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.faq-answer {
+    display: none;
+    padding: 6px 2px 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.page-wrapper .footer-text {
+    margin-top: 28px;
+}
+
+@media (max-width: 600px) {
+    .info-section,
+    .faq-section {
+        margin-top: 32px;
+        padding: 0 12px;
+    }
+
+    .info-section h2,
+    .faq-section h2 {
+        font-size: 20px;
+    }
+
+    .faq-question {
+        font-size: 14px;
+        padding: 9px 10px 9px 28px;
+    }
+
+    .info-section p,
+    .faq-answer,
+    .info-list {
+        font-size: 13px;
+    }
+}

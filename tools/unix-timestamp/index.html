@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 Unix Timestamp 변환기 - KST/UTC, 초/밀리초, 배치 변환</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="Unix Timestamp를 날짜로 변환하고, 날짜를 Timestamp로 변환합니다. 초/밀리초 자동 감지, KST(한국시간)/UTC/ISO 출력, 상대시간(몇 분 전), 여러 줄 배치 변환까지 지원하는 무료 Timestamp 변환기입니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./unix-timestamp.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/unix-timestamp/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 Unix Timestamp 변환기 - KST/UTC, 초/밀리초, 배치 변환" />
+    <meta property="og:description" content="초/밀리초 자동 감지, KST/UTC/ISO 출력, 상대시간, 여러 줄 배치 변환까지 지원하는 무료 Timestamp 변환기입니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/unix-timestamp/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Timestamp 초(s)와 밀리초(ms)는 어떻게 구분하나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "보통 10자리면 초(s), 13자리면 밀리초(ms)입니다. 이 도구는 입력 길이를 기반으로 자동 감지하며, 필요하면 단위를 직접 선택할 수 있습니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "KST(한국시간)과 UTC를 동시에 볼 수 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "네. 변환 결과에서 KST(한국시간), UTC, ISO 8601 값을 동시에 제공합니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "여러 줄 timestamp도 한 번에 변환할 수 있나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "배치 변환 탭에서 로그를 여러 줄로 붙여넣으면 자동으로 추출/감지하여 표로 변환해줍니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "상대시간(몇 분 전)도 표시되나요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "네. 결과에 ‘방금 전, 3분 전, 2시간 후’처럼 현재 기준 상대시간을 함께 표시합니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<!-- ✅ 공통 헤더 (홈과 동일 구조로 통일) -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>⏱️ Unix Timestamp 변환기 (KST/UTC · 초/밀리초 · 배치 변환)</h1>
+        <p class="subtitle tool-subtitle">
+            초(s)/밀리초(ms) 자동 감지, KST(한국시간)/UTC/ISO 출력, 상대시간(몇 분 전),
+            여러 줄 배치 변환까지 지원하는 무료 Unix Timestamp 변환기입니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="single">🔁 단일 변환</button>
+                <button class="tab-button" data-tab="datetime">📅 날짜 → Timestamp</button>
+                <button class="tab-button" data-tab="batch">🧾 배치 변환</button>
+            </div>
+
+            <!-- 단일 변환 -->
+            <div class="tab-panel active" id="tab-single">
+                <h2>Timestamp → 날짜 (KST/UTC/ISO)</h2>
+
+                <div class="input-row two">
+                    <div>
+                        <label for="ts-input">Unix Timestamp 입력</label>
+                        <input class="input" id="ts-input" placeholder="예: 1700000000 또는 1700000000000" />
+                    </div>
+                    <div>
+                        <label for="ts-unit">단위</label>
+                        <select class="select" id="ts-unit">
+                            <option value="auto">자동 감지</option>
+                            <option value="s">초(s)</option>
+                            <option value="ms">밀리초(ms)</option>
+                            <option value="us">마이크로초(μs)</option>
+                            <option value="ns">나노초(ns)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button id="btn-convert">변환하기</button>
+                    <button id="btn-now" type="button">현재 시간(ms) 넣기</button>
+                    <button id="btn-clear" type="button">초기화</button>
+                </div>
+
+                <div class="result-wrap">
+                    <div class="result-title">변환 결과</div>
+
+                    <div class="result-grid">
+                        <div class="kv">
+                            <div class="k">KST (한국시간)</div>
+                            <div class="v" id="out-kst">-</div>
+                            <button class="copy-btn" data-copy-target="out-kst" type="button">복사</button>
+                        </div>
+
+                        <div class="kv">
+                            <div class="k">UTC</div>
+                            <div class="v" id="out-utc">-</div>
+                            <button class="copy-btn" data-copy-target="out-utc" type="button">복사</button>
+                        </div>
+
+                        <div class="kv">
+                            <div class="k">ISO 8601</div>
+                            <div class="v" id="out-iso"><code>-</code></div>
+                            <button class="copy-btn" data-copy-target="out-iso" type="button">복사</button>
+                        </div>
+
+                        <div class="kv">
+                            <div class="k">상대시간 / D-Day(KST)</div>
+                            <div class="v">
+                                <div><strong id="out-rel">-</strong></div>
+                                <div class="small-muted">D-Day: <span id="out-dday">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="small-muted" id="out-hint">-</div>
+                </div>
+            </div>
+
+            <!-- 날짜 -> timestamp -->
+            <div class="tab-panel" id="tab-datetime">
+                <h2>날짜/시간 → Timestamp</h2>
+                <p class="small mb-8">
+                    아래 입력은 <strong>브라우저 로컬 시간</strong> 기준입니다. (한국에서 사용 시 보통 KST와 동일하게 동작합니다.)
+                </p>
+
+                <div class="input-row two">
+                    <div>
+                        <label for="dt-input">날짜/시간 선택</label>
+                        <input class="input" type="datetime-local" id="dt-input" step="1" />
+                    </div>
+                    <div>
+                        <label for="dt-unit">출력 단위</label>
+                        <select class="select" id="dt-unit" disabled>
+                            <option value="both">초/밀리초 모두 출력</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button id="btn-dt-convert" type="button">Timestamp 만들기</button>
+                    <button id="btn-dt-now" type="button">현재 시간 넣기</button>
+                </div>
+
+                <div class="result-wrap">
+                    <div class="result-title">결과</div>
+
+                    <div class="result-grid">
+                        <div class="kv">
+                            <div class="k">초(s) Timestamp</div>
+                            <div class="v" id="dt-out-s">-</div>
+                            <button class="copy-btn" data-copy-target="dt-out-s" type="button">복사</button>
+                        </div>
+
+                        <div class="kv">
+                            <div class="k">밀리초(ms) Timestamp</div>
+                            <div class="v" id="dt-out-ms">-</div>
+                            <button class="copy-btn" data-copy-target="dt-out-ms" type="button">복사</button>
+                        </div>
+                    </div>
+
+                    <div class="small-muted" id="dt-hint">-</div>
+                </div>
+            </div>
+
+            <!-- 배치 -->
+            <div class="tab-panel" id="tab-batch">
+                <h2>배치 변환 (여러 줄 붙여넣기)</h2>
+                <p class="small mb-8">
+                    로그를 여러 줄로 붙여넣으면 각 줄에서 <strong>9~19자리 숫자</strong>를 찾아 timestamp로 자동 변환합니다.
+                </p>
+
+                <label for="batch-input">입력</label>
+                <textarea class="textarea" id="batch-input" placeholder="예)
+[INFO] ts=1700000000000 user=...
+1700000000
+1700000000123"></textarea>
+
+                <div class="btn-row">
+                    <button id="btn-batch" type="button">배치 변환</button>
+                    <button id="btn-batch-clear" type="button">비우기</button>
+                </div>
+
+                <div class="small-muted" id="batch-summary"></div>
+
+                <div class="table-wrap">
+                    <table class="batch">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>원본</th>
+                            <th>감지 단위</th>
+                            <th>KST</th>
+                            <th>상대시간</th>
+                        </tr>
+                        </thead>
+                        <tbody id="batch-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- UX + SEO 설명 섹션 -->
+        <section class="info-section">
+            <h2>Unix Timestamp 변환기가 필요한 순간</h2>
+            <p>
+                서버 로그, 이벤트 추적, API 응답 등에서 Unix Timestamp(초/밀리초)를 자주 확인하게 됩니다.
+                이 도구는 초/밀리초 자동 감지, KST(한국시간) 기본 출력, UTC/ISO 동시 제공, 상대시간 표시로
+                “지금 기준으로 언제인지”를 빠르게 파악할 수 있도록 구성했습니다.
+            </p>
+
+            <ul class="info-list">
+                <li>로그의 timestamp를 KST/UTC로 빠르게 확인</li>
+                <li>API 테스트 시 날짜/시간을 timestamp로 변환</li>
+                <li>여러 줄 로그를 배치로 붙여넣고 한 번에 변환</li>
+                <li>현재 기준 상대시간(몇 분 전/후) 확인</li>
+            </ul>
+
+            <p>
+                입력된 값은 브라우저에서만 처리되며, 서버로 전송하지 않습니다.
+            </p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">Timestamp 초(s)와 밀리초(ms)는 어떻게 구분하나요?</button>
+                <div class="faq-answer">
+                    <p>보통 10자리면 초(s), 13자리면 밀리초(ms)입니다. 이 도구는 입력 길이를 기반으로 자동 감지하며, 필요하면 단위를 직접 선택할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">KST(한국시간)과 UTC를 동시에 볼 수 있나요?</button>
+                <div class="faq-answer">
+                    <p>네. 결과에서 KST(한국시간), UTC, ISO 8601 값을 동시에 제공합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">여러 줄 timestamp도 한 번에 변환할 수 있나요?</button>
+                <div class="faq-answer">
+                    <p>배치 변환 탭에서 여러 줄을 붙여넣으면 각 줄에서 timestamp 후보를 자동 추출하여 표로 변환합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">상대시간(몇 분 전/후)은 어떤 기준인가요?</button>
+                <div class="faq-answer">
+                    <p>현재 시각(Date.now)과 비교하여 “방금 전/몇 분 전/몇 시간 후”처럼 표시합니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./unix-timestamp.js"></script>
+</body>
+</html>
