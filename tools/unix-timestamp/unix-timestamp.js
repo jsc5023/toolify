@@ -1,9 +1,11 @@
 /* ============================================================
    한국형 Unix Timestamp 변환기
-   - 초/밀리초 자동 감지
+   - 탭 전환(단일/날짜→TS/배치)
+   - 초/밀리초 자동 감지 (+ us/ns 옵션)
    - KST/UTC/ISO 출력
    - 상대시간(방금 전/몇분 전)
    - 배치 변환(여러 줄)
+   - 복사 버튼(글로벌 버튼 스타일 영향 제거)
    ============================================================ */
 
 const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
@@ -13,7 +15,6 @@ function pad2(n) {
 }
 
 function formatKST(date) {
-    // Intl 지원 브라우저에서는 Asia/Seoul 타임존 포맷
     try {
         const fmt = new Intl.DateTimeFormat("ko-KR", {
             timeZone: "Asia/Seoul",
@@ -26,10 +27,8 @@ function formatKST(date) {
             second: "2-digit",
             hour12: false,
         });
-        // "2026. 01. 05. (월) 18:12:33" 형태가 나올 수 있어서 공백 정리
         return fmt.format(date).replace(/\s+/g, " ").trim() + " KST";
     } catch (e) {
-        // fallback: KST는 UTC+9로 계산(서머타임 고려 X)
         const kst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
         const yyyy = kst.getUTCFullYear();
         const mm = pad2(kst.getUTCMonth() + 1);
@@ -54,12 +53,12 @@ function formatUTC(date) {
 }
 
 function formatISO(date) {
-    return date.toISOString(); // 2026-01-05T09:12:33.000Z
+    return date.toISOString();
 }
 
 function relativeKorean(targetMs) {
     const now = Date.now();
-    let diff = targetMs - now; // 미래면 +
+    const diff = targetMs - now; // 미래면 +
     const abs = Math.abs(diff);
 
     const sec = Math.floor(abs / 1000);
@@ -69,26 +68,31 @@ function relativeKorean(targetMs) {
 
     const suffix = diff >= 0 ? "후" : "전";
 
-    if (sec < 10) return "방금 " + (diff >= 0 ? "후" : "전");
+    if (sec < 10) return `방금 ${suffix}`;
     if (sec < 60) return `${sec}초 ${suffix}`;
     if (min < 60) return `${min}분 ${suffix}`;
     if (hr < 24) return `${hr}시간 ${suffix}`;
     if (day < 30) return `${day}일 ${suffix}`;
 
-    // 너무 크면 날짜로 유도
     return diff >= 0 ? "미래(날짜 확인)" : "과거(날짜 확인)";
 }
 
 function ddayLabelKST(targetDate) {
-    // KST 기준 "오늘 00:00"과 비교해서 D-day 계산
     const now = new Date();
-    const kstNowMs = now.getTime() + 9 * 60 * 60 * 1000;
-    const kstNow = new Date(kstNowMs);
+    const kstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
-    const base = new Date(Date.UTC(kstNow.getUTCFullYear(), kstNow.getUTCMonth(), kstNow.getUTCDate())); // KST 00:00
-    const targetKstMs = targetDate.getTime() + 9 * 60 * 60 * 1000;
-    const t = new Date(targetKstMs);
-    const targetBase = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()));
+    const base = new Date(
+        Date.UTC(kstNow.getUTCFullYear(), kstNow.getUTCMonth(), kstNow.getUTCDate())
+    ); // KST 00:00
+
+    const targetKst = new Date(targetDate.getTime() + 9 * 60 * 60 * 1000);
+    const targetBase = new Date(
+        Date.UTC(
+            targetKst.getUTCFullYear(),
+            targetKst.getUTCMonth(),
+            targetKst.getUTCDate()
+        )
+    );
 
     const diffDays = Math.floor((targetBase.getTime() - base.getTime()) / (1000 * 60 * 60 * 24));
     if (diffDays > 0) return `D-${diffDays}`;
@@ -101,9 +105,6 @@ function cleanNumberText(s) {
 }
 
 function detectUnit(numStr) {
-    // auto: 길이 기반(가장 흔한 케이스)
-    // 10=초, 13=밀리초
-    // 16=마이크로초, 19=나노초(옵션 처리 가능)
     const len = numStr.length;
     if (len >= 19) return "ns";
     if (len >= 16) return "us";
@@ -116,8 +117,8 @@ function toMs(value, unit) {
     if (!Number.isFinite(n)) return NaN;
     if (unit === "s") return n * 1000;
     if (unit === "ms") return n;
-    if (unit === "us") return Math.floor(n / 1000); // 마이크로초 → ms
-    if (unit === "ns") return Math.floor(n / 1_000_000); // 나노초 → ms
+    if (unit === "us") return Math.floor(n / 1000);
+    if (unit === "ns") return Math.floor(n / 1_000_000);
     return NaN;
 }
 
@@ -129,143 +130,150 @@ function fromDateToTimestamp(date, unit) {
 }
 
 /* =============================
+   탭 전환
+   ============================= */
+function initTabs() {
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+
+    tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const target = btn.dataset.tab;
+
+            tabButtons.forEach((b) => b.classList.remove("active"));
+            tabPanels.forEach((p) => p.classList.remove("active"));
+
+            btn.classList.add("active");
+            const panel = document.getElementById("tab-" + target);
+            if (panel) panel.classList.add("active");
+        });
+    });
+}
+
+/* =============================
+   DOM 참조
+   ============================= */
+function getEls() {
+    return {
+        // 단일
+        tsInput: document.getElementById("ts-input"),
+        unitSelect: document.getElementById("ts-unit"),
+        btnConvert: document.getElementById("btn-convert"),
+        btnNow: document.getElementById("btn-now"),
+        btnClear: document.getElementById("btn-clear"),
+        outKst: document.getElementById("out-kst"),
+        outUtc: document.getElementById("out-utc"),
+        outIso: document.getElementById("out-iso"),
+        outRel: document.getElementById("out-rel"),
+        outDday: document.getElementById("out-dday"),
+        outHint: document.getElementById("out-hint"),
+
+        // 날짜→TS
+        dtInput: document.getElementById("dt-input"),
+        btnDtConvert: document.getElementById("btn-dt-convert"),
+        btnDtNow: document.getElementById("btn-dt-now"),
+        dtOutS: document.getElementById("dt-out-s"),
+        dtOutMs: document.getElementById("dt-out-ms"),
+        dtHint: document.getElementById("dt-hint"),
+
+        // 배치
+        batchInput: document.getElementById("batch-input"),
+        btnBatch: document.getElementById("btn-batch"),
+        btnBatchClear: document.getElementById("btn-batch-clear"),
+        batchSummary: document.getElementById("batch-summary"),
+        batchTableBody: document.getElementById("batch-tbody"),
+    };
+}
+
+/* =============================
    단일 변환
    ============================= */
-const tsInput = document.getElementById("ts-input");
-const unitSelect = document.getElementById("ts-unit");
-const btnConvert = document.getElementById("btn-convert");
-const btnNow = document.getElementById("btn-now");
-const btnClear = document.getElementById("btn-clear");
-
-const outKst = document.getElementById("out-kst");
-const outUtc = document.getElementById("out-utc");
-const outIso = document.getElementById("out-iso");
-const outRel = document.getElementById("out-rel");
-const outDday = document.getElementById("out-dday");
-const outHint = document.getElementById("out-hint");
-
-function renderFromTimestamp() {
-    const raw = cleanNumberText(tsInput.value);
+function renderFromTimestamp(els) {
+    const raw = cleanNumberText(els.tsInput.value);
     if (!raw) {
-        outHint.textContent = "timestamp를 입력해주세요. (예: 1700000000 또는 1700000000000)";
-        outKst.textContent = "-";
-        outUtc.textContent = "-";
-        outIso.textContent = "-";
-        outRel.textContent = "-";
-        outDday.textContent = "-";
+        els.outHint.textContent = "timestamp를 입력해주세요. (예: 1700000000 또는 1700000000000)";
+        els.outKst.textContent = "-";
+        els.outUtc.textContent = "-";
+        els.outIso.textContent = "-";
+        els.outRel.textContent = "-";
+        els.outDday.textContent = "-";
         return;
     }
 
-    const forced = unitSelect.value; // auto/s/ms/us/ns
+    const forced = els.unitSelect.value; // auto/s/ms/us/ns
     const unit = forced === "auto" ? detectUnit(raw) : forced;
 
     const ms = toMs(raw, unit);
     if (!Number.isFinite(ms)) {
-        outHint.textContent = "숫자 형태의 timestamp만 입력해주세요.";
+        els.outHint.textContent = "숫자 형태의 timestamp만 입력해주세요.";
         return;
     }
 
     const d = new Date(ms);
     if (isNaN(d.getTime())) {
-        outHint.textContent = "유효한 timestamp가 아닙니다. 값/단위를 확인해주세요.";
+        els.outHint.textContent = "유효한 timestamp가 아닙니다. 값/단위를 확인해주세요.";
         return;
     }
 
-    const len = raw.length;
-    const unitLabel = unit === "s" ? "초(s)" : unit === "ms" ? "밀리초(ms)" : unit === "us" ? "마이크로초(μs)" : "나노초(ns)";
+    const unitLabel =
+        unit === "s" ? "초(s)"
+            : unit === "ms" ? "밀리초(ms)"
+                : unit === "us" ? "마이크로초(μs)"
+                    : "나노초(ns)";
 
-    outHint.textContent = `감지 단위: ${unitLabel} (입력 길이: ${len}자리)`;
-    outKst.textContent = formatKST(d);
-    outUtc.textContent = formatUTC(d);
-    outIso.textContent = formatISO(d);
-    outRel.textContent = relativeKorean(ms);
-    outDday.textContent = ddayLabelKST(d);
+    els.outHint.textContent = `감지 단위: ${unitLabel} (입력 길이: ${raw.length}자리)`;
+    els.outKst.textContent = formatKST(d);
+    els.outUtc.textContent = formatUTC(d);
+
+    // ISO 영역은 code가 들어있어도 textContent로 그대로 보이게 처리
+    els.outIso.textContent = formatISO(d);
+
+    els.outRel.textContent = relativeKorean(ms);
+    els.outDday.textContent = ddayLabelKST(d);
 }
-
-btnConvert.addEventListener("click", renderFromTimestamp);
-
-btnNow.addEventListener("click", () => {
-    tsInput.value = String(Date.now()); // ms
-    unitSelect.value = "ms";
-    renderFromTimestamp();
-});
-
-btnClear.addEventListener("click", () => {
-    tsInput.value = "";
-    unitSelect.value = "auto";
-    renderFromTimestamp();
-});
 
 /* =============================
    날짜 → timestamp
    ============================= */
-const dtInput = document.getElementById("dt-input");
-const dtUnit = document.getElementById("dt-unit");
-const btnDtConvert = document.getElementById("btn-dt-convert");
-const btnDtNow = document.getElementById("btn-dt-now");
-
-const dtOutS = document.getElementById("dt-out-s");
-const dtOutMs = document.getElementById("dt-out-ms");
-const dtHint = document.getElementById("dt-hint");
-
-function renderFromDatetime() {
-    const v = dtInput.value;
+function renderFromDatetime(els) {
+    const v = els.dtInput.value;
     if (!v) {
-        dtHint.textContent = "날짜/시간을 선택해주세요.";
-        dtOutS.textContent = "-";
-        dtOutMs.textContent = "-";
+        els.dtHint.textContent = "날짜/시간을 선택해주세요.";
+        els.dtOutS.textContent = "-";
+        els.dtOutMs.textContent = "-";
         return;
     }
 
-    // datetime-local은 로컬 타임존 기준으로 Date가 만들어짐
-    const d = new Date(v);
+    const d = new Date(v); // datetime-local은 로컬 기준
     if (isNaN(d.getTime())) {
-        dtHint.textContent = "유효한 날짜/시간이 아닙니다.";
+        els.dtHint.textContent = "유효한 날짜/시간이 아닙니다.";
         return;
     }
 
-    dtOutS.textContent = fromDateToTimestamp(d, "s");
-    dtOutMs.textContent = fromDateToTimestamp(d, "ms");
-    dtHint.textContent = `선택한 시간(로컬 기준)을 timestamp로 변환합니다. (표시: KST/UTC는 위 섹션에서 확인 가능)`;
+    els.dtOutS.textContent = fromDateToTimestamp(d, "s");
+    els.dtOutMs.textContent = fromDateToTimestamp(d, "ms");
+    els.dtHint.textContent = "선택한 시간(로컬 기준)을 timestamp로 변환했습니다.";
 }
-
-btnDtConvert.addEventListener("click", renderFromDatetime);
-
-btnDtNow.addEventListener("click", () => {
-    const now = new Date();
-    // datetime-local 입력값 형식: YYYY-MM-DDTHH:mm:ss
-    const yyyy = now.getFullYear();
-    const mm = pad2(now.getMonth() + 1);
-    const dd = pad2(now.getDate());
-    const hh = pad2(now.getHours());
-    const mi = pad2(now.getMinutes());
-    const ss = pad2(now.getSeconds());
-    dtInput.value = `${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}`;
-    renderFromDatetime();
-});
 
 /* =============================
    배치 변환
    ============================= */
-const batchInput = document.getElementById("batch-input");
-const btnBatch = document.getElementById("btn-batch");
-const btnBatchClear = document.getElementById("btn-batch-clear");
-const batchSummary = document.getElementById("batch-summary");
-const batchTableBody = document.getElementById("batch-tbody");
-
 function extractTimestampCandidate(line) {
-    // 라인에서 9~19자리 숫자 덩어리 추출 (로그에서 흔한 패턴)
     const m = line.match(/\b\d{9,19}\b/);
     return m ? m[0] : null;
 }
 
-function renderBatch() {
-    const text = batchInput.value || "";
-    const lines = text.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+function renderBatch(els) {
+    const text = els.batchInput.value || "";
+    const lines = text
+        .split(/\r?\n/)
+        .map((s) => s.trim())
+        .filter(Boolean);
 
-    batchTableBody.innerHTML = "";
+    els.batchTableBody.innerHTML = "";
+
     if (lines.length === 0) {
-        batchSummary.textContent = "여러 줄 timestamp를 붙여넣으면 자동 변환해서 표로 보여줍니다.";
+        els.batchSummary.textContent = "여러 줄 timestamp를 붙여넣으면 자동 변환해서 표로 보여줍니다.";
         return;
     }
 
@@ -286,7 +294,11 @@ function renderBatch() {
         tdRaw.textContent = line;
 
         const tdUnit = document.createElement("td");
-        const unitLabel = unit === "s" ? "초(s)" : unit === "ms" ? "밀리초(ms)" : unit === "us" ? "마이크로초(μs)" : "나노초(ns)";
+        const unitLabel =
+            unit === "s" ? "초(s)"
+                : unit === "ms" ? "밀리초(ms)"
+                    : unit === "us" ? "마이크로초(μs)"
+                        : "나노초(ns)";
         tdUnit.innerHTML = `<span class="badge">${unitLabel}</span>`;
 
         const tdKst = document.createElement("td");
@@ -307,50 +319,113 @@ function renderBatch() {
         tr.appendChild(tdKst);
         tr.appendChild(tdRel);
 
-        batchTableBody.appendChild(tr);
+        els.batchTableBody.appendChild(tr);
     });
 
-    batchSummary.textContent = `총 ${lines.length}줄 중 ${ok}줄 변환 성공 (숫자 9~19자리 자동 감지)`;
+    els.batchSummary.textContent = `총 ${lines.length}줄 중 ${ok}줄 변환 성공 (숫자 9~19자리 자동 감지)`;
 }
-
-btnBatch.addEventListener("click", renderBatch);
-btnBatchClear.addEventListener("click", () => {
-    batchInput.value = "";
-    renderBatch();
-});
 
 /* =============================
    복사 버튼
    ============================= */
-document.querySelectorAll("[data-copy-target]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-        const targetId = btn.getAttribute("data-copy-target");
-        const el = document.getElementById(targetId);
-        const text = (el?.textContent || "").trim();
-        if (!text || text === "-") return;
+function initCopyButtons() {
+    document.querySelectorAll("[data-copy-target]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const targetId = btn.getAttribute("data-copy-target");
+            const el = document.getElementById(targetId);
 
-        try {
-            await navigator.clipboard.writeText(text);
-            btn.textContent = "복사됨!";
-            setTimeout(() => (btn.textContent = "복사"), 800);
-        } catch (e) {
-            alert("복사에 실패했습니다. 브라우저 권한을 확인해주세요.");
-        }
+            const text = (el?.innerText || el?.textContent || "").trim();
+            if (!text || text === "-") return;
+
+            const old = btn.textContent;
+
+            try {
+                await navigator.clipboard.writeText(text);
+                btn.textContent = "복사됨!";
+                setTimeout(() => (btn.textContent = old), 900);
+            } catch (e) {
+                alert("복사에 실패했습니다. 브라우저 권한을 확인해주세요.");
+            }
+        });
     });
-});
+}
 
 /* =============================
-   초기값 p
+   초기값 세팅
    ============================= */
-document.addEventListener("DOMContentLoaded", () => {
-    // timestamp는 현재(ms)로 기본 세팅
-    tsInput.value = String(Date.now());
-    unitSelect.value = "ms";
-    renderFromTimestamp();
+function setDefaults(els) {
+    // timestamp: 현재(ms)
+    els.tsInput.value = String(Date.now());
+    els.unitSelect.value = "ms";
+    renderFromTimestamp(els);
 
-    // datetime-local은 현재로 기본 세팅
-    btnDtNow.click();
+    // datetime-local: 현재로
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = pad2(now.getMonth() + 1);
+    const dd = pad2(now.getDate());
+    const hh = pad2(now.getHours());
+    const mi = pad2(now.getMinutes());
+    const ss = pad2(now.getSeconds());
+    els.dtInput.value = `${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}`;
+    renderFromDatetime(els);
 
-    // 배치 안내 문구
-    renderBatch();
-});
+    // batch 안내
+    renderBatch(els);
+}
+
+function wireEvents(els) {
+    // 단일
+    els.btnConvert.addEventListener("click", () => renderFromTimestamp(els));
+    els.btnNow.addEventListener("click", () => {
+        els.tsInput.value = String(Date.now());
+        els.unitSelect.value = "ms";
+        renderFromTimestamp(els);
+    });
+    els.btnClear.addEventListener("click", () => {
+        els.tsInput.value = "";
+        els.unitSelect.value = "auto";
+        renderFromTimestamp(els);
+    });
+
+    // 입력 바뀌면 즉시 반영(원하면 제거 가능)
+    els.tsInput.addEventListener("input", () => renderFromTimestamp(els));
+    els.unitSelect.addEventListener("change", () => renderFromTimestamp(els));
+
+    // 날짜→TS
+    els.btnDtConvert.addEventListener("click", () => renderFromDatetime(els));
+    els.btnDtNow.addEventListener("click", () => {
+        const n = new Date();
+        const yyyy = n.getFullYear();
+        const mm = pad2(n.getMonth() + 1);
+        const dd = pad2(n.getDate());
+        const hh = pad2(n.getHours());
+        const mi = pad2(n.getMinutes());
+        const ss = pad2(n.getSeconds());
+        els.dtInput.value = `${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}`;
+        renderFromDatetime(els);
+    });
+
+    // 배치
+    els.btnBatch.addEventListener("click", () => renderBatch(els));
+    els.btnBatchClear.addEventListener("click", () => {
+        els.batchInput.value = "";
+        renderBatch(els);
+    });
+}
+
+function init() {
+    initTabs();
+    initCopyButtons();
+    initFAQ();
+
+    const els = getEls();
+    wireEvents(els);
+    setDefaults(els);
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
+}

@@ -1,5 +1,4 @@
-/* Unix Timestamp 변환기 전용 스타일 */
-/* 공통 style.css 이후에 로드됨 */
+/* Unix Timestamp 변환기 전용 스타일 (Toolify 공통 style.css 이후 로드) */
 
 .tool-subtitle {
     margin-top: 6px;
@@ -8,37 +7,17 @@
     line-height: 1.6;
 }
 
-/* 입력 영역 */
-.input-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 12px;
-}
-
-@media (min-width: 720px) {
-    .input-row.two {
-        grid-template-columns: 1.2fr 0.8fr;
-        align-items: end;
-    }
-}
-
-.inline-controls {
+/* ====== 입력 정렬 (Timestamp 입력 + 단위) ====== */
+.field {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 10px;
+    flex-direction: column;
 }
 
-.inline-controls label {
-    font-size: 13px;
-    color: #374151;
-    display: inline-flex;
-    gap: 6px;
-    align-items: center;
+.field label {
+    margin-bottom: 8px;
 }
 
+/* 공통 input/select/textarea */
 .select,
 .input,
 .textarea {
@@ -49,6 +28,32 @@
     font-size: 14px;
     background: #fff;
     outline: none;
+    box-sizing: border-box;
+}
+
+/* ✅ 높이 통일(가로 정렬 안정화) */
+.input,
+.select {
+    height: 44px;
+}
+
+/* ✅ 공통 style.css의 form 기본 여백/패딩 때문에 정렬이 깨지는 문제 방지 */
+.input-row label{
+    margin-bottom: 8px !important;
+}
+
+.input-row .input,
+.input-row .select,
+.input-row input,
+.input-row select{
+    margin-bottom: 0 !important;
+}
+
+.input-row .input,
+.input-row .select{
+    padding: 10px 12px !important;
+    height: 44px !important;
+    line-height: 1.2;
 }
 
 .textarea {
@@ -64,14 +69,96 @@
     border-color: rgba(37, 99, 235, 0.5);
 }
 
-.btn-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+/* 입력 row */
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
     margin-top: 12px;
 }
 
-/* 결과 카드 */
+.input-row > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.input-row > div > label {
+    margin-bottom: 8px; /* 기존 field label과 동일 간격 */
+}
+
+@media (min-width: 720px) {
+    .input-row.two {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* ✅ 1:1로 동일 폭 */
+        align-items: end; /* 입력 바닥선 맞춤 */
+        column-gap: 12px;
+    }
+}
+
+/* ====== 버튼 영역 (글로벌 button 스타일 영향 제거) ====== */
+.btn-row {
+    margin-top: 12px;
+    display: grid;
+    gap: 10px;
+}
+
+/* ✅ 단일 변환: 3개 가로 한 줄 */
+.btn-row.three {
+    grid-template-columns: 1fr;
+}
+
+.btn-row.two {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+    .btn-row.three {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .btn-row.two {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ✅ 공통 버튼 - 공통 style.css의 button을 덮어씀 */
+.btn-row .btn {
+    width: 100% !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    background: #fff !important;
+    color: #111827 !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    min-height: 44px;
+}
+
+.btn-row .btn:hover {
+    background: #f3f4f6 !important;
+}
+
+.btn-row .btn.primary {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #fff !important;
+}
+
+.btn-row .btn.primary:hover {
+    filter: brightness(0.96);
+}
+
+.btn-row .btn.danger {
+    background: #111827 !important;
+    border-color: #111827 !important;
+    color: #fff !important;
+}
+
+.btn-row .btn.danger:hover {
+    filter: brightness(0.96);
+}
+
+/* ====== 결과 카드 ====== */
 .result-wrap {
     margin-top: 14px;
     background: #f9fafb;
@@ -81,7 +168,7 @@
 }
 
 .result-title {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 14px;
     color: #111827;
     margin-bottom: 10px;
@@ -105,10 +192,17 @@
     padding: 10px 12px;
 }
 
+.kv-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
 .kv .k {
     font-size: 12px;
     color: #6b7280;
-    margin-bottom: 6px;
 }
 
 .kv .v {
@@ -123,20 +217,38 @@
     font-size: 13px;
 }
 
+/* ✅ 복사 버튼이 안 보이던 문제 해결 (색/크기/글로벌 스타일 완전 덮기) */
 .kv .copy-btn {
-    margin-top: 8px;
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    cursor: pointer;
+    width: auto !important;
+    min-width: 62px;
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    border: 1px solid #dbeafe !important;
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    white-space: nowrap;
 }
 
 .kv .copy-btn:hover {
-    background: #eef2ff;
+    background: #dbeafe !important;
 }
 
+.kv .copy-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+.rel-big {
+    font-size: 18px;
+    font-weight: 900;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+/* 안내 문구 */
 .small-muted {
     margin-top: 8px;
     font-size: 13px;
@@ -144,7 +256,7 @@
     line-height: 1.6;
 }
 
-/* 배치 결과 테이블 */
+/* ====== 배치 결과 테이블 ====== */
 .table-wrap {
     margin-top: 12px;
     overflow-x: auto;
@@ -170,7 +282,7 @@ table.batch td {
 
 table.batch th {
     background: #f9fafb;
-    font-weight: 700;
+    font-weight: 800;
     color: #111827;
 }
 
@@ -184,7 +296,7 @@ table.batch th {
     border: 1px solid #dbeafe;
 }
 
-/* info/faq 섹션: 날짜 계산기 스타일 재사용 */
+/* ====== info/faq 섹션 (기존 재사용) ====== */
 .info-section,
 .faq-section {
     max-width: 720px;
@@ -195,7 +307,7 @@ table.batch th {
 .info-section h2,
 .faq-section h2 {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 16px;
 }
 
@@ -217,11 +329,13 @@ table.batch th {
     margin-bottom: 3px;
 }
 
+/* FAQ */
 .faq-item {
     border-bottom: 1px solid #e0e0e0;
     padding: 6px 0;
 }
 
+/* 전역 button 스타일 덮어쓰기 */
 .faq-question {
     position: relative;
     width: 100%;
@@ -230,7 +344,7 @@ table.batch th {
     text-align: left;
     padding: 10px 12px 10px 30px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     line-height: 1.4;
     color: #111827;
@@ -272,10 +386,12 @@ table.batch th {
     display: block;
 }
 
+/* 이 페이지에서만 footer 간격 */
 .page-wrapper .footer-text {
     margin-top: 28px;
 }
 
+/* 모바일 조정 */
 @media (max-width: 600px) {
     .info-section,
     .faq-section {

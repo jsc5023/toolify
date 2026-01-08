@@ -74,13 +74,11 @@
 </head>
 
 <body>
-<!-- ✅ 공통 헤더 (홈과 동일 구조로 통일) -->
 <header class="site-header">
     <div class="site-header-inner">
         <a href="../../" class="logo">Toolify</a>
 
         <div class="header-actions">
-            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
             <button class="icon-btn" id="header-search-btn"
                     type="button"
                     aria-label="도구 검색(홈으로 이동)">
@@ -112,9 +110,9 @@
     <main>
         <section class="tool-card">
             <div class="tabs">
-                <button class="tab-button active" data-tab="single">🔁 단일 변환</button>
-                <button class="tab-button" data-tab="datetime">📅 날짜 → Timestamp</button>
-                <button class="tab-button" data-tab="batch">🧾 배치 변환</button>
+                <button class="tab-button active" data-tab="single" type="button">🔁 단일 변환</button>
+                <button class="tab-button" data-tab="datetime" type="button">📅 날짜 → Timestamp</button>
+                <button class="tab-button" data-tab="batch" type="button">🧾 배치 변환</button>
             </div>
 
             <!-- 단일 변환 -->
@@ -122,11 +120,13 @@
                 <h2>Timestamp → 날짜 (KST/UTC/ISO)</h2>
 
                 <div class="input-row two">
-                    <div>
+                    <div class="field">
                         <label for="ts-input">Unix Timestamp 입력</label>
-                        <input class="input" id="ts-input" placeholder="예: 1700000000 또는 1700000000000" />
+                        <input class="input" id="ts-input" inputmode="numeric"
+                               placeholder="예: 1700000000 또는 1700000000000" />
                     </div>
-                    <div>
+
+                    <div class="field">
                         <label for="ts-unit">단위</label>
                         <select class="select" id="ts-unit">
                             <option value="auto">자동 감지</option>
@@ -138,10 +138,11 @@
                     </div>
                 </div>
 
-                <div class="btn-row">
-                    <button id="btn-convert">변환하기</button>
-                    <button id="btn-now" type="button">현재 시간(ms) 넣기</button>
-                    <button id="btn-clear" type="button">초기화</button>
+                <!-- ✅ 버튼: 3개 가로 한 줄 -->
+                <div class="btn-row three">
+                    <button class="btn primary" id="btn-convert" type="button">변환</button>
+                    <button class="btn" id="btn-now" type="button">현재(ms)</button>
+                    <button class="btn danger" id="btn-clear" type="button">초기화</button>
                 </div>
 
                 <div class="result-wrap">
@@ -149,27 +150,33 @@
 
                     <div class="result-grid">
                         <div class="kv">
-                            <div class="k">KST (한국시간)</div>
+                            <div class="kv-head">
+                                <div class="k">KST (한국시간)</div>
+                                <button class="copy-btn" data-copy-target="out-kst" type="button">복사</button>
+                            </div>
                             <div class="v" id="out-kst">-</div>
-                            <button class="copy-btn" data-copy-target="out-kst" type="button">복사</button>
                         </div>
 
                         <div class="kv">
-                            <div class="k">UTC</div>
+                            <div class="kv-head">
+                                <div class="k">UTC</div>
+                                <button class="copy-btn" data-copy-target="out-utc" type="button">복사</button>
+                            </div>
                             <div class="v" id="out-utc">-</div>
-                            <button class="copy-btn" data-copy-target="out-utc" type="button">복사</button>
                         </div>
 
                         <div class="kv">
-                            <div class="k">ISO 8601</div>
+                            <div class="kv-head">
+                                <div class="k">ISO 8601</div>
+                                <button class="copy-btn" data-copy-target="out-iso" type="button">복사</button>
+                            </div>
                             <div class="v" id="out-iso"><code>-</code></div>
-                            <button class="copy-btn" data-copy-target="out-iso" type="button">복사</button>
                         </div>
 
                         <div class="kv">
                             <div class="k">상대시간 / D-Day(KST)</div>
                             <div class="v">
-                                <div><strong id="out-rel">-</strong></div>
+                                <div class="rel-big" id="out-rel">-</div>
                                 <div class="small-muted">D-Day: <span id="out-dday">-</span></div>
                             </div>
                         </div>
@@ -187,21 +194,21 @@
                 </p>
 
                 <div class="input-row two">
-                    <div>
+                    <div class="field">
                         <label for="dt-input">날짜/시간 선택</label>
                         <input class="input" type="datetime-local" id="dt-input" step="1" />
                     </div>
-                    <div>
-                        <label for="dt-unit">출력 단위</label>
+                    <div class="field">
+                        <label for="dt-unit">출력</label>
                         <select class="select" id="dt-unit" disabled>
                             <option value="both">초/밀리초 모두 출력</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="btn-row">
-                    <button id="btn-dt-convert" type="button">Timestamp 만들기</button>
-                    <button id="btn-dt-now" type="button">현재 시간 넣기</button>
+                <div class="btn-row two">
+                    <button class="btn primary" id="btn-dt-convert" type="button">Timestamp 만들기</button>
+                    <button class="btn" id="btn-dt-now" type="button">현재 시간 넣기</button>
                 </div>
 
                 <div class="result-wrap">
@@ -209,15 +216,19 @@
 
                     <div class="result-grid">
                         <div class="kv">
-                            <div class="k">초(s) Timestamp</div>
+                            <div class="kv-head">
+                                <div class="k">초(s) Timestamp</div>
+                                <button class="copy-btn" data-copy-target="dt-out-s" type="button">복사</button>
+                            </div>
                             <div class="v" id="dt-out-s">-</div>
-                            <button class="copy-btn" data-copy-target="dt-out-s" type="button">복사</button>
                         </div>
 
                         <div class="kv">
-                            <div class="k">밀리초(ms) Timestamp</div>
+                            <div class="kv-head">
+                                <div class="k">밀리초(ms) Timestamp</div>
+                                <button class="copy-btn" data-copy-target="dt-out-ms" type="button">복사</button>
+                            </div>
                             <div class="v" id="dt-out-ms">-</div>
-                            <button class="copy-btn" data-copy-target="dt-out-ms" type="button">복사</button>
                         </div>
                     </div>
 
@@ -238,9 +249,9 @@
 1700000000
 1700000000123"></textarea>
 
-                <div class="btn-row">
-                    <button id="btn-batch" type="button">배치 변환</button>
-                    <button id="btn-batch-clear" type="button">비우기</button>
+                <div class="btn-row two">
+                    <button class="btn primary" id="btn-batch" type="button">배치 변환</button>
+                    <button class="btn danger" id="btn-batch-clear" type="button">비우기</button>
                 </div>
 
                 <div class="small-muted" id="batch-summary"></div>
@@ -279,9 +290,7 @@
                 <li>현재 기준 상대시간(몇 분 전/후) 확인</li>
             </ul>
 
-            <p>
-                입력된 값은 브라우저에서만 처리되며, 서버로 전송하지 않습니다.
-            </p>
+            <p>입력된 값은 브라우저에서만 처리되며, 서버로 전송하지 않습니다.</p>
         </section>
 
         <!-- FAQ 섹션 -->
@@ -289,28 +298,28 @@
             <h2>자주 묻는 질문 (FAQ)</h2>
 
             <div class="faq-item">
-                <button class="faq-question">Timestamp 초(s)와 밀리초(ms)는 어떻게 구분하나요?</button>
+                <button class="faq-question" type="button">Timestamp 초(s)와 밀리초(ms)는 어떻게 구분하나요?</button>
                 <div class="faq-answer">
                     <p>보통 10자리면 초(s), 13자리면 밀리초(ms)입니다. 이 도구는 입력 길이를 기반으로 자동 감지하며, 필요하면 단위를 직접 선택할 수 있습니다.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question">KST(한국시간)과 UTC를 동시에 볼 수 있나요?</button>
+                <button class="faq-question" type="button">KST(한국시간)과 UTC를 동시에 볼 수 있나요?</button>
                 <div class="faq-answer">
                     <p>네. 결과에서 KST(한국시간), UTC, ISO 8601 값을 동시에 제공합니다.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question">여러 줄 timestamp도 한 번에 변환할 수 있나요?</button>
+                <button class="faq-question" type="button">여러 줄 timestamp도 한 번에 변환할 수 있나요?</button>
                 <div class="faq-answer">
                     <p>배치 변환 탭에서 여러 줄을 붙여넣으면 각 줄에서 timestamp 후보를 자동 추출하여 표로 변환합니다.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question">상대시간(몇 분 전/후)은 어떤 기준인가요?</button>
+                <button class="faq-question" type="button">상대시간(몇 분 전/후)은 어떤 기준인가요?</button>
                 <div class="faq-answer">
                     <p>현재 시각(Date.now)과 비교하여 “방금 전/몇 분 전/몇 시간 후”처럼 표시합니다.</p>
                 </div>
