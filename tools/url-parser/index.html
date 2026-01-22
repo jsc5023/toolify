@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 URL 파서/쿼리 편집기 - QueryString 분석, 수정, URL 생성</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta
+            name="description"
+            content="URL을 입력하면 protocol/host/path/query/hash로 자동 분해하고, 쿼리 파라미터를 표로 편집해 URL을 다시 생성합니다. 중복 key 지원, 디코딩 표시, 공백 + 옵션, 배치 파싱 예제까지 지원합니다."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./url-parser.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/url-parser/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 URL 파서/쿼리 편집기 - QueryString 분석, 수정, URL 생성" />
+    <meta property="og:description" content="URL 자동 분해 + 쿼리 표 편집 + URL 재생성. 중복 key 지원, 디코딩 표시, 공백 + 옵션, 배치 파싱 예제까지." />
+    <meta property="og:url" content="https://toolify.kr/tools/url-parser/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context":"https://schema.org",
+            "@type":"FAQPage",
+            "mainEntity":[
+                {
+                    "@type":"Question",
+                    "name":"URL 인코더/디코더와 뭐가 다른가요?",
+                    "acceptedAnswer":{
+                        "@type":"Answer",
+                        "text":"인코더/디코더는 문자열을 변환하는 도구입니다. URL 파서/쿼리 편집기는 URL을 구성요소로 분해한 뒤, 쿼리 파라미터를 표로 수정하고 다시 URL을 생성하는 편집기입니다."
+                    }
+                },
+                {
+                    "@type":"Question",
+                    "name":"중복 파라미터(a=1&a=2)도 지원하나요?",
+                    "acceptedAnswer":{
+                        "@type":"Answer",
+                        "text":"네. 동일한 key가 여러 번 등장하는 쿼리스트링도 순서대로 표시하며, 수정 후에도 중복 key를 유지한 채로 URL을 생성할 수 있습니다."
+                    }
+                },
+                {
+                    "@type":"Question",
+                    "name":"값이 %ED%95%9C%EA%B8%80처럼 인코딩되어 읽기 어렵습니다.",
+                    "acceptedAnswer":{
+                        "@type":"Answer",
+                        "text":"‘값 디코딩해서 표시’ 옵션을 켜면 표에서는 사람이 읽기 쉬운 형태로 보여주고, URL 생성 시에는 설정에 따라 다시 인코딩하여 안전하게 만들 수 있습니다."
+                    }
+                },
+                {
+                    "@type":"Question",
+                    "name":"입력한 URL은 서버로 전송되나요?",
+                    "acceptedAnswer":{
+                        "@type":"Answer",
+                        "text":"아니요. 입력과 변환은 모두 브라우저에서만 처리됩니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🔗 URL 파서/쿼리 편집기 (QueryString 분석 · 수정 · URL 생성)</h1>
+        <p class="subtitle tool-subtitle">
+            URL을 넣으면 protocol/host/path/query/hash로 자동 분해하고,
+            쿼리 파라미터를 표 형태로 편집해 URL을 다시 생성합니다.
+            중복 key(a=1&a=2) 지원, 디코딩 표시/공백 + 옵션, 배치 파싱 예제도 제공합니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+
+            <!-- 같은 URL 관련 도구처럼 보이게(링크 경로는 네 실제 폴더명에 맞춰 수정) -->
+            <div class="tool-tabs">
+                <a class="tool-tab" href="../url-encoder/">URL 인코더/디코더</a>
+                <a class="tool-tab active" href="./">URL 파서/편집기</a>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" data-tab="single" type="button">🔎 파싱/편집</button>
+                <button class="tab-button" data-tab="build" type="button">🧱 새로 만들기</button>
+                <button class="tab-button" data-tab="batch" type="button">🧾 배치 파싱</button>
+            </div>
+
+            <!-- 1) 파싱/편집 -->
+            <div class="tab-panel active" id="tab-single">
+                <h2>URL → 구성요소/쿼리 파라미터</h2>
+
+                <div class="input-row one">
+                    <div class="field">
+                        <label for="url-input">URL 입력</label>
+                        <input class="input" id="url-input"
+                               placeholder="예: https://example.com/search?q=%ED%95%9C%EA%B8%80&sort=desc#top" />
+                    </div>
+                </div>
+
+                <div class="options-row">
+                    <label class="check">
+                        <input type="checkbox" id="opt-decode-view" checked />
+                        값 디코딩해서 표시(읽기 쉽게)
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" id="opt-plus-space" />
+                        공백을 + 로 생성(폼/쿼리 호환)
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" id="opt-keep-empty" checked />
+                        빈 값도 유지(key=)
+                    </label>
+                </div>
+
+                <div class="btn-row three">
+                    <button class="btn primary" id="btn-parse" type="button">파싱</button>
+                    <button class="btn" id="btn-rebuild" type="button">URL 재생성</button>
+                    <button class="btn danger" id="btn-clear" type="button">초기화</button>
+                </div>
+
+                <div class="result-wrap">
+                    <div class="result-title">구성요소</div>
+
+                    <div class="result-grid">
+                        <div class="kv">
+                            <div class="kv-head">
+                                <div class="k">Protocol</div>
+                                <button class="copy-btn" data-copy-target="out-protocol" type="button">복사</button>
+                            </div>
+                            <div class="v" id="out-protocol">-</div>
+                        </div>
+
+                        <div class="kv">
+                            <div class="kv-head">
+                                <div class="k">Host</div>
+                                <button class="copy-btn" data-copy-target="out-host" type="button">복사</button>
+                            </div>
+                            <div class="v" id="out-host">-</div>
+                        </div>
+
+                        <div class="kv">
+                            <div class="kv-head">
+                                <div class="k">Path</div>
+                                <button class="copy-btn" data-copy-target="out-path" type="button">복사</button>
+                            </div>
+                            <div class="v" id="out-path">-</div>
+                        </div>
+
+                        <div class="kv">
+                            <div class="kv-head">
+                                <div class="k">Hash(#)</div>
+                                <button class="copy-btn" data-copy-target="out-hash" type="button">복사</button>
+                            </div>
+                            <div class="v" id="out-hash">-</div>
+                        </div>
+                    </div>
+
+                    <div class="small-muted" id="out-hint">-</div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-head">
+                        <div class="table-title">쿼리 파라미터 (표 편집)</div>
+                        <button class="btn small" id="btn-add-row" type="button">+ 행 추가</button>
+                    </div>
+
+                    <table class="params">
+                        <thead>
+                        <tr>
+                            <th style="width:56px">#</th>
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th style="width:88px">삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody id="params-tbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="result-wrap">
+                    <div class="result-title">재생성 URL</div>
+                    <div class="kv">
+                        <div class="kv-head">
+                            <div class="k">Result URL</div>
+                            <button class="copy-btn" data-copy-target="out-url" type="button">복사</button>
+                        </div>
+                        <div class="v" id="out-url">-</div>
+                    </div>
+                    <div class="small-muted" id="out-url-hint">-</div>
+                </div>
+            </div>
+
+            <!-- 2) 새로 만들기 -->
+            <div class="tab-panel" id="tab-build">
+                <h2>쿼리 파라미터 → URL 생성</h2>
+
+                <div class="input-row two">
+                    <div class="field">
+                        <label for="build-base">Base URL</label>
+                        <input class="input" id="build-base" placeholder="예: https://example.com/search" />
+                    </div>
+
+                    <div class="field">
+                        <label for="build-hash">Hash(#) (옵션)</label>
+                        <input class="input" id="build-hash" placeholder="예: top 또는 #top" />
+                    </div>
+                </div>
+
+                <div class="options-row">
+                    <label class="check">
+                        <input type="checkbox" id="build-plus-space" />
+                        공백을 + 로 생성(폼/쿼리 호환)
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" id="build-keep-empty" checked />
+                        빈 값도 유지(key=)
+                    </label>
+                </div>
+
+                <div class="btn-row two">
+                    <button class="btn primary" id="btn-build" type="button">URL 만들기</button>
+                    <button class="btn danger" id="btn-build-clear" type="button">비우기</button>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-head">
+                        <div class="table-title">쿼리 파라미터 입력</div>
+                        <button class="btn small" id="btn-build-add-row" type="button">+ 행 추가</button>
+                    </div>
+
+                    <table class="params">
+                        <thead>
+                        <tr>
+                            <th style="width:56px">#</th>
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th style="width:88px">삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody id="build-tbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="result-wrap">
+                    <div class="result-title">생성 결과</div>
+                    <div class="kv">
+                        <div class="kv-head">
+                            <div class="k">Result URL</div>
+                            <button class="copy-btn" data-copy-target="build-out-url" type="button">복사</button>
+                        </div>
+                        <div class="v" id="build-out-url">-</div>
+                    </div>
+                    <div class="small-muted" id="build-hint">-</div>
+                </div>
+            </div>
+
+            <!-- 3) 배치 파싱 -->
+            <div class="tab-panel" id="tab-batch">
+                <h2>배치 파싱 (여러 줄 URL)</h2>
+                <p class="small mb-8">
+                    여러 줄로 URL을 붙여넣으면 각각 파싱하여 상태/호스트/경로/파라미터 개수를 표로 보여줍니다.
+                    <strong>예제 넣기</strong> 버튼으로 바로 테스트할 수 있어요.
+                </p>
+
+                <label for="batch-input">입력</label>
+                <textarea class="textarea" id="batch-input" placeholder="예)
+https://example.com?a=1&b=2
+example.com/search?q=한글
+not a url"></textarea>
+
+                <div class="btn-row three">
+                    <button class="btn primary" id="btn-batch" type="button">배치 파싱</button>
+                    <button class="btn" id="btn-batch-example" type="button">예제 넣기</button>
+                    <button class="btn danger" id="btn-batch-clear" type="button">비우기</button>
+                </div>
+
+                <div class="small-muted" id="batch-summary"></div>
+
+                <div class="table-wrap">
+                    <table class="batch">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>상태</th>
+                            <th>Host</th>
+                            <th>Path</th>
+                            <th>Params</th>
+                            <th>Rebuilt URL</th>
+                        </tr>
+                        </thead>
+                        <tbody id="batch-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="info-section">
+            <h2>URL 파서/쿼리 편집기가 필요한 순간</h2>
+            <p>
+                디버깅/로그 분석/API 테스트 중에는 “URL 파라미터를 빠르게 확인하고 바꿔서 다시 실행”하는 일이 많습니다.
+                이 도구는 URL을 자동 분해하고, 쿼리 파라미터를 표로 편집해 즉시 URL을 재생성할 수 있도록 구성했습니다.
+            </p>
+
+            <ul class="info-list">
+                <li>쿼리 파라미터를 표로 보고 빠르게 수정</li>
+                <li>중복 key(a=1&a=2)도 그대로 유지</li>
+                <li>읽기 쉽게 디코딩해서 보고, 생성 시 안전하게 인코딩</li>
+                <li>여러 줄 URL도 배치 파싱으로 한 번에 확인</li>
+            </ul>
+
+            <p>입력된 값은 브라우저에서만 처리되며, 서버로 전송하지 않습니다.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">URL 인코더/디코더와 뭐가 다른가요?</button>
+                <div class="faq-answer">
+                    <p>인코더/디코더는 문자열을 변환하는 도구이고, URL 파서/편집기는 URL을 분해한 뒤 쿼리 파라미터를 표로 수정해 URL을 다시 만드는 편집기입니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">중복 파라미터(a=1&a=2)도 지원하나요?</button>
+                <div class="faq-answer">
+                    <p>네. 동일한 key가 여러 번 등장하는 쿼리스트링도 순서대로 표시/편집 가능합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">값이 인코딩되어 읽기 어려워요.</button>
+                <div class="faq-answer">
+                    <p>‘값 디코딩해서 표시’를 켜면 표에서 읽기 쉬운 형태로 보여주고, URL 생성 시에는 안전하게 인코딩하여 다시 만들어줍니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">입력한 URL은 서버로 전송되나요?</button>
+                <div class="faq-answer">
+                    <p>아니요. 모든 처리는 브라우저에서만 수행됩니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./url-parser.js"></script>
+</body>
+</html>
