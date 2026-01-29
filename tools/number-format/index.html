@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 숫자 포맷 변환기 - 천 단위 콤마 · 콤마 제거 · 소수점 고정</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description"
+          content="숫자에 천 단위 콤마를 추가하거나 콤마/공백을 제거하고, 소수점 자리 고정·반올림·음수 괄호 표기까지 한 번에 변환하는 무료 숫자 포맷 변환기입니다. 브라우저에서만 처리됩니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./number-format.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/number-format/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 숫자 포맷 변환기 - 천 단위 콤마 · 소수점 고정" />
+    <meta property="og:description" content="천 단위 콤마 추가/제거, 소수점 자리 고정, 반올림, 음수 괄호 표기까지 한 번에 변환합니다. 브라우저에서만 처리됩니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/number-format/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "입력한 숫자가 서버로 전송되나요?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "아니요. 모든 변환은 브라우저에서만 수행되며 서버로 전송되지 않습니다." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "여러 줄 숫자도 한 번에 변환할 수 있나요?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "네. 줄 단위로 숫자를 인식해 일괄 변환합니다. 숫자가 아닌 줄은 옵션에 따라 그대로 두거나 제거할 수 있습니다." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "소수점 자리 고정은 어떻게 동작하나요?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "지정한 자리수로 반올림한 뒤, 부족한 자리수는 0을 채워 고정 표기합니다." }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🔢 숫자 포맷 변환기 (천 단위 콤마 · 소수점 고정)</h1>
+        <p class="subtitle">
+            숫자에 <b>콤마(,)</b>를 넣거나 제거하고, <b>소수점 자리 고정/반올림</b>, <b>음수 괄호 표기</b>까지 한 번에 변환합니다.
+            (브라우저에서만 처리)
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+            <h2>숫자 포맷 변환</h2>
+
+            <!-- ✅ 모드(프리셋) -->
+            <div class="mode-card">
+                <div class="mode-title">모드 선택</div>
+                <div class="mode-grid" role="radiogroup" aria-label="숫자 포맷 모드 선택">
+                    <label class="mode-pill">
+                        <input type="radio" name="mode" value="add-commas" checked />
+                        <span class="mode-name">콤마 추가</span>
+                        <span class="mode-desc">1234567 → 1,234,567</span>
+                    </label>
+
+                    <label class="mode-pill">
+                        <input type="radio" name="mode" value="remove-commas" />
+                        <span class="mode-name">콤마/공백 제거</span>
+                        <span class="mode-desc">1,234,567 → 1234567</span>
+                    </label>
+
+                    <label class="mode-pill">
+                        <input type="radio" name="mode" value="fixed-decimals" />
+                        <span class="mode-name">소수점 고정</span>
+                        <span class="mode-desc">1.2 → 1.20</span>
+                    </label>
+                </div>
+
+                <div class="mode-help small" id="mode-help">
+                    콤마 추가: 숫자(정수/소수)에 천 단위 콤마를 넣어 보기 좋게 표시합니다.
+                </div>
+            </div>
+
+            <!-- ✅ 툴바 -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <button id="paste-btn" type="button">붙여넣기</button>
+                    <button id="clear-btn" type="button" class="ghost">비우기</button>
+                </div>
+
+                <div class="toolbar-right">
+                    <label class="checkbox-inline toolbar-check">
+                        <input type="checkbox" id="live" checked />
+                        입력 즉시 변환
+                    </label>
+
+                    <button id="run-btn" type="button" class="primary">변환 실행</button>
+                    <button id="copy-btn" type="button">결과 복사</button>
+                </div>
+            </div>
+
+            <!-- 입력/결과 -->
+            <div class="two-col">
+                <div class="col">
+                    <label for="input">입력 (여러 줄 가능)</label>
+                    <textarea id="input" class="big-textarea" placeholder="예:
+1234567
+1,234,567.8
+-1234.5"></textarea>
+                </div>
+                <div class="col">
+                    <label for="output">결과</label>
+                    <textarea id="output" class="big-textarea" readonly placeholder="변환 결과가 여기에 표시됩니다"></textarea>
+                </div>
+            </div>
+
+            <div class="meta-row">
+                <div id="stats" class="small">처리 0줄 · 변환 0줄 · 유지 0줄 · 오류 0줄</div>
+            </div>
+
+            <hr class="divider" />
+
+            <h3 class="section-title">옵션</h3>
+            <div class="options-grid">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="keep-non-numeric" checked />
+                    숫자가 아닌 줄은 그대로 유지
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="allow-percent" checked />
+                    % 허용 (예: 12.3% → 12.3)
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="negative-parentheses" />
+                    음수 괄호 표기 (예: -1234 → (1,234))
+                </label>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="trim-lines" checked />
+                    각 줄 좌우 공백 제거
+                </label>
+
+                <div class="row inline-row">
+                    <div>
+                        <label for="decimals">소수점 자리</label>
+                        <select id="decimals">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                        </select>
+                        <div class="small">“소수점 고정” 모드에서 사용</div>
+                    </div>
+                </div>
+
+                <div class="row inline-row">
+                    <div>
+                        <label for="rounding">반올림 규칙</label>
+                        <select id="rounding">
+                            <option value="round" selected>반올림(Math.round)</option>
+                            <option value="floor">버림(Math.floor)</option>
+                            <option value="ceil">올림(Math.ceil)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row inline-row">
+                    <div>
+                        <label for="currency-prefix">접두어(선택)</label>
+                        <input id="currency-prefix" class="text-input" type="text" placeholder="예: ₩ 또는 $" />
+                        <div class="small">결과 앞에 붙입니다 (예: ₩1,234)</div>
+                    </div>
+                </div>
+
+                <div class="row inline-row">
+                    <div>
+                        <label for="suffix">접미어(선택)</label>
+                        <input id="suffix" class="text-input" type="text" placeholder="예: 원 또는 %"/>
+                        <div class="small">결과 뒤에 붙입니다 (예: 1,234원)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="small mt-8 hint-box">
+                ※ “콤마/공백 제거” 모드에서는 숫자에서 콤마, 공백, 통화기호 등을 최대한 제거한 뒤 숫자만 추출합니다.
+            </div>
+
+        </section>
+
+        <section class="info-section">
+            <h2>숫자 포맷 변환기가 필요한 순간</h2>
+            <p>
+                보고서/견적서/엑셀 값 복사/붙여넣기 과정에서 콤마가 필요하거나 오히려 콤마 때문에 계산이 깨지는 경우가 많습니다.
+                이 도구는 숫자를 줄 단위로 인식해 포맷을 빠르게 변환합니다.
+            </p>
+
+            <ul class="info-list">
+                <li>천 단위 콤마 추가/제거</li>
+                <li>소수점 자리 고정 및 반올림</li>
+                <li>음수 괄호 표기(회계 스타일)</li>
+                <li>여러 줄 숫자 일괄 변환</li>
+            </ul>
+
+            <p>이 페이지는 브라우저에서만 동작하며, 입력한 값은 서버로 전송되지 않습니다.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">입력한 숫자가 서버로 전송되나요?</button>
+                <div class="faq-answer"><p>아니요. 변환 작업은 브라우저에서만 수행되며 서버로 전송되지 않습니다.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">여러 줄 숫자도 한 번에 변환할 수 있나요?</button>
+                <div class="faq-answer"><p>네. 줄 단위로 처리하며 숫자가 아닌 줄은 옵션에 따라 유지하거나 제외할 수 있습니다.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">음수 괄호 표기는 어떤 경우에 쓰나요?</button>
+                <div class="faq-answer"><p>회계/정산 문서에서 음수를 (1,234) 형태로 표기하는 경우가 있어 해당 옵션을 제공합니다.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./number-format.js"></script>
+</body>
+</html>
