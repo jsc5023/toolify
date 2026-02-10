@@ -1,6 +1,6 @@
 /* ============================================================
    한글 금액 변환기 (숫자 ↔ 한글)
-   - 결과를 표 형태로: 기본/편의/숫자/자리수
+   - 결과를 표 형태로: 정식 표기/간편 표기/숫자/자릿수
    ============================================================ */
 
 const $ = (id) => document.getElementById(id);
@@ -95,11 +95,11 @@ function fourDigitsToKorean(fourStr, mode /* "basic" | "easy" */) {
         if (d === 0) continue;
 
         if (mode === "easy") {
-            // 편의: '일십/일백/일천' -> '십/백/천'
+            // 간편 표기: '일십/일백/일천' -> '십/백/천'
             if (d === 1 && unit !== "") out += unit;
             else out += DIGIT_KO[d] + unit;
         } else {
-            // 기본: '일십/일백/일천'처럼 '일' 포함
+            // 정식 표기: '일십/일백/일천'처럼 '일' 포함
             out += DIGIT_KO[d] + unit;
         }
     }
@@ -307,10 +307,10 @@ function convert() {
         }
 
         const raw = r.value; // digits maybe with "-"
-        $("out-basic").textContent = formatComma(raw);         // 기본: 콤마 숫자
-        $("out-easy").textContent = splitByMan(raw);           // 편의: 만 단위 읽기
+        $("out-basic").textContent = formatComma(raw);         // 정식 표기: 콤마 숫자
+        $("out-easy").textContent = splitByMan(raw);           // 간편 표기: 만 단위 읽기
         $("out-split").textContent = raw === "0" ? "0" : raw;  // 숫자: 원본 숫자(부호 포함)
-        $("out-len").textContent = digitsCount(raw);
+        $("out-len").textContent = digitsCount(raw);           // 자릿수
 
         setError("");
     }
@@ -329,8 +329,8 @@ function copyRowById(id) {
 
 function copyAll() {
     const lines = [
-        `기본: ${$("out-basic").textContent.trim()}`,
-        `편의: ${$("out-easy").textContent.trim()}`,
+        `정식 표기: ${$("out-basic").textContent.trim()}`,
+        `간편 표기: ${$("out-easy").textContent.trim()}`,
         `숫자: ${$("out-split").textContent.trim()}`,
         `자리수: ${$("out-len").textContent.trim()}`
     ].filter((x) => !x.endsWith(":"));
