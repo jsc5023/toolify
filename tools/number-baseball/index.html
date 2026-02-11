@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>무료 숫자야구 게임 - 3/4/5자리 Bulls & Cows</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description"
+          content="브라우저에서만 동작하는 무료 숫자야구(Bulls & Cows) 게임입니다. 3/4/5자리 난이도, 중복 허용 옵션, 타이머, 최고기록을 지원합니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./number-baseball.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/number-baseball/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="무료 숫자야구 게임 - 3/4/5자리 Bulls & Cows" />
+    <meta property="og:description" content="3/4/5자리 난이도, 중복 허용 옵션, 타이머, 최고기록" />
+    <meta property="og:url" content="https://toolify.kr/tools/number-baseball/" />
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- ✅ 공통 page-wrapper를 "이 페이지에서만" 풀폭으로 덮어씀 (CSS에서 처리) -->
+<div class="page-wrapper nb-wrap">
+    <main class="nb-main" aria-label="숫자야구">
+
+        <!-- ===== 로비 ===== -->
+        <section class="nb-lobby" id="lobby" aria-label="숫자야구 로비">
+            <div class="nb-lobby-inner">
+                <div class="nb-title-wrap">
+                    <h1 class="nb-title">⚾ 숫자야구</h1>
+                </div>
+
+                <div class="nb-card" role="region" aria-label="로비 카드">
+                    <div class="nb-card-head">
+                        <div class="nb-card-head-title">설정을 고르고 START를 눌러 시작하세요.</div>
+                    </div>
+
+                    <div class="nb-card-body">
+                        <div class="nb-block">
+                            <div class="nb-block-head">
+                                <div class="nb-block-title"><span class="nb-ico">🎯</span> 난이도</div>
+                            </div>
+
+                            <div class="nb-seg" role="tablist" aria-label="난이도 선택">
+                                <button class="nb-seg-btn is-active" type="button" data-len="3" aria-selected="true">3자리</button>
+                                <button class="nb-seg-btn" type="button" data-len="4" aria-selected="false">4자리</button>
+                                <button class="nb-seg-btn" type="button" data-len="5" aria-selected="false">5자리</button>
+                            </div>
+                        </div>
+
+                        <div class="nb-row">
+                            <label class="nb-toggle">
+                                <input id="opt-dup" type="checkbox" />
+                                <span class="nb-toggle-ui" aria-hidden="true"></span>
+                                <span class="nb-toggle-text">중복 허용</span>
+                            </label>
+
+                            <!-- ✅ 기본 OFF -->
+                            <label class="nb-toggle">
+                                <input id="opt-timer" type="checkbox" checked />
+                                <span class="nb-toggle-ui" aria-hidden="true"></span>
+                                <span class="nb-toggle-text">타이머 사용</span>
+                            </label>
+
+                            <button class="nb-foot-btn" type="button" id="rule-btn">규칙 보기</button>
+                        </div>
+
+                        <button class="nb-start" id="start-btn" type="button">START</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 게임 ===== -->
+        <section class="nb-game is-hidden" id="game" aria-label="숫자야구 게임">
+            <div class="nb-game-inner">
+                <div class="nb-game-head">
+                    <div class="nb-game-title">
+                        <span class="nb-game-badge" id="game-badge">3자리</span>
+                        <span class="nb-game-h1">숫자야구</span>
+                    </div>
+
+                    <div class="nb-game-stats">
+                        <div class="nb-stat">
+                            <div class="nb-stat-k">시도</div>
+                            <div class="nb-stat-v" id="tries">0</div>
+                        </div>
+                        <div class="nb-stat">
+                            <div class="nb-stat-k">시간</div>
+                            <div class="nb-stat-v" id="timer">--:--</div>
+                        </div>
+                    </div>
+
+                    <div class="nb-best" id="best">최고기록: -</div>
+                </div>
+
+                <div class="nb-game-card">
+                    <div class="nb-input-row">
+                        <input id="guess" class="nb-guess" inputmode="numeric" autocomplete="off"
+                               placeholder="숫자 입력 후 Enter" />
+                        <button id="submit" class="nb-btn nb-btn-primary" type="button">확인</button>
+                        <button id="new-game" class="nb-btn" type="button">새 게임</button>
+                        <button id="back-lobby" class="nb-btn nb-btn-ghost" type="button">로비</button>
+                    </div>
+
+                    <div class="nb-hint" id="hint">
+                        자리까지 같으면 <b>스트라이크</b>, 숫자는 같지만 자리가 다르면 <b>볼</b>
+                    </div>
+
+                    <div class="nb-history" aria-label="기록">
+                        <div class="nb-history-head">
+                            <div class="nb-history-title">기록</div>
+                            <div class="nb-history-sub" id="history-sub">최신 기록이 위로 쌓여요</div>
+                        </div>
+                        <div class="nb-history-list" id="history" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <div class="nb-toast" id="toast" aria-live="polite"></div>
+                <div class="nb-confetti" id="confetti" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- ===== 규칙 모달 ===== -->
+        <div class="nb-modal is-hidden" id="rule-modal" role="dialog" aria-modal="true" aria-label="숫자야구 규칙">
+            <div class="nb-modal-dim" id="rule-dim"></div>
+            <div class="nb-modal-card" role="document">
+                <div class="nb-modal-head">
+                    <div class="nb-modal-title">규칙</div>
+                    <button class="nb-x" id="rule-close" type="button" aria-label="닫기">✕</button>
+                </div>
+                <div class="nb-modal-body">
+                    <ul class="nb-ul">
+                        <li>정답은 <b>숫자</b>로만 구성됩니다.</li>
+                        <li>각 자리의 숫자와 <b>자리까지</b> 맞으면 <b>스트라이크(S)</b></li>
+                        <li>숫자는 맞지만 <b>자리가 다르면</b> <b>볼(B)</b></li>
+                        <li>예: 정답 4271 / 입력 4721 → 2S 2B</li>
+                        <li>중복 허용 ON이면 같은 숫자가 여러 번 나올 수 있어요.</li>
+                    </ul>
+                    <div class="nb-modal-tip">팁: 0도 포함될 수 있어요.</div>
+                </div>
+                <div class="nb-modal-foot">
+                    <button class="nb-btn nb-btn-primary" id="rule-ok" type="button">확인</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./number-baseball.js"></script>
+</body>
+</html>

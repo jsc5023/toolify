@@ -121,6 +121,7 @@ window.addEventListener("load", () => {
         dev: "개발자",
         image: "이미지",
         util: "유틸리티",
+        game: "미니게임",
     };
 
     function normalize(s) {
