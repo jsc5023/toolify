@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>chmod 권한 계산기 - 755/644 변환 · rwx/특수권한(SUID/SGID/Sticky)</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description"
+          content="chmod 권한(퍼미션) 계산기: 755/644 숫자 권한을 rwx로 변환하거나 체크박스로 rwx를 선택해 chmod 숫자를 계산합니다. SUID/SGID/Sticky(4자리)와 파일/디렉토리 권한 차이도 함께 확인하세요." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="./chmod-calculator.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/chmod-calculator/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="chmod 권한 계산기 - 755/644 변환 · rwx/특수권한" />
+    <meta property="og:description" content="Owner/Group/Public 체크 UI로 한눈에 변환. 4자리(SUID/SGID/Sticky), chmod 명령어/심볼릭까지." />
+    <meta property="og:url" content="https://toolify.kr/tools/chmod-calculator/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "chmod 755는 어떤 의미인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "755는 소유자(u)=7(rwx), 그룹(g)=5(r-x), 기타(o)=5(r-x)를 뜻합니다. 실행 파일/디렉토리에서 자주 사용됩니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "파일과 디렉토리에서 x 권한은 뭐가 다른가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "파일에서 x는 실행 가능, 디렉토리에서 x는 진입/탐색 가능을 의미합니다. 디렉토리에서는 r/w 권한도 x가 있어야 제대로 의미가 생깁니다."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "4자리 chmod(예: 4755, 1777)는 무엇인가요?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "맨 앞 자리(0~7)는 특수 권한 비트입니다. 4=SUID, 2=SGID, 1=Sticky이며 조합 가능합니다. 예: 4755는 SUID + 755, 1777은 Sticky + 777입니다."
+                    }
+                }
+            ]
+        }
+    </script>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card">
+        <h1>🔐 chmod 권한 계산기</h1>
+        <p class="subtitle">
+            Owner/Group/Public에서 Read/Write/Execute를 체크하면 숫자 권한과 rwx가 즉시 계산됩니다.
+            755/644 같은 숫자 입력도 지원하고, SUID/SGID/Sticky(4자리)까지 선택할 수 있습니다.
+        </p>
+    </header>
+
+    <main>
+        <section class="tool-card">
+
+            <!-- 1) 대상 타입 (설명에 영향) -->
+            <div class="cc-type-tabs" role="tablist" aria-label="대상 유형">
+                <button class="cc-type-tab active" id="type-file" type="button"><span class="cc-ico">📄</span> 파일</button>
+                <button class="cc-type-tab" id="type-dir" type="button"><span class="cc-ico">📁</span> 디렉토리</button>
+                <button class="cc-type-tab" id="type-link" type="button"><span class="cc-ico">🔗</span> 심볼릭 링크</button>
+            </div>
+
+            <!-- 2) 입력 / 예시 (스크롤 줄이기 위해 짧게) -->
+            <div class="cc-top">
+                <div class="cc-quick">
+                    <div class="cc-input-wrap">
+                        <label for="cc-input" class="cc-label">숫자/문자 입력 (선택)</label>
+                        <div class="cc-input-row">
+                            <input id="cc-input" class="cc-input"
+                                   placeholder="예: 755, 0644, 1777 또는 rwxr-xr-x" />
+                            <button id="convert-btn" type="button" class="cc-btn">적용</button>
+                        </div>
+                        <div class="cc-help" id="mode-hint"></div>
+                    </div>
+
+                    <div class="cc-examples">
+                        <span class="cc-ex-label">예시:</span>
+                        <button type="button" class="cc-chip" data-ex="755">755</button>
+                        <button type="button" class="cc-chip" data-ex="644">644</button>
+                        <button type="button" class="cc-chip" data-ex="600">600</button>
+                        <button type="button" class="cc-chip" data-ex="700">700</button>
+                        <button type="button" class="cc-chip" data-ex="1777">1777</button>
+                        <button type="button" class="cc-chip" data-ex="4755">4755</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3) 한눈에 보는 체크 UI -->
+            <section class="cc-perm" aria-label="권한 체크">
+                <div class="cc-perm-head">
+                    <div class="cc-perm-title">권한 선택</div>
+                    <div class="cc-perm-sub">Read(4) · Write(2) · Execute(1)</div>
+                </div>
+
+                <div class="cc-grid">
+                    <!-- Owner -->
+                    <div class="cc-col" data-who="u">
+                        <div class="cc-col-title">Owner</div>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="r" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Read</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="w" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Write</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="x" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Execute</span>
+                        </label>
+
+                        <div class="cc-badge">
+                            값 <span class="cc-badge-num" id="val-u">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Group -->
+                    <div class="cc-col" data-who="g">
+                        <div class="cc-col-title">Group</div>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="r" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Read</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="w" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Write</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="x" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Execute</span>
+                        </label>
+
+                        <div class="cc-badge">
+                            값 <span class="cc-badge-num" id="val-g">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Public -->
+                    <div class="cc-col" data-who="o">
+                        <div class="cc-col-title">Public</div>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="r" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Read</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="w" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Write</span>
+                        </label>
+
+                        <label class="cc-check">
+                            <input type="checkbox" data-bit="x" />
+                            <span class="cc-check-ui"></span>
+                            <span class="cc-check-txt">Execute</span>
+                        </label>
+
+                        <div class="cc-badge">
+                            값 <span class="cc-badge-num" id="val-o">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 특수 권한은 "한 줄"로: 스크롤 최소화 -->
+                <div class="cc-special">
+                    <div class="cc-special-left">
+                        <label class="cc-toggle">
+                            <input id="opt-special" type="checkbox" checked />
+                            <span class="cc-toggle-ui" aria-hidden="true"></span>
+                            <span class="cc-toggle-text">특수권한(SUID/SGID/Sticky) 포함</span>
+                        </label>
+
+                        <div class="cc-special-pills" id="special-pills">
+                            <button type="button" class="cc-pill" data-special="suid">SUID <span>(4)</span></button>
+                            <button type="button" class="cc-pill" data-special="sgid">SGID <span>(2)</span></button>
+                            <button type="button" class="cc-pill" data-special="sticky">Sticky <span>(1)</span></button>
+                        </div>
+                    </div>
+
+                    <div class="cc-special-right">
+                        특수값 <span class="cc-badge-num" id="val-special">0</span>
+                    </div>
+                </div>
+
+                <div class="cc-mini-actions">
+                    <button type="button" class="cc-mini" id="clear-btn">초기화</button>
+                    <button type="button" class="cc-mini" data-fill="755">빠른 설정 755</button>
+                    <button type="button" class="cc-mini" data-fill="644">빠른 설정 644</button>
+                </div>
+            </section>
+
+            <!-- 4) 결과는 "요약 2줄" 먼저: 스크롤 줄이기 핵심 -->
+            <section class="cc-output" aria-label="출력">
+                <div class="cc-output-row">
+                    <div class="cc-out-label">숫자 권한</div>
+                    <div class="cc-out-val mono" id="out-octal"></div>
+                    <button class="cc-copy" type="button" data-copy="out-octal">복사</button>
+                </div>
+
+                <div class="cc-output-row">
+                    <div class="cc-out-label">문자 권한</div>
+                    <div class="cc-out-val mono" id="out-rwx"></div>
+                    <button class="cc-copy" type="button" data-copy="out-rwx">복사</button>
+                </div>
+
+                <div class="cc-output-actions">
+                    <button id="copy-all-btn" type="button" class="cc-secondary">전체 결과 복사</button>
+                    <span class="cc-toast hidden" id="cc-toast">복사됨</span>
+
+                    <button id="toggle-advanced" type="button" class="cc-secondary" aria-expanded="false">
+                        고급 출력 펼치기
+                    </button>
+                </div>
+
+                <div class="cc-note" id="cc-error"></div>
+            </section>
+
+            <!-- 5) 고급 출력: 기본은 접힘 -->
+            <section class="cc-advanced hidden" id="advanced">
+                <div class="cc-adv-table">
+                    <div class="cc-adv-row">
+                        <div class="cc-adv-k">심볼릭</div>
+                        <div class="cc-adv-v mono" id="out-symbolic"></div>
+                        <button class="cc-copy" type="button" data-copy="out-symbolic">복사</button>
+                    </div>
+
+                    <div class="cc-adv-row">
+                        <div class="cc-adv-k">chmod 명령</div>
+                        <div class="cc-adv-v mono" id="out-cmd"></div>
+                        <button class="cc-copy" type="button" data-copy="out-cmd">복사</button>
+                    </div>
+
+                    <div class="cc-adv-row">
+                        <div class="cc-adv-k">설명</div>
+                        <div class="cc-adv-v" id="out-explain"></div>
+                        <button class="cc-copy" type="button" data-copy="out-explain">복사</button>
+                    </div>
+                </div>
+
+                <div class="cc-tip" id="cc-tip"></div>
+            </section>
+
+        </section>
+
+        <!-- SEO/설명은 아래로 내려도 됨 (도구 사용엔 영향 없음) -->
+        <section class="info-section">
+            <h2>chmod 권한이 헷갈리는 이유</h2>
+            <p>
+                chmod는 u/g/o(소유자/그룹/기타) 각각에 대해 r(4), w(2), x(1)을 더해서 숫자를 만듭니다.
+                특히 디렉토리에서는 x가 “실행”이 아니라 “진입/탐색”이라는 점이 자주 혼동됩니다.
+            </p>
+            <ul class="info-list">
+                <li>체크박스로 한눈에 r/w/x 상태를 확인</li>
+                <li>숫자/문자 입력도 바로 반영</li>
+                <li>특수권한(SUID/SGID/Sticky) 4자리까지 지원</li>
+            </ul>
+            <p>입력값은 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">디렉토리에서 r/w/x 권한은 각각 무슨 의미인가요?</button>
+                <div class="faq-answer">
+                    <p>
+                        디렉토리에서 r은 목록(파일명) 조회, w는 생성/삭제(단 x 필요), x는 해당 디렉토리로 진입/탐색 권한입니다.
+                        그래서 디렉토리에서는 x가 없으면 r/w가 있어도 동작이 제한될 수 있습니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">심볼릭 링크 권한은 어떻게 봐야 하나요?</button>
+                <div class="faq-answer">
+                    <p>
+                        보통 심볼릭 링크 자체 권한보다 링크가 가리키는 대상의 권한이 실제 접근에 영향이 큽니다.
+                        (환경/파일시스템에 따라 차이가 있을 수 있습니다)
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Sticky(1)는 언제 쓰나요?</button>
+                <div class="faq-answer">
+                    <p>/tmp처럼 여러 사용자가 쓰는 디렉토리에서 “본인 파일만 삭제”하도록 제한할 때 자주 사용됩니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="footer-text">
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </section>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./chmod-calculator.js"></script>
+</body>
+</html>
