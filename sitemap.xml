@@ -11,6 +11,13 @@
 
     <!-- 가전 전기세 시뮬레이터 -->
     <url>
+        <loc>https://toolify.kr/tools/appliance-payback/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 가전 전기세 시뮬레이터 -->
+    <url>
         <loc>https://toolify.kr/tools/electricity-simulator/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
