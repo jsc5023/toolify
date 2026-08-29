@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>우리 집 가전 전기세 시뮬레이터 | 여러 가전 합산 · 절약 비교 - Toolify</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <meta name="description" content="에어컨, PC, 제습기, 냉장고 등 여러 가전의 월 사용량과 예상 전기요금을 한 번에 계산하고, 사용시간을 줄였을 때 절약액까지 비교하세요." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="./electricity-simulator.css" />
+    <link rel="canonical" href="https://toolify.kr/tools/electricity-simulator/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="우리 집 가전 전기세 시뮬레이터" />
+    <meta property="og:description" content="여러 가전의 소비전력과 사용시간을 합산해 월 예상 전기요금과 절약액을 비교하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/electricity-simulator/" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"소비전력(W)은 어디에서 확인하나요?","acceptedAnswer":{"@type":"Answer","text":"제품 뒷면의 정격표시, 에너지소비효율 라벨 또는 제품 설명서에서 확인할 수 있습니다."}},
+      {"@type":"Question","name":"계산 결과가 실제 청구서와 같은가요?","acceptedAnswer":{"@type":"Answer","text":"예상치입니다. 실제 소비전력의 변동, 검침기간, 계약종별, 할인과 최신 요금 조정에 따라 달라질 수 있습니다."}},
+      {"@type":"Question","name":"기존 사용량은 왜 입력하나요?","acceptedAnswer":{"@type":"Answer","text":"누진제는 집 전체 월 사용량에 적용되므로 계산할 가전 외의 평소 사용량을 더해야 더 현실적인 예상이 가능합니다."}}
+    ]}
+    </script>
+</head>
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button>
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li><li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="header-card hero-card">
+        <span class="eyebrow">여러 가전 합산 · 누진구간 · 절약 비교</span>
+        <h1>⚡ 우리 집 가전 전기세 시뮬레이터</h1>
+        <p class="subtitle">에어컨 하나만 계산하지 마세요. 우리 집 가전을 모두 더해 이번 달 예상 사용량과 요금, 사용시간을 줄였을 때의 절약액까지 확인할 수 있습니다.</p>
+    </header>
+
+    <main>
+        <section class="tool-card simulator-card">
+            <div class="setup-grid">
+                <div>
+                    <label for="billing-month">사용 월</label>
+                    <select id="billing-month" aria-describedby="season-help"></select>
+                    <p class="field-help" id="season-help">7~8월은 하계 완화 누진구간을 적용합니다.</p>
+                </div>
+                <div>
+                    <label for="base-usage">아래 가전 외 기존 사용량</label>
+                    <div class="input-unit"><input id="base-usage" type="number" min="0" step="1" value="120" inputmode="decimal" /><span>kWh/월</span></div>
+                    <p class="field-help">지난달 사용량이나 평소 기본 사용량을 입력하세요.</p>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <div><h2>가전 목록</h2><p>소비전력 × 하루 사용시간 × 사용일수로 계산합니다.</p></div>
+                <button id="add-appliance" type="button" class="add-button">＋ 가전 추가</button>
+            </div>
+            <div class="preset-row" aria-label="가전 빠른 추가">
+                <button type="button" data-preset="aircon">❄️ 에어컨</button><button type="button" data-preset="pc">🖥️ PC</button>
+                <button type="button" data-preset="dehumidifier">💧 제습기</button><button type="button" data-preset="fridge">🧊 냉장고</button>
+                <button type="button" data-preset="washer">🫧 세탁기</button>
+            </div>
+            <div id="appliance-list" class="appliance-list" aria-live="polite"></div>
+
+            <div class="result-panel" aria-live="polite">
+                <div class="result-top">
+                    <div><span>이번 달 예상 사용량</span><strong id="total-kwh">0 kWh</strong></div>
+                    <div><span>예상 전기요금</span><strong id="total-cost">0원</strong></div>
+                    <div class="saving-result"><span>계획대로 줄이면</span><strong id="saving-cost">0원 절약</strong></div>
+                </div>
+                <div class="tier-track" aria-label="누진구간 사용량">
+                    <div id="tier-fill" class="tier-fill"></div><i id="tier-marker" class="tier-marker"></i>
+                </div>
+                <div class="tier-labels"><span id="tier-one-label">1구간</span><span id="tier-two-label">2구간</span><span>3구간</span></div>
+                <p id="tier-message" class="tier-message"></p>
+                <div class="breakdown">
+                    <button id="breakdown-toggle" type="button" aria-expanded="false">요금 계산 상세 보기 <span>⌄</span></button>
+                    <div id="breakdown-body" class="breakdown-body hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>계산 기준</h2>
+            <p>주택용 전력(저압)을 기준으로 기본요금, 누진 전력량요금, 기후환경요금(9원/kWh), 연료비조정액(5원/kWh), 부가가치세와 전력산업기반기금(2.7%)을 포함합니다. 7~8월은 300kWh·450kWh의 완화 구간을 적용합니다.</p>
+            <p class="notice">2026년 8월 확인 기준의 예상치입니다. 실제 요금은 검침기간, 고압 아파트 여부, 복지·대가족 할인, 연료비조정단가 및 요금 개정에 따라 달라질 수 있습니다. TV 수신료와 할인은 포함하지 않습니다.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문</h2>
+            <div class="faq-item"><button class="faq-question">인버터 에어컨도 정격 소비전력을 넣으면 되나요?</button><div class="faq-answer"><p>인버터 제품은 설정온도와 실내외 환경에 따라 소비전력이 크게 변합니다. 제품 라벨의 정격값은 상한에 가까울 수 있으므로, 스마트플러그 측정값이나 에너지 라벨의 월간소비전력량이 있다면 그 값이 더 정확합니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">기존 사용량을 모르면 어떻게 하나요?</button><div class="faq-answer"><p>최근 전기요금 고지서의 사용량에서 이번에 따로 입력할 가전의 대략적인 사용량을 뺀 값을 넣거나, 우선 0으로 두고 가전끼리의 상대적인 차이를 비교하세요.</p></div></div>
+            <div class="faq-item"><button class="faq-question">왜 소비전력을 줄인 만큼 요금이 똑같이 줄지 않나요?</button><div class="faq-answer"><p>주택용 요금은 누진제입니다. 절약으로 누진구간이 내려가면 높은 구간의 전력량요금뿐 아니라 기본요금도 달라져 절감액이 더 커질 수 있습니다.</p></div></div>
+        </section>
+    </main>
+    <section class="footer-text"><p><a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+</div>
+<template id="appliance-template">
+    <article class="appliance-row">
+        <div class="appliance-name"><label>가전 이름</label><input class="name-input" type="text" maxlength="24" placeholder="예: 에어컨" /></div>
+        <div><label>소비전력</label><div class="input-unit"><input class="watts-input" type="number" min="0" step="1" inputmode="decimal" /><span>W</span></div></div>
+        <div><label>하루 사용</label><div class="input-unit"><input class="hours-input" type="number" min="0" max="24" step="0.5" inputmode="decimal" /><span>시간</span></div></div>
+        <div><label>월 사용</label><div class="input-unit"><input class="days-input" type="number" min="0" max="31" step="1" inputmode="numeric" /><span>일</span></div></div>
+        <div class="reduce-field"><label>하루 절약 목표</label><div class="input-unit"><input class="reduce-input" type="number" min="0" max="24" step="0.5" value="0" inputmode="decimal" /><span>시간↓</span></div></div>
+        <div class="row-summary"><span class="row-kwh">0 kWh</span><span class="row-cost">추가요금 0원</span></div>
+        <button class="remove-button" type="button" aria-label="가전 삭제">×</button>
+    </article>
+</template>
+<script src="../../main.js"></script><script src="./electricity-simulator.js"></script>
+</body>
+</html>
