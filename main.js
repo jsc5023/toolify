@@ -63,6 +63,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/password-generator/",
         "https://toolify.kr/tools/electricity-simulator/",
         "https://toolify.kr/tools/appliance-payback/",
+        "https://toolify.kr/tools/video-storage/",
     ]);
 });
 

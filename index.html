@@ -65,7 +65,7 @@
             </div>
 
             <div class="search-bar">
-                <input id="tool-search" type="search" placeholder="도구 검색 (예: 날짜, JSON, QR, BMI, Base64)" autocomplete="off" />
+                <input id="tool-search" type="search" placeholder="도구 검색 (예: 날짜, 영상, JSON, QR, BMI)" autocomplete="off" />
                 <button id="tool-search-clear" type="button" class="search-clear hidden">지우기</button>
             </div>
             <p class="search-hint" id="search-hint"></p>
@@ -78,6 +78,7 @@
 
             <!-- 더 가벼운 "칩" 스타일 -->
             <div class="chip-grid">
+                <a class="chip" href="tools/video-storage/">🎥 영상 용량·시간</a>
                 <a class="chip" href="tools/appliance-payback/">🔄 가전 교체 본전</a>
                 <a class="chip" href="tools/electricity-simulator/">⚡ 가전 전기세</a>
                 <a class="chip" href="tools/money-converter/">💰 한글 금액 변환기</a>
@@ -109,6 +110,11 @@
         </section>
 
         <section class="tool-list" id="tool-list">
+            <article class="tool-item clickable" data-category="image" data-href="tools/video-storage/">
+                <div class="tool-head"><h3>🎥 영상 용량·녹화시간 계산기</h3><span class="pill">이미지</span></div>
+                <p>1080p·4K 영상 파일 크기, 메모리카드 녹화시간과 CCTV·블랙박스 저장일수를 비트레이트 기준으로 계산합니다.</p>
+                <a class="tool-button" href="tools/video-storage/">바로가기</a>
+            </article>
             <article class="tool-item clickable" data-category="util" data-href="tools/appliance-payback/">
                 <div class="tool-head"><h3>🔄 가전 교체 본전 계산기</h3><span class="pill">유틸리티</span></div>
                 <p>구형·신형 가전의 소비전력과 실구매비용을 비교해 연간 전기세 절감액, 본전 회수기간과 누적손익을 계산합니다.</p>
