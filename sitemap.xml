@@ -18,6 +18,13 @@
 
     <!-- 영상 용량·녹화시간 계산기 -->
     <url>
+        <loc>https://toolify.kr/tools/transfer-time/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 영상 용량·녹화시간 계산기 -->
+    <url>
         <loc>https://toolify.kr/tools/video-storage/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
