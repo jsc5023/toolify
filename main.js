@@ -85,6 +85,126 @@ window.addEventListener("load", () => {
 })();
 
 // =======================
+// 최근 사용 + 즐겨찾기 (브라우저 로컬 저장)
+// =======================
+(function personalToolsInit() {
+    const FAVORITES_KEY = "toolify-favorites-v1";
+    const RECENT_KEY = "toolify-recent-v1";
+
+    function readList(key) {
+        try {
+            const value = JSON.parse(localStorage.getItem(key) || "[]");
+            return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    function writeList(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (_) {}
+    }
+
+    function currentToolSlug() {
+        const match = window.location.pathname.replace(/\\/g, "/").match(/\/tools\/([^/]+)\/(?:index\.html)?$/i);
+        return match ? match[1] : "";
+    }
+
+    const currentSlug = currentToolSlug();
+    if (currentSlug) {
+        const recent = readList(RECENT_KEY).filter((slug) => slug !== currentSlug);
+        writeList(RECENT_KEY, [currentSlug, ...recent].slice(0, 6));
+    }
+
+    const cards = Array.from(document.querySelectorAll(".tool-item[data-href]"));
+    if (cards.length === 0) return;
+
+    const registry = new Map();
+    cards.forEach((card) => {
+        const href = card.getAttribute("data-href") || "";
+        const slugMatch = href.match(/^tools\/([^/]+)\/$/);
+        const heading = card.querySelector("h3");
+        if (slugMatch && heading) registry.set(slugMatch[1], { href, title: heading.textContent.trim() });
+    });
+
+    function validSlugs(key) {
+        return readList(key).filter((slug, index, values) => registry.has(slug) && values.indexOf(slug) === index);
+    }
+
+    function renderLinks(target, empty, slugs) {
+        if (!target || !empty) return;
+        target.innerHTML = "";
+        slugs.forEach((slug) => {
+            const tool = registry.get(slug);
+            const link = document.createElement("a");
+            link.className = "personal-link";
+            link.href = tool.href;
+            link.textContent = tool.title;
+            link.title = tool.title;
+            target.appendChild(link);
+        });
+        empty.classList.toggle("hidden", slugs.length > 0);
+    }
+
+    function renderPersonalTools() {
+        const favorites = validSlugs(FAVORITES_KEY);
+        const recent = validSlugs(RECENT_KEY);
+        writeList(FAVORITES_KEY, favorites);
+        writeList(RECENT_KEY, recent);
+
+        renderLinks(document.querySelector("#favorite-tools"), document.querySelector("#favorite-empty"), favorites);
+        renderLinks(document.querySelector("#recent-tools"), document.querySelector("#recent-empty"), recent);
+
+        const clearButton = document.querySelector("#clear-recent");
+        if (clearButton) clearButton.classList.toggle("hidden", recent.length === 0);
+
+        cards.forEach((card) => {
+            const button = card.querySelector(".favorite-button");
+            const href = card.getAttribute("data-href") || "";
+            const match = href.match(/^tools\/([^/]+)\/$/);
+            if (!button || !match) return;
+            const active = favorites.includes(match[1]);
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-pressed", String(active));
+            button.setAttribute("aria-label", active ? "즐겨찾기에서 제거" : "즐겨찾기에 추가");
+            button.title = active ? "즐겨찾기에서 제거" : "즐겨찾기에 추가";
+            button.textContent = active ? "★" : "☆";
+        });
+    }
+
+    cards.forEach((card) => {
+        const head = card.querySelector(".tool-head");
+        const href = card.getAttribute("data-href") || "";
+        const match = href.match(/^tools\/([^/]+)\/$/);
+        if (!head || !match) return;
+
+        const button = document.createElement("button");
+        button.className = "favorite-button";
+        button.type = "button";
+        const pill = head.querySelector(".pill");
+        head.insertBefore(button, pill || null);
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const favorites = validSlugs(FAVORITES_KEY);
+            const next = favorites.includes(match[1])
+                ? favorites.filter((slug) => slug !== match[1])
+                : [...favorites, match[1]];
+            writeList(FAVORITES_KEY, next);
+            renderPersonalTools();
+        });
+    });
+
+    document.querySelector("#clear-recent")?.addEventListener("click", () => {
+        writeList(RECENT_KEY, []);
+        renderPersonalTools();
+    });
+
+    renderPersonalTools();
+})();
+
+// =======================
 // (홈 전용) 카드 전체 클릭
 // =======================
 (function clickableCardsInit() {

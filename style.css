@@ -95,6 +95,19 @@ button:disabled{opacity:.5;cursor:default}
     transform:translateY(-1px)
 }
 
+/* Personal tools */
+.personal-tools{display:grid;grid-template-columns:1fr;gap:9px;margin:16px 0 4px}
+.personal-panel{padding:12px;border:1px solid #e2e8f0;border-radius:13px;background:#f8fafc;min-width:0}
+.personal-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.personal-heading h2{font-size:14px;margin:0}
+.personal-heading span{font-size:10px;color:#94a3b8}
+.personal-clear{width:auto;padding:3px 7px;border:0;background:transparent;color:#64748b;font-size:10px}
+.personal-clear:hover{background:#e2e8f0;color:#334155}
+.personal-list{display:flex;flex-wrap:wrap;gap:6px;overflow:visible}
+.personal-link{display:inline-flex;align-items:center;flex:0 0 auto;max-width:210px;padding:7px 9px;border:1px solid #e2e8f0;border-radius:9px;background:#fff;color:#334155;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.personal-link:hover{border-color:#a5b4fc;color:#1d4ed8}
+.personal-empty{font-size:11px;color:#94a3b8}
+
 /* Search */
 .search-bar{display:flex;gap:8px;margin:6px 0 6px}
 .search-bar input{
@@ -146,7 +159,11 @@ button:disabled{opacity:.5;cursor:default}
     transform:translateY(-1px)
 }
 .tool-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
-.tool-item h3{font-size:17px;margin:0}
+.tool-item h3{font-size:17px;margin:0;flex:1;min-width:0;word-break:keep-all;overflow-wrap:break-word;line-height:1.45}
+.favorite-button{display:inline-grid;place-items:center;flex:0 0 auto;width:28px;height:28px;padding:0;border:1px solid #e2e8f0;border-radius:999px;background:#fff;color:#94a3b8;font-size:17px;line-height:1}
+.favorite-button:hover{background:#fffbeb;border-color:#fde68a;color:#f59e0b}
+.favorite-button.active{background:#fffbeb;border-color:#fcd34d;color:#f59e0b}
+.favorite-button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
 .pill{
     font-size:12px;font-weight:900;color:#334155;
     border:1px solid #e2e8f0;background:#f8fafc;
@@ -181,12 +198,16 @@ button:disabled{opacity:.5;cursor:default}
     font-size:15.5px;
 }
 .tool-list.is-compact .pill{
-    font-size:11px;
-    padding:3px 8px;
+    display:none; /* 전체 보기에서는 상단 카테고리 탭과 정보가 중복됨 */
+}
+@media (max-width:639px){
+    .personal-list{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .personal-list::-webkit-scrollbar{display:none}
 }
 @media (min-width:640px){
     .tool-list{grid-template-columns:repeat(2,minmax(0,1fr))}
     .chip-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .personal-tools{grid-template-columns:1fr 1fr}
 
     /* 컴팩트 모드는 더 촘촘히 (많아져도 깔끔하게) */
     .tool-list.is-compact{grid-template-columns:repeat(3,minmax(0,1fr))}

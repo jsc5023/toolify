@@ -92,6 +92,26 @@
                 <a class="chip" href="tools/kor-eng-typo/">⌨️ 한영타 변환기</a>
             </div>
 
+            <!-- 브라우저에만 저장되는 개인 도구함 -->
+            <div class="personal-tools" aria-label="내 도구함">
+                <section class="personal-panel">
+                    <div class="personal-heading">
+                        <h2>⭐ 내 도구</h2>
+                        <span>카드의 별을 눌러 추가</span>
+                    </div>
+                    <div id="favorite-tools" class="personal-list"></div>
+                    <p id="favorite-empty" class="personal-empty">자주 쓰는 도구를 즐겨찾기에 모아보세요.</p>
+                </section>
+                <section class="personal-panel">
+                    <div class="personal-heading">
+                        <h2>🕘 최근 사용</h2>
+                        <button id="clear-recent" class="personal-clear hidden" type="button">기록 지우기</button>
+                    </div>
+                    <div id="recent-tools" class="personal-list"></div>
+                    <p id="recent-empty" class="personal-empty">사용한 도구가 여기에 표시됩니다.</p>
+                </section>
+            </div>
+
             <!-- 카테고리 (segmented 탭) -->
             <div class="hub-row mt-14" id="categories">
                 <h2 class="hub-title">📂 카테고리</h2>
