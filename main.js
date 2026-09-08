@@ -252,9 +252,9 @@ window.addEventListener("load", () => {
         return String(s).toLowerCase().replace(/\s+/g, "");
     }
 
-    function setCompactMode() {
-        // ✅ 전체일 때만 컴팩트 모드
-        const isCompact = currentCategory === "all";
+    function setCompactMode(hasQuery) {
+        // 전체 목록은 간결하게 보여주되, 검색 중에는 일치한 설명을 확인할 수 있게 펼친다.
+        const isCompact = currentCategory === "all" && !hasQuery;
         toolList.classList.toggle("is-compact", isCompact);
     }
 
@@ -264,7 +264,7 @@ window.addEventListener("load", () => {
 
         if (clearBtn) clearBtn.classList.toggle("hidden", !hasQuery);
 
-        setCompactMode();
+        setCompactMode(hasQuery);
 
         let visible = 0;
 
@@ -285,6 +285,17 @@ window.addEventListener("load", () => {
 
         if (hint) hint.textContent = `현재: ${labelMap[currentCategory] || currentCategory}`;
         if (searchHint) searchHint.textContent = hasQuery ? `검색 결과: ${visible}개` : "";
+    }
+
+    function showAllTools() {
+        currentCategory = "all";
+        if (input) input.value = "";
+        buttons.forEach((button) => {
+            const isAll = button.dataset.filter === "all";
+            button.classList.toggle("active", isAll);
+            button.setAttribute("aria-selected", isAll ? "true" : "false");
+        });
+        apply();
     }
 
     // 카테고리 버튼
@@ -315,6 +326,21 @@ window.addEventListener("load", () => {
             input.focus();
         });
     }
+
+    const showAllTriggers = [
+        document.querySelector("#show-all-tools"),
+        ...document.querySelectorAll('a[href="#tools"]'),
+    ].filter(Boolean);
+
+    showAllTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+            event.preventDefault();
+            showAllTools();
+            window.requestAnimationFrame(() => {
+                toolList.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+    });
 
     apply();
 })();

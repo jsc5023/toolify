@@ -71,8 +71,8 @@ button:disabled{opacity:.5;cursor:default}
 .hub-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
 .hub-title{font-size:15.5px;margin:0}
 .hub-sub{font-size:12px;color:#94a3b8}
-.hub-more{font-size:13px;color:#2563eb;text-decoration:none}
-.hub-more:hover{text-decoration:underline}
+.hub-more{width:auto;padding:2px 0;border:0;border-radius:0;background:transparent;color:#2563eb;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+.hub-more:hover{background:transparent;text-decoration:underline}
 .mt-14{margin-top:14px}
 
 /* Chips */
@@ -145,7 +145,7 @@ button:disabled{opacity:.5;cursor:default}
 .section-sub{font-size:13px;color:#6b7280}
 
 /* ===== Tool list (default = card) ===== */
-.tool-list{display:grid;grid-template-columns:1fr;gap:12px}
+.tool-list{display:grid;grid-template-columns:1fr;gap:12px;scroll-margin-top:16px}
 .tool-item{
     background:#fff;border-radius:18px;padding:16px 16px 16px;
     box-shadow:0 4px 16px rgba(15,23,42,.04);
