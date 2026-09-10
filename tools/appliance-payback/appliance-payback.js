@@ -5,7 +5,7 @@
     if (typeof document !== "undefined") api.init(document);
 })(typeof window !== "undefined" ? window : null, function () {
     "use strict";
-    const RATES = { basic: [910, 1600, 7300], energy: [120, 214.6, 307.3], climate: 9, fuel: 5, vat: 0.1, fund: 0.027 };
+    const RATES = { basic: [910, 1600, 7300], energy: [120, 214.6, 307.3], climate: 9, fuel: 5, vat: 0.1, fund: 0.037 };
     const PRESETS = {
         fridge: { oldName: "오래된 냉장고", newName: "고효율 냉장고", oldKwh: 650, newKwh: 280, price: 1200000, discount: 100000, resale: 100000, extra: 0 },
         aircon: { oldName: "구형 에어컨", newName: "고효율 인버터 에어컨", oldKwh: 900, newKwh: 420, price: 1600000, discount: 150000, resale: 50000, extra: 150000 },

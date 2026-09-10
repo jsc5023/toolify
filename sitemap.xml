@@ -114,6 +114,20 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- 계약서 숫자·한글 금액 일치 확인기 -->
+    <url>
+        <loc>https://toolify.kr/tools/contract-amount-checker/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 계약서 한자 금액 변환기 -->
+    <url>
+        <loc>https://toolify.kr/tools/hanja-amount-converter/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
     <!-- URL 인코더/디코더 -->
     <url>
         <loc>https://toolify.kr/tools/url-encoder/</loc>
@@ -170,11 +184,25 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- 도트 경마 게임 -->
+    <url>
+        <loc>https://toolify.kr/tools/horse-racing/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- chmod 권한 계산기 -->
     <url>
         <loc>https://toolify.kr/tools/chmod-calculator/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+    </url>
+
+    <!-- Toolify 소개 -->
+    <url>
+        <loc>https://toolify.kr/about.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 
     <!-- 개인정보 처리방침 -->

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>계약서 한자 금액 변환기 | 숫자 ↔ 한자 대자 - Toolify</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <meta name="description" content="숫자 금액을 壹·貳·參·拾·佰·仟 한자 대자로 바꾸거나 한자 금액을 숫자로 확인하세요. 계약 문서용 참고 표기와 한글 읽기를 함께 제공합니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="./hanja-amount-converter.css" />
+    <link rel="canonical" href="https://toolify.kr/tools/hanja-amount-converter/" />
+    <meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="계약서 한자 금액 변환기" /><meta property="og:description" content="숫자와 한자 대자 금액을 양방향으로 변환하고 문서용 참고 표기를 복사하세요." /><meta property="og:url" content="https://toolify.kr/tools/hanja-amount-converter/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"한자 대자란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"壹·貳·參·拾·佰·仟처럼 획이 복잡해 숫자를 덧붙여 바꾸기 어렵도록 사용해 온 한자 숫자 형태입니다."}},{"@type":"Question","name":"변환 결과가 법적으로 정해진 공식 형식인가요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 문서 작성을 돕는 참고 표기이며 기관·회사·국가별 양식이 다를 수 있으므로 실제 제출처 기준을 확인해야 합니다."}},{"@type":"Question","name":"입력한 금액이 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 변환은 현재 브라우저 안에서 처리하며 입력한 금액을 서버로 전송하거나 저장하지 않습니다."}}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../about.html">Toolify 소개</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+<div class="page-wrapper">
+    <header class="header-card hanja-hero"><span class="eyebrow">壹 · 貳 · 參 · 拾 · 佰 · 仟</span><h1>㊎ 계약서 한자 금액 변환기</h1><p class="subtitle">숫자 금액을 변조하기 어려운 한자 대자 참고 표기로 바꾸거나, 한자 대자로 적힌 금액을 숫자로 확인합니다.</p><p class="legal-note">결과는 문서 작성 참고용이며 법적 효력이나 특정 기관의 공식 양식을 보장하지 않습니다.</p></header>
+    <main>
+        <section class="tool-card hanja-card">
+            <div class="mode-tabs" role="tablist" aria-label="변환 방향"><button id="number-mode" class="mode-button active" type="button">숫자 → 한자 대자</button><button id="hanja-mode" class="mode-button" type="button">한자 대자 → 숫자</button><button id="swap-mode" class="swap-button" type="button" aria-label="변환 방향 바꾸기">⇄</button></div>
+            <p id="mode-guide" class="mode-guide"></p>
+            <div class="sample-row"><span>예시</span><button type="button" data-sample="small">1,205,000</button><button type="button" data-sample="large">120,000,000</button><button type="button" data-sample="hanja">壹億貳仟萬圓整</button></div>
+            <label for="amount-input">변환할 금액</label><textarea id="amount-input" rows="3" placeholder="예: 120,000,000원"></textarea>
+            <div class="action-row"><button id="convert-button" type="button">변환하기</button><button id="clear-button" class="clear-button" type="button">초기화</button></div>
+            <p id="error-message" class="error-message" aria-live="polite"></p>
+            <section id="result-box" class="result-box hidden" aria-live="polite">
+                <div class="result-heading"><div><small>변환 결과</small><strong id="result-summary"></strong></div><button id="copy-all" type="button">문서 표기 복사</button></div>
+                <div class="output-list"><div><span>한자 대자</span><code id="hanja-output"></code></div><div class="primary-output"><span>문서용 참고 표기</span><code id="document-output"></code></div><div><span>숫자 금액</span><code id="number-output"></code></div><div><span>한글로 확인</span><code id="korean-output"></code></div></div>
+            </section>
+        </section>
+
+        <section class="editorial-section"><h2>일반 한자 숫자와 대자의 차이</h2><p>대자(大字)는 단순한 숫자 한자보다 획이 복잡합니다. 문서의 숫자에 획을 더해 다른 값으로 고치는 일을 어렵게 하기 위해 회계·금전 기록에서 사용되어 왔습니다.</p><table class="guide-table"><thead><tr><th>숫자</th><th>일반 한자</th><th>대자</th></tr></thead><tbody><tr><td>1·2·3</td><td>一·二·三</td><td>壹·貳·參</td></tr><tr><td>4·5·6</td><td>四·五·六</td><td>肆·伍·陸</td></tr><tr><td>7·8·9</td><td>七·八·九</td><td>柒·捌·玖</td></tr><tr><td>10·100·1,000</td><td>十·百·千</td><td>拾·佰·仟</td></tr></tbody></table><p>이 도구는 결과에 전통 형태인 `貳·參·陸·萬·億·圓`을 사용하고, 입력할 때는 일부 일반 숫자와 간체 형태도 함께 인식합니다.</p></section>
+        <section class="editorial-section"><h2>결과를 사용할 때 주의하세요</h2><ul class="editorial-list"><li>`金 … 圓整`은 읽기 쉬운 기본 참고 형식으로 제공합니다.</li><li>`圓整`, `圓正`, 한글 `원정` 등 끝맺음은 문서 양식에 따라 다를 수 있습니다.</li><li>현대 한국 계약서에서 한자 대자 사용이 항상 필요한 것은 아닙니다.</li><li>중요한 계약은 숫자·한글·한자 금액을 당사자와 다시 대조하세요.</li></ul><p class="source-note">이 도구는 금액 표기 변환만 수행하며 계약서 작성, 법률 자문 또는 문서 효력 판단을 대신하지 않습니다.</p><p><a href="../contract-amount-checker/">숫자·한글·한자 금액을 한 번에 대조하려면 계약서 금액 일치 확인기 →</a><br /><a href="../money-converter/">한글 금액만 빠르게 변환하려면 한글 금액 변환기 →</a></p></section>
+        <section class="faq-section"><h2>자주 묻는 질문</h2><div class="faq-item"><button class="faq-question">한자 대자는 반드시 사용해야 하나요?</button><div class="faq-answer"><p>항상 필요한 것은 아닙니다. 사용하려는 기관이나 계약 양식에서 요구하는지 먼저 확인하세요.</p></div></div><div class="faq-item"><button class="faq-question">일반 한자인 一二三도 읽을 수 있나요?</button><div class="faq-answer"><p>네. 일반 숫자 한자와 일부 간체 입력을 인식하지만 출력은 壹·貳·參 형태의 대자로 통일합니다.</p></div></div><div class="faq-item"><button class="faq-question">금액은 어디에서 처리되나요?</button><div class="faq-answer"><p>입력값은 서버로 보내지 않고 현재 브라우저에서만 변환합니다.</p></div></div></section>
+    </main>
+    <section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+</div>
+<script src="../../main.js?v=20260909-3"></script><script src="./hanja-amount-converter.js"></script>
+</body></html>

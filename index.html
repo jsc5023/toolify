@@ -15,7 +15,7 @@
             content="무료 날짜 계산기, 글자수 세기, 이미지 압축기, JSON 포매터, QR 코드 생성기, Base64 등 자주 쓰는 웹 도구를 한 곳에 모은 올인원 무료 툴 모음 사이트입니다."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css?v=20260908-3" />
+    <link rel="stylesheet" href="style.css?v=20260909-1" />
     <link rel="canonical" href="https://toolify.kr/" />
 
     <meta property="og:type" content="website" />
@@ -78,18 +78,18 @@
 
             <!-- 더 가벼운 "칩" 스타일 -->
             <div class="chip-grid">
+                <a class="chip" href="tools/money-converter/">💰 한글 금액 변환기</a>
+                <a class="chip" href="tools/contract-amount-checker/">🧾 계약 금액 일치 확인</a>
                 <a class="chip" href="tools/transfer-time/">🚀 파일 전송 시간</a>
                 <a class="chip" href="tools/video-storage/">🎥 영상 용량·시간</a>
                 <a class="chip" href="tools/appliance-payback/">🔄 가전 교체 본전</a>
                 <a class="chip" href="tools/electricity-simulator/">⚡ 가전 전기세</a>
-                <a class="chip" href="tools/money-converter/">💰 한글 금액 변환기</a>
                 <a class="chip" href="tools/date-calculator/">📅 날짜 계산기</a>
                 <a class="chip" href="tools/text-counter/">✏️ 글자수 세기</a>
                 <a class="chip" href="tools/password-generator/">🔐 비밀번호 생성기</a>
                 <a class="chip" href="tools/json-formatter/">🧩 JSON 포매터</a>
                 <a class="chip" href="tools/image-compressor/">🖼️ 이미지 압축기</a>
                 <a class="chip" href="tools/unit-converter/">📐 단위 변환기</a>
-                <a class="chip" href="tools/kor-eng-typo/">⌨️ 한영타 변환기</a>
             </div>
 
             <!-- 브라우저에만 저장되는 개인 도구함 -->
@@ -272,6 +272,24 @@
                 <a class="tool-button" href="tools/money-converter/">바로가기</a>
             </article>
 
+            <article class="tool-item clickable" data-category="util" data-href="tools/contract-amount-checker/">
+                <div class="tool-head">
+                    <h3>🧾 계약서 숫자·한글 금액 일치 확인기</h3>
+                    <span class="pill">유틸리티</span>
+                </div>
+                <p>문서에 함께 적힌 숫자 금액과 한글 금액을 각각 해석해 일치 여부, 차액과 복사용 표기를 확인합니다.</p>
+                <a class="tool-button" href="tools/contract-amount-checker/">바로가기</a>
+            </article>
+
+            <article class="tool-item clickable" data-category="util" data-href="tools/hanja-amount-converter/">
+                <div class="tool-head">
+                    <h3>㊎ 계약서 한자 금액 변환기</h3>
+                    <span class="pill">유틸리티</span>
+                </div>
+                <p>숫자 금액을 壹·貳·參 한자 대자로 바꾸거나 한자 금액을 숫자로 확인하고 문서용 참고 표기를 만듭니다.</p>
+                <a class="tool-button" href="tools/hanja-amount-converter/">바로가기</a>
+            </article>
+
             <article class="tool-item clickable" data-category="dev" data-href="tools/url-encoder/">
                 <div class="tool-head">
                     <h3>🔗 URL 인코더/디코더</h3>
@@ -344,6 +362,15 @@
                 <a class="tool-button" href="tools/number-baseball/">바로가기</a>
             </article>
 
+            <article class="tool-item clickable" data-category="game" data-href="tools/horse-racing/">
+                <div class="tool-head">
+                    <h3>🏇 달려라 픽! 레이스</h3>
+                    <span class="pill">미니게임</span>
+                </div>
+                <p>이름을 바꿔 친구·메뉴 뽑기를 하거나, 가상코인으로 우승을 예측하는 도트 경마 게임입니다. 뽑기와 코인 베팅 모드를 선택할 수 있습니다.</p>
+                <a class="tool-button" href="tools/horse-racing/">바로가기</a>
+            </article>
+
             <article class="tool-item clickable" data-category="dev" data-href="tools/chmod-calculator/">
                 <div class="tool-head">
                     <h3>🔐 chmod 권한 계산기</h3>
@@ -357,9 +384,12 @@
         <section class="seo-footer">
             <h2>Toolify는 어떤 사이트인가요?</h2>
             <p>
-                Toolify는 날짜 계산기, 글자수 세기, 이미지 압축기, JSON 포매터, QR 코드 생성기, Base64 등
-                자주 사용하는 웹 도구를 무료로 제공하는 올인원 툴 모음 사이트입니다.
+                Toolify는 날짜 계산기, 글자수 세기처럼 자주 필요한 기본 기능과 전기요금·가전 교체·영상 저장공간처럼
+                여러 조건을 함께 따져야 하는 계산을 브라우저에서 바로 해결하는 무료 웹 도구 모음입니다.
             </p>
+            <p>생활형 계산기는 결과만 보여주지 않고 사용한 공식, 입력값을 확인하는 방법과 실제 결과가 달라질 수 있는 조건을 함께 안내합니다. 예를 들어 가전 전기세는 개별 소비전력뿐 아니라 집 전체 사용량과 누진구간을 반영하고, 영상 저장시간은 해상도가 아닌 실제 비트레이트를 기준으로 계산합니다.</p>
+            <p>텍스트 변환과 이미지 압축처럼 가능한 작업은 서버 전송 없이 현재 브라우저에서 처리합니다. 각 도구의 기준과 한계를 확인하고 중요한 결정에는 고지서·제품 설명서·관계 기관의 최신 자료를 함께 이용해 주세요.</p>
+            <p><a href="./about.html">Toolify의 제작 원칙과 업데이트 기록 자세히 보기 →</a></p>
         </section>
     </main>
 
@@ -367,11 +397,12 @@
         <p>
             <a href="./privacy.html">개인정보 처리방침</a> ·
             <a href="./terms.html">이용약관</a> ·
+            <a href="./about.html">Toolify 소개</a> ·
             <a href="./contact.html">Contact / 문의하기</a>
         </p>
     </section>
 </div>
 
-<script src="main.js?v=20260908-4"></script>
+<script src="main.js?v=20260909-3"></script>
 </body>
 </html>

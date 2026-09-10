@@ -8,7 +8,7 @@
         fridge: { name: "냉장고", watts: 45, hours: 24, days: 30 },
         washer: { name: "세탁기", watts: 500, hours: 1, days: 12 }
     };
-    const RATES = { basic: [910, 1600, 7300], energy: [120, 214.6, 307.3], climate: 9, fuel: 5, vat: 0.1, fund: 0.027 };
+    const RATES = { basic: [910, 1600, 7300], energy: [120, 214.6, 307.3], climate: 9, fuel: 5, vat: 0.1, fund: 0.037 };
     const $ = (selector, root = document) => root.querySelector(selector);
     const list = $("#appliance-list");
     const monthSelect = $("#billing-month");

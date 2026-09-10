@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>달려라 픽! 레이스 - 이름 뽑기 & 코인 레이스</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description"
+          content="이름을 입력해 뽑기를 하거나 가상코인으로 우승을 예측하는 무료 달려라 픽! 레이스 게임입니다. 실제 현금·결제와 무관한 오락용 게임입니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="./horse-racing.css" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/horse-racing/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="달려라 픽! 레이스 - 이름 뽑기 & 코인 레이스" />
+    <meta property="og:description" content="이름을 바꿔 뽑기를 즐기거나 가상코인으로 우승을 예측하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/horse-racing/" />
+</head>
+
+<body>
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo">Toolify</a>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
+                <ul class="nav-links">
+                    <li><a href="../../">홈</a></li>
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper hr-wrap">
+    <main class="hr-main" aria-label="달려라 픽! 레이스 게임">
+
+        <div class="hr-topbar">
+            <h1 class="hr-title">🏇 달려라 픽! 레이스</h1>
+            <div class="hr-wallet">
+                <span class="hr-wallet-label">보유 코인</span>
+                <span class="hr-wallet-value" id="balance">1,000</span>
+                <span class="hr-wallet-unit">C</span>
+            </div>
+        </div>
+
+        <section class="hr-panel" id="setup-panel" aria-label="게임 설정">
+            <h2 class="hr-panel-title">어떻게 즐길까요?</h2>
+            <div class="hr-mode-options">
+                <button type="button" id="mode-draw" aria-pressed="true">🎲 뽑기<span>같은 조건으로 경주해 한 명을 선택해요</span></button>
+                <button type="button" id="mode-bet" aria-pressed="false">🪙 코인 베팅<span>우승할 말을 예측하고 가상 점수를 모아요</span></button>
+            </div>
+            <p class="small" id="mode-help">이름을 바꿔 친구나 메뉴 뽑기에 사용하세요. 빈칸은 기본 이름을 사용합니다.</p>
+
+            <p class="small">경주 중에는 설정을 바꿀 수 없습니다. 이름은 다음 경주에도 유지됩니다.</p>
+        </section>
+
+        <!-- 레이스 무대 -->
+        <section class="hr-stage" aria-label="레이스 화면">
+            <div id="race-selection" class="hr-race-selection" role="status" aria-live="polite"></div>
+            <canvas id="track" width="480" height="252" aria-label="픽셀 경마 레이스"></canvas>
+
+            <div class="hr-overlay" id="overlay">
+                <div class="hr-overlay-box" id="overlay-box"></div>
+            </div>
+        </section>
+
+        <!-- 로비: 출주표 & 베팅 -->
+        <section class="hr-panel" id="lobby-panel" aria-label="출주표와 베팅">
+            <div class="hr-panel-head">
+                <div class="hr-panel-title">🏁 참가자</div>
+                <button class="hr-mini-btn" id="rule-btn" type="button">규칙 / 배당 설명</button>
+            </div>
+
+            <div class="hr-roster-tools"><label for="participant-count">참가자 수</label><select id="participant-count"><option value="2">2명</option><option value="3">3명</option><option value="4">4명</option><option value="5">5명</option><option value="6" selected>6명</option><option value="7">7명</option><option value="8">8명</option><option value="9">9명</option><option value="10">10명</option></select><button type="button" class="hr-mini-btn" id="edit-names" aria-pressed="false">이름 수정</button><button type="button" class="hr-mini-btn" id="default-names">이름 초기화</button></div>
+            <p class="small hr-roster-guide">이름은 ‘이름 수정’에서 바꿀 수 있어요. 뽑기에서 참가자 선택은 당첨 확률에 영향을 주지 않습니다.</p>
+            <details id="stats-guide" class="hr-stats-guide" hidden><summary>승률·스탯 읽는 법</summary><p>추정 승률은 이번 출주 구성으로 240번 가상 경주한 결과입니다. 다시 계산하면 달라질 수 있고 승리를 보장하지 않습니다. 속도와 지구력은 100을 기준으로 한 상대 능력입니다. 높은 추정 승률의 참가자는 보통 배당이 낮습니다. 외형은 능력에 영향을 주지 않습니다.</p></details>
+            <div class="hr-table" id="entries" role="list"></div>
+
+            <div class="hr-bet" id="bet-controls">
+                <div class="hr-bet-row">
+                    <div class="hr-bet-pick" id="bet-pick">선택한 말: <b>없음</b></div>
+                    <div class="hr-bet-odds" id="bet-odds"></div>
+                </div>
+
+                <label class="hr-bet-amount-label" for="bet-amount">베팅 코인</label>
+                <div class="hr-bet-amount">
+                    <input id="bet-amount" type="number" inputmode="numeric" min="1" step="1" placeholder="예: 100" />
+                    <div class="hr-quick">
+                        <button type="button" data-amt="10">10</button>
+                        <button type="button" data-amt="50">50</button>
+                        <button type="button" data-amt="100">100</button>
+                        <button type="button" data-amt="half">½</button>
+                        <button type="button" data-amt="max">올인</button>
+                    </div>
+                </div>
+
+                <div class="hr-payout-hint" id="payout-hint">적중 시 예상 획득: -</div>
+
+                <button class="hr-start" id="start-btn" type="button" disabled>말을 고르고 베팅하세요</button>
+                <button class="hr-skip" id="skip-btn" type="button">베팅 없이 관전만</button>
+            </div>
+            <button class="hr-start" id="draw-start" type="button">뽑기 경주 시작 🏁</button>
+        </section>
+
+        <section class="hr-log" aria-label="최근 결과">
+            <div class="hr-log-head">
+                <div class="hr-log-title">📊 최근 30경주 기록</div>
+                <button class="hr-mini-btn" id="reset-btn" type="button">코인 초기화</button>
+            </div>
+            <div class="hr-stats" id="stats"></div>
+            <div class="hr-history" id="history"></div>
+        </section>
+
+        <section class="tool-card hr-about">
+            <h2>달려라 픽! 레이스 게임 안내</h2>
+            <p class="small">
+                이 게임은 <b>브라우저에서만</b> 동작하는 오락용 미니게임입니다. 사용되는 코인은 가상의 점수이며
+                <b>실제 현금·상품·결제와 아무런 관련이 없습니다.</b> 코인 잔액과 기록은 이 브라우저에만 저장됩니다.
+            </p>
+            <ul class="hr-ul">
+                <li>뽑기 모드는 2~10명의 참가자가 같은 능력으로 경주하며, 1위가 선택됩니다. 이름 변경은 경기력에 영향을 주지 않습니다.</li>
+                <li>코인 베팅 모드에서는 참가자 중 하나를 골라 코인을 베팅합니다. (단승 = 1위 적중 시 획득)</li>
+                <li>배당률은 각 말의 능력치로 추정한 승리 확률에 약 20% 공제를 적용해 계산합니다.</li>
+                <li>레이스는 능력치 + 매 순간의 무작위 변동으로 진행되어 이변이 나올 수 있습니다.</li>
+                <li>적중 시 <b>베팅액 × 배당률</b>을 획득하고, 빗나가면 베팅액을 잃습니다.</li>
+                <li>잔액이 0이 되면 초기 코인으로 다시 시작할 수 있습니다.</li>
+            </ul>
+        </section>
+    </main>
+</div>
+
+<!-- 규칙 모달 -->
+<div class="hr-modal is-hidden" id="rule-modal" role="dialog" aria-modal="true" aria-label="규칙">
+    <div class="hr-modal-dim" id="rule-dim"></div>
+    <div class="hr-modal-card">
+        <div class="hr-modal-head">
+            <div class="hr-modal-title">규칙 & 배당</div>
+            <button class="hr-x" id="rule-close" type="button" aria-label="닫기">✕</button>
+        </div>
+        <div class="hr-modal-body">
+            <ul class="hr-ul">
+                <li><b>단승 베팅</b>: 고른 말이 1위로 들어오면 적중입니다.</li>
+                <li><b>배당률</b> = (1 ÷ 추정 승률) × 0.8, 최소 1.1배.</li>
+                <li>능력치가 높을수록 승률이 높고 배당은 낮아집니다.</li>
+                <li>레이스 중 막판 스퍼트·페이스 난조 등 무작위 변수가 있어 <b>인기마도 질 수 있습니다.</b></li>
+                <li>예: 100C를 4.5배 말에 베팅 → 적중 시 450C 획득(순이익 350C).</li>
+            </ul>
+            <p class="small">가상 코인 게임이며 실제 도박·결제와 무관합니다.</p>
+        </div>
+        <div class="hr-modal-foot">
+            <button class="hr-start" id="rule-ok" type="button">확인</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../main.js"></script>
+<script src="./horse-racing.js"></script>
+</body>
+</html>

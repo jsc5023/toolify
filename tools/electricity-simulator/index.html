@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png" />
     <meta name="description" content="에어컨, PC, 제습기, 냉장고 등 여러 가전의 월 사용량과 예상 전기요금을 한 번에 계산하고, 사용시간을 줄였을 때 절약액까지 비교하세요." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
     <link rel="stylesheet" href="./electricity-simulator.css" />
     <link rel="canonical" href="https://toolify.kr/tools/electricity-simulator/" />
     <meta property="og:type" content="article" />
@@ -94,9 +94,24 @@
 
         <section class="info-section">
             <h2>계산 기준</h2>
-            <p>주택용 전력(저압)을 기준으로 기본요금, 누진 전력량요금, 기후환경요금(9원/kWh), 연료비조정액(5원/kWh), 부가가치세와 전력산업기반기금(2.7%)을 포함합니다. 7~8월은 300kWh·450kWh의 완화 구간을 적용합니다.</p>
-            <p class="notice">2026년 8월 확인 기준의 예상치입니다. 실제 요금은 검침기간, 고압 아파트 여부, 복지·대가족 할인, 연료비조정단가 및 요금 개정에 따라 달라질 수 있습니다. TV 수신료와 할인은 포함하지 않습니다.</p>
+            <p>주택용 전력(저압)을 기준으로 기본요금, 누진 전력량요금, 기후환경요금(9원/kWh), 연료비조정액(5원/kWh), 부가가치세와 전력산업기반기금(3.7%)을 포함합니다. 7~8월은 300kWh·450kWh의 완화 구간을 적용합니다.</p>
+            <p class="notice">2026년 9월 확인 기준의 예상치입니다. 실제 요금은 검침기간, 고압 아파트 여부, 복지·대가족 할인, 연료비조정단가 및 요금 개정에 따라 달라질 수 있습니다. TV 수신료와 할인은 포함하지 않습니다.</p>
+            <p class="source-note">기준 확인: <a href="https://home.kepco.co.kr/kepco/front/html/CY/J/A/CYJAPP010.html" target="_blank" rel="noopener noreferrer">한국전력 전기요금 계산 안내</a>. 요금이 개정되었거나 계약종을 모르면 한국전력 계산 결과를 우선하세요.</p>
             <p><a href="../appliance-payback/">오래된 가전을 바꿀지 고민이라면 가전 교체 본전 계산기에서 비교해보세요 →</a></p>
+        </section>
+
+        <section class="editorial-section">
+            <h2>실제 입력 예시와 결과 해석</h2>
+            <h3>에어컨과 생활가전을 함께 계산하는 예</h3>
+            <p>소비전력 1,800W 에어컨을 하루 8시간씩 30일 사용하면 단순 사용량은 <strong>432kWh</strong>입니다. 여기에 PC 500W를 하루 5시간씩 30일 사용한 75kWh와 기존 생활 사용량을 더해야 집 전체 누진구간을 현실적으로 비교할 수 있습니다.</p>
+            <div class="formula">월 사용량(kWh) = 소비전력(W) × 하루 사용시간 × 사용일수 ÷ 1,000</div>
+            <h3>결과를 볼 때 확인할 세 가지</h3>
+            <ul class="editorial-list">
+                <li><strong>기존 사용량:</strong> 냉장고·조명처럼 목록에 넣지 않은 사용량이 빠지면 요금이 지나치게 낮아집니다.</li>
+                <li><strong>정격과 실제 소비전력:</strong> 인버터 에어컨은 설정온도에 도달하면 출력이 낮아져 정격값보다 적게 쓸 수 있습니다.</li>
+                <li><strong>절약액:</strong> 줄인 kWh에 단가 하나를 곱한 값이 아니라, 절약 전후의 누진요금을 각각 계산한 차이입니다.</li>
+            </ul>
+            <p>가장 정확한 입력값은 스마트플러그 실측치나 최근 고지서의 사용량입니다. 이 도구는 청구서를 대신하는 것이 아니라, 사용시간을 바꿨을 때 어느 선택이 상대적으로 유리한지 비교하는 용도입니다.</p>
         </section>
 
         <section class="faq-section">
@@ -106,7 +121,7 @@
             <div class="faq-item"><button class="faq-question">왜 소비전력을 줄인 만큼 요금이 똑같이 줄지 않나요?</button><div class="faq-answer"><p>주택용 요금은 누진제입니다. 절약으로 누진구간이 내려가면 높은 구간의 전력량요금뿐 아니라 기본요금도 달라져 절감액이 더 커질 수 있습니다.</p></div></div>
         </section>
     </main>
-    <section class="footer-text"><p><a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+    <section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
 </div>
 <template id="appliance-template">
     <article class="appliance-row">
@@ -119,6 +134,6 @@
         <button class="remove-button" type="button" aria-label="가전 삭제">×</button>
     </article>
 </template>
-<script src="../../main.js"></script><script src="./electricity-simulator.js"></script>
+<script src="../../main.js?v=20260909-1"></script><script src="./electricity-simulator.js?v=20260909-1"></script>
 </body>
 </html>
