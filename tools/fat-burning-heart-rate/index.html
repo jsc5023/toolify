@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>지방 연소 심박수 계산기 | 지방이 잘 타는 심박수·존2 - Toolify</title>
+    <meta name="description" content="만 나이로 지방 연소 심박수와 존2(Zone 2) 참고 구간을 계산하세요. 추정 최대심박수, 운동 강도별 심박수와 계산 공식도 함께 확인할 수 있습니다." />
+    <link rel="canonical" href="https://toolify.kr/tools/fat-burning-heart-rate/" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="./fat-burning-heart-rate.css" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="지방 연소 심박수 계산기 - Toolify" />
+    <meta property="og:description" content="나이를 입력하고 지방 연소 심박수·존2 참고 구간과 계산 공식을 확인하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/fat-burning-heart-rate/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"지방 연소 심박수 계산기","url":"https://toolify.kr/tools/fat-burning-heart-rate/","applicationCategory":"HealthApplication","operatingSystem":"Any","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tool-list">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+<div class="page-wrapper">
+    <header class="header-card"><span class="hr-eyebrow">운동 심박수 · ZONE 2</span><h1>💓 지방 연소 심박수 계산기</h1><p class="subtitle">지방이 잘 타는 심박수가 궁금한가요? 만 나이로 운동할 때 참고할 심박수 구간을 확인하세요.</p></header>
+    <main>
+        <section class="tool-card hr-calculator" aria-label="심박수 계산">
+            <div class="hr-input">
+                <h2>내 나이 입력</h2>
+                <label for="age">만 나이</label>
+                <div class="hr-age-field"><input id="age" type="number" min="18" max="100" step="1" inputmode="numeric" placeholder="예: 30" aria-describedby="age-help age-error" /><span>세</span></div>
+                <p id="age-help" class="hr-muted">만 18~100세 성인용 참고 계산입니다.</p>
+                <p id="age-error" class="hr-error" aria-live="polite"></p>
+                <button id="example" type="button" class="hr-example">30세 예시 보기</button>
+                <p class="hr-muted">입력하면 바로 계산됩니다.<br />나이는 서버로 전송하거나 저장하지 않습니다.</p>
+            </div>
+            <div class="hr-output" aria-live="polite" aria-atomic="true">
+                <p id="result-caption">지방 연소 참고 구간 · 최대심박수의 60~70%</p>
+                <p class="hr-big"><strong id="fat-range">—</strong> <span>회/분 (bpm)</span></p>
+                <p id="result-help">만 나이를 입력해 내 참고 구간을 확인하세요.</p>
+                <div class="hr-max">추정 최대심박수 <strong id="max-rate">—</strong></div>
+            </div>
+        </section>
+        <noscript><p class="tool-card">계산기를 사용하려면 JavaScript를 켜 주세요. 직접 계산하려면 (220 − 만 나이)에 0.6과 0.7을 각각 곱하세요.</p></noscript>
+        <section class="tool-card hr-zones" aria-labelledby="zones-title">
+            <h2 id="zones-title">운동 강도별 심박수</h2>
+            <p class="hr-muted">최대심박수 비율에 따른 5구간 예시입니다. 기기나 훈련 방식에 따라 존의 정의는 달라질 수 있습니다.</p>
+            <div class="hr-zone"><div><strong>Zone 1</strong><span>50~60% · 가벼운 강도</span></div><strong id="zone-1">—</strong></div>
+            <div class="hr-zone hr-zone-selected"><div><strong>Zone 2 · 지방 연소 참고</strong><span>60~70% · 낮은 강도로 지속하는 운동</span></div><strong id="zone-2">—</strong></div>
+            <div class="hr-zone"><div><strong>Zone 3</strong><span>70~80%</span></div><strong id="zone-3">—</strong></div>
+            <div class="hr-zone"><div><strong>Zone 4</strong><span>80~90%</span></div><strong id="zone-4">—</strong></div>
+            <div class="hr-zone"><div><strong>Zone 5</strong><span>90~100% · 매우 높은 강도</span></div><strong id="zone-5">—</strong></div>
+            <p class="hr-muted">단위: 회/분(bpm). 경계값은 반올림한 참고 수치이며, 높은 구간을 달성하라는 권장 목표가 아닙니다.</p>
+        </section>
+        <section class="tool-card hr-guide">
+            <h2>어떻게 계산하나요?</h2>
+            <p class="hr-formula">추정 최대심박수 = 220 − 만 나이<br />지방 연소 참고 구간 = 추정 최대심박수 × 60~70%</p>
+            <p id="formula-example">예: 30세는 최대심박수 약 190회/분, 지방 연소 참고 구간은 약 114~133회/분입니다.</p>
+            <p>이 결과는 나이에 기반한 추정치입니다. 실제 최대심박수나 지방을 가장 많이 사용하는 운동 강도를 측정한 값은 아닙니다. 체력, 건강 상태와 약물 등에 따라 실제 적절한 강도는 달라집니다.</p>
+            <p>심장질환이 있거나 심박수에 영향을 주는 약을 복용 중이라면 의료진이 안내한 운동 강도를 따르세요.</p>
+        </section>
+        <section class="tool-card hr-guide">
+            <h2>자주 묻는 질문</h2>
+            <details><summary>지방이 잘 타는 심박수란 무슨 뜻인가요?</summary><p>운동 에너지 중 지방을 사용하는 비율이 비교적 높은 심박수 구간을 뜻합니다. 흔히 최대심박수의 60~70%로 설명하지만 개인마다 다릅니다.</p></details>
+            <details><summary>이 구간에서만 지방이 타나요?</summary><p>아니요. 다른 강도에서도 지방과 탄수화물을 함께 사용하며 그 비율이 달라집니다. 이 구간이 체중 감량을 가장 빠르게 보장하는 것은 아닙니다. 운동량과 식사 등도 영향을 줍니다.</p></details>
+            <details><summary>존2(Zone 2)와 같은 건가요?</summary><p>이 계산기는 최대심박수의 60~70%를 존2로 구분하는 방식을 사용합니다. 심박수 여유분, 젖산 역치 등 다른 기준을 쓰는 스마트워치나 운동 프로그램의 존2와는 다를 수 있습니다.</p></details>
+            <details><summary>심박수를 정확히 맞춰야 하나요?</summary><p>계산 결과는 대략적인 참고 범위입니다. 낮은 강도에서는 대화를 이어갈 수 있는 정도인지도 함께 살펴보세요. 숫자를 맞추려고 무리할 필요는 없습니다.</p></details>
+            <details><summary>소모 칼로리나 빠지는 지방량도 알 수 있나요?</summary><p>나이와 심박수 구간만으로 소모 칼로리나 체지방 감소량을 정확히 계산할 수는 없습니다. 이 도구는 운동 심박수의 참고 범위만 제공합니다.</p></details>
+        </section>
+        <section class="tool-card hr-guide hr-sources"><h2>계산 근거와 참고 자료</h2><p><a href="https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/target-heart-rates" target="_blank" rel="noopener noreferrer">미국심장협회 — 최대심박수 추정과 운동 심박수</a></p><p><a href="https://health.clevelandclinic.org/fat-burning-heart-rate" target="_blank" rel="noopener noreferrer">Cleveland Clinic — 지방 연소 심박수의 의미와 한계</a></p><p><a href="https://health.clevelandclinic.org/exercise-heart-rate-zones-explained" target="_blank" rel="noopener noreferrer">Cleveland Clinic — 5가지 심박수 구간</a></p><p class="hr-muted">관련 도구: <a href="../age-calculator/">만 나이 계산기</a> · <a href="../body-checker/">체형 계산기</a></p></section>
+        <footer class="footer-text"><p><a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">문의하기</a></p></footer>
+    </main>
+</div>
+<script src="../../main.js"></script>
+<script src="./fat-burning-heart-rate.js"></script>
+</body>
+</html>

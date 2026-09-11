@@ -226,4 +226,10 @@
         <priority>0.3</priority>
     </url>
 
+    <url>
+        <loc>https://toolify.kr/tools/fat-burning-heart-rate/</loc>
+        <lastmod>2026-09-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>

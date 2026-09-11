@@ -59,6 +59,7 @@ window.addEventListener("load", () => {
     pingIndexNowOnce([
         "https://toolify.kr/",
         "https://toolify.kr/tools/date-calculator/",
+        "https://toolify.kr/tools/fat-burning-heart-rate/",
         "https://toolify.kr/tools/text-counter/",
         "https://toolify.kr/tools/password-generator/",
         "https://toolify.kr/tools/electricity-simulator/",
