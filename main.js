@@ -249,9 +249,12 @@ window.addEventListener("load", () => {
     const labelMap = {
         all: "전체",
         "date-time": "날짜/시간",
-        dev: "개발자",
+        text: "텍스트",
+        money: "금액·문서",
+        life: "생활",
+        health: "건강",
         image: "이미지",
-        util: "유틸리티",
+        dev: "개발자",
         game: "미니게임",
     };
 
