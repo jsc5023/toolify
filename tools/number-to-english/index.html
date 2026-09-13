@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>숫자 → 영어 변환기 | Number to English Words - Toolify</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <meta name="description" content="숫자를 영어 단어(one, twenty-three…)로 읽어주는 변환기입니다. 서수(1st, 2nd) 표기, 달러·파운드·유로·원·엔·위안 금액의 수표용 영어 표기, lowercase/UPPERCASE/Title Case 문자 출력까지 지원합니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="./number-to-english.css" />
+    <link rel="canonical" href="https://toolify.kr/tools/number-to-english/" />
+    <meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="숫자 → 영어 변환기" /><meta property="og:description" content="숫자를 영어 단어로 읽어주고, 서수 표기와 원·달러 등 수표용 금액 영어 표기, 문자 출력 스타일까지 확인하세요." /><meta property="og:url" content="https://toolify.kr/tools/number-to-english/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"서수(1st, 2nd)로도 변환할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. '일반 숫자 읽기' 모드에서 서수로 표기 옵션을 켜면 twenty-third처럼 서수 형태로 바꿔줍니다. 소수점이 있는 값은 서수로 표기할 수 없어 기본 표기로 대체됩니다."}},{"@type":"Question","name":"수표에 쓰는 금액 영어 표기도 되나요?","acceptedAnswer":{"@type":"Answer","text":"네. '금액 표기' 모드에서 달러/파운드/유로/원/엔/위안을 선택하면 One thousand two hundred and 56/100 Dollars 같은 수표용 표기와 센트까지 스펠링한 표기를 함께 보여줍니다. 원·엔·위안은 보조단위가 없어 정수 금액만 표기합니다."}},{"@type":"Question","name":"and를 넣을지 뺄지 선택할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. 'and 포함(영국식)' 옵션으로 one hundred and twenty-three(영국식)와 one hundred twenty-three(미국식) 표기를 선택할 수 있습니다."}},{"@type":"Question","name":"결과를 대문자나 소문자로 바꿀 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. 문자 출력에서 lowercase, UPPERCASE, Title Case, Sentence case 중 원하는 형식을 골라 바로 복사할 수 있습니다."}}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../about.html">Toolify 소개</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+<div class="page-wrapper">
+    <header class="header-card ne-hero">
+        <span class="eyebrow">one · twenty-three · 1st · 2nd</span>
+        <h1>🔤 숫자 → 영어 변환기</h1>
+        <p class="subtitle">숫자를 영어 단어로 읽어줍니다. 일반 숫자·서수(1st, 2nd) 표기부터 원/달러 등 수표·인보이스용 금액 영어 표기, 문자 출력 스타일까지 한 번에 확인하세요.</p>
+    </header>
+    <main>
+        <section class="tool-card ne-card">
+            <div class="mode-tabs" role="tablist" aria-label="변환 모드">
+                <button id="general-mode" class="mode-button active" type="button">일반 숫자 읽기</button>
+                <button id="amount-mode" class="mode-button" type="button">금액 표기 (수표용)</button>
+            </div>
+            <p id="mode-guide" class="mode-guide"></p>
+
+            <div class="option-row">
+                <label class="toggle-inline"><input type="checkbox" id="and-toggle" /> and 포함 (영국식: one hundred <b>and</b> twenty-three)</label>
+            </div>
+            <div class="option-row" id="ordinal-row">
+                <label class="toggle-inline"><input type="checkbox" id="ordinal-toggle" /> 서수로 표기 (1st, 2nd, 3rd…)</label>
+            </div>
+            <div class="select-row currency-row hidden" id="currency-row">
+                <label for="currency-select">화폐 단위</label>
+                <select id="currency-select">
+                    <option value="dollar">달러 (Dollars)</option>
+                    <option value="pound">파운드 (Pounds)</option>
+                    <option value="euro">유로 (Euros)</option>
+                    <option value="won">원 (Won)</option>
+                    <option value="yen">엔 (Yen)</option>
+                    <option value="yuan">위안 (Yuan)</option>
+                </select>
+                <p class="context-hint hidden" id="currency-note">원·엔·위안은 보조단위(센트 등)가 없어 정수 금액만 표기합니다. 소수점은 무시됩니다.</p>
+            </div>
+
+            <div class="select-row">
+                <label for="case-select">문자 출력</label>
+                <select id="case-select">
+                    <option value="sentence">Sentence case (첫 글자만 대문자)</option>
+                    <option value="lower">lowercase (전부 소문자)</option>
+                    <option value="upper">UPPERCASE (전부 대문자)</option>
+                    <option value="title">Title Case (단어별 대문자)</option>
+                </select>
+            </div>
+
+            <div class="sample-row">
+                <span>예시</span>
+                <button type="button" data-sample="basic">1234</button>
+                <button type="button" data-sample="ordinal">23 (서수)</button>
+                <button type="button" data-sample="decimal">12.5</button>
+                <button type="button" data-sample="amount">1234.56 (금액)</button>
+                <button type="button" data-sample="won">50000원 (금액)</button>
+            </div>
+
+            <label for="number-input">변환할 숫자</label>
+            <input id="number-input" type="text" inputmode="decimal" placeholder="예: 1234.5, -12" />
+
+            <div class="action-row">
+                <button id="convert-button" type="button">변환하기</button>
+                <button id="clear-button" class="clear-button" type="button">초기화</button>
+            </div>
+            <p id="error-message" class="error-message" aria-live="polite"></p>
+
+            <section id="result-box" class="result-box hidden" aria-live="polite">
+                <div class="result-heading">
+                    <div><small>변환 결과</small><strong>English</strong></div>
+                    <button id="copy-all" type="button">영어 표기 복사</button>
+                </div>
+                <div class="output-list" id="row-general">
+                    <div class="primary-output"><span>영어 표기</span><code id="general-output"></code></div>
+                </div>
+                <div class="output-list hidden" id="row-amount">
+                    <div class="primary-output"><span>수표용 표기</span><code id="fraction-output"></code></div>
+                    <div><span>전체 스펠링</span><code id="spelled-output"></code></div>
+                </div>
+                <div class="output-list">
+                    <div><span>숫자</span><code id="number-output"></code></div>
+                </div>
+            </section>
+        </section>
+
+        <section class="editorial-section">
+            <h2>일반 숫자 읽기와 금액 표기, 뭐가 다른가요?</h2>
+            <p><strong>일반 숫자 읽기</strong>는 1234를 "one thousand two hundred thirty-four"처럼 있는 그대로 영어로 읽어줍니다. 서수 옵션을 켜면 순서를 나타내는 23rd 같은 표기(twenty-third)도 만들 수 있습니다.</p>
+            <p><strong>금액 표기(수표용)</strong>는 수표·인보이스에 실제로 쓰는 관습을 따릅니다. "One thousand two hundred thirty-four Dollars and 56/100"처럼 센트를 분수로 적는 표기와, "…and fifty-six Cents"처럼 전부 스펠링하는 표기를 함께 제공합니다. 원(Won)·엔(Yen)·위안(Yuan)처럼 보조단위를 쓰지 않는 화폐는 정수 금액만 표기합니다.</p>
+            <table class="guide-table">
+                <thead><tr><th>구분</th><th>입력</th><th>결과 예시</th></tr></thead>
+                <tbody>
+                <tr><td>일반</td><td>123</td><td>one hundred twenty-three</td></tr>
+                <tr><td>서수</td><td>23</td><td>twenty-third</td></tr>
+                <tr><td>금액(분수, 달러)</td><td>1234.56</td><td>One thousand two hundred thirty-four Dollars and 56/100</td></tr>
+                <tr><td>금액(원)</td><td>50000</td><td>Fifty thousand Won only</td></tr>
+                </tbody>
+            </table>
+            <p>결과는 문자 출력 옵션에 따라 <code>ONE HUNDRED TWENTY-THREE</code>(UPPERCASE)나 <code>One Hundred Twenty-Three</code>(Title Case)처럼 바로 바꿔 복사할 수 있습니다.</p>
+        </section>
+
+        <section class="editorial-section">
+            <h2>결과를 사용할 때 주의하세요</h2>
+            <ul class="editorial-list">
+                <li>and 포함 여부는 나라·기관마다 관례가 다릅니다. 제출할 문서의 기존 표기를 먼저 확인하세요.</li>
+                <li>수표 작성 시 실제 금융기관이 요구하는 표기 형식(대문자, 줄 채우기 등)은 별도로 확인해야 합니다.</li>
+                <li>서수 표기는 소수점이 있는 값에는 적용되지 않으며, 이 경우 기본(일반) 표기로 대체됩니다.</li>
+                <li>중요한 문서·거래는 숫자와 영어 표기를 다시 한 번 대조하세요.</li>
+            </ul>
+            <p class="source-note">이 도구는 표기 변환만 수행하며 금융·법률 자문을 대신하지 않습니다.</p>
+            <p><a href="../money-converter/">숫자를 한글 금액으로 바꾸려면 한글 금액 변환기 →</a><br /><a href="../hanja-number-converter/">숫자를 한자 숫자로 바꾸려면 숫자 → 한자 변환기 →</a></p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문</h2>
+            <div class="faq-item"><button class="faq-question">서수(1st, 2nd)로도 변환할 수 있나요?</button><div class="faq-answer"><p>네. '일반 숫자 읽기' 모드에서 서수로 표기 옵션을 켜면 twenty-third처럼 서수 형태로 바꿔줍니다. 소수점이 있는 값은 서수로 표기할 수 없어 기본 표기로 대체됩니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">수표에 쓰는 금액 영어 표기도 되나요?</button><div class="faq-answer"><p>네. '금액 표기' 모드에서 달러/파운드/유로/원/엔/위안을 선택하면 수표용 표기와 센트까지 스펠링한 표기를 함께 보여줍니다. 원·엔·위안은 보조단위가 없어 정수 금액만 표기합니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">and를 넣을지 뺄지 선택할 수 있나요?</button><div class="faq-answer"><p>네. 'and 포함(영국식)' 옵션으로 영국식과 미국식 표기를 선택할 수 있습니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">결과를 대문자나 소문자로 바꿀 수 있나요?</button><div class="faq-answer"><p>네. 문자 출력에서 lowercase, UPPERCASE, Title Case, Sentence case 중 원하는 형식을 골라 바로 복사할 수 있습니다.</p></div></div>
+        </section>
+    </main>
+    <section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+</div>
+<script src="../../main.js?v=20260909-3"></script><script src="./number-to-english.js"></script>
+</body></html>

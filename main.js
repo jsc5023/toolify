@@ -69,6 +69,8 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/contract-amount-checker/",
         "https://toolify.kr/tools/hanja-amount-converter/",
         "https://toolify.kr/tools/horse-racing/",
+        "https://toolify.kr/tools/hanja-number-converter/",
+        "https://toolify.kr/tools/number-to-english/",
         "https://toolify.kr/about.html",
     ]);
 });

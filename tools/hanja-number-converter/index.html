@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>숫자 → 한자 변환기 | 一二三 숫자 표기 변환 - Toolify</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <meta name="description" content="숫자를 一·二·三·十·百·千·萬·億 한자 숫자로 바꾸거나, 한자 숫자를 다시 숫자로 확인하세요. 나이·날짜·조항 번호 등 문맥별 표기와 한글 음독을 함께 제공합니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="./hanja-number-converter.css" />
+    <link rel="canonical" href="https://toolify.kr/tools/hanja-number-converter/" />
+    <meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="숫자 → 한자 변환기" /><meta property="og:description" content="숫자와 一二三 한자 숫자를 양방향으로 변환하고, 나이·날짜·조항 번호 같은 문맥 표기까지 확인하세요." /><meta property="og:url" content="https://toolify.kr/tools/hanja-number-converter/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"이 도구도 계약서 한자 대자(壹貳參)를 만들어주나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 대자(壹貳參)로 금액을 표기하려면 계약서 한자 금액 변환기를 이용해 주세요. 이 도구는 一二三처럼 일반적으로 쓰는 한자 숫자를 대상으로 합니다."}},{"@type":"Question","name":"나이나 날짜도 한자로 바꿀 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. 문맥 선택에서 나이(歲)·학년(學年)·날짜(日/月/年)·조항(第…條) 등을 고르면 숫자 앞뒤에 해당 한자가 자동으로 붙습니다."}},{"@type":"Question","name":"입력한 숫자가 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 변환은 현재 브라우저 안에서만 처리하며 입력값을 서버로 전송하거나 저장하지 않습니다."}}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../about.html">Toolify 소개</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+<div class="page-wrapper">
+    <header class="header-card hn-hero">
+        <span class="eyebrow">一 · 十 · 百 · 千 · 萬 · 億</span>
+        <h1>㊀ 숫자 → 한자 변환기</h1>
+        <p class="subtitle">숫자를 一二三 한자 숫자로 바꾸거나, 한자 숫자를 다시 숫자로 확인합니다. 나이·날짜·조항 번호 같은 문맥 표기도 함께 만들어줍니다.</p>
+        <p class="legal-note">계약서 금액에 쓰는 한자 대자(壹·貳·參)는 이 도구와 다릅니다. 계약서용은 <a href="../hanja-amount-converter/">계약서 한자 금액 변환기</a>를 이용해 주세요.</p>
+    </header>
+    <main>
+        <section class="tool-card hn-card">
+            <div class="mode-tabs" role="tablist" aria-label="변환 방향">
+                <button id="number-mode" class="mode-button active" type="button">숫자 → 한자</button>
+                <button id="hanja-mode" class="mode-button" type="button">한자 → 숫자</button>
+                <button id="swap-mode" class="swap-button" type="button" aria-label="변환 방향 바꾸기">⇄</button>
+            </div>
+            <p id="mode-guide" class="mode-guide"></p>
+
+            <div class="context-row" id="context-row">
+                <label for="context-select">문맥 표기 (선택)</label>
+                <select id="context-select">
+                    <option value="none">없음 (숫자만)</option>
+                    <option value="clause">제N조 (조항) — 第N條</option>
+                    <option value="ordinal">제N번째 (순번) — 第N番</option>
+                    <option value="age">N세 (나이) — N歲</option>
+                    <option value="grade">N학년 (학년) — N學年</option>
+                    <option value="number">N번 (번호) — N番</option>
+                    <option value="day">N일 (날짜) — N日</option>
+                    <option value="month">N월 (날짜) — N月</option>
+                    <option value="year">N년 (날짜) — N年</option>
+                </select>
+                <p class="context-hint">숫자 앞뒤에 붙일 한자를 고르면 결과에 바로 반영됩니다.</p>
+            </div>
+
+            <div class="sample-row">
+                <span>예시</span>
+                <button type="button" data-sample="small">123</button>
+                <button type="button" data-sample="big">1억2천만</button>
+                <button type="button" data-sample="clause">제3조</button>
+                <button type="button" data-sample="hanja">三千四百五十六</button>
+            </div>
+
+            <label for="number-input">변환할 값</label>
+            <input id="number-input" type="text" inputmode="numeric" placeholder="예: 123" />
+
+            <div class="action-row">
+                <button id="convert-button" type="button">변환하기</button>
+                <button id="clear-button" class="clear-button" type="button">초기화</button>
+            </div>
+            <p id="error-message" class="error-message" aria-live="polite"></p>
+
+            <section id="result-box" class="result-box hidden" aria-live="polite">
+                <div class="result-heading">
+                    <div><small>변환 결과</small><strong id="result-summary"></strong></div>
+                    <button id="copy-all" type="button">한자 표기 복사</button>
+                </div>
+                <div class="output-list">
+                    <div class="primary-output"><span>한자 표기</span><code id="hanja-output"></code></div>
+                    <div><span>한글 음독</span><code id="korean-output"></code></div>
+                    <div><span>숫자</span><code id="number-output"></code></div>
+                    <div><span>문맥</span><code id="context-output"></code></div>
+                </div>
+            </section>
+        </section>
+
+        <section class="editorial-section">
+            <h2>일반 한자 숫자와 계약서 대자(大字)는 다릅니다</h2>
+            <p>이 도구는 一·二·三처럼 일상적으로 쓰는 한자 숫자를 다룹니다. 계약서·영수증처럼 숫자를 함부로 고치지 못하게 획이 복잡한 <strong>대자(壹·貳·參…)</strong>로 금액을 적어야 한다면 별도의 계약서 한자 금액 변환기를 이용하세요.</p>
+            <table class="guide-table">
+                <thead><tr><th>숫자</th><th>일반 한자 (이 도구)</th><th>대자 (금액 전용)</th></tr></thead>
+                <tbody>
+                <tr><td>1·2·3</td><td>一·二·三</td><td>壹·貳·參</td></tr>
+                <tr><td>10·100·1,000</td><td>十·百·千</td><td>拾·佰·仟</td></tr>
+                </tbody>
+            </table>
+            <p>일반 한자 숫자는 나이(歲)·학년(學年)·조항(第…條)·날짜(年/月/日)처럼 문서나 안내문에 숫자를 한자로 자연스럽게 표기하고 싶을 때 씁니다.</p>
+        </section>
+
+        <section class="editorial-section">
+            <h2>결과를 사용할 때 주의하세요</h2>
+            <ul class="editorial-list">
+                <li>같은 숫자라도 문서·기관에 따라 한자 표기 관습이 다를 수 있습니다. 제출 전 실제 서식을 확인하세요.</li>
+                <li>0이 중간에 있는 숫자(예: 1005)는 자릿수 단위(千·十 등)가 함께 붙어 읽는 데 혼동이 없습니다.</li>
+                <li>한자 → 숫자 모드는 정자(正字)·일부 간체는 물론 대자(壹貳參)도 함께 인식하지만, 출력은 항상 일반 한자(一二三)로 통일됩니다.</li>
+                <li>중요한 문서는 숫자·한글·한자 표기를 다시 한 번 대조하세요.</li>
+            </ul>
+            <p class="source-note">이 도구는 숫자 표기 변환만 수행하며 법률 자문이나 공식 서식 판단을 대신하지 않습니다.</p>
+            <p><a href="../hanja-amount-converter/">계약서 금액을 한자 대자(壹貳參)로 바꾸려면 계약서 한자 금액 변환기 →</a><br /><a href="../money-converter/">숫자를 한글 금액으로 바꾸려면 한글 금액 변환기 →</a></p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문</h2>
+            <div class="faq-item"><button class="faq-question">이 도구도 계약서 한자 대자(壹貳參)를 만들어주나요?</button><div class="faq-answer"><p>아닙니다. 대자로 금액을 표기하려면 계약서 한자 금액 변환기를 이용해 주세요. 이 도구는 一二三처럼 일반적으로 쓰는 한자 숫자를 대상으로 합니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">나이나 날짜도 한자로 바꿀 수 있나요?</button><div class="faq-answer"><p>네. 문맥 선택에서 나이(歲)·학년(學年)·날짜(日/月/年)·조항(第…條) 등을 고르면 숫자 앞뒤에 해당 한자가 자동으로 붙습니다.</p></div></div>
+            <div class="faq-item"><button class="faq-question">입력한 숫자가 저장되나요?</button><div class="faq-answer"><p>아니요. 변환은 현재 브라우저 안에서만 처리하며 입력값을 서버로 전송하거나 저장하지 않습니다.</p></div></div>
+        </section>
+    </main>
+    <section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+</div>
+<script src="../../main.js?v=20260909-3"></script><script src="./hanja-number-converter.js"></script>
+</body></html>
