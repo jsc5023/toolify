@@ -71,6 +71,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/horse-racing/",
         "https://toolify.kr/tools/hanja-number-converter/",
         "https://toolify.kr/tools/number-to-english/",
+        "https://toolify.kr/tools/lunch-roulette/",
         "https://toolify.kr/about.html",
     ]);
 });
