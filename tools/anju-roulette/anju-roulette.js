@@ -22,8 +22,8 @@
     // 취향 필터: 다중 선택, 태그를 모두 포함해야 통과
     const TASTE_OPTIONS = ["매운맛", "국물", "간단", "든든함"];
 
-    // 60가지 술안주. img는 ./images/에 있는 무료 라이선스(Pexels) 사진이고,
-    // emoji는 이미지 로드 실패 시를 대비한 폴백으로 cardTemplate이 자동으로 사용한다.
+    // 60가지 술안주. img는 ./images/의 무료 라이선스 사진(Pexels 43장 + Wikimedia Commons 17장,
+    // Commons 사진의 작가·라이선스는 index.html 하단 '사진 출처'에 표기). emoji는 이미지 로드 실패 시 폴백.
     const BASE_ITEMS = [
         // 고기·구이 10
         { id: "samgyeopsal", img: "./images/samgyeopsal.jpg", name: "삼겹살", category: "meat", alcohol: ["소주", "맥주"], tags: ["든든함", "2인이상", "배달가능"], emoji: "🥓" },
