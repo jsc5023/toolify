@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>Toolify - 무료 날짜 계산기 등 올인원 웹 도구 모음</title>
+    <title>Toolify — 일상의 계산과 작업을 가볍게 | 무료 웹 도구</title>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
             crossorigin="anonymous"></script>
@@ -16,29 +16,32 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css?v=20260909-1" />
+    <link rel="stylesheet" href="home.css?v=20260914-1" />
     <link rel="canonical" href="https://toolify.kr/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Toolify" />
-    <meta property="og:title" content="Toolify - 무료 날짜 계산기 등 올인원 웹 도구 모음" />
+    <meta property="og:title" content="Toolify — 일상의 계산과 작업을 가볍게 | 무료 웹 도구" />
     <meta property="og:description" content="무료 날짜 계산기, 글자수 세기, 이미지 압축기, JSON 포매터, QR 코드 생성기, Base64 등 자주 쓰는 웹 도구를 한 곳에 모은 올인원 무료 툴 모음 사이트입니다." />
     <meta property="og:url" content="https://toolify.kr/" />
 </head>
-<body>
+<body class="home-page">
+<a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="./" class="logo">Toolify</a>
+        <a href="./" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
 
         <div class="header-actions">
             <!-- 홈에서만 동작: 누르면 검색 input으로 포커스 -->
             <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색으로 이동">🔍</button>
 
             <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="./" class="active">홈</a></li>
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기" aria-expanded="false" aria-controls="home-nav">☰</button>
+                <ul class="nav-links" id="home-nav">
                     <li><a href="#tools">전체 도구</a></li>
                     <li><a href="#categories">카테고리</a></li>
+                    <li><a href="#guides">사용 가이드</a></li>
+                    <li><a href="./about.html">소개</a></li>
                     <li><a href="./contact.html">문의</a></li>
                 </ul>
             </nav>
@@ -47,93 +50,89 @@
 </header>
 
 <div class="page-wrapper">
-    <header class="header-card">
-        <h1>🛠 Toolify - 올인원 웹 도구</h1>
-        <p class="subtitle">
-            자주 쓰는 작은 기능들을 한 곳에 모아둔 올인원 웹 도구 모음입니다.
-            회원가입 없이 바로 브라우저에서 무료로 사용할 수 있습니다.
-        </p>
+    <header class="home-hero">
+        <div class="hero-copy">
+            <p class="eyebrow"><span class="status-dot"></span> 작은 작업을 위한, 든든한 도구함</p>
+            <h1>일상의 계산과 작업을<br><span>조금 더 가볍게.</span></h1>
+            <p class="hero-description">복잡한 금액 표기부터 날짜 계산, 이미지 용량 줄이기까지.<br class="desktop-break"> 필요한 순간, 설치 없이 바로 꺼내 쓰세요.</p>
+            <div class="hero-actions"><a class="primary-link" href="#tools">내게 필요한 도구 찾기 <span aria-hidden="true">↗</span></a><a class="text-link" href="#guides">사용 가이드 읽기 →</a></div>
+            <div class="hero-facts"><span><strong data-tool-count>34</strong>개의 무료 도구</span><span><strong>8</strong>개 카테고리</span></div>
+        </div>
+        <div class="hero-art" aria-label="한글 금액 변환과 시간 계산의 사용 예시">
+            <div class="art-orbit" aria-hidden="true"></div>
+            <div class="example-card money-example"><div class="example-heading"><span class="example-icon">₩</span><span>숫자를 한글 금액으로</span><span class="example-label">예시</span></div><p class="example-input">1,250,000 <small>원</small></p><div class="example-divider">↓</div><p class="example-output">일백이십오만원</p><span class="example-note">한 자리씩 세지 않아도, 정확하게.</span></div>
+            <div class="example-card time-example"><span class="example-icon">◷</span><div><span class="example-note">22:30 → 다음 날 01:15</span><p>2시간 <span>45분</span></p></div><span class="example-label">예시</span></div>
+            <span class="art-spark" aria-hidden="true">✳</span>
+            <p class="art-caption">LESS BUSYWORK. MORE EVERYDAY.</p>
+        </div>
     </header>
 
-    <main>
+    <main id="main-content">
+        <section class="featured-section" aria-labelledby="featured-title">
+            <div class="section-heading"><div><p class="eyebrow">QUICK START</p><h2 id="featured-title">이런 작업, 바로 해결하세요</h2></div><a class="text-link" href="#tools">전체 <span data-tool-count>34</span>개 도구 보기 ↗</a></div>
+            <div class="featured-grid">
+                <a class="feature-card" href="tools/money-converter/"><span class="feature-icon mint">₩</span><span class="feature-category">금액 · 문서</span><h3>한글 금액 변환기 <span>↗</span></h3><p>견적서에 적을 숫자 금액을<br>한글로 바꾸고 복사하세요.</p><span class="feature-example">1,250,000 → 일백이십오만</span></a>
+                <a class="feature-card" href="tools/date-calculator/"><span class="feature-icon violet">31</span><span class="feature-category">날짜 · 시간</span><h3>날짜 계산기 <span>↗</span></h3><p>두 날짜 사이의 일수부터<br>D-Day와 평일 계산까지.</p><span class="feature-example">시작일 포함 여부도 선택</span></a>
+                <a class="feature-card" href="tools/image-compressor/"><span class="feature-icon peach">▧</span><span class="feature-category">이미지 · 영상</span><h3>이미지 압축기 <span>↗</span></h3><p>업로드하기엔 너무 큰 사진,<br>크기와 품질을 조절해 가볍게.</p><span class="feature-example">JPG · PNG / 브라우저에서 처리</span></a>
+                <a class="feature-card" href="tools/time-calculator/"><span class="feature-icon blue">◷</span><span class="feature-category">날짜 · 시간</span><h3>시간 계산기 <span>↗</span></h3><p>자정을 넘는 시간 차이와<br>휴게시간을 뺀 작업시간 계산.</p><span class="feature-example">시간 차이 · 더하기 · 단위 변환</span></a>
+                <a class="feature-card" href="tools/text-counter/"><span class="feature-icon yellow">Aa</span><span class="feature-category">텍스트</span><h3>글자수 세기 <span>↗</span></h3><p>원고를 붙여넣고 글자 수,<br>공백 제외 수와 바이트 확인.</p><span class="feature-example">입력과 동시에 실시간 집계</span></a>
+                <a class="feature-card" href="tools/transfer-time/"><span class="feature-icon mint">⇄</span><span class="feature-category">생활</span><h3>파일 전송 시간 <span>↗</span></h3><p>큰 파일을 옮길 때 얼마나 걸릴까?<br>용량과 속도로 예상시간 확인.</p><span class="feature-example">다운로드 · 업로드 · USB 복사</span></a>
+            </div>
+        </section>
+
+        <section class="category-section" id="categories" aria-labelledby="category-title">
+            <div class="section-heading"><div><p class="eyebrow">YOUR TOOLBOX</p><h2 id="category-title">무엇을 도와드릴까요?</h2></div><p>작업에 맞는 분야부터 둘러보세요.</p></div>
+            <div class="category-grid">
+                <a href="#tools" data-category-link="date-time"><span>◷</span><div><h3>날짜 · 시간</h3><p>일수, 나이, 시간 차이</p></div><small data-count-category="date-time"></small></a>
+                <a href="#tools" data-category-link="money"><span>₩</span><div><h3>금액 · 문서</h3><p>한글·한자·영어 금액 표기</p></div><small data-count-category="money"></small></a>
+                <a href="#tools" data-category-link="text"><span>Aa</span><div><h3>텍스트</h3><p>글자 수, 정리, 표기 변환</p></div><small data-count-category="text"></small></a>
+                <a href="#tools" data-category-link="image"><span>▧</span><div><h3>이미지 · 영상</h3><p>사진 압축, QR, 영상 용량</p></div><small data-count-category="image"></small></a>
+                <a href="#tools" data-category-link="life"><span>⌂</span><div><h3>생활</h3><p>전기세, 단위, 메뉴 선택</p></div><small data-count-category="life"></small></a>
+                <a href="#tools" data-category-link="dev"><span>&lt;/&gt;</span><div><h3>개발자</h3><p>JSON, 인코딩, URL 분석</p></div><small data-count-category="dev"></small></a>
+                <a href="#tools" data-category-link="health"><span>♡</span><div><h3>건강</h3><p>BMI, 운동 심박수 참고값</p></div><small data-count-category="health"></small></a>
+                <a href="#tools" data-category-link="game"><span>⚑</span><div><h3>미니게임</h3><p>숫자 추리와 가벼운 레이스</p></div><small data-count-category="game"></small></a>
+            </div>
+        </section>
+
+        <section class="guide-section" id="guides" aria-labelledby="guide-title">
+            <div class="section-heading"><div><p class="eyebrow">A LITTLE KNOW-HOW</p><h2 id="guide-title">결과를 이해하면, 더 잘 쓸 수 있어요</h2></div><a class="text-link" href="guides/">가이드 모두 보기 ↗</a></div>
+            <div class="guide-grid">
+                <a class="guide-preview" href="guides/time-calculation.html"><div class="guide-art mint"><span>22:30 <i>→</i> 01:15</span><small>날짜가 바뀌어도 차근차근</small></div><div class="guide-preview-copy"><span class="eyebrow">시간 계산</span><h3>자정을 넘는 시간,<br>어떻게 계산할까요?</h3><p>날짜 입력부터 휴게시간 제외, 소수 시간 환산까지 예제로 알아봅니다.</p><span class="text-link">가이드 읽기 →</span></div></a>
+                <a class="guide-preview" href="guides/date-counting.html"><div class="guide-art violet"><span>9.14 <i>→</i> 9.16</span><small>2일일까, 3일일까?</small></div><div class="guide-preview-copy"><span class="eyebrow">날짜 계산</span><h3>시작일 포함 여부로<br>하루가 달라지는 이유</h3><p>경과 일수와 날짜 개수의 차이, 주말을 제외하는 기준을 살펴봅니다.</p><span class="text-link">가이드 읽기 →</span></div></a>
+                <a class="guide-preview" href="guides/text-counting.html"><div class="guide-art peach"><span>한글 <i>≠</i> bytes</span><small>글자 수와 바이트는 다른 단위</small></div><div class="guide-preview-copy"><span class="eyebrow">텍스트 활용</span><h3>같은 글인데<br>글자 수가 다른 이유</h3><p>공백, 줄바꿈, 이모지와 UTF-8 바이트 수를 실제 입력값으로 비교합니다.</p><span class="text-link">가이드 읽기 →</span></div></a>
+            </div>
+        </section>
         <!-- ✅ 허브 -->
-        <section class="home-hub" aria-label="홈 허브">
+        <section class="home-hub" id="tools" aria-label="전체 도구 검색">
             <!-- 검색 -->
             <div class="hub-row mt-14">
-                <h2 class="hub-title">🔎 도구 검색</h2>
-                <span class="hub-sub">제목/설명 검색</span>
+                <h2 class="hub-title">전체 도구 <span class="total-count" data-tool-count>34</span></h2>
+                <span class="hub-sub">이름과 설명으로 검색하세요</span>
             </div>
 
             <div class="search-bar">
-                <input id="tool-search" type="search" placeholder="도구 검색 (예: 날짜, 파일 전송, 영상, JSON, QR)" autocomplete="off" />
+                <input id="tool-search" type="search" aria-label="도구 이름 또는 설명 검색" placeholder="어떤 도구가 필요한가요?  예: 날짜, 금액, 이미지, JSON" autocomplete="off" />
                 <button id="tool-search-clear" type="button" class="search-clear hidden">지우기</button>
             </div>
-            <p class="search-hint" id="search-hint"></p>
-
-            <!-- 추천 -->
-            <div class="hub-row mt-14">
-                <h2 class="hub-title">🔥 추천 도구</h2>
-                <button class="hub-more" id="show-all-tools" type="button">전체 도구 보기 ↓</button>
-            </div>
-
-            <!-- 더 가벼운 "칩" 스타일 -->
-            <div class="chip-grid">
-                <a class="chip" href="tools/money-converter/">💰 한글 금액 변환기</a>
-                <a class="chip" href="tools/contract-amount-checker/">🧾 계약 금액 일치 확인</a>
-                <a class="chip" href="tools/transfer-time/">🚀 파일 전송 시간</a>
-                <a class="chip" href="tools/video-storage/">🎥 영상 용량·시간</a>
-                <a class="chip" href="tools/appliance-payback/">🔄 가전 교체 본전</a>
-                <a class="chip" href="tools/electricity-simulator/">⚡ 가전 전기세</a>
-                <a class="chip" href="tools/date-calculator/">📅 날짜 계산기</a>
-                <a class="chip" href="tools/text-counter/">✏️ 글자수 세기</a>
-                <a class="chip" href="tools/password-generator/">🔐 비밀번호 생성기</a>
-                <a class="chip" href="tools/json-formatter/">🧩 JSON 포매터</a>
-                <a class="chip" href="tools/image-compressor/">🖼️ 이미지 압축기</a>
-                <a class="chip" href="tools/unit-converter/">📐 단위 변환기</a>
-            </div>
-
-            <!-- 브라우저에만 저장되는 개인 도구함 -->
-            <div class="personal-tools" aria-label="내 도구함">
-                <section class="personal-panel">
-                    <div class="personal-heading">
-                        <h2>⭐ 내 도구</h2>
-                        <span>카드의 별을 눌러 추가</span>
-                    </div>
-                    <div id="favorite-tools" class="personal-list"></div>
-                    <p id="favorite-empty" class="personal-empty">자주 쓰는 도구를 즐겨찾기에 모아보세요.</p>
-                </section>
-                <section class="personal-panel">
-                    <div class="personal-heading">
-                        <h2>🕘 최근 사용</h2>
-                        <button id="clear-recent" class="personal-clear hidden" type="button">기록 지우기</button>
-                    </div>
-                    <div id="recent-tools" class="personal-list"></div>
-                    <p id="recent-empty" class="personal-empty">사용한 도구가 여기에 표시됩니다.</p>
-                </section>
-            </div>
+            <p class="search-hint" id="search-hint" role="status" aria-live="polite"></p>
 
             <!-- 카테고리 (segmented 탭) -->
-            <div class="hub-row mt-14" id="categories">
-                <h2 class="hub-title">📂 카테고리</h2>
-                <span class="hub-sub">누르면 아래 카드가 바뀜</span>
-            </div>
-
-            <div class="segmented" role="tablist" aria-label="도구 카테고리">
-                <button class="seg-btn active" type="button" data-filter="all" role="tab" aria-selected="true">전체</button>
-                <button class="seg-btn" type="button" data-filter="date-time" role="tab">날짜/시간</button>
-                <button class="seg-btn" type="button" data-filter="text" role="tab">텍스트</button>
-                <button class="seg-btn" type="button" data-filter="money" role="tab">금액·문서</button>
-                <button class="seg-btn" type="button" data-filter="life" role="tab">생활</button>
-                <button class="seg-btn" type="button" data-filter="health" role="tab">건강</button>
-                <button class="seg-btn" type="button" data-filter="image" role="tab">이미지</button>
-                <button class="seg-btn" type="button" data-filter="dev" role="tab">개발자</button>
-                <button class="seg-btn" type="button" data-filter="game" role="tab">미니게임</button>
+            <div class="segmented" role="group" aria-label="도구 카테고리 필터">
+                <button class="seg-btn active" type="button" data-filter="all" aria-pressed="true">전체</button>
+                <button class="seg-btn" type="button" data-filter="date-time" aria-pressed="false">날짜/시간</button>
+                <button class="seg-btn" type="button" data-filter="text" aria-pressed="false">텍스트</button>
+                <button class="seg-btn" type="button" data-filter="money" aria-pressed="false">금액·문서</button>
+                <button class="seg-btn" type="button" data-filter="life" aria-pressed="false">생활</button>
+                <button class="seg-btn" type="button" data-filter="health" aria-pressed="false">건강</button>
+                <button class="seg-btn" type="button" data-filter="image" aria-pressed="false">이미지</button>
+                <button class="seg-btn" type="button" data-filter="dev" aria-pressed="false">개발자</button>
+                <button class="seg-btn" type="button" data-filter="game" aria-pressed="false">미니게임</button>
             </div>
 
             <p class="filter-hint" id="filter-hint">현재: 전체</p>
         </section>
 
-        <section class="tool-list" id="tool-list">
+        <section class="tool-list" id="tool-list" aria-label="도구 목록">
             <article class="tool-item clickable" data-category="health" data-href="tools/fat-burning-heart-rate/">
                 <div class="tool-head"><h3>💓 지방 연소 심박수 계산기</h3><span class="pill">건강</span></div>
                 <p>지방이 잘 타는 심박수가 궁금할 때, 만 나이로 지방 연소·존2(Zone 2) 참고 구간과 추정 최대심박수를 확인하세요.</p>
@@ -414,7 +413,26 @@
                 <p>점심 메뉴(점메추) 고민될 때 눌러서 돌리는 룰렛입니다. 한식·중식·일식·양식·분식 60가지 메뉴를 카테고리별로 골라 돌리거나 직접 메뉴를 추가할 수 있습니다.</p>
                 <a class="tool-button" href="tools/lunch-roulette/">바로가기</a>
             </article>
+
+            <article class="tool-item clickable" data-category="life" data-href="tools/delivery-roulette/">
+                <div class="tool-head">
+                    <h3>🍜 배달 메뉴 룰렛</h3>
+                    <span class="pill">생활</span>
+                </div>
+                <p>배달로 시켜 먹기 좋은 메뉴 60가지 룰렛입니다. 1인 배달·매운맛 제외·든든하게·가볍게 필터로 조건에 맞는 메뉴만 골라 돌릴 수 있습니다.</p>
+                <a class="tool-button" href="tools/delivery-roulette/">바로가기</a>
+            </article>
         </section>
+
+        <div id="search-empty" class="search-empty hidden"><h3>일치하는 도구가 없어요</h3><p>더 짧은 검색어를 입력하거나 전체 카테고리에서 찾아보세요.</p><button type="button" id="show-all-tools">검색 초기화</button></div>
+
+        <details class="personal-drawer">
+            <summary>☆ 내 도구함 <span>즐겨찾기와 최근 사용 도구</span></summary>
+            <div class="personal-tools" aria-label="내 도구함">
+                <section class="personal-panel"><div class="personal-heading"><h2>즐겨찾기</h2><span>도구 카드의 별을 눌러 추가</span></div><div id="favorite-tools" class="personal-list"></div><p id="favorite-empty" class="personal-empty">자주 쓰는 도구의 별을 눌러 모아보세요.</p></section>
+                <section class="personal-panel"><div class="personal-heading"><h2>최근 사용</h2><button id="clear-recent" class="personal-clear hidden" type="button">기록 지우기</button></div><div id="recent-tools" class="personal-list"></div><p id="recent-empty" class="personal-empty">사용한 도구가 이 브라우저에 표시됩니다.</p></section>
+            </div>
+        </details>
 
         <section class="seo-footer">
             <h2>Toolify는 어떤 사이트인가요?</h2>
@@ -428,16 +446,18 @@
         </section>
     </main>
 
-    <section class="footer-text">
+    <footer class="footer-text home-footer">
+        <div><a href="./" class="footer-brand">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
         <p>
             <a href="./privacy.html">개인정보 처리방침</a> ·
             <a href="./terms.html">이용약관</a> ·
             <a href="./about.html">Toolify 소개</a> ·
             <a href="./contact.html">Contact / 문의하기</a>
         </p>
-    </section>
+        <p class="footer-note">계산 기준과 사용 예시는 각 도구에서 확인하세요. <a href="guides/">사용 가이드 →</a></p>
+    </footer>
 </div>
 
-<script src="main.js?v=20260909-3"></script>
+<script src="main.js?v=20260914-1"></script>
 </body>
 </html>

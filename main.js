@@ -6,12 +6,25 @@
     const navLinks = document.querySelector(".nav-links");
     if (!navToggle || !navLinks) return;
 
+    navToggle.setAttribute("aria-expanded", "false");
+
     navToggle.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
     });
 
     navLinks.addEventListener("click", (e) => {
-        if (e.target && e.target.tagName === "A") navLinks.classList.remove("open");
+        if (e.target && e.target.tagName === "A") {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && navLinks.classList.contains("open")) {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.focus();
+        }
     });
 })();
 
@@ -39,7 +52,11 @@
 // IndexNow 자동 제출 (공통)
 // =======================
 function pingIndexNowOnce(urls) {
-    if (localStorage.getItem("indexnow-pinged")) return;
+    // Local previews must not submit production URLs; storage can be unavailable.
+    if (window.location.hostname !== "toolify.kr") return;
+    try {
+        if (localStorage.getItem("indexnow-pinged")) return;
+    } catch (_) { return; }
 
     fetch("https://api.indexnow.org/indexnow", {
         method: "POST",
@@ -52,7 +69,7 @@ function pingIndexNowOnce(urls) {
         }),
     }).catch(() => {});
 
-    localStorage.setItem("indexnow-pinged", "1");
+    try { localStorage.setItem("indexnow-pinged", "1"); } catch (_) {}
 }
 
 window.addEventListener("load", () => {
@@ -72,6 +89,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/hanja-number-converter/",
         "https://toolify.kr/tools/number-to-english/",
         "https://toolify.kr/tools/lunch-roulette/",
+        "https://toolify.kr/tools/delivery-roulette/",
         "https://toolify.kr/about.html",
     ]);
 });
@@ -244,6 +262,12 @@ window.addEventListener("load", () => {
     const input = document.querySelector("#tool-search");
     const clearBtn = document.querySelector("#tool-search-clear");
     const searchHint = document.querySelector("#search-hint");
+    const emptyState = document.querySelector("#search-empty");
+    const isNewHome = document.body.classList.contains("home-page");
+    document.querySelectorAll("[data-tool-count]").forEach((el) => { el.textContent = cards.length; });
+    document.querySelectorAll("[data-count-category]").forEach((el) => {
+        el.textContent = `${cards.filter((card) => card.dataset.category === el.dataset.countCategory).length}개`;
+    });
 
     let currentCategory = "all";
 
@@ -265,7 +289,7 @@ window.addEventListener("load", () => {
 
     function setCompactMode(hasQuery) {
         // 전체 목록은 간결하게 보여주되, 검색 중에는 일치한 설명을 확인할 수 있게 펼친다.
-        const isCompact = currentCategory === "all" && !hasQuery;
+        const isCompact = !isNewHome && currentCategory === "all" && !hasQuery;
         toolList.classList.toggle("is-compact", isCompact);
     }
 
@@ -294,8 +318,9 @@ window.addEventListener("load", () => {
             if (passSearch) visible++;
         });
 
-        if (hint) hint.textContent = `현재: ${labelMap[currentCategory] || currentCategory}`;
+        if (hint) hint.textContent = `${labelMap[currentCategory] || currentCategory} · ${visible}개 도구`;
         if (searchHint) searchHint.textContent = hasQuery ? `검색 결과: ${visible}개` : "";
+        if (emptyState) emptyState.classList.toggle("hidden", visible > 0);
     }
 
     function showAllTools() {
@@ -304,7 +329,7 @@ window.addEventListener("load", () => {
         buttons.forEach((button) => {
             const isAll = button.dataset.filter === "all";
             button.classList.toggle("active", isAll);
-            button.setAttribute("aria-selected", isAll ? "true" : "false");
+            button.setAttribute(isNewHome ? "aria-pressed" : "aria-selected", String(isAll));
         });
         apply();
     }
@@ -314,9 +339,9 @@ window.addEventListener("load", () => {
         btn.addEventListener("click", () => {
             currentCategory = btn.dataset.filter || "all";
             buttons.forEach((b) => b.classList.toggle("active", b === btn));
-            buttons.forEach((b) => b.setAttribute("aria-selected", b === btn ? "true" : "false"));
+            buttons.forEach((b) => b.setAttribute(isNewHome ? "aria-pressed" : "aria-selected", String(b === btn)));
             apply();
-            document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth" });
+            if (!isNewHome) document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth" });
         });
     });
 
@@ -324,7 +349,7 @@ window.addEventListener("load", () => {
     if (input) {
         input.addEventListener("input", () => {
             apply();
-            if (normalize(input.value).length > 0) {
+            if (!isNewHome && normalize(input.value).length > 0) {
                 document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth" });
             }
         });
@@ -340,7 +365,7 @@ window.addEventListener("load", () => {
 
     const showAllTriggers = [
         document.querySelector("#show-all-tools"),
-        ...document.querySelectorAll('a[href="#tools"]'),
+        ...document.querySelectorAll('a[href="#tools"]:not([data-category-link])'),
     ].filter(Boolean);
 
     showAllTriggers.forEach((trigger) => {
@@ -348,8 +373,23 @@ window.addEventListener("load", () => {
             event.preventDefault();
             showAllTools();
             window.requestAnimationFrame(() => {
-                toolList.scrollIntoView({ behavior: "smooth", block: "start" });
+                (document.querySelector("#tools") || toolList).scrollIntoView({ behavior: "smooth", block: "start" });
             });
+        });
+    });
+
+    document.querySelectorAll("[data-category-link]").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            currentCategory = link.dataset.categoryLink;
+            if (input) input.value = "";
+            buttons.forEach((button) => {
+                const active = button.dataset.filter === currentCategory;
+                button.classList.toggle("active", active);
+                button.setAttribute("aria-pressed", String(active));
+            });
+            apply();
+            document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
     });
 
