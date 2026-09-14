@@ -2,107 +2,214 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
+
     <title>배달 메뉴 룰렛 | 배달 음식 추천 뽑기 - Toolify</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
     <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
     <link rel="icon" type="image/png" href="../../favicon.png" />
+
     <meta name="description" content="배달로 시켜 먹기 좋은 메뉴만 모은 룰렛입니다. 치킨·피자·버거부터 한식·중식·일식·야식까지 60가지, 1인 배달·매운맛 제외·든든하게·가볍게 필터로 조건에 맞는 메뉴만 골라 돌릴 수 있습니다." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
     <link rel="stylesheet" href="../../style.css?v=20260909-1" />
-    <link rel="stylesheet" href="./delivery-roulette.css" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./delivery-roulette.css?v=20260914-1" />
+
     <link rel="canonical" href="https://toolify.kr/tools/delivery-roulette/" />
-    <meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" />
-    <meta property="og:title" content="배달 메뉴 룰렛" /><meta property="og:description" content="배달 시켜 먹기 좋은 메뉴 60가지, 필터로 조건에 맞게 골라 돌리는 배달 메뉴 룰렛." /><meta property="og:url" content="https://toolify.kr/tools/delivery-roulette/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="배달 메뉴 룰렛" />
+    <meta property="og:description" content="배달 시켜 먹기 좋은 메뉴 60가지, 필터로 조건에 맞게 골라 돌리는 배달 메뉴 룰렛." />
+    <meta property="og:url" content="https://toolify.kr/tools/delivery-roulette/" />
+
+    <!-- FAQ 구조화 데이터 -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"메뉴는 몇 가지이고 어떻게 분류되나요?","acceptedAnswer":{"@type":"Answer","text":"치킨·피자·버거 10개, 분식·간식 8개, 한식 12개, 고기·야식 8개, 중식 7개, 일식 7개, 양식·기타 5개, 가벼운 메뉴 3개로 총 60가지 배달 메뉴를 기본 제공합니다."}},{"@type":"Question","name":"필터는 어떻게 작동하나요?","acceptedAnswer":{"@type":"Answer","text":"1인 배달·매운맛 제외·든든하게·가볍게 4개 필터를 여러 개 동시에 켤 수 있습니다. 예를 들어 '1인 배달'과 '가볍게'를 함께 켜면 두 조건을 모두 만족하는 메뉴만 룰렛에 남습니다."}},{"@type":"Question","name":"결과에 나오는 태그는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"1인배달, 2인이상, 매운맛, 든든함, 가벼움, 야식, 술안주 중에서 메뉴마다 2~3개가 붙습니다. 혼자 먹기 좋은지, 매운지, 술안주로 어울리는지 등을 한눈에 보여줍니다."}},{"@type":"Question","name":"결과가 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 필터 선택과 메뉴 선택 상태는 현재 브라우저의 localStorage에만 저장되며 서버로 전송하지 않습니다."}}]}</script>
 </head>
-<body>
-<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../about.html">Toolify 소개</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+
+<body class="reading-page dr-page">
+<a class="skip-link" href="#roulette">룰렛으로 건너뛰기</a>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="dr-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="dr-nav">
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
 <div class="page-wrapper">
-    <header class="header-card dr-hero">
-        <span class="eyebrow">🛵 오늘 저녁은 배달?</span>
-        <h1>🍜 배달 메뉴 룰렛</h1>
-        <p class="subtitle">배달로 시켜 먹기 좋은 메뉴만 모았습니다. 1인 배달·매운맛 제외·든든하게·가볍게 조건을 고르고 돌리면, 조건에 맞는 메뉴 중에서 하나를 정해줍니다.</p>
+    <header class="dr-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">생활 도구</a><span>/</span><span aria-current="page">배달 메뉴 룰렛</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">LIFE TOOL · 오늘 저녁은 배달?</p>
+                <h1>🛵 배달 메뉴 <span>룰렛</span></h1>
+                <p class="intro-description">배달로 시켜 먹기 좋은 메뉴만 모았어요.<br>1인 배달·매운맛 제외·든든하게·가볍게 조건을 고르고 돌리세요.</p>
+                <div class="intro-tags"><span>8개 카테고리 · 60가지</span><span>필터 4종 조합</span><span>브라우저에만 저장</span></div>
+            </div>
+            <aside class="formula-card" aria-label="기본 메뉴 구성">
+                <span class="formula-icon" aria-hidden="true">🍗</span><p class="eyebrow">MENU POOL · 기본 메뉴</p>
+                <div class="formula"><strong>60</strong><span>가지</span></div>
+                <div class="charset-chips"><span>치킨·피자·버거 10</span><span>한식 12</span><span>분식·간식 8</span><span>고기·야식 8</span><span>중식 7</span><span>일식 7</span><span>양식·기타 5</span><span>가벼운 메뉴 3</span></div>
+                <p>사진은 Pexels 무료 상업 이용 라이선스입니다.</p>
+            </aside>
+        </div>
     </header>
+
     <main>
-        <section class="tool-card dr-card">
-            <div class="filter-row">
-                <button type="button" class="filter-chip" data-filter="solo">1인 배달</button>
-                <button type="button" class="filter-chip" data-filter="no-spicy">매운맛 제외</button>
-                <button type="button" class="filter-chip" data-filter="hearty">든든하게</button>
-                <button type="button" class="filter-chip" data-filter="light">가볍게</button>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#roulette">룰렛 돌리기</a><a href="#tips">필터와 태그</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="roulette" aria-label="배달 메뉴 룰렛">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><div><h2>조건과 메뉴 고르기</h2><p>필터를 켜면 조건에 맞는 메뉴만 룰렛에 남아요.</p></div></div>
+
+                <div class="filter-row" role="group" aria-label="메뉴 필터">
+                    <button type="button" class="filter-chip" data-filter="solo">1인 배달</button>
+                    <button type="button" class="filter-chip" data-filter="no-spicy">매운맛 제외</button>
+                    <button type="button" class="filter-chip" data-filter="hearty">든든하게</button>
+                    <button type="button" class="filter-chip" data-filter="light">가볍게</button>
+                </div>
+
+                <div class="toolbar-row">
+                    <span class="count">조건에 맞는 메뉴: <strong id="enabled-count">0</strong> / <strong id="total-count">0</strong>개</span>
+                    <button class="toolbar-btn" id="select-all" type="button">전체 선택</button>
+                    <button class="toolbar-btn" id="select-none" type="button">전체 해제</button>
+                </div>
+
+                <div class="menu-groups" id="menu-grid"></div>
+
+                <form class="add-row" id="add-form">
+                    <label for="add-input" class="sr-only">메뉴 직접 추가</label>
+                    <input id="add-input" type="text" placeholder="메뉴 직접 추가 (예: 동네 단골 치킨집)" maxlength="20" />
+                    <button type="submit">추가</button>
+                </form>
+                <p class="input-note">직접 추가한 메뉴는 필터를 거치지 않고 항상 룰렛에 들어갑니다. 선택·추가 상태는 이 브라우저에만 저장됩니다.</p>
             </div>
 
-            <div class="toolbar-row">
-                <span class="count">조건에 맞는 메뉴: <strong id="enabled-count">0</strong> / <strong id="total-count">0</strong>개</span>
-                <button class="toolbar-btn" id="select-all" type="button">전체 선택</button>
-                <button class="toolbar-btn" id="select-none" type="button">전체 해제</button>
+            <div class="spin-panel" role="region" aria-labelledby="spin-heading">
+                <div class="panel-heading"><span class="step-number">02</span><div><h2 id="spin-heading">돌리기</h2><p>조건에 맞는 메뉴 중 하나를 무작위로 골라요.</p></div></div>
+
+                <div class="result-empty"><span class="empty-symbol" aria-hidden="true">🎲</span><h3>오늘 배달은 뭘까요?</h3><p>조건을 고른 뒤<br>돌리기를 눌러주세요.</p></div>
+
+                <div id="spin-preview" class="spin-preview hidden" aria-live="off">
+                    <div class="spin-preview-thumb" id="spin-preview-thumb"></div>
+                    <span id="spin-preview-name"></span>
+                </div>
+
+                <section id="result-box" class="spin-result hidden" aria-live="polite">
+                    <span class="result-label">오늘 배달은</span>
+                    <div class="result-thumb" id="result-thumb"></div>
+                    <strong id="result-name"></strong>
+                    <div id="result-tags"></div>
+                    <button id="spin-again" type="button">다시 돌리기</button>
+                </section>
+
+                <button id="spin-button" type="button">🎲 돌리기</button>
+                <p id="error-message" class="error-message" aria-live="polite"></p>
             </div>
+        </section>
 
-            <div class="menu-groups" id="menu-grid"></div>
-
-            <div id="spin-preview" class="spin-preview hidden" aria-live="off">
-                <div class="spin-preview-thumb" id="spin-preview-thumb"></div>
-                <span id="spin-preview-name"></span>
-            </div>
-
-            <button id="spin-button" type="button">🎲 돌리기</button>
-            <p id="error-message" class="error-message" aria-live="polite"></p>
-
-            <section id="result-box" class="result-box hidden" aria-live="polite">
-                <span class="result-label">오늘 배달은</span>
-                <div class="result-thumb" id="result-thumb"></div>
-                <strong id="result-name"></strong>
-                <div id="result-tags"></div>
-                <button id="spin-again" type="button">다시 돌리기</button>
+        <div class="reference-heading" id="tips"><p class="eyebrow">HOW IT WORKS</p><h2>"아무거나"에도 조건이 있어요</h2><p>필터와 태그가 어떻게 메뉴를 걸러주는지 확인해 보세요.</p></div>
+        <div class="reference-grid">
+            <section class="info-section">
+                <h2>배달 메뉴는 "아무거나"가 아니라 조건이 있습니다</h2>
+                <p>배달 메뉴를 고를 때는 보통 "아무거나"라고 말하면서도 실제로는 조건이 있습니다. 혼자 먹을지, 매운 건 피하고 싶은지, 야식으로 든든한 걸 원하는지, 아니면 가볍게 때우고 싶은지에 따라 정답이 달라집니다.</p>
+                <p>그래서 이 룰렛은 완전 무작위 대신 <strong>필터 선택 → 룰렛 → 결과</strong> 흐름을 따릅니다. 먼저 조건을 고르고, 그 조건에 맞는 메뉴 중에서만 무작위로 하나를 뽑아줍니다.</p>
+                <p>필터는 <strong>1인 배달</strong>, <strong>매운맛 제외</strong>, <strong>든든하게</strong>, <strong>가볍게</strong> 4가지이며 동시에 여러 개를 켤 수 있습니다. 결과 카드에는 메뉴 사진과 함께 1인배달·2인이상·매운맛·든든함·가벼움·야식·술안주 태그가 2~3개 붙어서, 왜 이 메뉴가 나왔는지 바로 알 수 있습니다.</p>
             </section>
+            <section class="info-section">
+                <h2>카테고리 구성</h2>
+                <div class="table-wrap">
+                    <table class="dr-table">
+                        <thead><tr><th>카테고리</th><th>개수</th></tr></thead>
+                        <tbody>
+                        <tr><td>치킨·피자·버거</td><td>10개</td></tr>
+                        <tr><td>분식·간식</td><td>8개</td></tr>
+                        <tr><td>한식</td><td>12개</td></tr>
+                        <tr><td>고기·야식</td><td>8개</td></tr>
+                        <tr><td>중식</td><td>7개</td></tr>
+                        <tr><td>일식</td><td>7개</td></tr>
+                        <tr><td>양식·기타</td><td>5개</td></tr>
+                        <tr><td>가벼운 메뉴</td><td>3개</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="info-list">
+                    <li>필터·메뉴 선택 상태는 이 브라우저에만 저장됩니다.</li>
+                    <li>태그는 일반적인 기준으로 붙였습니다. 실제 맵기·양은 가게마다 다를 수 있습니다.</li>
+                    <li>알레르기나 식단 제한이 있다면 실제 메뉴 성분을 확인하세요.</li>
+                </ul>
+                <p class="helper">이 도구는 메뉴 추천만 하며, 실제 주문·배달은 각 배달 앱이나 가게를 통해 진행해 주세요.</p>
+            </section>
+        </div>
 
-            <p class="photo-credit">음식 사진 출처: Pexels (무료 상업적 이용 라이선스)</p>
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>배달 메뉴 룰렛에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>메뉴는 몇 가지이고 어떻게 분류되나요?</summary>
+                <div class="faq-answer"><p>치킨·피자·버거 10개, 분식·간식 8개, 한식 12개, 고기·야식 8개, 중식 7개, 일식 7개, 양식·기타 5개, 가벼운 메뉴 3개로 총 60가지 배달 메뉴를 기본 제공합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>필터는 어떻게 작동하나요?</summary>
+                <div class="faq-answer"><p>1인 배달·매운맛 제외·든든하게·가볍게 4개 필터를 여러 개 동시에 켤 수 있습니다. 예를 들어 '1인 배달'과 '가볍게'를 함께 켜면 두 조건을 모두 만족하는 메뉴만 룰렛에 남습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>결과에 나오는 태그는 무엇인가요?</summary>
+                <div class="faq-answer"><p>1인배달, 2인이상, 매운맛, 든든함, 가벼움, 야식, 술안주 중에서 메뉴마다 2~3개가 붙습니다. 혼자 먹기 좋은지, 매운지, 술안주로 어울리는지 등을 한눈에 보여줍니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>결과가 서버에 저장되나요?</summary>
+                <div class="faq-answer"><p>아니요. 필터 선택과 메뉴 선택 상태는 현재 브라우저의 localStorage에만 저장되며 서버로 전송하지 않습니다.</p></div>
+            </details>
+            </div>
         </section>
-
-        <section class="editorial-section">
-            <h2>배달 메뉴는 "아무거나"가 아니라 조건이 있습니다</h2>
-            <p>배달 메뉴를 고를 때는 보통 "아무거나"라고 말하면서도 실제로는 조건이 있습니다. 혼자 먹을지, 매운 건 피하고 싶은지, 야식으로 든든한 걸 원하는지, 아니면 가볍게 때우고 싶은지에 따라 정답이 달라집니다.</p>
-            <p>그래서 이 룰렛은 완전 무작위 대신 <strong>필터 선택 → 룰렛 → 결과</strong> 흐름을 따릅니다. 먼저 조건을 고르고, 그 조건에 맞는 메뉴 중에서만 무작위로 하나를 뽑아줍니다.</p>
-        </section>
-
-        <section class="editorial-section">
-            <h2>카테고리와 필터 구성</h2>
-            <table class="guide-table">
-                <thead><tr><th>카테고리</th><th>개수</th></tr></thead>
-                <tbody>
-                <tr><td>치킨·피자·버거</td><td>10개</td></tr>
-                <tr><td>분식·간식</td><td>8개</td></tr>
-                <tr><td>한식</td><td>12개</td></tr>
-                <tr><td>고기·야식</td><td>8개</td></tr>
-                <tr><td>중식</td><td>7개</td></tr>
-                <tr><td>일식</td><td>7개</td></tr>
-                <tr><td>양식·기타</td><td>5개</td></tr>
-                <tr><td>가벼운 메뉴</td><td>3개</td></tr>
-                </tbody>
-            </table>
-            <p>필터는 <strong>1인 배달</strong>, <strong>매운맛 제외</strong>, <strong>든든하게</strong>, <strong>가볍게</strong> 4가지이며 동시에 여러 개를 켤 수 있습니다. 결과 카드에는 메뉴 사진과 함께 1인배달·2인이상·매운맛·든든함·가벼움·야식·술안주 태그가 2~3개 붙어서, 왜 이 메뉴가 나왔는지 바로 알 수 있습니다.</p>
-        </section>
-
-        <section class="editorial-section">
-            <h2>사용할 때 참고하세요</h2>
-            <ul class="editorial-list">
-                <li>필터·메뉴 선택 상태는 이 브라우저에만 저장됩니다. 다른 기기·브라우저와 공유되지 않습니다.</li>
-                <li>태그는 일반적인 기준으로 붙였습니다. 실제 맵기·양은 가게·레시피마다 다를 수 있습니다.</li>
-                <li>알레르기나 식단 제한이 있다면 결과와 무관하게 실제 메뉴 성분을 확인하세요.</li>
-            </ul>
-            <p class="source-note">이 도구는 메뉴 추천만 수행하며 실제 주문·배달은 각 배달 앱이나 가게를 통해 진행해 주세요.</p>
-            <p><a href="../lunch-roulette/">점심 메뉴가 고민된다면 점심 메뉴 추천 룰렛(점메추) →</a></p>
-        </section>
-
-        <section class="faq-section">
-            <h2>자주 묻는 질문</h2>
-            <div class="faq-item"><button class="faq-question">메뉴는 몇 가지이고 어떻게 분류되나요?</button><div class="faq-answer"><p>치킨·피자·버거 10개, 분식·간식 8개, 한식 12개, 고기·야식 8개, 중식 7개, 일식 7개, 양식·기타 5개, 가벼운 메뉴 3개로 총 60가지 배달 메뉴를 기본 제공합니다.</p></div></div>
-            <div class="faq-item"><button class="faq-question">필터는 어떻게 작동하나요?</button><div class="faq-answer"><p>1인 배달·매운맛 제외·든든하게·가볍게 4개 필터를 여러 개 동시에 켤 수 있습니다. 예를 들어 '1인 배달'과 '가볍게'를 함께 켜면 두 조건을 모두 만족하는 메뉴만 룰렛에 남습니다.</p></div></div>
-            <div class="faq-item"><button class="faq-question">결과에 나오는 태그는 무엇인가요?</button><div class="faq-answer"><p>1인배달, 2인이상, 매운맛, 든든함, 가벼움, 야식, 술안주 중에서 메뉴마다 2~3개가 붙습니다. 혼자 먹기 좋은지, 매운지, 술안주로 어울리는지 등을 한눈에 보여줍니다.</p></div></div>
-            <div class="faq-item"><button class="faq-question">결과가 서버에 저장되나요?</button><div class="faq-answer"><p>아니요. 필터 선택과 메뉴 선택 상태는 현재 브라우저의 localStorage에만 저장되며 서버로 전송하지 않습니다.</p></div></div>
-        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../lunch-roulette/"><span>🍱</span><div><h3>점심 메뉴 추천 룰렛</h3><p>점메추 고민될 때 60가지 중 뽑기</p></div><span aria-hidden="true">↗</span></a><a href="../horse-racing/"><span>🏇</span><div><h3>달려라 픽! 레이스</h3><p>이름 뽑기용 도트 경마 게임</p></div><span aria-hidden="true">↗</span></a></div></section>
     </main>
-    <section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section>
+
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </footer>
 </div>
-<script src="../../main.js?v=20260909-3"></script><script src="./delivery-roulette.js"></script>
-</body></html>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260914-2"></script>
+<!-- 전용 JS -->
+<script src="./delivery-roulette.js"></script>
+</body>
+</html>

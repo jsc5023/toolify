@@ -110,6 +110,11 @@
 
     const $ = (selector) => document.querySelector(selector);
     const grid = $("#menu-grid");
+
+    // 직접 추가한 메뉴 이름이 innerHTML 템플릿에 들어가므로 마크업으로 해석되지 않게 막는다.
+    function escapeHTML(text) {
+        return String(text).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
     const spinButton = $("#spin-button");
     const errorMessage = $("#error-message");
     const resultBox = $("#result-box");
@@ -118,8 +123,9 @@
 
     function cardTemplate(item) {
         const disabled = disabledIds.has(item.id);
+        const safeName = escapeHTML(item.name);
         const imgHtml = item.img
-            ? `<img src="${item.img}" alt="${item.name}" loading="lazy" />`
+            ? `<img src="${item.img}" alt="${safeName}" loading="lazy" />`
             : `<span class="emoji-thumb">🍽️</span>`;
         const removeBtn = item.custom ? `<button class="card-remove" type="button" data-remove="${item.id}" aria-label="삭제">×</button>` : "";
         return `
@@ -128,7 +134,7 @@
                 <label class="card-toggle">
                     <input type="checkbox" data-toggle="${item.id}" ${disabled ? "" : "checked"} />
                     <span class="card-thumb">${imgHtml}</span>
-                    <span class="card-name">${item.name}</span>
+                    <span class="card-name">${safeName}</span>
                 </label>
             </div>`;
     }
@@ -300,7 +306,7 @@
 
             const item = items[idx];
             previewThumb.innerHTML = item.img
-                ? `<img src="${item.img}" alt="${item.name}" />`
+                ? `<img src="${item.img}" alt="${escapeHTML(item.name)}" />`
                 : `<span class="emoji-thumb">🍽️</span>`;
             previewName.textContent = item.name;
         }
@@ -325,7 +331,7 @@
             previewBox.classList.add("hidden");
 
             const imgHtml = winner.img
-                ? `<img src="${winner.img}" alt="${winner.name}" />`
+                ? `<img src="${winner.img}" alt="${escapeHTML(winner.name)}" />`
                 : `<span class="result-emoji">🍽️</span>`;
             $("#result-thumb").innerHTML = imgHtml;
             $("#result-name").textContent = winner.name;

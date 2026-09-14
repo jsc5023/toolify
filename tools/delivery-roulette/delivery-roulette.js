@@ -3,6 +3,7 @@
 
     const STORAGE_DISABLED = "toolify-delivery-roulette-disabled-v1";
     const STORAGE_FILTERS = "toolify-delivery-roulette-filters-v1";
+    const STORAGE_CUSTOM = "toolify-delivery-roulette-custom-v1";
 
     const CATEGORIES = {
         "chicken-pizza-burger": "치킨·피자·버거",
@@ -116,11 +117,24 @@
 
     let disabledIds = new Set(readJSON(STORAGE_DISABLED, []));
     let activeFilters = new Set(readJSON(STORAGE_FILTERS, []).filter((k) => FILTERS[k]));
+    // 직접 추가한 메뉴. 태그가 없으므로 필터를 거치지 않고 항상 후보에 포함된다.
+    let customItems = readJSON(STORAGE_CUSTOM, []).filter((it) => it && typeof it.name === "string");
+
+    function allItems() {
+        return [...BASE_ITEMS, ...customItems];
+    }
 
     function saveDisabled() { writeJSON(STORAGE_DISABLED, Array.from(disabledIds)); }
     function saveFilters() { writeJSON(STORAGE_FILTERS, Array.from(activeFilters)); }
+    function saveCustom() { writeJSON(STORAGE_CUSTOM, customItems); }
+
+    // 직접 추가한 메뉴 이름이 innerHTML 템플릿에 들어가므로 마크업으로 해석되지 않게 막는다.
+    function escapeHTML(text) {
+        return String(text).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
 
     function passesFilters(item) {
+        if (item.custom) return true;
         for (const key of activeFilters) {
             const filter = FILTERS[key];
             const has = item.tags.includes(filter.tag);
@@ -150,21 +164,24 @@
         const classes = ["menu-card"];
         if (disabled) classes.push("disabled");
         if (filteredOut) classes.push("filtered-out");
+        const safeName = escapeHTML(item.name);
         const imgHtml = item.img
-            ? `<img src="${item.img}" alt="${item.name}" loading="lazy" />`
+            ? `<img src="${item.img}" alt="${safeName}" loading="lazy" />`
             : `<span class="emoji-thumb">🍽️</span>`;
+        const removeBtn = item.custom ? `<button class="card-remove" type="button" data-remove="${item.id}" aria-label="삭제">×</button>` : "";
         return `
             <div class="${classes.join(" ")}" data-id="${item.id}">
+                ${removeBtn}
                 <label class="card-toggle">
                     <input type="checkbox" data-toggle="${item.id}" ${disabled ? "" : "checked"} />
                     <span class="card-thumb">${imgHtml}</span>
-                    <span class="card-name">${item.name}</span>
+                    <span class="card-name">${safeName}</span>
                     <span class="card-tags">${tagPillsHtml(item.tags)}</span>
                 </label>
             </div>`;
     }
 
-    const collapsedCats = new Set(Object.keys(CATEGORIES));
+    const collapsedCats = new Set(Object.keys(CATEGORIES).concat(["custom"]));
 
     function groupTemplate(categoryKey, label, items) {
         const spinnableInGroup = items.filter(isSpinnable).length;
@@ -195,11 +212,14 @@
             const items = BASE_ITEMS.filter((it) => it.category === key);
             return groupTemplate(key, label, items);
         });
+        if (customItems.length > 0) {
+            parts.push(groupTemplate("custom", "직접 추가", customItems));
+        }
         grid.innerHTML = parts.join("");
 
-        const spinnableCount = BASE_ITEMS.filter(isSpinnable).length;
+        const spinnableCount = allItems().filter(isSpinnable).length;
         $("#enabled-count").textContent = String(spinnableCount);
-        $("#total-count").textContent = String(BASE_ITEMS.length);
+        $("#total-count").textContent = String(allItems().length);
         renderFilters();
     }
 
@@ -222,16 +242,25 @@
             if (group) group.classList.toggle("collapsed", collapsedCats.has(toggleCat));
             return;
         }
+        const removeId = event.target.closest("[data-remove]")?.dataset.remove;
+        if (removeId) {
+            customItems = customItems.filter((it) => it.id !== removeId);
+            disabledIds.delete(removeId);
+            saveCustom();
+            saveDisabled();
+            render();
+            return;
+        }
         const selectCat = event.target.closest("[data-cat-select]")?.dataset.catSelect;
         if (selectCat) {
-            BASE_ITEMS.filter((it) => it.category === selectCat).forEach((it) => disabledIds.delete(it.id));
+            allItems().filter((it) => (it.category || "custom") === selectCat).forEach((it) => disabledIds.delete(it.id));
             saveDisabled();
             render();
             return;
         }
         const deselectCat = event.target.closest("[data-cat-deselect]")?.dataset.catDeselect;
         if (deselectCat) {
-            BASE_ITEMS.filter((it) => it.category === deselectCat).forEach((it) => disabledIds.add(it.id));
+            allItems().filter((it) => (it.category || "custom") === deselectCat).forEach((it) => disabledIds.add(it.id));
             saveDisabled();
             render();
             return;
@@ -246,13 +275,13 @@
                 card.classList.toggle("disabled", disabledIds.has(toggleId));
                 const group = card.closest(".menu-group");
                 if (group) {
-                    const items = BASE_ITEMS.filter((it) => it.category === group.dataset.group);
+                    const items = allItems().filter((it) => (it.category || "custom") === group.dataset.group);
                     const spinnableInGroup = items.filter(isSpinnable).length;
                     const countEl = group.querySelector(".group-count");
                     if (countEl) countEl.textContent = `${spinnableInGroup}/${items.length}`;
                 }
             }
-            $("#enabled-count").textContent = String(BASE_ITEMS.filter(isSpinnable).length);
+            $("#enabled-count").textContent = String(allItems().filter(isSpinnable).length);
         }
     });
 
@@ -262,8 +291,21 @@
         render();
     });
     $("#select-none").addEventListener("click", () => {
-        disabledIds = new Set(BASE_ITEMS.map((it) => it.id));
+        disabledIds = new Set(allItems().map((it) => it.id));
         saveDisabled();
+        render();
+    });
+
+    $("#add-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const input = $("#add-input");
+        const name = input.value.trim();
+        if (!name) return;
+        const id = "custom-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        customItems.push({ id, name, custom: true, tags: ["직접추가"] });
+        saveCustom();
+        collapsedCats.delete("custom");
+        input.value = "";
         render();
     });
 
@@ -285,7 +327,7 @@
 
     function spin() {
         if (spinning) return;
-        const items = BASE_ITEMS.filter(isSpinnable);
+        const items = allItems().filter(isSpinnable);
         if (items.length < 2) {
             errorMessage.textContent = "조건에 맞는 메뉴가 2개 이상 필요해요. 필터나 선택을 조정해 주세요.";
             return;
@@ -320,7 +362,7 @@
 
             const item = items[idx];
             previewThumb.innerHTML = item.img
-                ? `<img src="${item.img}" alt="${item.name}" />`
+                ? `<img src="${item.img}" alt="${escapeHTML(item.name)}" />`
                 : `<span class="emoji-thumb">🍽️</span>`;
             previewName.textContent = item.name;
         }
@@ -345,7 +387,7 @@
             previewBox.classList.add("hidden");
 
             const imgHtml = winner.img
-                ? `<img src="${winner.img}" alt="${winner.name}" />`
+                ? `<img src="${winner.img}" alt="${escapeHTML(winner.name)}" />`
                 : `<span class="result-emoji">🍽️</span>`;
             $("#result-thumb").innerHTML = imgHtml;
             $("#result-name").textContent = winner.name;
