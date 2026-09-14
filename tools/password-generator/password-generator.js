@@ -1,5 +1,10 @@
 const outputEl = document.getElementById("pw-output");
 const strengthEl = document.getElementById("pw-strength");
+const emptyEl = document.getElementById("pw-empty");
+const outputWrapEl = document.getElementById("pw-output-wrap");
+const meterEl = document.getElementById("pw-meter");
+const charsetCountEl = document.getElementById("pw-charset-count");
+const combinationsEl = document.getElementById("pw-combinations");
 
 const lengthInput = document.getElementById("pw-length");
 const includeLower = document.getElementById("include-lower");
@@ -62,6 +67,14 @@ function generatePassword() {
     return result;
 }
 
+function setMeter(tier, filledCount) {
+    if (!meterEl) return;
+    meterEl.classList.remove("weak", "medium", "strong");
+    const bars = meterEl.querySelectorAll("span");
+    bars.forEach((bar, i) => bar.classList.toggle("on", i < filledCount));
+    if (tier) meterEl.classList.add(tier);
+}
+
 function updateStrength(pw) {
     strengthEl.classList.remove(
         "pw-strength-weak",
@@ -71,6 +84,7 @@ function updateStrength(pw) {
 
     if (!pw) {
         strengthEl.textContent = "-";
+        setMeter(null, 0);
         return;
     }
 
@@ -85,13 +99,29 @@ function updateStrength(pw) {
     if (score <= 2) {
         strengthEl.textContent = "약함";
         strengthEl.classList.add("pw-strength-weak");
+        setMeter("weak", 1);
     } else if (score === 3 || score === 4) {
         strengthEl.textContent = "보통";
         strengthEl.classList.add("pw-strength-medium");
+        setMeter("medium", score === 3 ? 2 : 3);
     } else {
         strengthEl.textContent = "강함";
         strengthEl.classList.add("pw-strength-strong");
+        setMeter("strong", 4);
     }
+}
+
+function updateStats(charset, len) {
+    if (charsetCountEl) charsetCountEl.textContent = charset ? `${charset.length}자 중 랜덤` : "-";
+
+    if (!combinationsEl) return;
+    if (!charset || !len) {
+        combinationsEl.textContent = "-";
+        return;
+    }
+
+    const magnitude = Math.round(Math.log10(charset.length) * len);
+    combinationsEl.textContent = magnitude > 0 ? `약 10^${magnitude}가지` : "1가지";
 }
 
 // 생성 버튼
@@ -101,6 +131,10 @@ generateBtn.addEventListener("click", () => {
 
     outputEl.value = pw;
     updateStrength(pw);
+    updateStats(buildCharset(), pw.length);
+
+    if (emptyEl) emptyEl.classList.add("hidden");
+    if (outputWrapEl) outputWrapEl.classList.remove("hidden");
 });
 
 // 복사 버튼
