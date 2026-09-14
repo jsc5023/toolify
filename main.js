@@ -91,6 +91,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/lunch-roulette/",
         "https://toolify.kr/tools/delivery-roulette/",
         "https://toolify.kr/tools/anju-roulette/",
+        "https://toolify.kr/tools/night-snack-roulette/",
         "https://toolify.kr/about.html",
     ]);
 });
