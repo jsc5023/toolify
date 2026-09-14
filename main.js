@@ -264,6 +264,13 @@ window.addEventListener("load", () => {
     const searchHint = document.querySelector("#search-hint");
     const emptyState = document.querySelector("#search-empty");
     const isNewHome = document.body.classList.contains("home-page");
+
+    // 전체(all)·검색어 없음 상태에서만 처음 INITIAL_LIMIT개만 보여주고 나머지는 "더 보기"로 펼친다.
+    // 카드는 DOM에 그대로 남아 있으므로(크롤러는 전부 읽음) 화면 표시만 줄이는 용도다.
+    const showMoreBtn = document.querySelector("#show-more-tools");
+    const showMoreCount = document.querySelector("#show-more-count");
+    const INITIAL_LIMIT = showMoreBtn ? 12 : Infinity;
+    let expanded = false;
     document.querySelectorAll("[data-tool-count]").forEach((el) => { el.textContent = cards.length; });
     document.querySelectorAll("[data-count-category]").forEach((el) => {
         el.textContent = `${cards.filter((card) => card.dataset.category === el.dataset.countCategory).length}개`;
@@ -302,6 +309,8 @@ window.addEventListener("load", () => {
         setCompactMode(hasQuery);
 
         let visible = 0;
+        let hiddenByLimit = 0;
+        const limitActive = currentCategory === "all" && !hasQuery && !expanded;
 
         cards.forEach((card) => {
             const cat = card.getAttribute("data-category");
@@ -313,10 +322,24 @@ window.addEventListener("load", () => {
 
             const text = normalize(card.innerText || "");
             const passSearch = !hasQuery || text.includes(q);
+            if (!passSearch) {
+                card.style.display = "none";
+                return;
+            }
 
-            card.style.display = passSearch ? "" : "none";
-            if (passSearch) visible++;
+            visible++;
+            if (limitActive && visible > INITIAL_LIMIT) {
+                card.style.display = "none";
+                hiddenByLimit++;
+                return;
+            }
+            card.style.display = "";
         });
+
+        if (showMoreBtn) {
+            showMoreBtn.classList.toggle("hidden", hiddenByLimit === 0);
+            if (showMoreCount) showMoreCount.textContent = `(${hiddenByLimit}개 남음)`;
+        }
 
         if (hint) hint.textContent = `${labelMap[currentCategory] || currentCategory} · ${visible}개 도구`;
         if (searchHint) searchHint.textContent = hasQuery ? `검색 결과: ${visible}개` : "";
@@ -360,6 +383,16 @@ window.addEventListener("load", () => {
             input.value = "";
             apply();
             input.focus();
+        });
+    }
+
+    // 더 보기: 펼친 뒤에는 이 페이지에 머무는 동안 계속 펼친 상태를 유지한다.
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener("click", () => {
+            expanded = true;
+            apply();
+            // 새로 드러난 첫 카드로 포커스를 옮겨 키보드 사용자도 위치를 잃지 않게 한다.
+            cards[INITIAL_LIMIT]?.querySelector(".tool-button")?.focus();
         });
     }
 
