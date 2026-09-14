@@ -265,4 +265,11 @@
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
+
+    <url>
+        <loc>https://toolify.kr/tools/anju-roulette/</loc>
+        <lastmod>2026-09-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>
