@@ -13,12 +13,16 @@
     if (typeof module !== "undefined" && module.exports) module.exports = { calculate };
     if (typeof document === "undefined") return;
     const ageInput = document.getElementById("age");
+    const resultEmpty = document.getElementById("result-empty");
+    const resultBody = document.getElementById("fh-result-body");
     const set = (id, value) => { document.getElementById(id).textContent = value; };
     function render() {
         const raw = ageInput.value.trim();
         const result = raw === "" ? null : calculate(Number(raw));
         const invalid = !result && (raw !== "" || ageInput.validity.badInput);
         ageInput.setAttribute("aria-invalid", String(invalid));
+        if (resultEmpty) resultEmpty.classList.toggle("hidden", !!result);
+        if (resultBody) resultBody.classList.toggle("hidden", !result);
         set("age-error", invalid ? "만 18~100세 사이의 정수로 입력해 주세요." : "");
         set("fat-range", result ? result.zones[1].join("~") : "—");
         set("max-rate", result ? `${result.maximum} 회/분` : "—");

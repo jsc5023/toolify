@@ -1,11 +1,78 @@
-.hr-eyebrow{display:block;color:#be185d;font-size:12px;font-weight:800;letter-spacing:.08em;margin-bottom:8px}
-.hr-calculator{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:24px}
-.hr-input{padding:8px}.hr-age-field{display:flex;align-items:center;gap:10px;max-width:240px}.hr-age-field input{font-size:24px;margin:0;padding:12px}.hr-age-field span{flex-shrink:0}
-.hr-calculator input:focus-visible,.hr-example:focus-visible,summary:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
-.hr-muted{font-size:13px;color:#64748b;line-height:1.7;margin-top:10px}.hr-error{font-size:13px;color:#b91c1c;min-height:22px;margin-top:6px}
-.hr-example{width:auto;background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;font-size:13px}.hr-example:hover{background:#e2e8f0}
-.hr-output{background:linear-gradient(135deg,#fff1f2,#fdf2f8);border:1px solid #fbcfe8;border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;justify-content:center;color:#831843}
-.hr-output p{font-size:14px;line-height:1.7}.hr-output .hr-big{margin:12px 0}.hr-big strong{font-size:clamp(32px,5vw,48px);line-height:1.2;letter-spacing:-.04em}.hr-big span{display:block;font-size:13px}.hr-max{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #fbcfe8;margin-top:22px;padding-top:16px;font-size:14px}
-.hr-zone{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;margin-top:8px;border:1px solid #e2e8f0;border-radius:12px;font-size:14px}.hr-zone div{display:flex;flex-direction:column;gap:4px}.hr-zone span{font-size:12px;color:#64748b}.hr-zone>strong{white-space:nowrap;font-variant-numeric:tabular-nums}.hr-zone-selected{background:#fdf2f8;border-color:#f9a8d4;color:#9d174d}
-.hr-guide p{font-size:14px;line-height:1.85;margin-top:12px;color:#475569}.hr-guide .hr-formula{padding:16px;background:#f8fafc;border-radius:10px;color:#0f172a;font-weight:700}.hr-guide details{border-top:1px solid #e2e8f0;padding:15px 0}.hr-guide summary{cursor:pointer;font-size:14px;font-weight:700;line-height:1.6}.hr-guide a{color:#1d4ed8;text-underline-offset:3px}.hr-sources a{overflow-wrap:anywhere}
-@media(max-width:600px){.hr-calculator{grid-template-columns:minmax(0,1fr);gap:16px}.hr-output{padding:22px 18px}.hr-age-field{max-width:none}.hr-zone{padding:12px 10px;font-size:13px}.hr-zone span{font-size:11px}.hr-big strong{font-size:40px}}
+/* 지방 연소 심박수 계산기: home palette and a focused calculation workspace. */
+.fh-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.fh-intro{padding:26px 0 30px}
+.breadcrumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.intro-grid{display:grid;grid-template-columns:1fr 330px;align-items:center;gap:50px;padding-top:28px}
+.intro-grid h1{font-size:40px;letter-spacing:-1.7px;line-height:1.3;margin:10px 0 15px;word-break:keep-all}
+.intro-grid h1 span{color:var(--green)}
+.intro-description{font-size:14px;color:var(--muted);line-height:1.9;word-break:keep-all}
+.intro-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.intro-tags span{font-size:11px;color:#536b5e;padding:3px 9px;border:1px solid var(--line);border-radius:5px;background:#f3f6ef}
+.formula-card{position:relative;padding:27px 25px;background:#edf3e8;border:1px solid #dce6d5;border-radius:14px}
+.formula-card .eyebrow{font-size:10px;letter-spacing:1.7px;margin-bottom:17px}
+.formula-icon{position:absolute;right:24px;top:17px;font-size:28px;color:#78987a}
+.formula{display:flex;align-items:center;gap:15px;font-size:18px;color:var(--ink)}
+.formula>strong{font-size:30px;letter-spacing:-1px}.formula>span:not(.fraction){color:#8ba28c}
+.fraction{display:flex;flex-direction:column;text-align:center;min-width:140px;font-size:17px;font-weight:650}
+.fraction>span{padding:5px 10px}.fraction>span:first-child{border-bottom:1px solid #98b294}.fraction small{font-weight:400;font-size:11px;color:var(--muted)}
+.formula-card>p:last-child{margin-top:18px;font-size:11px;color:var(--muted)}
+.page-links{display:flex;gap:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:26px;flex-wrap:wrap}
+.page-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:650}.page-links a:first-child{color:var(--green)}.page-links a:hover{text-decoration:underline;color:var(--green)}
+
+.calculator-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;align-items:stretch}
+.input-panel,.result-box{border:1px solid var(--line);border-radius:14px;padding:27px;min-width:0}
+.input-panel{background:white}.result-box{background:#eff4e9;display:flex;flex-direction:column;border-color:#d8e3cf}
+.panel-heading{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.panel-heading h2{font-size:19px;letter-spacing:-.5px;margin:0}.panel-heading p{font-size:12px;color:var(--muted);margin-top:3px}
+.step-number{display:grid;place-items:center;width:33px;height:33px;border-radius:9px;background:#edf3e8;color:var(--green);font-size:11px;font-weight:750;flex-shrink:0}
+.result-box .step-number{background:#dfead7}
+.required-label{font-size:10px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.field{min-width:0}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 7px}
+.input-with-unit{position:relative;display:flex;align-items:center;max-width:220px}
+.fh-page input[type=number]{margin:0;border:1px solid #cedace;border-radius:9px;color:var(--ink);background:#fff;min-height:49px;font-size:20px;padding:11px 45px 11px 13px;width:100%;min-width:0}
+.fh-page input::placeholder{font-size:16px;color:#89958b}
+.fh-page input:focus{border-color:var(--green);box-shadow:0 0 0 3px #15776012;outline:2px solid transparent}
+.fh-page input[aria-invalid="true"]{border-color:#c0392b}
+.unit-badge{position:absolute;right:15px;font-size:12px;color:var(--muted);pointer-events:none}
+.helper{font-size:11px;color:var(--muted);line-height:1.8;margin-top:7px;word-break:keep-all}
+.helper a{color:var(--green)}
+.hr-error{font-size:11px;color:#c0392b;min-height:18px;margin-top:6px}
+.actions{display:flex;gap:9px;margin-top:22px}.actions button{padding:13px 17px;font-size:14px;min-height:48px;border-radius:9px}
+.actions .secondary{width:auto;background:#fff;border:1px solid var(--line);color:var(--muted)}.actions .secondary:hover{background:#f3f6ef;color:var(--ink)}
+.input-note{font-size:10px;color:var(--muted);margin-top:12px;text-align:center}
+
+.result-empty{padding:5px 0 25px;text-align:center}.empty-symbol{display:block;color:#90a28b;font-size:43px;line-height:1.5;font-weight:400}.result-empty h3{font-size:16px;margin:7px 0}.result-empty p{font-size:12px;color:var(--muted);line-height:1.9}
+.fh-result-body.hidden,.result-empty.hidden{display:none}
+.fh-big{text-align:center;margin:2px 0 16px}.fh-big strong{display:block;font-size:43px;font-weight:800;letter-spacing:-1.5px;color:var(--ink);line-height:1.2}.fh-big span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.fh-max{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #d2dfc9;padding-top:16px;margin-top:4px;font-size:13px;color:#4d6354}.fh-max strong{color:var(--ink)}
+.note{font-size:11px;color:var(--muted);line-height:1.9}.note.hidden{display:none}
+.result-disclaimer{padding-top:18px;margin-top:auto;font-size:10px}
+
+.reference-heading{margin:46px 0 22px}.reference-heading .eyebrow{margin-bottom:6px}.reference-heading h2{font-size:25px;letter-spacing:-.8px;margin-bottom:6px}.reference-heading>p:last-child{font-size:13px;color:var(--muted)}
+.reference-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:start}
+.info-section{border:1px solid var(--line);border-radius:13px;background:white;padding:25px;min-width:0}
+.info-section h2{font-size:18px;letter-spacing:-.4px;margin-bottom:12px}.info-section p{font-size:12px;color:var(--muted);line-height:1.9;word-break:keep-all;margin-bottom:8px}
+.info-section .helper{font-size:11px}
+.info-list{margin:8px 0 12px;padding-left:19px;font-size:12px;color:var(--muted);line-height:1.9}
+.info-list li{margin-bottom:6px;overflow-wrap:anywhere}
+.fh-formula{padding:16px;background:#f3f6ef;border-radius:10px;color:var(--ink);font-weight:700;font-size:13px;line-height:1.9;margin-bottom:12px}
+.table-wrap{margin:14px 0;overflow-x:auto}.bmi-table{width:100%;border-collapse:collapse;font-size:12px}
+.bmi-table th,.bmi-table td{text-align:left;padding:12px 10px;border-bottom:1px solid #e5eae1;vertical-align:middle;line-height:1.6}.bmi-table th{background:#f1f5ec;font-size:11px;font-weight:700;color:#5b6d59}.bmi-table td{color:#4a5c4d}.bmi-table th:first-child,.bmi-table td:first-child{padding-left:13px}
+.fh-zone-table td:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;color:var(--ink)}
+.fh-zone-table small{font-weight:400;color:var(--green);font-size:10px}
+.bmi-table tbody tr.highlight{background:#e6efdd;outline:2px solid #79a77d;outline-offset:-2px}.bmi-table tbody tr.highlight td{color:#2b553b;font-weight:750}
+
+.faq-section{display:grid;grid-template-columns:1fr 1.8fr;gap:40px;border-top:1px solid var(--line);padding-top:34px;margin-top:42px}
+.faq-heading h2{font-size:25px;letter-spacing:-.7px;margin-bottom:8px}.faq-heading p:last-child{font-size:12px;color:var(--muted)}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer;list-style:none;word-break:keep-all}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:'＋';color:var(--green);flex-shrink:0;font-weight:400;font-size:18px}.faq-item[open] summary::after{content:'−'}
+.faq-answer{padding:0 24px 18px 0;font-size:13px;line-height:1.9;color:var(--muted);word-break:keep-all}
+.related-section{border-top:1px solid var(--line);margin-top:38px;padding-top:30px}.related-section h2{font-size:22px;letter-spacing:-.6px;margin-bottom:20px}.related-section .eyebrow{margin-bottom:6px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:16px}.related-links>a{display:flex;align-items:center;gap:16px;padding:20px;text-decoration:none;border:1px solid var(--line);border-radius:11px;color:var(--ink);background:#f3f6ef}.related-links>a:hover{background:#eaf1e4;border-color:#a7c1a3}.related-links>a>span:first-child{font-size:27px;color:var(--green)}.related-links>a>span:last-child{margin-left:auto;color:var(--green)}.related-links h3{font-size:14px;margin-bottom:3px}.related-links p{font-size:11px;color:var(--muted)}
+.fh-page .home-footer{margin-top:42px}
+
+@media(min-width:800px){.fh-page .header-actions{flex-direction:row-reverse;gap:20px}}
+@media(max-width:900px){.intro-grid{grid-template-columns:1fr 280px;gap:26px}.intro-grid h1{font-size:35px}.formula-card{padding:22px 18px}.formula{gap:11px}.fraction{min-width:130px}.calculator-layout{gap:16px}.input-panel,.result-box{padding:22px}.reference-grid{gap:16px}.info-section{padding:20px}.bmi-table th,.bmi-table td{padding:10px 7px}.required-label{display:none}.panel-heading{gap:9px}.panel-heading h2{font-size:18px}.panel-heading p{font-size:11px}.faq-section{gap:25px}}
+@media(max-width:700px){.intro-grid{grid-template-columns:1fr;padding-top:22px;gap:22px}.intro-grid h1{font-size:34px}.formula-card{display:none}.fh-intro{padding-bottom:24px}.page-links{gap:0;justify-content:space-between;padding:13px 0}.page-links a{font-size:11px}.calculator-layout,.reference-grid{grid-template-columns:1fr}.input-with-unit{max-width:none}.result-box{min-height:250px}.result-empty{padding:0 0 22px}.reference-heading{margin-top:33px}.faq-section{grid-template-columns:1fr;gap:22px;margin-top:30px;padding-top:27px}.related-links{grid-template-columns:1fr;gap:10px}.related-links>a{padding:18px}.panel-heading{margin-bottom:20px}.panel-heading h2{font-size:19px}.panel-heading p{font-size:12px}.required-label{display:block}.info-section{padding:21px}.bmi-table{font-size:12px}.fh-page .home-footer{margin-top:30px}}
+@media(max-width:380px){.fh-page .page-wrapper{padding-left:16px;padding-right:16px}.intro-grid h1{font-size:30px}.intro-description{font-size:13px}.intro-tags{gap:5px}.intro-tags span{font-size:10px;padding:3px 6px}.input-panel,.result-box{padding:19px}.required-label{display:none}.info-section{padding:18px 13px}.bmi-table td,.bmi-table th{padding:10px 6px}.panel-heading p{font-size:11px}.fh-big strong{font-size:36px}}
+@media(prefers-reduced-motion:reduce){.fh-page *{scroll-behavior:auto!important;transition:none!important}}
