@@ -268,7 +268,9 @@ window.addEventListener("load", () => {
     // 전체(all)·검색어 없음 상태에서만 처음 INITIAL_LIMIT개만 보여주고 나머지는 "더 보기"로 펼친다.
     // 카드는 DOM에 그대로 남아 있으므로(크롤러는 전부 읽음) 화면 표시만 줄이는 용도다.
     const showMoreBtn = document.querySelector("#show-more-tools");
+    const showMoreLabel = document.querySelector("#show-more-label");
     const showMoreCount = document.querySelector("#show-more-count");
+    const showMoreArrow = document.querySelector("#show-more-arrow");
     const INITIAL_LIMIT = showMoreBtn ? 12 : Infinity;
     let expanded = false;
     document.querySelectorAll("[data-tool-count]").forEach((el) => { el.textContent = cards.length; });
@@ -337,8 +339,13 @@ window.addEventListener("load", () => {
         });
 
         if (showMoreBtn) {
-            showMoreBtn.classList.toggle("hidden", hiddenByLimit === 0);
-            if (showMoreCount) showMoreCount.textContent = `(${hiddenByLimit}개 남음)`;
+            // 펼친 상태(전체·검색어 없음·제한 초과)에서는 같은 버튼이 "접기"로 바뀐다.
+            const canCollapse = currentCategory === "all" && !hasQuery && expanded && visible > INITIAL_LIMIT;
+            showMoreBtn.classList.toggle("hidden", hiddenByLimit === 0 && !canCollapse);
+            showMoreBtn.setAttribute("aria-expanded", String(canCollapse));
+            if (showMoreLabel) showMoreLabel.textContent = canCollapse ? "도구 목록 접기" : "나머지 도구 더 보기";
+            if (showMoreCount) showMoreCount.textContent = canCollapse ? `(처음 ${INITIAL_LIMIT}개만 보기)` : `(${hiddenByLimit}개 남음)`;
+            if (showMoreArrow) showMoreArrow.textContent = canCollapse ? "↑" : "↓";
         }
 
         if (hint) hint.textContent = `${labelMap[currentCategory] || currentCategory} · ${visible}개 도구`;
@@ -386,13 +393,18 @@ window.addEventListener("load", () => {
         });
     }
 
-    // 더 보기: 펼친 뒤에는 이 페이지에 머무는 동안 계속 펼친 상태를 유지한다.
+    // 더 보기 / 접기 토글. 펼친 상태는 이 페이지에 머무는 동안 유지된다.
     if (showMoreBtn) {
         showMoreBtn.addEventListener("click", () => {
-            expanded = true;
+            expanded = !expanded;
             apply();
-            // 새로 드러난 첫 카드로 포커스를 옮겨 키보드 사용자도 위치를 잃지 않게 한다.
-            cards[INITIAL_LIMIT]?.querySelector(".tool-button")?.focus();
+            if (expanded) {
+                // 새로 드러난 첫 카드로 포커스를 옮겨 키보드 사용자도 위치를 잃지 않게 한다.
+                cards[INITIAL_LIMIT]?.querySelector(".tool-button")?.focus();
+            } else {
+                // 목록이 짧아져 화면 아래에 남겨지지 않도록 목록 상단으로 되돌린다.
+                (document.querySelector("#tools") || toolList).scrollIntoView({ behavior: "smooth", block: "start" });
+            }
         });
     }
 
