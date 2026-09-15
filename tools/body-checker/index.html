@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../../style.css" />
     <link rel="stylesheet" href="../../home.css?v=20260914-1" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./body-checker.css?v=20260914-1" />
+    <link rel="stylesheet" href="./body-checker.css?v=20260916-1" />
 
     <link rel="canonical" href="https://toolify.kr/tools/body-checker/" />
 
@@ -114,13 +114,12 @@
             <div>
                 <p class="eyebrow">HEALTH TOOL · 건강 도구</p>
                 <h1>한국 <span>BMI 계산기</span></h1>
-                <p class="intro-description">키와 체중으로 내 몸의 지표를 한눈에.<br>허리·엉덩이 둘레를 더하면 WHR도 함께 볼 수 있어요.</p>
-                <div class="intro-tags"><span>한국 BMI 기준</span><span>WHR 선택 계산</span><span>회원가입 없이 무료</span></div>
+                <p class="intro-description">키와 체중으로 내 몸의 지표를 한눈에. 허리·엉덩이 둘레를 더하면 WHR도 함께 볼 수 있어요.</p>
             </div>
             <aside class="formula-card" aria-label="BMI 계산식">
-                <span class="formula-icon" aria-hidden="true">♡</span><p class="eyebrow">BODY MASS INDEX</p>
-                <div class="formula"><strong>BMI</strong><span>=</span><span class="fraction"><span>체중 <small>kg</small></span><span>키 <small>m</small> × 키 <small>m</small></span></span></div>
-                <p>숫자와 함께, 기준과 의미도 확인하세요.</p>
+                <code class="bmi-formula-chip">체중(kg) ÷ 키(m)²</code>
+                <span class="bmi-formula-op" aria-hidden="true">=</span>
+                <code class="bmi-formula-chip bmi-formula-result">BMI</code>
             </aside>
         </div>
     </header>
@@ -130,7 +129,7 @@
         <!-- 메인 도구 영역 -->
         <section class="calculator-layout" id="calculator" aria-label="BMI와 WHR 계산기">
             <div class="input-panel">
-            <div class="panel-heading"><span class="step-number">01</span><div><h2>신체 정보 입력</h2><p>키와 체중, 두 가지만 있으면 돼요.</p></div><span class="required-label">필수 입력</span></div>
+            <div class="panel-heading"><span class="step-number">01</span><h2>신체 정보 입력</h2><span class="required-label">필수 입력</span></div>
 
             <div class="tool-grid">
                 <div class="field">
@@ -196,7 +195,7 @@
             </div>
 
             <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
-                <div class="panel-heading"><span class="step-number">02</span><div><h2 id="result-heading">계산 결과</h2><p>BMI와 WHR을 함께 살펴보세요.</p></div></div>
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">계산 결과</h2></div>
                 <div class="result-empty"><span class="empty-symbol" aria-hidden="true">—</span><h3>나의 BMI는 얼마일까요?</h3><p>키와 체중을 입력한 뒤<br>계산하기를 눌러주세요.</p></div>
                 <div id="bmi-line" class="result-line"></div>
                 <div id="bmi-line2" class="result-line"></div>
