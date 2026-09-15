@@ -11,6 +11,8 @@ const convertJpgCheckbox = document.getElementById("convert-jpg");
 const compressAllBtn = document.getElementById("compress-all-btn");
 const imageListEl = document.getElementById("image-list");
 const resultSummaryEl = document.getElementById("result-summary");
+const resultPlaceholderEl = document.getElementById("result-placeholder");
+const resultContentEl = document.getElementById("result-content");
 
 let images = []; // { file, originalSize, compressedBlob, compressedSize, name, mime, width, height }
 
@@ -110,6 +112,10 @@ function handleFiles(files) {
 // 이미지 리스트 렌더링
 function renderImageList() {
     imageListEl.innerHTML = "";
+
+    // 업로드 전에는 예시 placeholder를, 업로드 후에는 실제 결과 목록을 보여준다.
+    if (resultPlaceholderEl) resultPlaceholderEl.classList.toggle("hidden", images.length > 0);
+    if (resultContentEl) resultContentEl.classList.toggle("hidden", images.length === 0);
 
     if (images.length === 0) {
         compressAllBtn.disabled = true;
@@ -321,5 +327,25 @@ compressAllBtn.addEventListener("click", async () => {
     }
 
     compressAllBtn.disabled = false;
-    compressAllBtn.textContent = "선택한 옵션으로 전체 압축하기";
+    compressAllBtn.textContent = "이미지 압축하기";
+});
+
+// 용도별 빠른 설정 (품질 슬라이더/최대 가로 값만 채워주고, 실제 압축은 기존 버튼 흐름을 그대로 사용)
+const IC_PRESETS = {
+    blog: { quality: 80, maxWidth: 1920 },
+    shop: { quality: 85, maxWidth: 1500 },
+    portfolio: { quality: 90, maxWidth: 2560 },
+    light: { quality: 65, maxWidth: 1280 },
+};
+
+document.querySelectorAll("[data-ic-preset]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const preset = IC_PRESETS[btn.dataset.icPreset];
+        if (!preset) return;
+        qualityRange.value = preset.quality;
+        updateQualityLabel();
+        maxWidthInput.value = preset.maxWidth;
+        maxHeightInput.value = "";
+        document.querySelectorAll("[data-ic-preset]").forEach((b) => b.classList.toggle("active", b === btn));
+    });
 });

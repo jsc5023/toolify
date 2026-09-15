@@ -1,385 +1,125 @@
-/* 이미지 압축기 전용 스타일 */
-/* 공통 style.css 이후에 로드됨 */
+/* 이미지 압축기: home palette + 사용성 우선 컴팩트 히어로. */
+.ic-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.ic-intro{padding:12px 0 10px}
+.breadcrumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.intro-grid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding-top:6px}
+.intro-grid h1{font-size:23px;letter-spacing:-.8px;line-height:1.3;margin:5px 0 0;word-break:keep-all}
+.intro-grid h1 span{color:var(--green)}
+.intro-description{font-size:13px;color:var(--muted);line-height:1.5;word-break:keep-all;margin-top:5px}
+.page-links{display:flex;gap:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:12px;flex-wrap:wrap}
+.page-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:650}.page-links a:first-child{color:var(--green)}.page-links a:hover{text-decoration:underline;color:var(--green)}
 
-/* 메인 카드 레이아웃 약간 조정 */
-.image-tool-card {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
+/* 업로드/결과 2열(55:45) + 설정은 전체 폭 */
+.ic-workspace{display:flex;flex-direction:column;gap:12px}
+.ic-top-row{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:stretch}
+.ic-card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;min-width:0;display:flex;flex-direction:column}
+.ic-card-head{margin-bottom:10px}
+.ic-card-head h2{font-size:16px;letter-spacing:-.4px;margin:0;color:var(--ink)}
+.ic-result-card{background:#eff4e9;border-color:#d8e3cf}
 
-/* 업로드 영역 */
-.upload-wrapper {
-    margin-bottom: 4px;
-}
+/* 업로드 영역: 밀도 있게, 너무 비어 보이지 않도록 */
+.drop-zone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #cedace;border-radius:12px;padding:20px 18px;text-align:center;background:#f8faf6;transition:background .15s ease,border-color .15s ease}
+.drop-zone.dragover{background:#edf3e8;border-color:var(--green)}
+.drop-icon{display:block;font-size:34px;margin-bottom:8px}
+.drop-title{font-size:15px;font-weight:750;color:var(--ink);margin-bottom:12px;line-height:1.5}
+.drop-title small{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:2px}
+.drop-help{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6}
+.toolbar-btn{width:auto;padding:12px 28px;border:1px solid var(--green);background:var(--green);color:#fff;font-size:14px;font-weight:750;border-radius:9px}
+.toolbar-btn:hover{background:#115f4c}
 
-.drop-zone {
-    border: 2px dashed #cbd5e1;
-    border-radius: 12px;
-    padding: 28px 16px;
-    text-align: center;
-    background: #f9fafb;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-}
+/* 결과 placeholder: 예시 카드처럼 내용을 채워 비어 보이지 않게 */
+.ic-result-placeholder{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+.ic-result-placeholder.hidden{display:none}
+.ic-result-icon{font-size:26px;margin-bottom:8px;opacity:.7}
+.ic-example-label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.ic-example-badge{font-size:10px;font-weight:750;color:#fff;background:#8ba28c;border-radius:5px;padding:2px 7px;letter-spacing:.3px}
+.ic-example-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ic-example-row code{padding:6px 12px;border-radius:8px;background:#fff;border:1px solid #cfe0cc;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:15px;font-weight:750;color:#4a5c4d}
+.ic-example-row span{font-size:14px;color:#8ba28c;font-weight:700}
+.ic-example-row .ic-example-result{color:var(--green)}
+.ic-example-list{list-style:none;margin:0;padding:0;font-size:11px;color:#4d6354;line-height:2;text-align:left}
+.ic-example-list li{position:relative;padding-left:14px}
+.ic-example-list li::before{content:'✓';position:absolute;left:0;color:#8ba28c;font-weight:700}
+.ic-result-content.hidden{display:none}
 
-.drop-zone.dragover {
-    background: #eef2ff;
-    border-color: #4f46e5;
-    transform: translateY(-1px);
-}
+/* 설정 카드: 프리셋 + 옵션 + 실행 버튼을 한 덩어리로, 세로 공간을 최대한 아껴서 첫 화면에 버튼까지 들어오게 */
+.ic-options-card{padding:16px 22px 18px}
+.ic-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.ic-presets button{width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;text-align:center;transition:background .12s ease,border-color .12s ease}
+.ic-presets button strong{font-size:13px;font-weight:750}
+.ic-presets button small{font-size:11px;color:var(--muted);font-weight:600}
+.ic-presets button:hover{background:#f3f6ef;border-color:#a7c1a3}
+.ic-presets button.active{background:#e6efdd;border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.ic-presets button.active strong{color:#115f4c}
+.ic-presets button.active small{color:#3a5a45}
 
-.drop-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
+/* 옵션 필드: 한 줄씩 압축해서 배치 */
+.field{min-width:0;margin-bottom:10px}.field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin:0 0 6px}
+.ic-page input[type=number]{margin:0;border:1px solid #cedace;border-radius:9px;color:var(--ink);background:#fff;min-height:48px;font-size:15px;padding:11px 13px;width:100%;min-width:0}
+.ic-page input:focus{border-color:var(--green);box-shadow:0 0 0 3px #15776012;outline:2px solid transparent}
+.range-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+#quality-range{flex:1 1 200px;accent-color:var(--green)}
+#quality-value{font-size:13px;font-weight:700;color:var(--green);min-width:34px;text-align:right}
+.ic-inline-helper{flex-basis:100%;order:3;font-size:11px;color:var(--muted);margin-top:0}
+.helper{font-size:11px;color:var(--muted);line-height:1.7;margin-top:6px;word-break:keep-all}
 
-.drop-help {
-    font-size: 13px;
-    color: #6b7280;
-    margin-top: 8px;
-}
+/* 최대 크기 + PNG→JPG를 한 줄로 */
+.ic-size-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.ic-size-row-label{font-size:12px;font-weight:700;color:var(--ink);flex-shrink:0}
+.ic-size-row input[type=number]{flex:1 1 110px;min-width:0}
+.ic-size-x{color:var(--muted);font-size:13px;flex-shrink:0}
+.ic-size-row-check{flex-shrink:0;margin-left:auto}
+.check-field{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer;margin:0;white-space:nowrap}
+.check-field input{width:17px;height:17px;flex-shrink:0;accent-color:var(--green)}
+.check-field small{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:2px}
 
-/* 버튼 */
-.primary-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 16px;
-    border-radius: 10px;
-    border: none;
-    background: #4f46e5;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
-}
+.actions{display:flex;justify-content:center;margin-top:2px}
+.actions button{width:100%;max-width:420px;padding:14px;font-size:15px;font-weight:750;min-height:48px;border-radius:11px;background:var(--green);color:#fff;box-shadow:0 4px 14px rgba(21,119,96,.25)}
+.actions button:hover:not(:disabled){background:#115f4c}
+.actions button:disabled{background:#dbe4d6;color:#8a9a8d;box-shadow:none;cursor:default}
+.input-note{font-size:10px;color:var(--muted);margin-top:10px;text-align:center;word-break:keep-all}
 
-.primary-btn:disabled {
-    background: #9ca3af;
-    cursor: default;
-    box-shadow: none;
-    transform: none;
-}
+/* 결과 */
+.ic-result-summary{font-size:13px;color:var(--ink);font-weight:700;line-height:1.7;word-break:keep-all}
+.image-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.image-item{display:grid;grid-template-columns:auto minmax(0,1.4fr) auto;gap:10px 12px;padding:10px;border-radius:10px;border:1px solid #d8e3cf;background:#fff;align-items:center}
+.image-thumb{width:56px;height:56px;border-radius:8px;overflow:hidden;background:#edf3e8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.image-thumb img{max-width:100%;max-height:100%;display:block}
+.image-info-main{font-size:12px;min-width:0}
+.image-name{font-weight:700;color:var(--ink);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.image-meta{font-size:12px;color:#4a5c4d;display:flex;flex-wrap:wrap;gap:2px}
+.image-meta span+span::before{content:" · ";margin:0 2px;color:var(--muted)}
+.image-meta span:last-child{font-weight:800;color:var(--green)}
+.image-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.compress-badge{font-size:10px;padding:3px 8px;border-radius:999px;background:#fff;color:var(--green);font-weight:700;white-space:nowrap;border:1px solid #cfe0cc}
+.download-btn{font-size:11px;padding:7px 11px;border-radius:999px;border:1px solid var(--green);background:#fff;color:var(--green);font-weight:700;white-space:nowrap}
+.download-btn:hover{background:#edf3e8}
+.download-btn:disabled{opacity:.5;border-color:var(--line);color:var(--muted)}
+.note{font-size:11px;color:var(--muted);line-height:1.9}
 
-.primary-btn:not(:disabled):hover {
-    background: #4338ca;
-    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
-    transform: translateY(-1px);
-}
+.reference-heading{margin:46px 0 22px}.reference-heading .eyebrow{margin-bottom:6px}.reference-heading h2{font-size:25px;letter-spacing:-.8px;margin-bottom:6px}.reference-heading>p:last-child{font-size:13px;color:var(--muted)}
+.reference-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:start}
+.info-section{border:1px solid var(--line);border-radius:13px;background:white;padding:25px;min-width:0}
+.info-section h2{font-size:18px;letter-spacing:-.4px;margin-bottom:12px}.info-section p{font-size:12px;color:var(--muted);line-height:1.9;word-break:keep-all;margin-bottom:8px}
+.info-section .helper{font-size:11px}
+.info-list{margin:8px 0 12px;padding-left:19px;font-size:12px;color:var(--muted);line-height:1.9}
+.info-list li{margin-bottom:6px}
+.table-wrap{margin:4px 0 10px;overflow-x:auto}.bmi-table{width:100%;border-collapse:collapse;font-size:12px}
+.bmi-table th,.bmi-table td{text-align:left;padding:10px;border-bottom:1px solid #e5eae1;vertical-align:middle;line-height:1.6}.bmi-table th{background:#f1f5ec;font-size:11px;font-weight:700;color:#5b6d59}.bmi-table td{color:#4a5c4d}.bmi-table th:first-child,.bmi-table td:first-child{padding-left:13px}
 
-/* 옵션 카드 */
-.options-card {
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    padding: 16px 16px 18px;
-    background: #ffffff;
-}
+.faq-section{display:grid;grid-template-columns:1fr 1.8fr;gap:40px;border-top:1px solid var(--line);padding-top:34px;margin-top:42px}
+.faq-heading h2{font-size:25px;letter-spacing:-.7px;margin-bottom:8px}.faq-heading p:last-child{font-size:12px;color:var(--muted)}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer;list-style:none;word-break:keep-all}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:'＋';color:var(--green);flex-shrink:0;font-weight:400;font-size:18px}.faq-item[open] summary::after{content:'−'}
+.faq-answer{padding:0 24px 18px 0;font-size:13px;line-height:1.9;color:var(--muted);word-break:keep-all}
+.related-section{border-top:1px solid var(--line);margin-top:38px;padding-top:30px}.related-section h2{font-size:22px;letter-spacing:-.6px;margin-bottom:20px}.related-section .eyebrow{margin-bottom:6px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:16px}.related-links>a{display:flex;align-items:center;gap:16px;padding:20px;text-decoration:none;border:1px solid var(--line);border-radius:11px;color:var(--ink);background:#f3f6ef}.related-links>a:hover{background:#eaf1e4;border-color:#a7c1a3}.related-links>a>span:first-child{font-size:24px;color:var(--green)}.related-links>a>span:last-child{margin-left:auto;color:var(--green)}.related-links h3{font-size:14px;margin-bottom:3px}.related-links p{font-size:11px;color:var(--muted)}
+.ic-page .home-footer{margin-top:42px}
 
-.options-card h2 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.options-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1.4fr);
-    gap: 14px 20px;
-    margin-bottom: 14px;
-}
-
-.option-item label {
-    font-size: 14px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 6px;
-}
-
-.range-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#quality-range {
-    flex: 1;
-}
-
-#quality-value {
-    font-size: 13px;
-    min-width: 40px;
-    text-align: right;
-}
-
-.option-help {
-    font-size: 12px;
-    color: #6b7280;
-    margin-top: 4px;
-}
-
-/* 사이즈 입력 */
-.size-row {
-    display: flex;
-    gap: 10px;
-}
-
-.size-row > div {
-    flex: 1;
-}
-
-.size-label {
-    display: block;
-    font-size: 12px;
-    color: #6b7280;
-    margin-bottom: 3px;
-}
-
-.size-row input {
-    width: 100%;
-}
-
-/* 결과 카드 */
-.result-card {
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    padding: 16px 16px 18px;
-    background: #ffffff;
-}
-
-.result-card h2 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-#result-summary {
-    color: #6b7280;
-}
-
-/* 이미지 리스트 */
-.image-list {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.image-item {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1.4fr) auto;
-    gap: 10px 12px;
-    padding: 10px 10px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    background: #f9fafb;
-    align-items: center;
-}
-
-.image-thumb {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.image-thumb img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-}
-
-.image-info-main {
-    font-size: 13px;
-}
-
-.image-name {
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.image-meta {
-    font-size: 12px;
-    color: #6b7280;
-}
-
-.image-meta span + span::before {
-    content: " · ";
-    margin: 0 3px;
-}
-
-.image-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    align-items: flex-end;
-}
-
-.compress-badge {
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 999px;
-    background: #e0f2fe;
-    color: #0369a1;
-    font-weight: 600;
-}
-
-.download-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    border: none;
-    background: #111827;
-    color: #fff;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.download-btn:hover {
-    background: #020617;
-}
-
-/* info / faq (날짜 계산기와 동일 구조) */
-.info-section,
-.faq-section {
-    max-width: 720px;
-    margin: 40px auto 0;
-    padding: 0 16px;
-}
-
-.info-section h2,
-.faq-section h2 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 16px;
-}
-
-.info-section p {
-    margin-bottom: 12px;
-    line-height: 1.7;
-    color: #444;
-    font-size: 14px;
-}
-
-/* bullet 리스트 */
-.info-list {
-    margin: 8px 0 14px;
-    padding-left: 18px;
-    font-size: 14px;
-    color: #444;
-}
-
-.info-list li {
-    margin-bottom: 3px;
-}
-
-/* FAQ 리스트 */
-.faq-item {
-    border-bottom: 1px solid #e0e0e0;
-    padding: 6px 0;
-}
-
-/* 전역 button 스타일 덮어쓰기 */
-.faq-question {
-    position: relative;
-    width: 100%;
-    background: #f9fafb;
-    border: none;
-    text-align: left;
-    padding: 10px 12px 10px 30px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    line-height: 1.4;
-    color: #111827;
-    border-radius: 8px;
-}
-
-/* 화살표 아이콘 */
-.faq-question::before {
-    content: "▶";
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    color: #6b7280;
-}
-
-.faq-item.active .faq-question::before {
-    content: "▼";
-}
-
-.faq-question:hover {
-    background: #eef2ff;
-}
-
-.faq-question:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
-}
-
-.faq-answer {
-    display: none;
-    padding: 6px 2px 12px;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.faq-item.active .faq-answer {
-    display: block;
-}
-
-/* 이 페이지에서만 footer 간격 조금 더 주기 */
-.page-wrapper .footer-text {
-    margin-top: 28px;
-}
-
-/* 모바일 조정 */
-@media (max-width: 800px) {
-    .options-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .image-item {
-        grid-template-columns: auto minmax(0, 1fr);
-        grid-template-rows: auto auto;
-    }
-
-    .image-actions {
-        grid-column: 1 / -1;
-        align-items: flex-start;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
-@media (max-width: 600px) {
-    .info-section,
-    .faq-section {
-        margin-top: 32px;
-        padding: 0 12px;
-    }
-
-    .info-section h2,
-    .faq-section h2 {
-        font-size: 20px;
-    }
-
-    .faq-question {
-        font-size: 14px;
-        padding: 9px 10px 9px 28px;
-    }
-
-    .info-section p,
-    .faq-answer,
-    .info-list {
-        font-size: 13px;
-    }
-}
+@media(min-width:800px){.ic-page .header-actions{flex-direction:row-reverse;gap:20px}}
+@media(max-width:900px){.ic-workspace{gap:14px}.ic-card{padding:18px}.ic-options-card{padding:18px}.reference-grid{gap:16px}.info-section{padding:20px}.faq-section{gap:25px}}
+@media(max-width:760px){.ic-top-row{grid-template-columns:1fr}.ic-presets{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.intro-grid{grid-template-columns:1fr;gap:8px}.intro-grid h1{font-size:22px}.ic-intro{padding:14px 0 10px}.page-links{gap:0;justify-content:space-between;padding:10px 0}.page-links a{font-size:11px}.reference-grid{grid-template-columns:1fr}.drop-zone{padding:26px 16px}.ic-size-row{align-items:stretch}.ic-size-row-check{margin-left:0}.image-item{grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto}.image-actions{grid-column:1/-1;align-items:flex-start;flex-direction:row;justify-content:space-between}.reference-heading{margin-top:30px}.faq-section{grid-template-columns:1fr;gap:22px;margin-top:26px;padding-top:24px}.related-links{grid-template-columns:1fr;gap:10px}.related-links>a{padding:18px}.info-section{padding:21px}.ic-page .home-footer{margin-top:30px}}
+@media(max-width:480px){.ic-presets{grid-template-columns:1fr 1fr}.actions button{max-width:none}}
+@media(max-width:380px){.ic-page .page-wrapper{padding-left:16px;padding-right:16px}.intro-grid h1{font-size:20px}.intro-description{font-size:12px}.ic-card{padding:14px}.ic-options-card{padding:14px}.info-section{padding:18px 13px}}
+@media(prefers-reduced-motion:reduce){.ic-page *{scroll-behavior:auto!important;transition:none!important}}
