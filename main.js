@@ -92,6 +92,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/delivery-roulette/",
         "https://toolify.kr/tools/anju-roulette/",
         "https://toolify.kr/tools/night-snack-roulette/",
+        "https://toolify.kr/tools/star-rating-calculator/",
         "https://toolify.kr/about.html",
     ]);
 });

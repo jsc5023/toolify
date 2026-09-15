@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../../style.css" />
     <link rel="stylesheet" href="../../home.css?v=20260914-1" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./password-generator.css?v=20260914-1" />
+    <link rel="stylesheet" href="./password-generator.css?v=20260916-1" />
 
     <link rel="canonical" href="https://toolify.kr/tools/password-generator/" />
 
@@ -117,14 +117,13 @@
             <div>
                 <p class="eyebrow">DEV TOOL · 개발자 도구</p>
                 <h1>안전한 <span>비밀번호 생성기</span></h1>
-                <p class="intro-description">대문자·소문자·숫자·특수문자를 조합해<br>예측하기 어려운 랜덤 비밀번호를 만들어 드려요.</p>
-                <div class="intro-tags"><span>브라우저에서 즉시 생성</span><span>강도 자동 분석</span><span>회원가입 없이 무료</span></div>
+                <p class="intro-description">대문자·소문자·숫자·특수문자를 조합해 예측하기 어려운 랜덤 비밀번호를 만들어 드려요.</p>
             </div>
             <aside class="formula-card" aria-label="비밀번호 구성 방법">
-                <span class="formula-icon" aria-hidden="true">🔐</span><p class="eyebrow">STRONG BY DESIGN</p>
-                <div class="formula"><strong>4~64자</strong><span>길이 +</span></div>
-                <div class="charset-chips"><span>대문자</span><span>소문자</span><span>숫자</span><span>특수문자</span></div>
-                <p>길이와 문자 종류가 많아질수록, 추측하기 어려워져요.</p>
+                <span class="pw-formula-icon" aria-hidden="true">🔐</span>
+                <code class="pw-formula-chip">4~64자</code>
+                <span class="pw-formula-op" aria-hidden="true">+</span>
+                <code class="pw-formula-chip">대/소문자·숫자·특수문자</code>
             </aside>
         </div>
     </header>
@@ -134,7 +133,7 @@
         <!-- 메인 도구 영역 -->
         <section class="calculator-layout" id="generator" aria-label="비밀번호 생성기">
             <div class="input-panel">
-            <div class="panel-heading"><span class="step-number">01</span><div><h2>옵션 설정</h2><p>길이와 포함할 문자 종류를 골라주세요.</p></div><span class="required-label">선택 입력</span></div>
+            <div class="panel-heading"><span class="step-number">01</span><h2>옵션 설정</h2><span class="required-label">선택 입력</span></div>
 
             <div class="field">
                 <label for="pw-length">비밀번호 길이</label>
@@ -176,7 +175,7 @@
             </div>
 
             <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
-                <div class="panel-heading"><span class="step-number">02</span><div><h2 id="result-heading">생성된 비밀번호</h2><p>강도를 함께 확인하고 복사하세요.</p></div></div>
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">생성된 비밀번호</h2></div>
                 <div class="result-empty" id="pw-empty"><span class="empty-symbol" aria-hidden="true">—</span><h3>아직 생성된 비밀번호가 없어요</h3><p>옵션을 선택한 뒤<br>비밀번호 생성을 눌러주세요.</p></div>
 
                 <div class="pw-output-wrap hidden" id="pw-output-wrap">
