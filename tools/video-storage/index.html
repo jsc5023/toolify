@@ -1,26 +1,264 @@
 <!DOCTYPE html>
-<html lang="ko"><head>
-<meta charset="UTF-8" /><title>영상 용량·녹화시간 계산기 | 4K·CCTV·블랙박스 - Toolify</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
-<meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" /><link rel="icon" type="image/png" href="../../favicon.png" />
-<meta name="description" content="1080p·4K 영상의 예상 파일 용량, 메모리카드 녹화시간, CCTV·블랙박스 저장일수를 비트레이트 기준으로 계산하세요." /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../../style.css?v=20260909-1" /><link rel="stylesheet" href="./video-storage.css" /><link rel="canonical" href="https://toolify.kr/tools/video-storage/" />
-<meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" /><meta property="og:title" content="영상 용량·녹화시간 계산기" /><meta property="og:description" content="4K 촬영 용량부터 CCTV·블랙박스 저장기간까지 한 번에 계산하세요." /><meta property="og:url" content="https://toolify.kr/tools/video-storage/" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"4K 영상 1시간의 용량은 얼마인가요?","acceptedAnswer":{"@type":"Answer","text":"기기와 설정에 따라 다릅니다. 예를 들어 총 비트레이트가 45Mbps라면 1시간에 약 20.3GB입니다."}},{"@type":"Question","name":"메모리카드 표기 용량을 전부 사용할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"포맷과 시스템 파일, 안정적인 녹화를 위한 여유 공간 때문에 실제 사용 가능 용량은 더 작을 수 있습니다."}},{"@type":"Question","name":"해상도만 같으면 영상 용량도 같나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 같은 해상도라도 코덱, 프레임률, 화질 설정과 비트레이트에 따라 파일 크기가 크게 달라집니다."}}]}</script>
-</head><body>
-<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo">Toolify</a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav"><button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button><ul class="nav-links"><li><a href="../../">홈</a></li><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
-<div class="page-wrapper"><header class="header-card video-hero"><span class="eyebrow">촬영 용량 · 최대 녹화시간 · 보관일수</span><h1>🎥 영상 용량·녹화시간 계산기</h1><p class="subtitle">4K 영상 1시간은 몇 GB일까요? 메모리카드에 얼마나 녹화되는지, CCTV는 며칠 보관되는지 비트레이트를 기준으로 계산합니다.</p></header>
-<main><section class="tool-card video-card">
-<div class="use-presets" aria-label="사용 상황 빠른 설정"><span>사용 상황</span><button type="button" data-use="phone">📱 스마트폰 4K</button><button type="button" data-use="camera">📷 카메라</button><button type="button" data-use="cctv">📹 CCTV</button><button type="button" data-use="dashcam">🚗 블랙박스</button></div>
-<section class="settings-section"><div class="section-heading"><div><span class="step">1</span><h2>영상 품질</h2></div><p>선택값으로 예상 비트레이트를 채웁니다. 기기 표시값이 있다면 직접 수정하세요.</p></div>
-<div class="quality-grid"><div><label for="resolution">해상도</label><select id="resolution"><option value="720">720p</option><option value="1080">1080p</option><option value="1440">1440p</option><option value="2160" selected>4K UHD</option><option value="4320">8K UHD</option></select></div><div><label for="fps">프레임률</label><select id="fps"><option value="24">24 fps</option><option value="30" selected>30 fps</option><option value="60">60 fps</option><option value="120">120 fps</option></select></div><div><label for="codec">코덱</label><select id="codec"><option value="h264">H.264</option><option value="h265" selected>H.265 / HEVC</option></select></div><div><label for="bitrate">영상 비트레이트</label><div class="input-unit"><input id="bitrate" type="number" min="0.1" step="0.1" value="29.3" inputmode="decimal" /><span>Mbps</span></div></div><div><label for="audio-bitrate">오디오 비트레이트</label><div class="input-unit"><input id="audio-bitrate" type="number" min="0" step="16" value="128" inputmode="numeric" /><span>kbps</span></div></div><div><label for="camera-count">카메라 수</label><div class="input-unit"><input id="camera-count" type="number" min="1" max="128" step="1" value="1" inputmode="numeric" /><span>대</span></div></div></div><p id="estimate-note" class="estimate-note"></p></section>
-<section class="calculate-section"><div class="section-heading"><div><span class="step">2</span><h2>촬영시간과 저장공간</h2></div><p>두 값을 모두 보여주므로 원하는 쪽만 입력해도 됩니다.</p></div>
-<div class="dual-grid"><div class="input-panel"><span class="panel-kicker">시간 → 용량</span><label for="duration-value">촬영·녹화시간</label><div class="compound-input"><input id="duration-value" type="number" min="0" step="0.5" value="1" inputmode="decimal" /><select id="duration-unit" aria-label="촬영시간 단위"><option value="minute">분</option><option value="hour" selected>시간</option><option value="day">일</option></select></div><strong id="required-storage">약 0 GB 필요</strong><small id="per-hour-size">1시간당 0 GB</small></div><div class="swap-mark" aria-hidden="true">⇄</div><div class="input-panel"><span class="panel-kicker">용량 → 시간</span><label for="storage-value">저장장치 표기 용량</label><div class="compound-input"><input id="storage-value" type="number" min="0" step="1" value="128" inputmode="decimal" /><select id="storage-unit" aria-label="저장공간 단위"><option value="GB" selected>GB</option><option value="TB">TB</option></select></div><strong id="recordable-time">약 0시간 녹화</strong><small id="usable-storage">실사용 가능 용량 0 GB 기준</small></div></div>
-<div class="advanced-row"><div><label for="usable-percent">실사용 가능 비율</label><div class="input-unit"><input id="usable-percent" type="number" min="10" max="100" step="1" value="90" inputmode="numeric" /><span>%</span></div></div><div><label for="daily-hours">하루 녹화시간</label><div class="input-unit"><input id="daily-hours" type="number" min="0.1" max="24" step="0.5" value="24" inputmode="decimal" /><span>시간/일</span></div></div></div></section>
-<section class="result-panel" aria-live="polite"><div class="result-main"><div><span>1분 예상 용량</span><strong id="per-minute">0 MB</strong></div><div><span>1시간 예상 용량</span><strong id="per-hour">0 GB</strong></div><div class="accent"><span>최대 녹화시간</span><strong id="fit-time">0시간</strong></div><div><span>예상 보관기간</span><strong id="retention-days">0일</strong></div></div><div class="capacity-guide"><div class="guide-heading"><h3>용량별 예상 녹화시간</h3><span>실사용 가능 비율 반영</span></div><div id="capacity-list" class="capacity-list"></div></div><p class="result-warning">실제 용량은 장면 복잡도, 가변 비트레이트, 기기 설정, 파일 분할과 포맷 방식에 따라 달라질 수 있습니다.</p></section>
-</section>
-<section class="info-section"><h2>영상 용량은 어떻게 계산하나요?</h2><p>영상 파일 크기는 해상도 자체보다 실제로 기록되는 <strong>비트레이트</strong>의 영향을 직접 받습니다. 영상과 오디오 비트레이트를 합산하고 시간을 곱한 뒤 bit를 byte로 변환합니다.</p><div class="formula">파일 용량(GB) = 총 비트레이트(Mbps) × 시간(초) ÷ 8 ÷ 1,000</div><p>프리셋은 빠른 비교를 위한 추정값입니다. 기기 사양에 Mbps가 표시되어 있다면 그 값을 직접 입력하는 것이 가장 정확합니다.</p><p><a href="../transfer-time/">계산한 영상을 업로드·복사하는 시간은 파일 전송 시간 계산기에서 확인하세요 →</a></p></section>
-<section class="editorial-section"><h2>상황별 계산 예시</h2><p>같은 4K라도 카메라가 실제로 기록하는 비트레이트가 다르면 용량도 달라집니다. 아래 값은 계산 원리를 보여주는 예시이며, 정확한 값은 기기 메뉴나 설명서에 표시된 비트레이트를 사용하세요.</p><table class="guide-table"><thead><tr><th>상황</th><th>입력 비트레이트</th><th>1시간 예상 용량</th></tr></thead><tbody><tr><td>1080p 일반 촬영</td><td>8Mbps</td><td>약 3.6GB</td></tr><tr><td>4K 촬영</td><td>30Mbps</td><td>약 13.5GB</td></tr><tr><td>CCTV 1대</td><td>4Mbps</td><td>약 1.8GB</td></tr></tbody></table><h3>128GB 카드의 시간이 더 짧게 나오는 이유</h3><p>표기 용량 128GB에 실사용 비율 90%를 적용하면 계산에 쓰는 공간은 115.2GB입니다. 4Mbps CCTV 한 대라면 단순 계산상 약 64시간이지만, 카메라가 두 대면 같은 공간을 함께 사용하므로 약 32시간으로 줄어듭니다.</p><h3>결과가 달라지는 주요 변수</h3><ul class="editorial-list"><li>VBR(가변 비트레이트)은 움직임과 화면 복잡도에 따라 순간 용량이 달라집니다.</li><li>H.265는 같은 화질에서 H.264보다 작을 수 있지만, 기기별 인코더 설정 차이가 큽니다.</li><li>순환 녹화, 이벤트 녹화, 오디오 포함 여부와 파일 시스템 공간도 저장기간에 영향을 줍니다.</li></ul></section>
-<section class="faq-section"><h2>자주 묻는 질문</h2><div class="faq-item"><button class="faq-question">4K 영상 1시간은 무조건 같은 용량인가요?</button><div class="faq-answer"><p>아닙니다. 같은 4K라도 프레임률, 코덱과 화질 설정에 따라 비트레이트가 달라집니다.</p></div></div><div class="faq-item"><button class="faq-question">128GB를 왜 115.2GB로 계산하나요?</button><div class="faq-answer"><p>기본값으로 표기 용량의 90%만 녹화에 사용한다고 가정합니다. 포맷, 시스템 영역과 순환 녹화 여유를 고려한 값이며 직접 변경할 수 있습니다.</p></div></div><div class="faq-item"><button class="faq-question">CCTV 여러 대도 계산할 수 있나요?</button><div class="faq-answer"><p>카메라 수를 입력하면 모두 같은 비트레이트로 동시에 녹화한다고 가정해 총용량과 저장기간을 계산합니다.</p></div></div></section></main>
-<section class="footer-text"><p><a href="../../about.html">Toolify 소개</a> · <a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../contact.html">Contact / 문의하기</a></p></section></div>
-<script src="../../main.js?v=20260909-1"></script><script src="./video-storage.js"></script></body></html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>영상 용량·녹화시간 계산기 | 4K·CCTV·블랙박스 - Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description" content="1080p·4K 영상의 예상 파일 용량, 메모리카드 녹화시간, CCTV·블랙박스 저장일수를 비트레이트 기준으로 계산하세요." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./video-storage.css?v=20260916-1" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/video-storage/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="영상 용량·녹화시간 계산기" />
+    <meta property="og:description" content="4K 촬영 용량부터 CCTV·블랙박스 저장기간까지 한 번에 계산하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/video-storage/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"4K 영상 1시간의 용량은 얼마인가요?","acceptedAnswer":{"@type":"Answer","text":"기기와 설정에 따라 다릅니다. 예를 들어 총 비트레이트가 45Mbps라면 1시간에 약 20.3GB입니다."}},{"@type":"Question","name":"메모리카드 표기 용량을 전부 사용할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"포맷과 시스템 파일, 안정적인 녹화를 위한 여유 공간 때문에 실제 사용 가능 용량은 더 작을 수 있습니다."}},{"@type":"Question","name":"해상도만 같으면 영상 용량도 같나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 같은 해상도라도 코덱, 프레임률, 화질 설정과 비트레이트에 따라 파일 크기가 크게 달라집니다."}}]}</script>
+</head>
+
+<body class="reading-page vs-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="vs-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="vs-nav">
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="vs-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">생활 도구</a><span>/</span><span aria-current="page">영상 용량·녹화시간 계산기</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">LIFE TOOL · 촬영 · CCTV · 블랙박스</p>
+                <h1>🎥 영상 용량·<span>녹화시간 계산기</span></h1>
+                <p class="intro-description">비트레이트를 기준으로 촬영 용량, 메모리카드 녹화시간, 보관일수를 계산해요.</p>
+            </div>
+            <aside class="formula-card" aria-label="계산 예시">
+                <code class="vs-chip">45Mbps · 1시간</code>
+                <span class="vs-op" aria-hidden="true">→</span>
+                <code class="vs-chip vs-chip-result">20.3GB</code>
+            </aside>
+        </div>
+    </header>
+
+    <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">계산하기</a><a href="#guide">계산 방법</a><a href="#examples">계산 예시</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="영상 용량·녹화시간 계산">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>촬영 설정</h2></div>
+
+                <div class="preset-row" aria-label="사용 상황 빠른 설정">
+                    <span>사용 상황</span>
+                    <button type="button" data-use="phone">📱 스마트폰 4K</button>
+                    <button type="button" data-use="camera">📷 카메라</button>
+                    <button type="button" data-use="cctv">📹 CCTV</button>
+                    <button type="button" data-use="dashcam">🚗 블랙박스</button>
+                </div>
+
+                <div class="vs-field-block">
+                    <p class="vs-block-label">영상 품질</p>
+                    <div class="tool-grid vs-quality-grid">
+                        <div class="field">
+                            <label for="resolution">해상도</label>
+                            <select id="resolution"><option value="720">720p</option><option value="1080">1080p</option><option value="1440">1440p</option><option value="2160" selected>4K UHD</option><option value="4320">8K UHD</option></select>
+                        </div>
+                        <div class="field">
+                            <label for="fps">프레임률</label>
+                            <select id="fps"><option value="24">24 fps</option><option value="30" selected>30 fps</option><option value="60">60 fps</option><option value="120">120 fps</option></select>
+                        </div>
+                        <div class="field">
+                            <label for="codec">코덱</label>
+                            <select id="codec"><option value="h264">H.264</option><option value="h265" selected>H.265 / HEVC</option></select>
+                        </div>
+                        <div class="field">
+                            <label for="bitrate">영상 비트레이트</label>
+                            <div class="input-with-unit"><input id="bitrate" type="number" min="0.1" step="0.1" value="29.3" inputmode="decimal" /><span class="unit-badge">Mbps</span></div>
+                        </div>
+                        <div class="field">
+                            <label for="audio-bitrate">오디오 비트레이트</label>
+                            <div class="input-with-unit"><input id="audio-bitrate" type="number" min="0" step="16" value="128" inputmode="numeric" /><span class="unit-badge">kbps</span></div>
+                        </div>
+                        <div class="field">
+                            <label for="camera-count">카메라 수</label>
+                            <div class="input-with-unit"><input id="camera-count" type="number" min="1" max="128" step="1" value="1" inputmode="numeric" /><span class="unit-badge">대</span></div>
+                        </div>
+                    </div>
+                    <p class="helper" id="estimate-note"></p>
+                </div>
+
+                <div class="vs-field-block">
+                    <p class="vs-block-label">촬영시간 → 예상 용량</p>
+                    <div class="tool-grid vs-duration-grid">
+                        <div class="field">
+                            <label for="duration-value">촬영·녹화시간</label>
+                            <div class="compound-input">
+                                <input id="duration-value" type="number" min="0" step="0.5" value="1" inputmode="decimal" />
+                                <select id="duration-unit" aria-label="촬영시간 단위"><option value="minute">분</option><option value="hour" selected>시간</option><option value="day">일</option></select>
+                            </div>
+                        </div>
+                        <div class="summary-field"><span id="per-hour-size">1시간당 0 GB</span><strong id="required-storage">약 0 GB 필요</strong></div>
+                    </div>
+                </div>
+
+                <div class="vs-field-block">
+                    <p class="vs-block-label">저장장치 용량 → 녹화 가능 시간</p>
+                    <div class="tool-grid vs-duration-grid">
+                        <div class="field">
+                            <label for="storage-value">저장장치 표기 용량</label>
+                            <div class="compound-input">
+                                <input id="storage-value" type="number" min="0" step="1" value="128" inputmode="decimal" />
+                                <select id="storage-unit" aria-label="저장공간 단위"><option value="GB" selected>GB</option><option value="TB">TB</option></select>
+                            </div>
+                        </div>
+                        <div class="summary-field"><span id="usable-storage">실사용 가능 용량 0 GB 기준</span><strong id="recordable-time">약 0시간 녹화</strong></div>
+                    </div>
+                    <div class="advanced-row">
+                        <div class="field">
+                            <label for="usable-percent">실사용 가능 비율</label>
+                            <div class="input-with-unit"><input id="usable-percent" type="number" min="10" max="100" step="1" value="90" inputmode="numeric" /><span class="unit-badge">%</span></div>
+                        </div>
+                        <div class="field">
+                            <label for="daily-hours">하루 녹화시간</label>
+                            <div class="input-with-unit"><input id="daily-hours" type="number" min="0.1" max="24" step="0.5" value="24" inputmode="decimal" /><span class="unit-badge">시간/일</span></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
+            </div>
+
+            <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">예상 결과</h2></div>
+
+                <div class="vs-stat-grid">
+                    <div><span>1분 예상 용량</span><strong id="per-minute">0 MB</strong></div>
+                    <div><span>1시간 예상 용량</span><strong id="per-hour">0 GB</strong></div>
+                    <div class="accent"><span>최대 녹화시간</span><strong id="fit-time">0시간</strong></div>
+                    <div><span>예상 보관기간</span><strong id="retention-days">0일</strong></div>
+                </div>
+
+                <div class="vs-comparison">
+                    <div class="vs-comparison-head"><h3>용량별 예상 녹화시간</h3><span>실사용 가능 비율 반영</span></div>
+                    <div id="capacity-list" class="vs-comparison-list"></div>
+                </div>
+
+                <div class="note result-disclaimer">
+                    ※ 실제 용량은 장면 복잡도, 가변 비트레이트, 기기 설정, 파일 분할과 포맷 방식에 따라 달라질 수 있습니다.
+                </div>
+            </div>
+        </section>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>영상 용량은 어떻게 계산하나요?</h2><p>비트레이트를 기준으로 파일 크기를 계산하는 원리예요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>영상 파일 크기는 해상도 자체보다 실제로 기록되는 <strong>비트레이트</strong>의 영향을 직접 받습니다. 영상과 오디오 비트레이트를 합산하고 시간을 곱한 뒤 bit를 byte로 변환합니다.</p>
+            <p class="vs-formula">파일 용량(GB) = 총 비트레이트(Mbps) × 시간(초) ÷ 8 ÷ 1,000</p>
+            <p>프리셋은 빠른 비교를 위한 추정값입니다. 기기 사양에 Mbps가 표시되어 있다면 그 값을 직접 입력하는 것이 가장 정확합니다.</p>
+            <p class="helper">계산한 영상을 업로드·복사하는 시간은 <a href="../transfer-time/">파일 전송 시간 계산기</a>에서 확인하세요.</p>
+        </section>
+
+        <div class="reference-heading" id="examples"><p class="eyebrow">EXAMPLES</p><h2>상황별 계산 예시</h2><p>같은 4K라도 실제 비트레이트가 다르면 용량도 달라져요.</p></div>
+        <div class="reference-grid">
+            <section class="info-section">
+                <h2>계산 예시</h2>
+                <div class="table-wrap">
+                    <table class="bmi-table">
+                        <thead><tr><th>상황</th><th>입력 비트레이트</th><th>1시간 예상 용량</th></tr></thead>
+                        <tbody>
+                        <tr><td>1080p 일반 촬영</td><td>8Mbps</td><td>약 3.6GB</td></tr>
+                        <tr><td>4K 촬영</td><td>30Mbps</td><td>약 13.5GB</td></tr>
+                        <tr><td>CCTV 1대</td><td>4Mbps</td><td>약 1.8GB</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="helper">위 값은 계산 원리를 보여주는 예시이며, 정확한 값은 기기 메뉴나 설명서에 표시된 비트레이트를 사용하세요.</p>
+            </section>
+            <section class="info-section">
+                <h2>결과가 달라지는 주요 변수</h2>
+                <ul class="info-list">
+                    <li><strong>128GB 카드가 더 짧게 나오는 이유:</strong> 실사용 비율 90%를 적용하면 계산에 쓰는 공간은 115.2GB입니다. 카메라가 두 대면 같은 공간을 나눠 쓰므로 시간이 절반으로 줄어듭니다.</li>
+                    <li><strong>VBR(가변 비트레이트):</strong> 움직임과 화면 복잡도에 따라 순간 용량이 달라집니다.</li>
+                    <li><strong>코덱 차이:</strong> H.265는 같은 화질에서 H.264보다 작을 수 있지만, 기기별 인코더 설정 차이가 큽니다.</li>
+                    <li><strong>녹화 방식:</strong> 순환 녹화, 이벤트 녹화, 오디오 포함 여부와 파일 시스템 공간도 저장기간에 영향을 줍니다.</li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>영상 용량 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>4K 영상 1시간은 무조건 같은 용량인가요?</summary>
+                <div class="faq-answer"><p>아닙니다. 같은 4K라도 프레임률, 코덱과 화질 설정에 따라 비트레이트가 달라집니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>128GB를 왜 115.2GB로 계산하나요?</summary>
+                <div class="faq-answer"><p>기본값으로 표기 용량의 90%만 녹화에 사용한다고 가정합니다. 포맷, 시스템 영역과 순환 녹화 여유를 고려한 값이며 직접 변경할 수 있습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>CCTV 여러 대도 계산할 수 있나요?</summary>
+                <div class="faq-answer"><p>카메라 수를 입력하면 모두 같은 비트레이트로 동시에 녹화한다고 가정해 총용량과 저장기간을 계산합니다.</p></div>
+            </details>
+            </div>
+        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../transfer-time/"><span>🚀</span><div><h3>파일 전송 시간 계산기</h3><p>용량과 속도로 다운로드·업로드 시간 계산</p></div><span aria-hidden="true">↗</span></a><a href="../unit-converter/"><span>📐</span><div><h3>단위 변환기</h3><p>길이, 무게, 속도 등 자주 쓰는 단위 변환</p></div><span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </footer>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260916-1"></script>
+<!-- 전용 JS -->
+<script src="./video-storage.js"></script>
+</body>
+</html>

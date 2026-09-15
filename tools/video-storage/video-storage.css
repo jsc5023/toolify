@@ -1,3 +1,97 @@
-.video-hero{border-top:4px solid #7c3aed}.eyebrow{display:inline-block;color:#7c3aed;font-size:12px;font-weight:800;margin-bottom:6px}.video-card{padding:20px}.use-presets{display:flex;align-items:center;gap:7px;overflow-x:auto;padding-bottom:14px;border-bottom:1px solid #e5e7eb}.use-presets>span{font-size:12px;font-weight:800;color:#64748b;white-space:nowrap}.use-presets button{width:auto;flex:0 0 auto;padding:7px 10px;border:1px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;font-size:12px}.settings-section,.calculate-section{padding:20px 0;border-bottom:1px solid #e5e7eb}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.section-heading>div{display:flex;align-items:center;gap:8px}.section-heading h2{font-size:17px;margin:0}.section-heading p{font-size:12px;color:#64748b;text-align:right}.step{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#7c3aed;color:#fff;font-size:12px;font-weight:900}.quality-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.quality-grid label,.advanced-row label{font-size:12px;font-weight:700;color:#475569}.input-unit{display:flex;align-items:center;overflow:hidden;border:1px solid #d1d5db;border-radius:10px;background:#fff}.input-unit:focus-within,.compound-input:focus-within{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(124,58,237,.1)}.input-unit input{min-width:0;margin:0!important;border:0!important;outline:0}.input-unit span{padding:0 9px;color:#64748b;font-size:12px;white-space:nowrap}.estimate-note{margin-top:8px;font-size:11px;color:#7c3aed}.dual-grid{display:grid;grid-template-columns:1fr 45px 1fr;align-items:center}.input-panel{padding:15px;border:1px solid #e2e8f0;border-radius:13px;background:#f8fafc}.input-panel:last-child{border-color:#ddd6fe;background:#faf5ff}.panel-kicker{display:block;margin-bottom:9px;color:#7c3aed;font-size:11px;font-weight:900}.compound-input{display:grid;grid-template-columns:1fr 92px;overflow:hidden;border:1px solid #d1d5db;border-radius:10px;background:#fff}.compound-input input,.compound-input select{margin:0!important;border:0!important;border-radius:0!important}.compound-input select{border-left:1px solid #e5e7eb!important}.input-panel>strong{display:block;margin-top:11px;font-size:18px}.input-panel>small{display:block;color:#64748b;font-size:11px}.swap-mark{text-align:center;color:#a78bfa;font-weight:900}.advanced-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.result-panel{margin-top:20px;padding:18px;border-radius:15px;background:#0f172a;color:#e2e8f0}.result-main{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#334155}.result-main>div{display:flex;flex-direction:column;padding:11px;background:#0f172a}.result-main span{font-size:11px;color:#94a3b8}.result-main strong{font-size:17px;color:#fff}.result-main .accent strong{color:#c4b5fd}.capacity-guide{margin-top:20px}.guide-heading{display:flex;justify-content:space-between;align-items:center}.guide-heading h3{font-size:14px}.guide-heading span{font-size:10px;color:#64748b}.capacity-list{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.capacity-item{padding:10px 5px;border:1px solid #334155;border-radius:9px;text-align:center}.capacity-item strong{display:block;color:#fff;font-size:12px}.capacity-item span{color:#94a3b8;font-size:10px}.result-warning{margin-top:13px;padding-top:10px;border-top:1px solid #334155;color:#94a3b8;font-size:10px}.info-section,.faq-section{max-width:760px;margin:34px auto 0;padding:0 10px}.info-section p{margin-bottom:10px;color:#475569;font-size:14px;line-height:1.7}.formula{padding:12px 14px;margin:12px 0;border-left:4px solid #8b5cf6;background:#f5f3ff;color:#5b21b6;font-size:13px;font-weight:800}.faq-item{border-bottom:1px solid #e2e8f0;padding:5px 0}.faq-question{position:relative;background:#f8fafc;color:#111827;text-align:left;padding:10px 12px 10px 30px;font-size:14px}.faq-question:before{content:"▶";position:absolute;left:10px;color:#64748b;font-size:10px}.faq-item.active .faq-question:before{content:"▼"}.faq-answer{display:none;padding:8px 4px 12px;color:#475569;font-size:13px}.faq-item.active .faq-answer{display:block}
-@media(max-width:700px){.quality-grid{grid-template-columns:1fr 1fr}.result-main{grid-template-columns:1fr 1fr}.capacity-list{grid-template-columns:repeat(3,1fr)}.section-heading{align-items:flex-start}.section-heading p{max-width:48%}}
-@media(max-width:500px){.video-card{padding:15px 12px}.quality-grid,.advanced-row{grid-template-columns:1fr}.dual-grid{grid-template-columns:1fr}.swap-mark{padding:6px;transform:rotate(90deg)}.section-heading{display:block}.section-heading p{max-width:none;text-align:left;margin:5px 0 0 33px}.capacity-list{grid-template-columns:repeat(2,1fr)}}
+/* 영상 용량·녹화시간 계산기: home palette + 사용성 우선 컴팩트 히어로. */
+.vs-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.vs-intro{padding:16px 0 14px}
+.breadcrumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.intro-grid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding-top:10px}
+.intro-grid h1{font-size:25px;letter-spacing:-.8px;line-height:1.3;margin:6px 0 0;word-break:keep-all}
+.intro-grid h1 span{color:var(--green)}
+.intro-description{font-size:13px;color:var(--muted);line-height:1.6;word-break:keep-all;margin-top:6px}
+.formula-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#edf3e8;border:1px solid #dce6d5;border-radius:10px;white-space:nowrap}
+.vs-chip{padding:4px 8px;border-radius:6px;background:#fff;border:1px solid #cfe0cc;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px;font-weight:700;color:#4a5c4d;font-style:normal}
+.vs-chip-result{color:var(--green)}
+.vs-op{font-size:12px;font-weight:700;color:#8ba28c}
+.page-links{display:flex;gap:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:14px;flex-wrap:wrap}
+.page-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:650}.page-links a:first-child{color:var(--green)}.page-links a:hover{text-decoration:underline;color:var(--green)}
+
+.calculator-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}
+.input-panel,.result-box{border:1px solid var(--line);border-radius:14px;padding:18px 20px 20px;min-width:0}
+.input-panel{background:white}.result-box{background:#eff4e9;display:flex;flex-direction:column;border-color:#d8e3cf;position:sticky;top:20px}
+.panel-heading{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.panel-heading h2{font-size:16px;letter-spacing:-.4px;margin:0}
+.step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#edf3e8;color:var(--green);font-size:10px;font-weight:750;flex-shrink:0}
+.result-box .step-number{background:#dfead7}
+.helper{font-size:11px;color:var(--muted);line-height:1.8;margin-top:7px;word-break:keep-all}
+.helper a{color:var(--green)}
+.input-note{font-size:10px;color:var(--muted);margin-top:14px;text-align:center}
+
+/* 빠른 설정 프리셋 */
+.preset-row{display:flex;align-items:center;gap:7px;overflow-x:auto;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.preset-row>span{font-size:12px;font-weight:750;color:var(--ink);white-space:nowrap}
+.preset-row button{width:auto;flex:0 0 auto;padding:7px 11px;border:1px solid var(--line);background:#fff;color:var(--green);font-size:12px;font-weight:700;border-radius:999px}
+.preset-row button:hover{background:#eaf1e4;border-color:#a7c1a3}
+
+/* 입력 블록 */
+.vs-field-block{padding:16px 0;border-bottom:1px solid var(--line)}
+.vs-field-block:last-of-type{border-bottom:0;padding-bottom:0}
+.vs-block-label{font-size:13px;font-weight:750;color:var(--ink);margin:0 0 12px}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:end}
+.vs-duration-grid{grid-template-columns:1.2fr 1fr}
+.field{min-width:0}.field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin:0 0 7px}
+.input-with-unit{position:relative;display:flex;align-items:center}
+.vs-page input[type=number],.vs-page select{margin:0;border:1px solid #cedace;border-radius:9px;color:var(--ink);background:#fff;min-height:46px;font-size:15px;padding:11px 40px 11px 13px;width:100%;min-width:0}
+.vs-page select{padding-right:16px;font-size:13px}
+.vs-page input:focus,.vs-page select:focus{border-color:var(--green);box-shadow:0 0 0 3px #15776012;outline:2px solid transparent}
+.unit-badge{position:absolute;right:13px;font-size:11px;color:var(--muted);pointer-events:none}
+.compound-input{display:flex;align-items:center;overflow:hidden;border:1px solid #cedace;border-radius:9px;background:#fff;min-height:46px}
+.compound-input:focus-within{border-color:var(--green);box-shadow:0 0 0 3px #15776012}
+.compound-input input{flex:1;min-width:0;border:0!important;box-shadow:none!important}
+.compound-input select{width:76px;flex-shrink:0;margin:0;border:0;border-left:1px solid var(--line);border-radius:0;background:#fff;color:var(--ink);font-size:13px;padding:0 8px;height:100%}
+.summary-field{display:flex;min-height:46px;flex-direction:column;justify-content:center;padding:6px 13px;border-radius:9px;background:#edf3e8;border:1px solid #dce6d5}
+.summary-field span{font-size:10px;color:var(--muted)}
+.summary-field strong{font-size:14px;color:var(--green);font-variant-numeric:tabular-nums}
+
+.advanced-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+
+/* 결과 */
+.vs-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#d2dfc9;border-radius:10px;overflow:hidden}
+.vs-stat-grid>div{display:flex;flex-direction:column;padding:12px;background:#eff4e9}
+.vs-stat-grid span{font-size:10px;color:var(--muted)}
+.vs-stat-grid strong{font-size:16px;color:var(--ink);margin-top:2px;font-variant-numeric:tabular-nums}
+.vs-stat-grid .accent strong{color:var(--green)}
+.vs-comparison{margin-top:20px}
+.vs-comparison-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.vs-comparison-head h3{font-size:13px;color:var(--ink);margin:0}
+.vs-comparison-head span{font-size:10px;color:var(--muted)}
+.vs-comparison-list{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.capacity-item{padding:9px 4px;border:1px solid #d2dfc9;border-radius:9px;text-align:center;background:#fff}
+.capacity-item strong{display:block;color:var(--ink);font-size:11px;font-variant-numeric:tabular-nums}
+.capacity-item span{font-size:10px;color:var(--muted)}
+.note{font-size:11px;color:var(--muted);line-height:1.9}
+.result-disclaimer{padding-top:18px;margin-top:auto;font-size:10px}
+
+.reference-heading{margin:46px 0 22px}.reference-heading .eyebrow{margin-bottom:6px}.reference-heading h2{font-size:25px;letter-spacing:-.8px;margin-bottom:6px}.reference-heading>p:last-child{font-size:13px;color:var(--muted)}
+.reference-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:start}
+.info-section{border:1px solid var(--line);border-radius:13px;background:white;padding:25px;min-width:0}
+.info-section h2{font-size:18px;letter-spacing:-.4px;margin-bottom:12px}.info-section p{font-size:12px;color:var(--muted);line-height:1.9;word-break:keep-all;margin-bottom:8px}
+.info-section .helper{font-size:11px}
+.info-list{margin:8px 0 12px;padding-left:19px;font-size:12px;color:var(--muted);line-height:1.9}
+.info-list li{margin-bottom:6px}
+.vs-formula{padding:14px 16px;background:#f3f6ef;border-radius:10px;color:var(--ink);font-weight:700;font-size:13px;margin-bottom:10px}
+.table-wrap{margin:4px 0 6px;overflow-x:auto}.bmi-table{width:100%;border-collapse:collapse;font-size:12px}
+.bmi-table th,.bmi-table td{text-align:left;padding:11px 10px;border-bottom:1px solid #e5eae1;vertical-align:middle;line-height:1.6}.bmi-table th{background:#f1f5ec;font-size:11px;font-weight:700;color:#5b6d59}.bmi-table td{color:#4a5c4d}.bmi-table th:first-child,.bmi-table td:first-child{padding-left:13px}
+
+.faq-section{display:grid;grid-template-columns:1fr 1.8fr;gap:40px;border-top:1px solid var(--line);padding-top:34px;margin-top:42px}
+.faq-heading h2{font-size:25px;letter-spacing:-.7px;margin-bottom:8px}.faq-heading p:last-child{font-size:12px;color:var(--muted)}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer;list-style:none;word-break:keep-all}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:'＋';color:var(--green);flex-shrink:0;font-weight:400;font-size:18px}.faq-item[open] summary::after{content:'−'}
+.faq-answer{padding:0 24px 18px 0;font-size:13px;line-height:1.9;color:var(--muted);word-break:keep-all}
+.related-section{border-top:1px solid var(--line);margin-top:38px;padding-top:30px}.related-section h2{font-size:22px;letter-spacing:-.6px;margin-bottom:20px}.related-section .eyebrow{margin-bottom:6px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:16px}.related-links>a{display:flex;align-items:center;gap:16px;padding:20px;text-decoration:none;border:1px solid var(--line);border-radius:11px;color:var(--ink);background:#f3f6ef}.related-links>a:hover{background:#eaf1e4;border-color:#a7c1a3}.related-links>a>span:first-child{font-size:27px}.related-links>a>span:last-child{margin-left:auto;color:var(--green)}.related-links h3{font-size:14px;margin-bottom:3px}.related-links p{font-size:11px;color:var(--muted)}
+.vs-page .home-footer{margin-top:42px}
+
+@media(min-width:800px){.vs-page .header-actions{flex-direction:row-reverse;gap:20px}}
+@media(max-width:900px){.formula-card{display:none}.calculator-layout{gap:14px}.input-panel,.result-box{padding:16px 18px 18px}.reference-grid{gap:16px}.info-section{padding:20px}.faq-section{gap:25px}}
+@media(max-width:760px){.vs-quality-grid{grid-template-columns:1fr 1fr}.vs-duration-grid{grid-template-columns:1fr}.vs-comparison-list{grid-template-columns:repeat(3,1fr)}.advanced-row{grid-template-columns:1fr}}
+@media(max-width:700px){.intro-grid{grid-template-columns:1fr;gap:8px}.intro-grid h1{font-size:22px}.vs-intro{padding:14px 0 10px}.page-links{gap:0;justify-content:space-between;padding:10px 0}.page-links a{font-size:11px}.calculator-layout,.reference-grid{grid-template-columns:1fr}.result-box{position:static}.vs-stat-grid{grid-template-columns:1fr 1fr}.reference-heading{margin-top:30px}.faq-section{grid-template-columns:1fr;gap:22px;margin-top:26px;padding-top:24px}.related-links{grid-template-columns:1fr;gap:10px}.related-links>a{padding:18px}.info-section{padding:21px}.vs-page .home-footer{margin-top:30px}}
+@media(max-width:380px){.vs-page .page-wrapper{padding-left:16px;padding-right:16px}.intro-grid h1{font-size:20px}.intro-description{font-size:12px}.vs-quality-grid{grid-template-columns:1fr}.input-panel,.result-box{padding:14px 14px 16px}.info-section{padding:18px 13px}.vs-comparison-list{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){.vs-page *{scroll-behavior:auto!important;transition:none!important}}
