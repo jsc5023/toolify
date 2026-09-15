@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../../style.css?v=20260909-1" />
     <link rel="stylesheet" href="../../home.css?v=20260914-2" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./fat-burning-heart-rate.css?v=20260914-1" />
+    <link rel="stylesheet" href="./fat-burning-heart-rate.css?v=20260916-1" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Toolify" />
@@ -60,13 +60,12 @@
             <div>
                 <p class="eyebrow">HEALTH TOOL · ZONE 2</p>
                 <h1>💓 지방 연소 <span>심박수 계산기</span></h1>
-                <p class="intro-description">지방이 잘 타는 심박수가 궁금한가요?<br>만 나이만 입력하면 운동할 때 참고할 구간을 바로 확인해요.</p>
-                <div class="intro-tags"><span>만 18~100세 참고용</span><span>존2(Zone 2) 구간 확인</span><span>회원가입 없이 무료</span></div>
+                <p class="intro-description">만 나이만 입력하면 운동할 때 참고할 지방 연소 구간을 바로 확인해요.</p>
             </div>
             <aside class="formula-card" aria-label="최대심박수 계산식">
-                <span class="formula-icon" aria-hidden="true">♡</span><p class="eyebrow">MAX HEART RATE</p>
-                <div class="formula"><strong>220</strong><span>−</span><span class="fraction"><span>만 나이</span><span><small>추정 최대심박수</small></span></span></div>
-                <p>지방 연소 참고 구간은 최대심박수의 60~70%예요.</p>
+                <code class="fh-formula-chip">220 − 나이</code>
+                <span class="fh-formula-op" aria-hidden="true">=</span>
+                <code class="fh-formula-chip fh-formula-result">최대심박수</code>
             </aside>
         </div>
     </header>
@@ -77,7 +76,7 @@
         <!-- 메인 도구 영역 -->
         <section class="calculator-layout" id="calculator" aria-label="지방 연소 심박수 계산">
             <div class="input-panel">
-                <div class="panel-heading"><span class="step-number">01</span><div><h2>내 나이 입력</h2><p>만 나이 하나만 있으면 돼요.</p></div><span class="required-label">필수 입력</span></div>
+                <div class="panel-heading"><span class="step-number">01</span><h2>내 나이 입력</h2><span class="required-label">필수 입력</span></div>
 
                 <div class="field">
                     <label for="age">만 나이</label>
@@ -96,7 +95,7 @@
             </div>
 
             <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
-                <div class="panel-heading"><span class="step-number">02</span><div><h2 id="result-heading">계산 결과</h2><p id="result-caption">지방 연소 참고 구간 · 최대심박수의 60~70%</p></div></div>
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">계산 결과</h2></div>
                 <div class="result-empty" id="result-empty"><span class="empty-symbol" aria-hidden="true">—</span><h3>내 참고 구간은 얼마일까요?</h3><p>만 나이를 입력하면<br>바로 계산해 드려요.</p></div>
 
                 <div class="fh-result-body hidden" id="fh-result-body">
