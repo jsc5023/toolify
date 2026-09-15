@@ -75,7 +75,8 @@ sampleBtn.addEventListener("click", () => {
         }
     };
 
-    const text = JSON.stringify(sample, null, 2);
+    // 정렬 전/후 차이가 눈에 보이도록 압축된 한 줄 형태로 넣는다.
+    const text = JSON.stringify(sample);
     jsonInputEl.value = text;
     jsonOutputEl.value = "";
     setStatusOk("예제 JSON을 불러왔습니다. 바로 포매팅/압축 기능을 사용해 보세요.");
