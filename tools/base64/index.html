@@ -2,77 +2,44 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>무료 Base64 인코더/디코더 - 텍스트/파일 Base64 변환</title>
 
+    <title>Base64 인코더·디코더 | 텍스트·파일 Base64 변환 - Toolify</title>
+
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
             crossorigin="anonymous"></script>
 
     <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
-
     <link rel="icon" type="image/png" href="../../favicon.png" />
 
-    <meta
-            name="description"
-            content="Base64 인코딩/디코딩을 브라우저에서 바로 수행하는 무료 온라인 도구입니다. 텍스트를 Base64로 변환하거나 Base64를 원문으로 복원하고, 파일을 Base64로 변환할 수 있습니다."
-    />
+    <meta name="description" content="Base64 인코딩/디코딩을 브라우저에서 바로 수행하는 무료 온라인 도구입니다. 텍스트를 Base64로 변환하거나 Base64를 원문으로 복원하고, 파일을 Base64로 변환할 수 있습니다." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- 공통 스타일 -->
-    <link rel="stylesheet" href="../../style.css" />
-    <!-- Base64 전용 스타일 -->
-    <link rel="stylesheet" href="./base64.css" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./base64.css?v=20260918-1" />
 
     <link rel="canonical" href="https://toolify.kr/tools/base64/" />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Toolify" />
-    <meta property="og:title" content="Base64 인코더/디코더 - 텍스트/파일 Base64 변환" />
-    <meta
-            property="og:description"
-            content="텍스트/파일을 Base64로 인코딩하거나 Base64를 원문으로 디코딩하는 무료 온라인 도구입니다. 브라우저에서만 처리됩니다."
-    />
+    <meta property="og:title" content="Base64 인코더·디코더" />
+    <meta property="og:description" content="텍스트/파일을 Base64로 인코딩하거나 Base64를 원문으로 디코딩하는 무료 온라인 도구입니다. 브라우저에서만 처리됩니다." />
     <meta property="og:url" content="https://toolify.kr/tools/base64/" />
 
-    <!-- Base64 FAQ 구조화 데이터 -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "입력한 텍스트/파일이 서버로 전송되나요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "아니요. 인코딩/디코딩은 브라우저에서만 수행되며, 입력 내용이나 파일을 서버로 전송하거나 저장하지 않습니다."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Base64는 암호화인가요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "아니요. Base64는 데이터를 텍스트 형태로 표현하기 위한 인코딩 방식입니다. 누구나 쉽게 복원할 수 있으므로 비밀번호/개인정보 보호 용도로는 적합하지 않습니다."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "한글이 깨져요. 왜 그런가요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "문자열을 Base64로 변환할 때 UTF-8 처리가 필요합니다. 이 도구는 UTF-8 기준으로 인코딩/디코딩하여 한글도 정상 처리되도록 설계되어 있습니다."
-                    }
-                }
-            ]
-        }
-    </script>
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"입력한 텍스트/파일이 서버로 전송되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 인코딩/디코딩은 브라우저에서만 수행되며, 입력 내용이나 파일을 서버로 전송하거나 저장하지 않습니다."}},{"@type":"Question","name":"Base64는 암호화인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. Base64는 데이터를 텍스트 형태로 표현하기 위한 인코딩 방식입니다. 누구나 쉽게 복원할 수 있으므로 비밀번호/개인정보 보호 용도로는 적합하지 않습니다."}},{"@type":"Question","name":"한글이 깨져요. 왜 그런가요?","acceptedAnswer":{"@type":"Answer","text":"문자열을 Base64로 변환할 때 UTF-8 처리가 필요합니다. 이 도구는 UTF-8 기준으로 인코딩/디코딩하여 한글도 정상 처리되도록 설계되어 있습니다."}}]}</script>
 </head>
 
-<body>
+<body class="reading-page b64-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
 <!-- 공통 헤더 -->
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="../../" class="logo">Toolify</a>
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
 
         <div class="header-actions">
             <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
@@ -82,12 +49,13 @@
                 🔍
             </button>
 
-            <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="../../">홈</a></li>
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="b64-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="b64-nav">
                     <li><a href="../../#tools">전체 도구</a></li>
                     <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
                     <li><a href="../../contact.html">문의</a></li>
                 </ul>
             </nav>
@@ -96,134 +64,113 @@
 </header>
 
 <div class="page-wrapper">
-    <header class="header-card">
-        <h1>🧩 Base64 인코더/디코더</h1>
-        <p class="subtitle">
-            텍스트를 Base64로 인코딩하거나, Base64 문자열을 원문으로 디코딩하는 무료 온라인 도구입니다.
-            모든 처리는 <strong>브라우저에서만</strong> 진행되며 서버로 전송되지 않습니다.
-        </p>
+    <header class="b64-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">개발자 도구</a><span>/</span><span aria-current="page">Base64 인코더·디코더</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">DEV TOOL · 인코딩 · UTF-8</p>
+                <h1>🧩 Base64 <span>인코더·디코더</span></h1>
+                <p class="intro-description">텍스트를 Base64로 인코딩하거나, Base64 문자열을 원문으로 디코딩하세요. 파일도 Base64로 변환할 수 있어요.</p>
+            </div>
+            <aside class="formula-card" aria-label="변환 예시">
+                <code class="b64-chip">Hello</code>
+                <span class="b64-op" aria-hidden="true">→</span>
+                <code class="b64-chip b64-chip-result">SGVsbG8=</code>
+            </aside>
+        </div>
     </header>
 
     <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">변환하기</a><a href="#guide">Base64란</a><a href="#faq">자주 묻는 질문</a></nav>
+
         <!-- 메인 도구 영역 -->
-        <section class="tool-card base64-card">
-            <h2>Base64 변환하기</h2>
-            <p class="small">
-                아래 입력창에 텍스트를 넣고 <strong>인코딩</strong> 또는 <strong>디코딩</strong> 버튼을 눌러 보세요.
-                파일을 Base64로 변환하려면 파일 선택을 사용할 수 있습니다.
-            </p>
+        <section class="calculator-layout" id="calculator" aria-label="Base64 인코더·디코더">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>원문 (텍스트)</h2></div>
 
-            <div class="b64-grid">
-                <div class="b64-col">
-                    <label for="plain-input" class="b64-label">원문 (텍스트)</label>
-                    <textarea id="plain-input" class="b64-textarea" placeholder="여기에 텍스트를 입력하세요. (한글/이모지 가능)"></textarea>
+                <textarea id="plain-input" spellcheck="false" placeholder="여기에 텍스트를 입력하세요. (한글/이모지 가능)"></textarea>
 
-                    <div class="b64-actions">
-                        <button id="encode-btn">인코딩 →</button>
-                        <button id="clear-btn" class="btn-secondary">초기화</button>
-                    </div>
+                <div class="actions">
+                    <button id="encode-btn" type="button">인코딩 →</button>
+                    <button id="clear-btn" class="secondary" type="button">초기화</button>
                 </div>
-
-                <div class="b64-col">
-                    <label for="base64-output" class="b64-label">Base64 결과</label>
-                    <textarea id="base64-output" class="b64-textarea" placeholder="Base64 문자열이 여기에 표시됩니다."></textarea>
-
-                    <div class="b64-actions">
-                        <button id="decode-btn">← 디코딩</button>
-                        <button id="copy-btn" class="btn-secondary">복사</button>
-                    </div>
-
-                    <div class="b64-meta">
-                        길이: <span id="b64-len">0</span> ·
-                        유효성: <span id="b64-valid">-</span>
-                    </div>
-                </div>
+                <p class="panel-help">텍스트는 UTF-8 기준으로 인코딩되어 한글·이모지도 정상 변환돼요.</p>
             </div>
 
-            <hr class="b64-divider" />
+            <div class="result-box">
+                <div class="panel-heading"><span class="step-number">02</span><h2>Base64 결과</h2></div>
 
-            <h2 class="mt-4">파일 → Base64</h2>
-            <p class="small">
-                이미지/문서 파일을 선택하면 Base64(Data URL)로 변환합니다. (브라우저에서만 처리)
-            </p>
+                <textarea id="base64-output" spellcheck="false" placeholder="Base64 문자열이 여기에 표시됩니다."></textarea>
 
-            <div class="b64-file-row">
-                <input type="file" id="file-input" />
-                <button id="file-to-base64-btn">파일을 Base64로 변환</button>
+                <div class="actions">
+                    <button id="decode-btn" type="button">← 디코딩</button>
+                    <button id="copy-btn" class="secondary" type="button">복사</button>
+                </div>
+
+                <div class="b64-meta">
+                    <span>길이 <strong id="b64-len">0</strong></span>
+                    <span>유효성 <strong id="b64-valid">-</strong></span>
+                </div>
             </div>
-
-            <p class="small mt-3">
-                * Base64는 암호화가 아닙니다. 민감 정보(비밀번호/주민번호 등)는 인코딩만으로 보호되지 않습니다.<br />
-                * 매우 큰 파일은 브라우저 메모리 부담이 있을 수 있습니다.
-            </p>
         </section>
 
-        <!-- 설명 섹션 -->
-        <section class="info-section">
-            <h2>Base64란?</h2>
-            <p>
-                Base64는 바이너리 데이터를 텍스트(문자열) 형태로 안전하게 전달하기 위해 쓰는 <strong>인코딩 방식</strong>입니다.
-                예를 들어, 이메일/JSON/로그 등에 이미지나 파일 데이터를 포함해야 할 때 Base64를 사용합니다.
-            </p>
+        <div class="b64-file-card">
+            <div class="panel-heading"><span class="step-number">03</span><h2>파일 → Base64</h2></div>
+            <p class="helper">이미지·문서 파일을 선택하면 Base64(Data URL)로 변환합니다. 브라우저에서만 처리되며 서버로 전송되지 않아요.</p>
+            <div class="b64-file-row">
+                <input type="file" id="file-input" />
+                <button id="file-to-base64-btn" type="button">파일을 Base64로 변환</button>
+            </div>
+            <p class="input-note">Base64는 암호화가 아닙니다. 비밀번호·주민번호 같은 민감 정보는 인코딩만으로 보호되지 않아요. 매우 큰 파일은 브라우저 메모리 부담이 있을 수 있습니다.</p>
+        </div>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>Base64란?</h2><p>바이너리 데이터를 텍스트로 안전하게 담기 위한 인코딩 방식이에요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>Base64는 바이너리 데이터를 텍스트(문자열) 형태로 안전하게 전달하기 위해 쓰는 인코딩 방식입니다. 예를 들어 이메일·JSON·로그 등에 이미지나 파일 데이터를 포함해야 할 때 Base64를 사용해요.</p>
             <ul class="info-list">
-                <li>API 요청/응답에 바이너리 데이터를 문자열로 담아야 할 때</li>
-                <li>JWT 헤더/페이로드처럼 Base64URL 기반 포맷을 이해할 때</li>
-                <li>디버깅 중 “이 문자열이 Base64인지” 빠르게 확인할 때</li>
+                <li>API 요청·응답에 바이너리 데이터를 문자열로 담아야 할 때</li>
+                <li>JWT 헤더·페이로드처럼 Base64URL 기반 포맷을 이해할 때</li>
+                <li>디버깅 중 "이 문자열이 Base64인지" 빠르게 확인할 때</li>
             </ul>
-            <p>
-                단, Base64는 암호화가 아니므로 보안 목적이라면 반드시 별도의 암호화/서명 방식을 사용해야 합니다.
-            </p>
+            <p class="helper">Base64는 암호화가 아니므로 보안 목적이라면 반드시 별도의 암호화·서명 방식을 사용해야 해요.</p>
         </section>
 
         <!-- FAQ 섹션 -->
-        <section class="faq-section">
-            <h2>자주 묻는 질문 (FAQ)</h2>
-
-            <div class="faq-item">
-                <button class="faq-question">입력한 텍스트/파일이 서버로 전송되나요?</button>
-                <div class="faq-answer">
-                    <p>
-                        아니요. 모든 인코딩/디코딩은 브라우저에서만 수행되며,
-                        입력 내용이나 파일은 서버로 전송되거나 저장되지 않습니다.
-                    </p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">Base64는 암호화인가요?</button>
-                <div class="faq-answer">
-                    <p>
-                        아닙니다. Base64는 단지 데이터를 텍스트로 표현하는 인코딩 방식입니다.
-                        누구나 쉽게 디코딩할 수 있으므로 비밀번호/개인정보 보호 용도로는 적합하지 않습니다.
-                    </p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">한글이 깨지지 않나요?</button>
-                <div class="faq-answer">
-                    <p>
-                        이 도구는 UTF-8 기준으로 인코딩/디코딩하도록 처리하여 한글/이모지도 정상 변환됩니다.
-                        (단, 외부에서 잘못 인코딩된 Base64 문자열은 원문이 깨질 수 있습니다.)
-                    </p>
-                </div>
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>Base64 인코더·디코더에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>입력한 텍스트/파일이 서버로 전송되나요?</summary>
+                <div class="faq-answer"><p>아니요. 모든 인코딩·디코딩은 브라우저에서만 수행되며, 입력 내용이나 파일은 서버로 전송되거나 저장되지 않습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>Base64는 암호화인가요?</summary>
+                <div class="faq-answer"><p>아닙니다. Base64는 단지 데이터를 텍스트로 표현하는 인코딩 방식입니다. 누구나 쉽게 디코딩할 수 있으므로 비밀번호·개인정보 보호 용도로는 적합하지 않습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>한글이 깨지지 않나요?</summary>
+                <div class="faq-answer"><p>이 도구는 UTF-8 기준으로 인코딩·디코딩하도록 처리하여 한글·이모지도 정상 변환됩니다. (단, 외부에서 잘못 인코딩된 Base64 문자열은 원문이 깨질 수 있습니다.)</p></div>
+            </details>
             </div>
         </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../url-encoder/"><span>&lt;/&gt;</span><div><h3>URL 인코더·디코더</h3><p>URL 특수문자 인코딩·디코딩</p></div><span aria-hidden="true">↗</span></a><a href="../json-formatter/"><span>&lt;/&gt;</span><div><h3>JSON 포매터</h3><p>JSON 들여쓰기 정렬·압축·유효성 검사</p></div><span aria-hidden="true">↗</span></a></div></section>
     </main>
 
     <!-- 하단 공통 링크 -->
-    <section class="footer-text">
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
         <p>
             <a href="../../privacy.html">개인정보 처리방침</a> ·
             <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
             <a href="../../contact.html">Contact / 문의하기</a>
         </p>
-    </section>
+    </footer>
 </div>
 
 <!-- 공통 네비 JS -->
-<script src="../../main.js"></script>
-<!-- Base64 전용 JS -->
+<script src="../../main.js?v=20260917-1"></script>
+<!-- 전용 JS -->
 <script src="./base64.js"></script>
 </body>
 </html>
