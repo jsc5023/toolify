@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>배터리 사용시간 계산기 - 파워뱅크 Wh·mAh 사용시간 계산 | Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description" content="배터리 용량(Wh·mAh)과 기기 소비전력(W)을 입력하면 예상 사용시간을 바로 계산합니다. 파워뱅크, 캠핑 배터리, 보조배터리의 사용 가능 시간을 간편하게 확인하세요." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./battery-runtime.css?v=20260917-1" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/battery-runtime/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="배터리 사용시간 계산기" />
+    <meta property="og:description" content="배터리 용량과 소비전력으로 예상 사용시간을 즉시 계산하세요. Wh·mAh 모두 지원합니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/battery-runtime/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1000Wh 배터리는 몇 시간 사용할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"기기 소비전력에 따라 다릅니다. 예를 들어 100W 기기라면 효율 85% 기준 약 8시간 30분 사용할 수 있습니다."}},{"@type":"Question","name":"500Wh 파워뱅크는 얼마나 사용할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"예를 들어 60W 기기라면 효율 85% 기준 약 7시간 사용할 수 있습니다."}},{"@type":"Question","name":"20,000mAh는 몇 Wh인가요?","acceptedAnswer":{"@type":"Answer","text":"전압에 따라 다르지만, 일반적인 3.7V 기준으로 약 74Wh입니다. Wh = mAh × V ÷ 1000으로 계산합니다."}},{"@type":"Question","name":"배터리 Wh는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"Wh = mAh × V ÷ 1000으로 계산합니다. Ah 단위라면 Wh = Ah × V입니다."}},{"@type":"Question","name":"소비전력 100W 기기를 10시간 사용하려면 몇 Wh가 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"효율 85% 기준으로 약 1,176Wh가 필요합니다."}},{"@type":"Question","name":"파워뱅크 실제 사용시간이 계산보다 짧은 이유는 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"인버터·전압 변환 손실, 배터리 상태, 온도, 기기의 소비전력 변화, 보호회로 및 잔량 때문에 실제 사용시간은 계산값보다 짧아질 수 있습니다."}}]}</script>
+</head>
+
+<body class="reading-page br-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="br-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="br-nav">
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="br-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">생활 도구</a><span>/</span><span aria-current="page">배터리 사용시간 계산기</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">LIFE TOOL · 배터리 · 파워뱅크 · 캠핑</p>
+                <h1>🔋 배터리 <span>사용시간 계산기</span></h1>
+                <p class="intro-description">배터리 용량과 기기 소비전력으로 몇 시간 사용할 수 있는지 계산하세요. 파워뱅크·보조배터리·캠핑 배터리 사용시간을 간편하게 확인할 수 있습니다.</p>
+            </div>
+            <aside class="formula-card" aria-label="계산 예시">
+                <code class="br-chip" id="hero-chip-input">1000Wh · 100W</code>
+                <span class="br-op" aria-hidden="true">→</span>
+                <code class="br-chip br-chip-result" id="hero-chip-result">8시간 30분</code>
+            </aside>
+        </div>
+    </header>
+
+    <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">계산하기</a><a href="#guide">계산 방법</a><a href="#examples">계산 예시</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="배터리 사용시간 계산">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>배터리·소비전력 입력</h2></div>
+
+                <div class="br-tabs" role="tablist" aria-label="계산 방식 선택">
+                    <button type="button" class="br-tab active" data-mode="runtime">사용시간 계산</button>
+                    <button type="button" class="br-tab" data-mode="capacity">필요한 배터리 용량</button>
+                </div>
+
+                <!-- 모드1: 사용시간 계산 -->
+                <div id="mode-runtime-fields">
+                    <div class="field">
+                        <label for="battery-capacity">배터리 용량</label>
+                        <div class="compound-input">
+                            <input id="battery-capacity" type="number" min="0" step="1" value="1000" inputmode="decimal" />
+                            <select id="battery-unit" aria-label="배터리 용량 단위"><option value="Wh" selected>Wh</option><option value="mAh">mAh</option><option value="Ah">Ah</option></select>
+                        </div>
+                        <div class="field br-voltage-field hidden" id="voltage-field">
+                            <label for="battery-voltage">공칭전압</label>
+                            <div class="input-with-unit"><input id="battery-voltage" type="number" min="0" step="0.1" value="3.7" inputmode="decimal" /><span class="unit-badge">V</span></div>
+                            <p class="helper">환산 용량 <strong id="capacity-wh-hint">≈ 0 Wh</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="device-power">기기 소비전력</label>
+                        <div class="input-with-unit"><input id="device-power" type="number" min="0" step="1" value="100" inputmode="decimal" /><span class="unit-badge">W</span></div>
+                        <p class="helper">소비전력(W)은 제품 라벨이나 어댑터에서 확인할 수 있어요.</p>
+                    </div>
+                </div>
+
+                <!-- 모드2: 필요한 배터리 용량 -->
+                <div id="mode-capacity-fields" class="hidden">
+                    <div class="field">
+                        <label for="target-power">기기 소비전력</label>
+                        <div class="input-with-unit"><input id="target-power" type="number" min="0" step="1" value="100" inputmode="decimal" /><span class="unit-badge">W</span></div>
+                    </div>
+                    <div class="field">
+                        <label for="target-hours">원하는 사용시간</label>
+                        <div class="input-with-unit"><input id="target-hours" type="number" min="0" step="0.5" value="8" inputmode="decimal" /><span class="unit-badge">시간</span></div>
+                    </div>
+                </div>
+
+                <details class="br-optional">
+                    <summary><span>⚙ 효율·안전잔량 설정 <small>선택</small></span><span class="details-icon" aria-hidden="true">+</span></summary>
+                    <div class="br-optional-body">
+                        <div class="tool-grid br-optional-grid">
+                            <div class="field">
+                                <label for="efficiency">변환 효율</label>
+                                <div class="input-with-unit"><input id="efficiency" type="number" min="1" max="100" step="1" value="85" inputmode="numeric" /><span class="unit-badge">%</span></div>
+                            </div>
+                            <div class="field">
+                                <label for="reserve">남겨둘 배터리</label>
+                                <div class="input-with-unit"><input id="reserve" type="number" min="0" max="90" step="1" value="0" inputmode="numeric" /><span class="unit-badge">%</span></div>
+                            </div>
+                        </div>
+                        <p class="helper">인버터·전압 변환 손실을 고려하면 효율은 보통 80~90% 수준이에요.</p>
+                    </div>
+                </details>
+
+                <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
+            </div>
+
+            <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">예상 결과</h2></div>
+
+                <!-- 결과: 사용시간 계산 -->
+                <div id="result-runtime">
+                    <div class="br-hero-result">
+                        <span class="br-hero-label">예상 사용시간</span>
+                        <strong class="br-hero-value" id="runtime-hero-value">0시간</strong>
+                        <p class="br-hero-sub" id="runtime-hero-sub">이론상 0시간 · 효율 85% 적용</p>
+                    </div>
+
+                    <div class="br-secondary-grid">
+                        <div class="br-secondary-stat"><span>실사용 가능 용량</span><strong id="usable-wh">0 Wh</strong></div>
+                        <div class="br-secondary-stat"><span>시간당 사용량</span><strong id="power-display">0 Wh</strong></div>
+                    </div>
+
+                    <div class="br-comparison">
+                        <div class="vs-comparison-head"><h3>소비전력별 예상 사용시간</h3><span>같은 배터리로 소비전력만 바꿔보면</span></div>
+                        <div class="table-wrap">
+                            <table class="bmi-table br-compare-table">
+                                <thead><tr><th>소비전력</th><th>예상 사용시간</th></tr></thead>
+                                <tbody id="power-compare-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 결과: 필요한 배터리 용량 -->
+                <div id="result-capacity" class="hidden">
+                    <div class="br-hero-result">
+                        <span class="br-hero-label">필요한 배터리 용량</span>
+                        <strong class="br-hero-value" id="capacity-hero-value">0 Wh</strong>
+                        <p class="br-hero-sub" id="capacity-hero-sub">효율 85% 기준</p>
+                    </div>
+
+                    <div class="br-comparison">
+                        <div class="vs-comparison-head"><h3>사용시간별 필요 용량</h3><span>같은 소비전력, 목표 시간만 바꿔보면</span></div>
+                        <div class="table-wrap">
+                            <table class="bmi-table br-compare-table">
+                                <thead><tr><th>목표 시간</th><th>필요 용량</th></tr></thead>
+                                <tbody id="hours-compare-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note result-disclaimer">
+                    ※ 실제 사용시간은 배터리 상태, 온도, 기기의 소비전력 변화에 따라 계산값과 달라질 수 있습니다.
+                </div>
+            </div>
+        </section>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>배터리 사용시간은 어떻게 계산하나요?</h2><p>배터리 용량을 소비전력으로 나누는 간단한 원리예요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>배터리가 실제로 기기에 공급할 수 있는 에너지는 표기 용량보다 조금 적어요. 인버터나 전압 변환 과정에서 손실이 생기기 때문에, 변환 효율을 곱한 값이 실사용 가능한 에너지예요.</p>
+            <p class="br-formula">사용시간 = 배터리 용량(Wh) × 효율 ÷ 소비전력(W)</p>
+            <p>예를 들어 1000Wh 파워뱅크로 100W 기기를 사용하고 변환 효율이 85%라면 약 8.5시간(8시간 30분) 사용할 수 있어요.</p>
+            <p class="br-formula">Wh = mAh × 전압(V) ÷ 1,000</p>
+            <p>제품에 Wh 표기가 없고 mAh만 적혀 있다면, 공칭전압을 함께 입력해 Wh로 환산해야 정확하게 계산할 수 있어요. 예를 들어 20,000mAh, 3.7V라면 약 74Wh입니다.</p>
+        </section>
+
+        <div class="reference-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>실제 사용시간이 계산값보다 짧은 이유</h2><p>다음 요인들 때문에 실사용 시간은 계산값보다 짧아질 수 있어요.</p></div>
+        <section class="info-section">
+            <ul class="info-list">
+                <li><strong>인버터·전압 변환 손실:</strong> DC를 AC로 바꾸는 과정에서 에너지 일부가 열로 손실돼요.</li>
+                <li><strong>배터리 상태:</strong> 사용 기간이 길거나 노후된 배터리는 표기 용량보다 실제 용량이 적을 수 있어요.</li>
+                <li><strong>온도:</strong> 저온·고온 환경에서는 배터리 효율이 떨어져요.</li>
+                <li><strong>기기의 소비전력 변화:</strong> 냉장고, 전기장판처럼 소비전력이 일정하지 않은 기기는 평균값과 차이가 날 수 있어요.</li>
+                <li><strong>보호회로 및 잔량:</strong> 배터리 보호를 위해 완전 방전 전에 자동으로 차단되는 경우가 많아요.</li>
+            </ul>
+        </section>
+
+        <div class="reference-heading" id="examples"><p class="eyebrow">EXAMPLES</p><h2>상황별 계산 예시</h2><p>같은 배터리라도 소비전력에 따라 사용시간이 달라져요.</p></div>
+        <div class="reference-grid">
+            <section class="info-section">
+                <h2>계산 예시</h2>
+                <div class="table-wrap">
+                    <table class="bmi-table">
+                        <thead><tr><th>배터리 용량</th><th>소비전력</th><th>예상 사용시간</th></tr></thead>
+                        <tbody>
+                        <tr><td>1000Wh</td><td>100W</td><td>약 8시간 30분</td></tr>
+                        <tr><td>500Wh</td><td>60W</td><td>약 7시간 5분</td></tr>
+                        <tr><td>20,000mAh (3.7V, 약 74Wh)</td><td>10W</td><td>약 6시간 17분</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="helper">위 값은 변환 효율 85% 기준이며, 실제 결과는 입력한 용량·전압·소비전력에 따라 달라집니다.</p>
+            </section>
+            <section class="info-section">
+                <h2>Wh와 mAh의 차이는 무엇인가요?</h2>
+                <p>mAh(밀리암페어시)는 전류량만 나타내서, 전압이 다른 배터리끼리는 직접 비교할 수 없어요. Wh(와트시)는 전압까지 반영한 실제 에너지량이라 기기 소비전력(W)과 바로 비교할 수 있습니다.</p>
+                <p class="br-formula">Wh = mAh × V ÷ 1,000</p>
+                <p class="helper">보조배터리는 대부분 3.7V 리튬셀을 사용해요. 제품에 표기된 전압을 확인하고, 없다면 3.7V를 기본값으로 사용해도 크게 벗어나지 않아요.</p>
+            </section>
+        </div>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>배터리 사용시간 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>1000Wh 배터리는 몇 시간 사용할 수 있나요?</summary>
+                <div class="faq-answer"><p>기기 소비전력에 따라 다릅니다. 예를 들어 100W 기기라면 효율 85% 기준 약 8시간 30분 사용할 수 있습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>500Wh 파워뱅크는 얼마나 사용할 수 있나요?</summary>
+                <div class="faq-answer"><p>예를 들어 60W 기기라면 효율 85% 기준 약 7시간 사용할 수 있습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>20,000mAh는 몇 Wh인가요?</summary>
+                <div class="faq-answer"><p>전압에 따라 다르지만, 일반적인 3.7V 기준으로 약 74Wh입니다. Wh = mAh × V ÷ 1000으로 계산합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>배터리 Wh는 어떻게 계산하나요?</summary>
+                <div class="faq-answer"><p>Wh = mAh × V ÷ 1000으로 계산합니다. Ah 단위라면 Wh = Ah × V입니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>소비전력 100W 기기를 10시간 사용하려면 몇 Wh가 필요한가요?</summary>
+                <div class="faq-answer"><p>효율 85% 기준으로 약 1,176Wh가 필요합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>파워뱅크 실제 사용시간이 계산보다 짧은 이유는 무엇인가요?</summary>
+                <div class="faq-answer"><p>인버터·전압 변환 손실, 배터리 상태, 온도, 기기의 소비전력 변화, 보호회로 및 잔량 때문에 실제 사용시간은 계산값보다 짧아질 수 있습니다.</p></div>
+            </details>
+            </div>
+        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../electricity-simulator/"><span>⚡</span><div><h3>가전 전기세 시뮬레이터</h3><p>소비전력과 사용시간으로 전기세 계산</p></div><span aria-hidden="true">↗</span></a><a href="../unit-converter/"><span>📐</span><div><h3>단위 변환기</h3><p>길이, 무게, 속도 등 자주 쓰는 단위 변환</p></div><span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </footer>
+</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260917-1"></script>
+<!-- 전용 JS -->
+<script src="./battery-runtime.js"></script>
+</body>
+</html>

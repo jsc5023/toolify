@@ -94,6 +94,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/night-snack-roulette/",
         "https://toolify.kr/tools/star-rating-calculator/",
         "https://toolify.kr/tools/lecture-speed-calculator/",
+        "https://toolify.kr/tools/battery-runtime/",
         "https://toolify.kr/about.html",
     ]);
 });
