@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>묶음상품 단가 비교 계산기 | 개당 가격·100g당 가격 비교 - Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description" content="여러 묶음상품의 개당 가격, 100g·100mL당 가격을 비교해보세요. 1+1, 2+1, 할인·쿠폰·배송비까지 반영해 실제로 더 저렴한 상품을 바로 확인할 수 있습니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./unit-price-comparison.css?v=20260918-3" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/unit-price-comparison/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="단가 비교 계산기" />
+    <meta property="og:description" content="묶음상품의 개당 가격, 100g·100mL당 가격을 비교하고 실제로 더 저렴한 상품을 바로 확인하세요." />
+    <meta property="og:url" content="https://toolify.kr/tools/unit-price-comparison/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"묶음상품 단가 비교 계산기란?","acceptedAnswer":{"@type":"Answer","text":"여러 상품의 총 가격과 수량, 용량을 입력하면 개당 가격과 100g·100mL당 가격을 비교해주는 도구입니다."}},{"@type":"Question","name":"대용량이 항상 더 저렴한가요?","acceptedAnswer":{"@type":"Answer","text":"그렇지 않습니다. 묶음 수량이나 용량이 커도 할인율이 낮으면 소용량 상품보다 단가가 높을 수 있습니다."}},{"@type":"Question","name":"1+1·2+1도 비교할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"행사 조건을 반영하면 실제 구매 수량 기준 단가를 계산할 수 있습니다."}},{"@type":"Question","name":"쿠폰과 배송비도 넣어야 하나요?","acceptedAnswer":{"@type":"Answer","text":"실제 결제금액을 비교하려면 할인·쿠폰·배송비까지 반영하는 것이 정확합니다."}},{"@type":"Question","name":"개당 가격은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"총 결제금액(총 가격 - 할인·쿠폰 + 배송비)을 실제 받는 개수로 나눠 계산합니다."}},{"@type":"Question","name":"100g당 가격은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"총 결제금액을 전체 용량(g·mL 기준)으로 나눈 뒤 100을 곱해 계산합니다."}}]}</script>
+</head>
+
+<body class="reading-page upc-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="upc-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="upc-nav">
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="upc-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">생활 도구</a><span>/</span><span aria-current="page">단가 비교 계산기</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">LIFE TOOL · 쇼핑 · 단가 비교 · 마트</p>
+                <h1>🏷️ 단가 <span>비교 계산기</span></h1>
+                <p class="intro-description">여러 묶음상품의 총 가격·수량을 입력하면 개당 가격을 바로 비교해요. 용량·쿠폰·배송비·1+1 행사까지 필요할 때만 펼쳐서 반영할 수 있어요.</p>
+            </div>
+            <aside class="formula-card" aria-label="비교 예시">
+                <code class="upc-chip" id="hero-chip-input">B 1,095원 / A 1,158원</code>
+                <span class="upc-op" aria-hidden="true">→</span>
+                <code class="upc-chip upc-chip-result" id="hero-chip-result">B 5.4% 저렴</code>
+            </aside>
+        </div>
+    </header>
+
+    <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">비교하기</a><a href="#guide">계산 방법</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="단가 비교 계산기">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>상품 정보 입력</h2></div>
+
+                <div class="upc-products" id="product-list"></div>
+
+                <button type="button" id="add-product-btn" class="upc-add-btn">＋ 상품 추가 (최대 4개)</button>
+
+                <button type="button" id="advanced-toggle" class="upc-advanced-toggle" aria-expanded="false">
+                    <span>⚙ 용량·쿠폰·배송비까지 비교하기 <small>선택</small></span><span class="toggle-icon" aria-hidden="true">+</span>
+                </button>
+
+                <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
+            </div>
+
+            <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">비교 결과</h2></div>
+
+                <div class="upc-hero-result">
+                    <span class="upc-hero-label">가장 저렴한 상품</span>
+                    <strong class="upc-hero-value" id="result-hero-name">-</strong>
+                    <p class="upc-hero-sub" id="result-hero-sub"></p>
+                </div>
+
+                <div class="upc-basis-toggle hidden" id="basis-toggle-row" role="tablist" aria-label="비교 기준 선택">
+                    <button type="button" class="upc-basis-btn active" data-basis="unit">개당 가격</button>
+                    <button type="button" class="upc-basis-btn" data-basis="per100g">100g당</button>
+                    <button type="button" class="upc-basis-btn" data-basis="per100ml">100mL당</button>
+                </div>
+
+                <div class="upc-qty-row">
+                    <label for="compare-qty">이 개수만큼 사면?</label>
+                    <div class="input-with-unit"><input id="compare-qty" type="number" min="1" step="1" value="20" inputmode="numeric" /><span class="unit-badge">개</span></div>
+                    <div class="upc-qty-highlight">
+                        <span class="upc-qty-highlight-label" id="result-qty-label">20개 구매 시</span>
+                        <strong class="upc-qty-highlight-value" id="result-qty-value">-</strong>
+                    </div>
+                </div>
+
+                <div class="upc-comparison">
+                    <div class="vs-comparison-head"><h3>상품별 단가 비교</h3><span id="result-basis-note">개당 가격 기준</span></div>
+                    <div class="table-wrap">
+                        <table class="bmi-table upc-compare-table upc-basic-mode" id="compare-table">
+                            <thead><tr><th>상품</th><th>개당 가격</th><th class="upc-col-100">100단위당</th><th>총 결제금액</th></tr></thead>
+                            <tbody id="compare-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="note result-disclaimer">
+                    ※ 대용량이 항상 저렴한 것은 아니에요. 할인율이 낮으면 소용량보다 단가가 높을 수 있습니다.
+                </div>
+            </div>
+        </section>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>단가는 어떻게 계산하나요?</h2><p>실제 결제금액을 실제로 받는 개수·용량으로 나누는 원리예요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>단순히 표시 가격만 비교하면 묶음 수량이나 1+1·2+1 같은 행사 조건 때문에 오히려 손해를 볼 수 있어요. 이 계산기는 할인·쿠폰·배송비까지 반영한 실제 결제금액을 기준으로 개당 가격과 100g·100mL당 가격을 계산합니다.</p>
+            <p class="upc-formula">개당 가격 = (총 가격 − 할인·쿠폰 + 배송비) ÷ 실제 받는 개수</p>
+            <p class="upc-formula">100g(100mL)당 가격 = 총 결제금액 ÷ 전체 용량(g·mL) × 100</p>
+            <p class="helper">1+1·2+1 행사는 "⚙ 용량·쿠폰·배송비까지 비교하기"를 펼친 뒤 결제하는 개수를 수량에 입력하면, 선택한 행사 조건에 따라 실제로 받는 개수를 자동으로 반영해 단가를 계산해요.</p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>단가 비교 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>묶음상품 단가 비교 계산기란?</summary>
+                <div class="faq-answer"><p>여러 상품의 총 가격과 수량, 용량을 입력하면 개당 가격과 100g·100mL당 가격을 비교해주는 도구입니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>대용량이 항상 더 저렴한가요?</summary>
+                <div class="faq-answer"><p>그렇지 않습니다. 묶음 수량이나 용량이 커도 할인율이 낮으면 소용량 상품보다 단가가 높을 수 있습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>1+1·2+1도 비교할 수 있나요?</summary>
+                <div class="faq-answer"><p>행사 조건을 반영하면 실제 구매 수량 기준 단가를 계산할 수 있습니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>쿠폰과 배송비도 넣어야 하나요?</summary>
+                <div class="faq-answer"><p>실제 결제금액을 비교하려면 할인·쿠폰·배송비까지 반영하는 것이 정확합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>개당 가격은 어떻게 계산하나요?</summary>
+                <div class="faq-answer"><p>총 결제금액(총 가격 − 할인·쿠폰 + 배송비)을 실제 받는 개수로 나눠 계산합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>100g당 가격은 어떻게 계산하나요?</summary>
+                <div class="faq-answer"><p>총 결제금액을 전체 용량(g·mL 기준)으로 나눈 뒤 100을 곱해 계산합니다.</p></div>
+            </details>
+            </div>
+        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../number-format/"><span>🔢</span><div><h3>숫자 포맷 변환기</h3><p>천 단위 콤마·소수점 고정 변환</p></div><span aria-hidden="true">↗</span></a><a href="../unit-converter/"><span>📐</span><div><h3>단위 변환기</h3><p>길이, 무게, 부피 등 단위 변환</p></div><span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </footer>
+</div>
+
+<template id="product-template">
+    <article class="upc-card">
+        <div class="upc-card-head">
+            <input type="text" class="upc-name" maxlength="20" placeholder="상품명 (선택)" />
+            <button type="button" class="upc-remove" aria-label="상품 삭제">×</button>
+        </div>
+        <div class="tool-grid upc-row-2">
+            <div class="field">
+                <label>총 가격</label>
+                <div class="input-with-unit"><input type="number" class="upc-price" min="0" step="10" inputmode="numeric" /><span class="unit-badge">원</span></div>
+            </div>
+            <div class="field">
+                <label>수량</label>
+                <div class="input-with-unit"><input type="number" class="upc-qty" min="1" step="1" value="1" inputmode="numeric" /><span class="unit-badge">개</span></div>
+            </div>
+        </div>
+
+        <div class="upc-advanced">
+            <div class="field">
+                <label>행사 유형</label>
+                <select class="upc-promo">
+                    <option value="normal">일반 구매</option>
+                    <option value="bundle">묶음상품</option>
+                    <option value="onePlusOne">1+1</option>
+                    <option value="twoPlusOne">2+1</option>
+                </select>
+                <p class="helper upc-tight-helper">1+1·2+1 선택 시 위 수량은 "결제하는 개수"를 입력하세요.</p>
+            </div>
+            <div class="tool-grid upc-row-2">
+                <div class="field">
+                    <label>개당 용량</label>
+                    <div class="compound-input">
+                        <input type="number" class="upc-volume" min="0" step="1" inputmode="decimal" />
+                        <select class="upc-unit"><option value="g">g</option><option value="kg">kg</option><option value="mL">mL</option><option value="L">L</option><option value="ea">개(단위 없음)</option></select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>할인·쿠폰</label>
+                    <div class="input-with-unit"><input type="number" class="upc-discount" min="0" step="10" value="0" inputmode="numeric" /><span class="unit-badge">원</span></div>
+                </div>
+            </div>
+            <div class="field upc-shipping-field">
+                <label>배송비</label>
+                <div class="input-with-unit"><input type="number" class="upc-shipping" min="0" step="10" value="0" inputmode="numeric" /><span class="unit-badge">원</span></div>
+            </div>
+        </div>
+    </article>
+</template>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260918-1"></script>
+<!-- 전용 JS -->
+<script src="./unit-price-comparison.js"></script>
+</body>
+</html>
