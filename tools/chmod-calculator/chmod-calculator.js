@@ -84,6 +84,9 @@ function render() {
     $("cc-symbolic").textContent = toSymbolic();
     $("cc-cmd").textContent = `chmod ${toPermNumber()} 파일명`;
 
+    if ($("hero-chip-input")) $("hero-chip-input").textContent = toPermNumber();
+    if ($("hero-chip-result")) $("hero-chip-result").textContent = toSymbolic();
+
     // 토글 UI 반영
     document.querySelectorAll(".cc-tg[data-who]").forEach((btn) => {
         const who = btn.dataset.who;

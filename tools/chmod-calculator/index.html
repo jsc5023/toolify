@@ -2,9 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>chmod 권한 계산기 - 숫자/문자 권한 변환 (755 ↔ -rwxr-xr-x)</title>
 
-    <!-- AdSense (네 사이트 공통 그대로) -->
+    <title>chmod 권한 계산기 | 숫자·문자 권한 변환 (755 ↔ -rwxr-xr-x) - Toolify</title>
+
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
             crossorigin="anonymous"></script>
 
@@ -15,59 +16,47 @@
           content="chmod 권한 계산기: 755/644 숫자 권한을 -rwxr-xr-x 문자 권한으로 즉시 변환합니다. 소유자/그룹/기타 권한 토글과 SUID/SGID/Sticky(4자리)까지 한 번에 확인하세요." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="./chmod-calculator.css" />
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./chmod-calculator.css?v=20260917-1" />
+
     <link rel="canonical" href="https://toolify.kr/tools/chmod-calculator/" />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Toolify" />
     <meta property="og:title" content="chmod 권한 계산기 - 숫자/문자 권한 변환" />
     <meta property="og:description" content="755/644 ↔ -rwxr-xr-x 즉시 변환. SUID/SGID/Sticky(4자리)까지 지원." />
     <meta property="og:url" content="https://toolify.kr/tools/chmod-calculator/" />
 
-    <!-- FAQ 구조화 데이터(간단) -->
-    <script type="application/ld+json">
-        {
-            "@context":"https://schema.org",
-            "@type":"FAQPage",
-            "mainEntity":[
-                {
-                    "@type":"Question",
-                    "name":"chmod 755는 어떤 권한인가요?",
-                    "acceptedAnswer":{
-                        "@type":"Answer",
-                        "text":"소유자(rwx=7), 그룹(r-x=5), 기타(r-x=5) 권한으로 -rwxr-xr-x에 해당합니다."
-                    }
-                },
-                {
-                    "@type":"Question",
-                    "name":"SUID/SGID/Sticky는 어떻게 표현되나요?",
-                    "acceptedAnswer":{
-                        "@type":"Answer",
-                        "text":"4자리 숫자 권한(예: 4755, 2755, 1777)으로 표현되며, 문자 권한에서는 실행 위치에 s/S, t/T로 표시됩니다."
-                    }
-                }
-            ]
-        }
-    </script>
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"chmod 755는 어떤 권한인가요?","acceptedAnswer":{"@type":"Answer","text":"소유자(rwx=7), 그룹(r-x=5), 기타(r-x=5) 권한으로 -rwxr-xr-x에 해당합니다."}},{"@type":"Question","name":"SUID/SGID/Sticky는 어떻게 표현되나요?","acceptedAnswer":{"@type":"Answer","text":"4자리 숫자 권한(예: 4755, 2755, 1777)으로 표현되며, 문자 권한에서는 실행 위치에 s/S, t/T로 표시됩니다."}}]}</script>
 </head>
 
-<body>
+<body class="reading-page cc-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="../../" class="logo">Toolify</a>
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
 
         <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
             <button class="icon-btn" id="header-search-btn"
                     type="button"
-                    aria-label="도구 검색(홈으로 이동)">🔍</button>
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
 
-            <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="../../">홈</a></li>
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="cc-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="cc-nav">
                     <li><a href="../../#tools">전체 도구</a></li>
                     <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
                     <li><a href="../../contact.html">문의</a></li>
                 </ul>
             </nav>
@@ -76,194 +65,200 @@
 </header>
 
 <div class="page-wrapper">
-    <header class="header-card">
-        <h1>🔐 chmod 권한 계산기</h1>
-        <p class="subtitle">
-            <strong>755/644 숫자 권한</strong> ↔ <strong>-rwxr-xr-x 문자 권한</strong>을 즉시 변환합니다.
-            소유자/그룹/기타 토글과 <strong>SUID/SGID/Sticky(4자리)</strong>까지 한 번에 확인하세요.
-        </p>
+    <header class="cc-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">개발자 도구</a><span>/</span><span aria-current="page">chmod 권한 계산기</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">DEV TOOL · Linux · 파일 권한</p>
+                <h1>🔐 chmod <span>권한 계산기</span></h1>
+                <p class="intro-description">숫자 권한과 문자 권한을 실시간으로 변환하고, SUID·SGID·Sticky까지 한 번에 확인해요.</p>
+            </div>
+            <aside class="formula-card" aria-label="계산 예시">
+                <code class="cc-chip-hero" id="hero-chip-input">755</code>
+                <span class="cc-op" aria-hidden="true">→</span>
+                <code class="cc-chip-hero cc-chip-hero-result mono" id="hero-chip-result">-rwxr-xr-x</code>
+            </aside>
+        </div>
     </header>
 
     <main>
-        <section class="tool-card chmod-card">
-            <!-- 타입 탭 -->
-            <div class="cc-type" role="tablist" aria-label="파일 타입">
-                <button class="cc-type-btn active" type="button" data-type="-">
-                    📄 일반 파일
-                </button>
-                <button class="cc-type-btn" type="button" data-type="d">
-                    📁 디렉토리
-                </button>
-                <button class="cc-type-btn" type="button" data-type="l">
-                    🔗 심볼릭 링크
-                </button>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">계산하기</a><a href="#guide">사용법</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="chmod 권한 계산">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>권한 입력 · 선택</h2></div>
+
+                <!-- 타입 탭 -->
+                <div class="cc-type" role="tablist" aria-label="파일 타입">
+                    <button class="cc-type-btn active" type="button" data-type="-">📄 일반 파일</button>
+                    <button class="cc-type-btn" type="button" data-type="d">📁 디렉토리</button>
+                    <button class="cc-type-btn" type="button" data-type="l">🔗 심볼릭 링크</button>
+                </div>
+
+                <!-- 입력 -->
+                <div class="cc-input-row">
+                    <div class="cc-input">
+                        <label class="cc-label" for="cc-raw">숫자/문자 입력 (선택)</label>
+                        <input id="cc-raw" class="cc-text"
+                               placeholder="예: 755, 0644, 4755, -rwxr-xr-x, rwxr-xr-x, u=rwx,g=rx,o=rx" />
+                    </div>
+                    <button id="cc-apply" class="cc-apply" type="button">적용</button>
+                </div>
+                <div class="cc-examples">
+                    <span class="cc-ex-label">예시:</span>
+                    <button type="button" class="cc-chip" data-ex="755">755</button>
+                    <button type="button" class="cc-chip" data-ex="0644">0644</button>
+                    <button type="button" class="cc-chip" data-ex="1777">1777</button>
+                    <button type="button" class="cc-chip" data-ex="-rwxr-xr-x">-rwxr-xr-x</button>
+                    <button type="button" class="cc-chip" data-ex="u=rwx,g=rx,o=rx">u=rwx,g=rx,o=rx</button>
+                </div>
+
+                <!-- 권한 토글 -->
+                <div class="cc-section-head">
+                    <h3 class="cc-h3">권한 선택</h3>
+                    <div class="cc-legend">Read(4) · Write(2) · Execute(1)</div>
+                </div>
+
+                <div class="cc-perm-grid">
+                    <!-- Owner -->
+                    <div class="cc-box">
+                        <div class="cc-box-head">
+                            <div class="cc-box-title">소유자</div>
+                            <div class="cc-box-val">값 <span id="cc-u-val" class="cc-pill">7</span></div>
+                        </div>
+                        <div class="cc-toggle-col">
+                            <button class="cc-tg on" type="button" data-who="u" data-bit="r"><span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span></button>
+                            <button class="cc-tg on" type="button" data-who="u" data-bit="w"><span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span></button>
+                            <button class="cc-tg on" type="button" data-who="u" data-bit="x"><span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Group -->
+                    <div class="cc-box">
+                        <div class="cc-box-head">
+                            <div class="cc-box-title">그룹</div>
+                            <div class="cc-box-val">값 <span id="cc-g-val" class="cc-pill">5</span></div>
+                        </div>
+                        <div class="cc-toggle-col">
+                            <button class="cc-tg on" type="button" data-who="g" data-bit="r"><span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span></button>
+                            <button class="cc-tg" type="button" data-who="g" data-bit="w"><span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span></button>
+                            <button class="cc-tg on" type="button" data-who="g" data-bit="x"><span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Others -->
+                    <div class="cc-box">
+                        <div class="cc-box-head">
+                            <div class="cc-box-title">기타(others)</div>
+                            <div class="cc-box-val">값 <span id="cc-o-val" class="cc-pill">5</span></div>
+                        </div>
+                        <div class="cc-toggle-col">
+                            <button class="cc-tg on" type="button" data-who="o" data-bit="r"><span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span></button>
+                            <button class="cc-tg" type="button" data-who="o" data-bit="w"><span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span></button>
+                            <button class="cc-tg on" type="button" data-who="o" data-bit="x"><span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 특수권한 -->
+                <div class="cc-special">
+                    <div class="cc-special-head">
+                        <h3 class="cc-h3">특수 권한 (선택)</h3>
+                        <div class="cc-special-val">특수값 <span id="cc-s-val" class="cc-pill">0</span></div>
+                    </div>
+                    <div class="cc-special-grid">
+                        <button class="cc-tg" type="button" data-special="suid"><span class="cc-tg-k">S</span><span class="cc-tg-t">SUID (4000)</span></button>
+                        <button class="cc-tg" type="button" data-special="sgid"><span class="cc-tg-k">S</span><span class="cc-tg-t">SGID (2000)</span></button>
+                        <button class="cc-tg" type="button" data-special="sticky"><span class="cc-tg-k">T</span><span class="cc-tg-t">Sticky (1000)</span></button>
+                    </div>
+                    <p class="cc-note">SUID/SGID는 실행 위치에 <span class="mono">s/S</span>, Sticky는 others 실행 위치에 <span class="mono">t/T</span>로 표시됩니다.</p>
+                </div>
+
+                <div class="cc-error" id="cc-error" aria-live="polite"></div>
+                <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
             </div>
 
-            <!-- 입력 -->
-            <div class="cc-input-row">
-                <div class="cc-input">
-                    <label class="cc-label" for="cc-raw">숫자/문자 입력 (선택)</label>
-                    <input id="cc-raw" class="cc-text"
-                           placeholder="예: 755, 0644, 4755, -rwxr-xr-x, rwxr-xr-x, u=rwx,g=rx,o=rx" />
-                    <div class="cc-examples">
-                        <span class="cc-ex-label">예시:</span>
-                        <button type="button" class="cc-chip" data-ex="755">755</button>
-                        <button type="button" class="cc-chip" data-ex="0644">0644</button>
-                        <button type="button" class="cc-chip" data-ex="1777">1777</button>
-                        <button type="button" class="cc-chip" data-ex="-rwxr-xr-x">-rwxr-xr-x</button>
-                        <button type="button" class="cc-chip" data-ex="u=rwx,g=rx,o=rx">u=rwx,g=rx,o=rx</button>
+            <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">변환 결과</h2></div>
+
+                <div class="cc-out-list">
+                    <div class="cc-out">
+                        <div class="cc-out-head">
+                            <span class="cc-out-title">숫자 권한</span>
+                            <button class="cc-copy" type="button" data-copy="cc-octal">복사</button>
+                        </div>
+                        <div class="cc-out-val mono" id="cc-octal">755</div>
+                        <div class="cc-out-sub">특수권한 있으면 4자리로 표시 (예: 4755)</div>
+                    </div>
+
+                    <div class="cc-out">
+                        <div class="cc-out-head">
+                            <span class="cc-out-title">문자 권한</span>
+                            <button class="cc-copy" type="button" data-copy="cc-symbolic">복사</button>
+                        </div>
+                        <div class="cc-out-val mono" id="cc-symbolic">-rwxr-xr-x</div>
+                        <div class="cc-out-sub">타입(-/d/l) + 9자리 권한</div>
+                    </div>
+
+                    <div class="cc-out">
+                        <div class="cc-out-head">
+                            <span class="cc-out-title">chmod 명령어</span>
+                            <button class="cc-copy" type="button" data-copy="cc-cmd">복사</button>
+                        </div>
+                        <div class="cc-out-val mono" id="cc-cmd">chmod 755 파일명</div>
+                        <div class="cc-out-sub">파일명만 바꿔서 사용</div>
                     </div>
                 </div>
 
-                <button id="cc-apply" class="cc-apply" type="button">적용</button>
-            </div>
-
-            <!-- 출력(스크롤 적게: 3칸 한 줄) -->
-            <div class="cc-out-grid" aria-label="변환 결과">
-                <div class="cc-out">
-                    <div class="cc-out-head">
-                        <span class="cc-out-title">숫자 권한</span>
-                        <button class="cc-copy" type="button" data-copy="cc-octal">복사</button>
-                    </div>
-                    <div class="cc-out-val" id="cc-octal">755</div>
-                    <div class="cc-out-sub">특수권한 있으면 4자리로 표시 (예: 4755)</div>
-                </div>
-
-                <div class="cc-out">
-                    <div class="cc-out-head">
-                        <span class="cc-out-title">문자 권한</span>
-                        <button class="cc-copy" type="button" data-copy="cc-symbolic">복사</button>
-                    </div>
-                    <div class="cc-out-val mono" id="cc-symbolic">-rwxr-xr-x</div>
-                    <div class="cc-out-sub">타입(-/d/l) + 9자리 권한</div>
-                </div>
-
-                <div class="cc-out">
-                    <div class="cc-out-head">
-                        <span class="cc-out-title">chmod 명령어</span>
-                        <button class="cc-copy" type="button" data-copy="cc-cmd">복사</button>
-                    </div>
-                    <div class="cc-out-val mono" id="cc-cmd">chmod 755 파일명</div>
-                    <div class="cc-out-sub">파일명만 바꿔서 사용</div>
+                <div class="note result-disclaimer">
+                    ※ 텍스트 입력과 권한 토글은 서로 실시간으로 연동됩니다.
                 </div>
             </div>
-
-            <!-- 권한 토글 -->
-            <div class="cc-section-head">
-                <h2 class="cc-h2">권한 선택</h2>
-                <div class="cc-legend">Read(4) · Write(2) · Execute(1)</div>
-            </div>
-
-            <div class="cc-perm-grid">
-                <!-- Owner -->
-                <div class="cc-box">
-                    <div class="cc-box-head">
-                        <div class="cc-box-title">소유자</div>
-                        <div class="cc-box-val">값 <span id="cc-u-val" class="cc-pill">7</span></div>
-                    </div>
-
-                    <div class="cc-toggle-col">
-                        <button class="cc-tg on" type="button" data-who="u" data-bit="r">
-                            <span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span>
-                        </button>
-                        <button class="cc-tg on" type="button" data-who="u" data-bit="w">
-                            <span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span>
-                        </button>
-                        <button class="cc-tg on" type="button" data-who="u" data-bit="x">
-                            <span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Group -->
-                <div class="cc-box">
-                    <div class="cc-box-head">
-                        <div class="cc-box-title">그룹</div>
-                        <div class="cc-box-val">값 <span id="cc-g-val" class="cc-pill">5</span></div>
-                    </div>
-
-                    <div class="cc-toggle-col">
-                        <button class="cc-tg on" type="button" data-who="g" data-bit="r">
-                            <span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span>
-                        </button>
-                        <button class="cc-tg" type="button" data-who="g" data-bit="w">
-                            <span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span>
-                        </button>
-                        <button class="cc-tg on" type="button" data-who="g" data-bit="x">
-                            <span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Others -->
-                <div class="cc-box">
-                    <div class="cc-box-head">
-                        <div class="cc-box-title">기타(others)</div>
-                        <div class="cc-box-val">값 <span id="cc-o-val" class="cc-pill">5</span></div>
-                    </div>
-
-                    <div class="cc-toggle-col">
-                        <button class="cc-tg on" type="button" data-who="o" data-bit="r">
-                            <span class="cc-tg-k">r</span><span class="cc-tg-t">읽기</span>
-                        </button>
-                        <button class="cc-tg" type="button" data-who="o" data-bit="w">
-                            <span class="cc-tg-k">w</span><span class="cc-tg-t">쓰기</span>
-                        </button>
-                        <button class="cc-tg on" type="button" data-who="o" data-bit="x">
-                            <span class="cc-tg-k">x</span><span class="cc-tg-t">실행</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 특수권한 -->
-            <div class="cc-special">
-                <div class="cc-special-head">
-                    <div class="cc-h2">특수 권한 (선택)</div>
-                    <div class="cc-special-val">특수값 <span id="cc-s-val" class="cc-pill">0</span></div>
-                </div>
-
-                <div class="cc-special-grid">
-                    <button class="cc-tg" type="button" data-special="suid">
-                        <span class="cc-tg-k">S</span><span class="cc-tg-t">SUID (4000)</span>
-                    </button>
-                    <button class="cc-tg" type="button" data-special="sgid">
-                        <span class="cc-tg-k">S</span><span class="cc-tg-t">SGID (2000)</span>
-                    </button>
-                    <button class="cc-tg" type="button" data-special="sticky">
-                        <span class="cc-tg-k">T</span><span class="cc-tg-t">Sticky (1000)</span>
-                    </button>
-                </div>
-
-                <div class="cc-note">
-                    SUID/SGID는 실행 위치에 <span class="mono">s/S</span>, Sticky는 others 실행 위치에 <span class="mono">t/T</span>로 표시됩니다.
-                </div>
-            </div>
-
-            <div class="cc-error" id="cc-error" aria-live="polite"></div>
-            <div class="cc-toast hidden" id="cc-toast">복사됨</div>
         </section>
 
-        <section class="info-section">
-            <h2>chmod 권한 계산기 사용법</h2>
-            <ul class="info-list">
-                <li><strong>숫자 권한(755/644)</strong>을 입력하면 <strong>문자 권한(-rwxr-xr-x)</strong>으로 변환됩니다.</li>
-                <li><strong>문자 권한</strong>을 입력하면 숫자로 변환됩니다. (10자리: 타입 포함, 9자리: 타입은 탭 선택 유지)</li>
-                <li><strong>4자리 권한</strong>(예: 4755, 1777)은 SUID/SGID/Sticky를 포함합니다.</li>
-            </ul>
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>chmod 권한은 어떻게 계산하나요?</h2><p>읽기(4)·쓰기(2)·실행(1)을 더해 소유자·그룹·기타 권한을 만들어요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>리눅스 파일 권한은 소유자(user)·그룹(group)·기타(others) 세 그룹에 각각 읽기·쓰기·실행 권한을 부여하는 방식이에요. 각 권한에는 숫자값이 있어서 더하면 하나의 숫자로 표현할 수 있습니다.</p>
+            <p class="cc-formula">권한 숫자 = 읽기(4) + 쓰기(2) + 실행(1)</p>
+            <p>숫자 권한(755)을 입력하면 문자 권한(-rwxr-xr-x)으로, 반대로 문자 권한을 입력하면 숫자로 즉시 변환됩니다. 4자리 숫자(예: 4755, 1777)를 입력하면 SUID·SGID·Sticky 특수권한까지 함께 반영돼요.</p>
+            <p class="helper">텍스트를 다른 형식으로 변환하고 싶다면 <a href="../base64/">Base64 변환기</a>나 <a href="../url-encoder/">URL 인코더</a>도 확인해보세요.</p>
         </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>chmod 권한 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>chmod 755는 어떤 권한인가요?</summary>
+                <div class="faq-answer"><p>소유자(rwx=7), 그룹(r-x=5), 기타(r-x=5) 권한으로 -rwxr-xr-x에 해당합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>SUID/SGID/Sticky는 어떻게 표현되나요?</summary>
+                <div class="faq-answer"><p>4자리 숫자 권한(예: 4755, 2755, 1777)으로 표현되며, 문자 권한에서는 실행 위치에 s/S, t/T로 표시됩니다.</p></div>
+            </details>
+            </div>
+        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../base64/"><span>&lt;/&gt;</span><div><h3>Base64 변환기</h3><p>텍스트·파일을 Base64로 인코딩·디코딩</p></div><span aria-hidden="true">↗</span></a><a href="../url-encoder/"><span>&lt;/&gt;</span><div><h3>URL 인코더</h3><p>URL 특수문자 인코딩·디코딩</p></div><span aria-hidden="true">↗</span></a></div></section>
     </main>
 
-    <section class="footer-text">
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
         <p>
             <a href="../../privacy.html">개인정보 처리방침</a> ·
             <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
             <a href="../../contact.html">Contact / 문의하기</a>
         </p>
-    </section>
+    </footer>
 </div>
 
-<script src="../../main.js"></script>
+<div class="cc-toast hidden" id="cc-toast">복사됨</div>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260916-2"></script>
+<!-- 전용 JS -->
 <script src="./chmod-calculator.js"></script>
 </body>
 </html>
