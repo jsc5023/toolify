@@ -226,6 +226,9 @@
             $("#general-output").textContent = applyCase(result.text, caseMode);
             $("#number-output").textContent = formatNumber(parsed.negative, parsed.integerPart, parsed.decimalDigits);
             $("#result-box").classList.remove("hidden");
+
+            if ($("#hero-chip-input")) $("#hero-chip-input").textContent = $("#number-output").textContent;
+            if ($("#hero-chip-result")) $("#hero-chip-result").textContent = $("#general-output").textContent;
         } else {
             const parsed = parseAmountInput(input);
             if (!parsed.ok) {
@@ -242,6 +245,9 @@
             $("#spelled-output").closest("div").classList.toggle("hidden", result.noSub);
             $("#number-output").textContent = formatNumber(parsed.negative, parsed.integerPart, String(parsed.cents).padStart(2, "0"));
             $("#result-box").classList.remove("hidden");
+
+            if ($("#hero-chip-input")) $("#hero-chip-input").textContent = $("#number-output").textContent;
+            if ($("#hero-chip-result")) $("#hero-chip-result").textContent = $("#fraction-output").textContent;
         }
     }
 

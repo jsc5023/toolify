@@ -1,67 +1,102 @@
-.ne-hero{border-top:4px solid #d97706}
-.ne-hero .eyebrow{display:inline-block;margin-bottom:6px;color:#b45309;font-size:12px;font-weight:800}
-.ne-card{padding:20px}
-.mode-tabs{display:flex;gap:8px;align-items:center}
-.mode-button{width:auto;padding:9px 13px;border:1px solid #e2e8f0;background:#fff;color:#475569}
-.mode-button.active{border-color:#d97706;background:#d97706;color:#fff}
-.mode-guide{margin:9px 0;color:#64748b;font-size:12px}
+/* 숫자 → 영어 변환기: home palette + 사용성 우선 컴팩트 히어로. */
+.ne-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.ne-intro{padding:16px 0 14px}
+.breadcrumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.intro-grid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding-top:10px}
+.intro-grid h1{font-size:25px;letter-spacing:-.8px;line-height:1.3;margin:6px 0 0;word-break:keep-all}
+.intro-grid h1 span{color:var(--green)}
+.intro-description{font-size:13px;color:var(--muted);line-height:1.6;word-break:keep-all;margin-top:6px}
+.formula-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#edf3e8;border:1px solid #dce6d5;border-radius:10px;max-width:420px}
+.ne-chip{padding:4px 8px;border-radius:6px;background:#fff;border:1px solid #cfe0cc;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:11px;font-weight:700;color:#4a5c4d;font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.ne-chip-result{color:var(--green)}
+.ne-op{font-size:12px;font-weight:700;color:#8ba28c;flex-shrink:0}
+.page-links{display:flex;gap:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:14px;flex-wrap:wrap}
+.page-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:650}.page-links a:first-child{color:var(--green)}.page-links a:hover{text-decoration:underline;color:var(--green)}
 
-.option-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px}
-.option-row.hidden{display:none}
-.toggle-inline{display:flex;align-items:center;gap:6px;font-size:13px;color:#334155}
-.toggle-inline input{width:auto;margin:0;padding:0}
+.calculator-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}
+.input-panel,.result-box{border:1px solid var(--line);border-radius:14px;padding:18px 20px 20px;min-width:0}
+.input-panel{background:white}.result-box{background:#eff4e9;display:flex;flex-direction:column;border-color:#d8e3cf;position:sticky;top:20px}
+.panel-heading{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.panel-heading h2{font-size:16px;letter-spacing:-.4px;margin:0}
+.step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#edf3e8;color:var(--green);font-size:10px;font-weight:750;flex-shrink:0}
+.result-box .step-number{background:#dfead7}
+.helper{font-size:11px;color:var(--muted);line-height:1.8;margin:0 0 14px;word-break:keep-all}
+.helper a{color:var(--green)}
+.input-note{font-size:10px;color:var(--muted);margin-top:14px;text-align:center}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
 
-.select-row{margin-bottom:12px}
-.select-row label{display:block;font-size:12px;font-weight:800;color:#334155;margin-bottom:5px}
-.select-row select{
-    width:100%;padding:9px 10px;border-radius:10px;border:1px solid #cbd5e1;
-    font-size:14px;background:#fff;color:#111827
-}
-.context-hint{margin-top:5px;font-size:11.5px;color:#94a3b8}
-.context-hint.hidden{display:none}
+/* 모드 탭 */
+.mode-tabs{display:flex;gap:8px;margin-bottom:10px}
+.mode-button{width:auto;flex:1;padding:10px 12px;border:1px solid var(--line);background:#fff;color:var(--muted);font-size:13px;font-weight:750;border-radius:9px}
+.mode-button:hover{background:#f3f6ef}
+.mode-button.active{border-color:var(--green);background:#e6efdd;color:#115f4c}
 
-.sample-row{display:flex;align-items:center;gap:7px;overflow-x:auto;margin-bottom:14px}
-.sample-row span{font-size:12px;font-weight:800}
-.sample-row button{width:auto;flex:0 0 auto;padding:6px 9px;border:1px solid #fde68a;background:#fffbeb;color:#b45309;font-size:12px}
+/* 옵션 */
+.option-row{margin-bottom:10px}
+.check-field{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink);font-weight:650;line-height:1.6;cursor:pointer}
+.check-field input{width:16px;height:16px;flex-shrink:0;accent-color:var(--green);margin:2px 0 0}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin:0 0 7px}
+.currency-row{padding:12px;background:#f7faf5;border:1px solid var(--line);border-radius:10px}
+.ne-page select,.ne-page input[type=text]{margin:0;border:1px solid #cedace;border-radius:9px;color:var(--ink);background:#fff;min-height:44px;font-size:13px;padding:9px 12px;width:100%;box-sizing:border-box}
+.ne-page select:focus,.ne-page input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px #15776012;outline:2px solid transparent}
 
-.ne-card input[type="text"]{
-    width:100%;margin-top:5px;padding:12px;border:1px solid #cbd5e1;border-radius:12px;
-    font-size:16px;line-height:1.6
-}
-.ne-card input[type="text"]:focus{outline:0;border-color:#d97706;box-shadow:0 0 0 3px rgba(217,119,6,.12)}
+/* 예시 칩 */
+.sample-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.sample-row>span{font-size:12px;font-weight:750;color:var(--ink);white-space:nowrap}
+.ne-chip-btn{width:auto;flex:0 0 auto;padding:7px 11px;border:1px solid var(--line);background:#fff;color:var(--green);font-size:11.5px;font-weight:700;border-radius:999px}
+.ne-chip-btn:hover{background:#eaf1e4;border-color:#a7c1a3}
 
-.action-row{display:flex;gap:8px;margin-top:10px}
-.action-row button{flex:1}
-.action-row .clear-button{max-width:100px;border:1px solid #e2e8f0;background:#f8fafc;color:#475569}
+/* 액션 */
+.actions{display:flex;gap:8px;margin-top:2px}
+.actions button{padding:12px 15px;font-size:14px;min-height:46px;border-radius:9px}
+.actions button:not(.secondary){background:var(--green);color:#fff;border:0;flex:1}
+.actions button:not(.secondary):hover{background:#115f4c}
+.actions .secondary{width:auto;background:#fff;border:1px solid var(--line);color:var(--muted)}
+.actions .secondary:hover{background:#f3f6ef;color:var(--ink)}
+.ne-error{margin-top:10px;color:#c0392b;font-size:12px;font-weight:700;min-height:16px}
 
-.error-message{min-height:20px;margin-top:7px;color:#dc2626;font-size:12px}
+/* 결과 */
+.ne-result-empty{padding:30px 10px;text-align:center}
+.ne-result-icon{display:block;font-size:30px;margin-bottom:10px;opacity:.7}
+.ne-result-empty p{font-size:12px;color:var(--muted);line-height:1.8;word-break:keep-all}
+.result-box:has(#result-box:not(.hidden)) .ne-result-empty{display:none}
+#result-box .result-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+#result-box .result-heading small{display:block;font-size:10px;color:var(--muted)}
+#result-box .result-heading strong{font-size:14px;color:var(--ink)}
+.toolbar-btn{width:auto;padding:7px 12px;border:1px solid var(--line);background:#fff;color:var(--green);font-size:11px;font-weight:700;border-radius:8px}
+.toolbar-btn:hover{background:#f3f6ef}
+.output-list{margin-bottom:12px}
+.output-list>div{padding:10px 12px;background:#fff;border:1px solid #d8e3cf;border-radius:9px;margin-bottom:8px}
+.output-list>div:last-child{margin-bottom:0}
+.output-list span{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}
+.output-list code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px;color:var(--ink);word-break:break-word}
+.output-list .primary-output{background:#eff4e9;border-color:#c7d9bd}
+.output-list .primary-output code{color:#115f4c;font-weight:700;font-size:14px}
+.note{font-size:11px;color:var(--muted);line-height:1.9}
+.result-disclaimer{padding-top:18px;margin-top:auto;font-size:10px}
 
-.result-box{padding:16px;border:1px solid #fde68a;border-radius:14px;background:#fffbeb}
-.result-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.result-heading small{display:block;color:#b45309}
-.result-heading strong{font-size:18px}
-.result-heading button{width:auto;padding:8px 11px;background:#d97706;font-size:12px}
+.reference-heading{margin:46px 0 22px}.reference-heading .eyebrow{margin-bottom:6px}.reference-heading h2{font-size:25px;letter-spacing:-.8px;margin-bottom:6px}.reference-heading>p:last-child{font-size:13px;color:var(--muted)}
+.info-section{border:1px solid var(--line);border-radius:13px;background:white;padding:25px;min-width:0}
+.info-section h2{font-size:18px;letter-spacing:-.4px;margin-bottom:12px}.info-section p{font-size:12px;color:var(--muted);line-height:1.9;word-break:keep-all;margin-bottom:8px}
+.info-section .helper{font-size:11px;margin-bottom:0}
+.info-list{margin:8px 0 12px;padding-left:19px;font-size:12px;color:var(--muted);line-height:1.9}
+.info-list li{margin-bottom:6px}
+.table-wrap{margin:4px 0 12px;overflow-x:auto}.bmi-table{width:100%;border-collapse:collapse;font-size:12px}
+.bmi-table th,.bmi-table td{text-align:left;padding:11px 10px;border-bottom:1px solid #e5eae1;vertical-align:middle;line-height:1.6}.bmi-table th{background:#f1f5ec;font-size:11px;font-weight:700;color:#5b6d59}.bmi-table td{color:#4a5c4d}.bmi-table th:first-child,.bmi-table td:first-child{padding-left:13px}
+.info-section code.mono{background:#f0f3eb;border-radius:4px;padding:1px 5px;font-size:11px;color:#4a5c4d}
 
-.output-list{display:grid;gap:7px;margin-top:12px}
-.output-list.hidden{display:none}
-.output-list>div{display:grid;grid-template-columns:120px 1fr;overflow:hidden;border:1px solid #e2e8f0;border-radius:10px;background:#fff}
-.output-list span{padding:10px;background:#f8fafc;color:#475569;font-size:12px;font-weight:800}
-.output-list code{padding:10px;white-space:normal;word-break:break-word}
-.output-list .primary-output{border-color:#fcd34d}
+.faq-section{display:grid;grid-template-columns:1fr 1.8fr;gap:40px;border-top:1px solid var(--line);padding-top:34px;margin-top:42px}
+.faq-heading h2{font-size:25px;letter-spacing:-.7px;margin-bottom:8px}.faq-heading p:last-child{font-size:12px;color:var(--muted)}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer;list-style:none;word-break:keep-all}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:'＋';color:var(--green);flex-shrink:0;font-weight:400;font-size:18px}.faq-item[open] summary::after{content:'−'}
+.faq-answer{padding:0 24px 18px 0;font-size:13px;line-height:1.9;color:var(--muted);word-break:keep-all}
+.related-section{border-top:1px solid var(--line);margin-top:38px;padding-top:30px}.related-section h2{font-size:22px;letter-spacing:-.6px;margin-bottom:20px}.related-section .eyebrow{margin-bottom:6px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:16px}.related-links>a{display:flex;align-items:center;gap:16px;padding:20px;text-decoration:none;border:1px solid var(--line);border-radius:11px;color:var(--ink);background:#f3f6ef}.related-links>a:hover{background:#eaf1e4;border-color:#a7c1a3}.related-links>a>span:first-child{font-size:22px;font-weight:800;color:var(--green)}.related-links>a>span:last-child{margin-left:auto;color:var(--green)}.related-links h3{font-size:14px;margin-bottom:3px}.related-links p{font-size:11px;color:var(--muted)}
+.ne-page .home-footer{margin-top:42px}
 
-.faq-section{max-width:800px;margin:28px auto 0;padding:0 10px}
-.faq-item{padding:5px 0;border-bottom:1px solid #e2e8f0}
-.faq-question{position:relative;background:#f8fafc;color:#111827;text-align:left;padding:10px 12px 10px 30px;font-size:14px}
-.faq-question:before{content:"▶";position:absolute;left:10px;color:#64748b;font-size:10px}
-.faq-item.active .faq-question:before{content:"▼"}
-.faq-answer{display:none;padding:8px 4px 12px;color:#475569;font-size:13px}
-.faq-item.active .faq-answer{display:block}
-
-@media(max-width:600px){
-    .ne-card{padding:15px 12px}
-    .mode-tabs{align-items:stretch}
-    .mode-button{flex:1}
-    .output-list>div{grid-template-columns:1fr}
-    .result-heading{align-items:flex-start;flex-direction:column}
-    .result-heading button{width:100%}
-}
+@media(min-width:800px){.ne-page .header-actions{flex-direction:row-reverse;gap:20px}}
+@media(max-width:900px){.formula-card{display:none}.calculator-layout{gap:14px}.input-panel,.result-box{padding:16px 18px 18px}.info-section{padding:20px}.faq-section{gap:25px}}
+@media(max-width:700px){.intro-grid{grid-template-columns:1fr;gap:8px}.intro-grid h1{font-size:22px}.ne-intro{padding:14px 0 10px}.page-links{gap:0;justify-content:space-between;padding:10px 0}.page-links a{font-size:11px}.calculator-layout{grid-template-columns:1fr}.result-box{position:static}.reference-heading{margin-top:30px}.faq-section{grid-template-columns:1fr;gap:22px;margin-top:26px;padding-top:24px}.related-links{grid-template-columns:1fr;gap:10px}.related-links>a{padding:18px}.info-section{padding:21px}.ne-page .home-footer{margin-top:30px}}
+@media(max-width:380px){.ne-page .page-wrapper{padding-left:16px;padding-right:16px}.intro-grid h1{font-size:20px}.intro-description{font-size:12px}.input-panel,.result-box{padding:14px 14px 16px}.info-section{padding:18px 13px}}
+@media(prefers-reduced-motion:reduce){.ne-page *{scroll-behavior:auto!important;transition:none!important}}
