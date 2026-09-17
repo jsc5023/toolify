@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+
+    <title>세탁세제 가성비 계산기 | 1회 세탁 비용·사용 가능 횟수 계산 - Toolify</title>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+            crossorigin="anonymous"></script>
+
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+
+    <meta name="description"
+          content="세탁세제의 총 용량, 1회 사용량, 구매 가격을 입력하면 세탁 가능 횟수와 1회당 비용을 계산합니다. 액체형·캡슐형 세제를 서로 비교해 더 저렴한 제품을 바로 확인할 수 있습니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <!-- 전용 스타일 -->
+    <link rel="stylesheet" href="./laundry-detergent-calculator.css?v=20260917-1" />
+
+    <link rel="canonical" href="https://toolify.kr/tools/laundry-detergent-calculator/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="세탁세제 가성비 계산기" />
+    <meta property="og:description" content="세탁세제 총 용량·1회 사용량·가격을 입력하면 세탁 가능 횟수와 1회당 비용을 계산하고, 다른 제품과 비교할 수 있습니다." />
+    <meta property="og:url" content="https://toolify.kr/tools/laundry-detergent-calculator/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"세탁세제 가성비 계산기란?","acceptedAnswer":{"@type":"Answer","text":"세탁세제의 총 용량(또는 개수), 1회 사용량, 구매 가격을 입력하면 세탁 가능 횟수와 1회당 비용을 계산해주는 도구입니다."}},{"@type":"Question","name":"액체형과 캡슐형 중 어느 쪽이 더 저렴한가요?","acceptedAnswer":{"@type":"Answer","text":"제품과 농축 여부에 따라 다릅니다. 한국소비자원 조사에 따르면 같은 액체형 세제끼리도 1회 비용이 최대 8.2배, 캡슐형끼리도 최대 6배까지 차이가 났습니다. 브랜드만 보지 말고 이 계산기로 실제 1회 비용을 직접 비교해 보세요."}},{"@type":"Question","name":"세척력도 함께 비교해주나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 이 계산기는 1회 사용 비용만 계산합니다. 세척력·표백력 등 성능 비교는 한국소비자원 '비교공감' 등 공식 시험 자료를 참고해 주세요."}},{"@type":"Question","name":"사용 가능 횟수는 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"총 용량(또는 총 개수)을 1회 사용량(또는 1회 사용 개수)으로 나눠서 계산합니다."}},{"@type":"Question","name":"1회 세탁 비용은 어떻게 계산하나요?","acceptedAnswer":{"@type":"Answer","text":"구매 가격을 사용 가능 횟수로 나눠서 계산합니다."}},{"@type":"Question","name":"주 세탁 횟수를 입력하면 무엇을 알 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"일주일에 몇 번 세탁하는지 입력하면, 지금 계산한 세제 한 통(또는 한 팩)으로 약 몇 주·몇 개월을 사용할 수 있는지 예상해 드립니다."}}]}</script>
+</head>
+
+<body class="reading-page ldc-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
+
+        <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
+            <button class="icon-btn" id="header-search-btn"
+                    type="button"
+                    aria-label="도구 검색(홈으로 이동)">
+                🔍
+            </button>
+
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="ldc-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="ldc-nav">
+                    <li><a href="../../#tools">전체 도구</a></li>
+                    <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
+                    <li><a href="../../contact.html">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="page-wrapper">
+    <header class="ldc-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">생활 도구</a><span>/</span><span aria-current="page">세탁세제 가성비 계산기</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">LIFE TOOL · 세탁세제 · 가성비 · 1회 비용</p>
+                <h1>🧺 세탁세제 <span>가성비 계산기</span></h1>
+                <p class="intro-description">총 용량·1회 사용량·가격만 입력하면 세탁 가능 횟수와 1회당 비용이 바로 나와요. 다른 세제와 비교도 할 수 있어요.</p>
+            </div>
+            <aside class="formula-card" aria-label="계산 예시">
+                <code class="ldc-chip" id="hero-chip-input">3L·40mL·12,900원</code>
+                <span class="ldc-op" aria-hidden="true">→</span>
+                <code class="ldc-chip ldc-chip-result" id="hero-chip-result">1회 172원</code>
+            </aside>
+        </div>
+    </header>
+
+    <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">계산하기</a><a href="#guide">계산 방법</a><a href="#faq">자주 묻는 질문</a></nav>
+
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="세탁세제 가성비 계산기">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>세제 정보 입력</h2></div>
+
+                <div class="ldc-products" id="product-list"></div>
+
+                <button type="button" id="add-product-btn" class="ldc-add-btn">＋ 다른 세제와 비교하기 <small>선택</small></button>
+
+                <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
+            </div>
+
+            <div class="result-box" role="region" aria-labelledby="result-heading" aria-live="polite" aria-atomic="true">
+                <div class="panel-heading"><span class="step-number">02</span><h2 id="result-heading">계산 결과</h2></div>
+
+                <div class="ldc-hero-result">
+                    <span class="ldc-hero-label" id="result-hero-label">1회 세탁 비용</span>
+                    <strong class="ldc-hero-value" id="result-hero-value">-</strong>
+                    <p class="ldc-hero-sub" id="result-hero-sub"></p>
+                </div>
+
+                <div class="ldc-compare-table-wrap hidden" id="compare-wrap">
+                    <div class="table-wrap">
+                        <table class="bmi-table ldc-compare-table" id="compare-table">
+                            <thead><tr><th>세제</th><th>1회 비용</th><th>사용 가능 횟수</th><th>구매 가격</th></tr></thead>
+                            <tbody id="compare-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="ldc-freq-row">
+                    <label for="weekly-freq">주 세탁 횟수 <small>선택</small></label>
+                    <div class="input-with-unit"><input id="weekly-freq" type="number" min="1" step="1" value="4" inputmode="numeric" /><span class="unit-badge">회/주</span></div>
+                    <p class="ldc-freq-result" id="result-freq-text"></p>
+                </div>
+            </div>
+        </section>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>1회 비용은 어떻게 계산하나요?</h2><p>총 용량을 1회 사용량으로 나눠 사용 가능 횟수를 먼저 구해요.</p></div>
+        <section class="info-section" id="guide-body">
+            <p>세탁세제는 표시 가격이나 용량만 보면 어떤 제품이 더 저렴한지 알기 어려워요. 총 용량(또는 개수)과 1회 사용량을 나눠 실제로 몇 번 세탁할 수 있는지 구하고, 여기에 가격을 나누면 진짜 비교 기준인 1회 세탁 비용이 나옵니다.</p>
+            <p class="ldc-formula">사용 가능 횟수 = 총 용량(개수) ÷ 1회 사용량(개수)</p>
+            <p class="ldc-formula">1회 비용 = 구매 가격 ÷ 사용 가능 횟수</p>
+            <p class="helper">한국소비자원 조사에 따르면 같은 액체형 세제끼리도 1회 비용이 최대 8.2배, 캡슐형끼리도 최대 6배까지 차이가 났어요. 브랜드나 용량만 보지 말고 1회 비용을 직접 계산해 비교해 보세요. 이 계산기는 세척력이 아닌 1회 사용 비용만 계산합니다.</p>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>세탁세제 가성비 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>세탁세제 가성비 계산기란?</summary>
+                <div class="faq-answer"><p>세탁세제의 총 용량(또는 개수), 1회 사용량, 구매 가격을 입력하면 세탁 가능 횟수와 1회당 비용을 계산해주는 도구입니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>액체형과 캡슐형 중 어느 쪽이 더 저렴한가요?</summary>
+                <div class="faq-answer"><p>제품과 농축 여부에 따라 다릅니다. 한국소비자원 조사에 따르면 같은 액체형 세제끼리도 1회 비용이 최대 8.2배, 캡슐형끼리도 최대 6배까지 차이가 났습니다. 브랜드만 보지 말고 이 계산기로 실제 1회 비용을 직접 비교해 보세요.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>세척력도 함께 비교해주나요?</summary>
+                <div class="faq-answer"><p>아니요. 이 계산기는 1회 사용 비용만 계산합니다. 세척력·표백력 등 성능 비교는 한국소비자원 '비교공감' 등 공식 시험 자료를 참고해 주세요.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>사용 가능 횟수는 어떻게 계산하나요?</summary>
+                <div class="faq-answer"><p>총 용량(또는 총 개수)을 1회 사용량(또는 1회 사용 개수)으로 나눠서 계산합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>1회 세탁 비용은 어떻게 계산하나요?</summary>
+                <div class="faq-answer"><p>구매 가격을 사용 가능 횟수로 나눠서 계산합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>주 세탁 횟수를 입력하면 무엇을 알 수 있나요?</summary>
+                <div class="faq-answer"><p>일주일에 몇 번 세탁하는지 입력하면, 지금 계산한 세제 한 통(또는 한 팩)으로 약 몇 주·몇 개월을 사용할 수 있는지 예상해 드립니다.</p></div>
+            </details>
+            </div>
+        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../unit-price-comparison/"><span>🏷️</span><div><h3>단가 비교 계산기</h3><p>묶음상품 개당·100g당 가격 비교</p></div><span aria-hidden="true">↗</span></a><a href="../electricity-simulator/"><span>⚡</span><div><h3>전기요금 시뮬레이터</h3><p>가전제품 전기요금 미리 계산</p></div><span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
+        <p>
+            <a href="../../privacy.html">개인정보 처리방침</a> ·
+            <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
+            <a href="../../contact.html">Contact / 문의하기</a>
+        </p>
+    </footer>
+</div>
+
+<template id="product-template">
+    <article class="ldc-card">
+        <div class="ldc-card-head">
+            <input type="text" class="ldc-name" maxlength="20" placeholder="세제 이름 (선택)" />
+            <button type="button" class="ldc-remove hidden" aria-label="세제 삭제">×</button>
+        </div>
+
+        <div class="field">
+            <label>세제 유형</label>
+            <select class="ldc-type">
+                <option value="liquid">액체형</option>
+                <option value="capsule">캡슐형</option>
+            </select>
+        </div>
+
+        <div class="tool-grid ldc-row-2">
+            <div class="field">
+                <label class="ldc-cap-label">총 용량</label>
+                <div class="compound-input ldc-cap-compound">
+                    <input type="number" class="ldc-capacity" min="0" step="1" inputmode="decimal" />
+                    <select class="ldc-cap-unit"><option value="mL">mL</option><option value="L">L</option></select>
+                </div>
+            </div>
+            <div class="field">
+                <label class="ldc-use-label">1회 사용량</label>
+                <div class="input-with-unit"><input type="number" class="ldc-per-use" min="0" step="1" inputmode="decimal" /><span class="unit-badge ldc-use-badge">mL</span></div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>구매 가격</label>
+            <div class="input-with-unit"><input type="number" class="ldc-price" min="0" step="10" inputmode="numeric" /><span class="unit-badge">원</span></div>
+        </div>
+    </article>
+</template>
+
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260918-2"></script>
+<!-- 전용 JS -->
+<script src="./laundry-detergent-calculator.js"></script>
+</body>
+</html>

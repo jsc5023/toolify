@@ -96,6 +96,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/lecture-speed-calculator/",
         "https://toolify.kr/tools/battery-runtime/",
         "https://toolify.kr/tools/unit-price-comparison/",
+        "https://toolify.kr/tools/laundry-detergent-calculator/",
         "https://toolify.kr/about.html",
     ]);
 });
