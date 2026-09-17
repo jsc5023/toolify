@@ -2,11 +2,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>URL 인코더/디코더 - 한글/공백/특수문자 변환</title>
+
+    <title>URL 인코더·디코더 | 한글·공백·특수문자 변환 - Toolify</title>
 
     <!-- AdSense -->
-    <script async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
             crossorigin="anonymous"></script>
 
     <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
@@ -17,37 +17,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- 공통 스타일 -->
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./url-encoder.css" />
+    <link rel="stylesheet" href="./url-encoder.css?v=20260919-2" />
 
     <link rel="canonical" href="https://toolify.kr/tools/url-encoder/" />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Toolify" />
-    <meta property="og:title" content="URL 인코더/디코더 - 한글/공백/특수문자 변환" />
+    <meta property="og:title" content="URL 인코더·디코더" />
     <meta property="og:description" content="URL 인코딩/디코딩 도구입니다. 한글, 공백, 특수문자를 안전하게 변환하고 복사할 수 있습니다." />
     <meta property="og:url" content="https://toolify.kr/tools/url-encoder/" />
+
+    <!-- FAQ 구조화 데이터 -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"URL 인코딩은 왜 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"URL에서 한글·공백·특수문자가 깨지지 않도록 %XX 형태로 변환하기 위해 필요합니다."}},{"@type":"Question","name":"encodeURIComponent와 encodeURI의 차이는?","acceptedAnswer":{"@type":"Answer","text":"encodeURIComponent는 쿼리 파라미터 값 같은 '부분'에 안전하고, encodeURI는 전체 URL에서 예약 문자(:/?&= 등)를 그대로 유지합니다."}},{"@type":"Question","name":"디코딩이 실패하면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"% 형식이 깨져 있으면 오류가 날 수 있습니다. 입력값에 잘못된 % 인코딩이 섞여 있지 않은지 확인해 주세요."}}]}</script>
 </head>
 
-<body>
+<body class="reading-page ue-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<!-- 공통 헤더 -->
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="../../" class="logo">Toolify</a>
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
 
         <div class="header-actions">
+            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
             <button class="icon-btn" id="header-search-btn"
                     type="button"
                     aria-label="도구 검색(홈으로 이동)">
                 🔍
             </button>
 
-            <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="../../">홈</a></li>
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="ue-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="ue-nav">
                     <li><a href="../../#tools">전체 도구</a></li>
                     <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
                     <li><a href="../../contact.html">문의</a></li>
                 </ul>
             </nav>
@@ -56,137 +65,136 @@
 </header>
 
 <div class="page-wrapper">
-    <header class="header-card">
-        <h1>🔗 URL 인코더/디코더</h1>
-        <p class="subtitle">
-            한글·공백·특수문자가 포함된 URL/쿼리스트링을 안전하게 인코딩(변환)하거나,
-            % 형태 문자열을 사람이 읽을 수 있게 디코딩(복원)합니다.
-        </p>
+    <header class="ue-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">개발자 도구</a><span>/</span><span aria-current="page">URL 인코더·디코더</span></nav>
+        <div class="intro-grid">
+            <div>
+                <p class="eyebrow">DEV TOOL · URL · 쿼리스트링</p>
+                <h1>🔗 URL <span>인코더·디코더</span></h1>
+                <p class="intro-description">한글·공백·특수문자가 포함된 URL을 안전하게 인코딩하거나, % 형태 문자열을 다시 읽기 쉽게 디코딩하세요.</p>
+            </div>
+            <aside class="formula-card" aria-label="변환 예시">
+                <code class="ue-chip-hero">한글 검색어</code>
+                <span class="ue-op" aria-hidden="true">→</span>
+                <code class="ue-chip-hero ue-chip-hero-result">%ED%95%9C%EA%B8%80...</code>
+            </aside>
+        </div>
     </header>
 
     <main>
-        <section class="tool-card ue-card">
-            <div class="ue-head">
-                <h2 class="ue-title">변환 도구</h2>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">변환하기</a><a href="#guide">활용 방법</a><a href="#faq">자주 묻는 질문</a></nav>
 
-                <!-- 모드 탭 -->
+        <!-- 메인 도구 영역 -->
+        <section class="calculator-layout" id="calculator" aria-label="URL 인코더·디코더">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><h2>입력</h2></div>
+
                 <div class="ue-mode" role="tablist" aria-label="인코딩/디코딩 선택">
                     <button type="button" class="ue-tab is-active" data-mode="encode" role="tab" aria-selected="true">인코딩</button>
                     <button type="button" class="ue-tab" data-mode="decode" role="tab" aria-selected="false">디코딩</button>
                 </div>
-            </div>
 
-            <!-- 옵션 -->
-            <div class="ue-options">
-                <div class="ue-grid2">
-                    <div class="ue-field">
+                <div class="tool-grid ue-options-grid">
+                    <div class="field">
                         <label for="ue-api">인코딩 방식</label>
                         <select id="ue-api">
-                            <option value="component">encodeURIComponent (부분/파라미터 추천)</option>
+                            <option value="component">encodeURIComponent (부분/파라미터)</option>
                             <option value="uri">encodeURI (전체 URL)</option>
                         </select>
                     </div>
-
-                    <div class="ue-field ue-check">
-                        <label class="ue-checkbox">
-                            <input type="checkbox" id="ue-space-plus" />
-                            공백을 + 로 처리 (폼/쿼리 호환)
-                        </label>
-                    </div>
+                    <label class="check-field ue-check-field">
+                        <input type="checkbox" id="ue-space-plus" />
+                        <span>공백을 + 로 처리 (폼/쿼리 호환)</span>
+                    </label>
                 </div>
 
-                <p class="ue-hint">
-                    팁: 쿼리 파라미터 값은 보통 <b>encodeURIComponent</b>가 안전합니다.
-                    (Ctrl/⌘ + Enter로 실행)
-                </p>
+                <div class="sample-row">
+                    <span>예시</span>
+                    <button type="button" class="ue-chip" data-ex="korean">한글</button>
+                    <button type="button" class="ue-chip" data-ex="query">쿼리</button>
+                    <button type="button" class="ue-chip" data-ex="encoded">인코딩됨</button>
+                    <button type="button" class="ue-chip" data-ex="form">+공백</button>
+                </div>
+
+                <textarea id="ue-input" spellcheck="false" placeholder="예) https://example.com/search?q=한글 검색어 & 테스트"></textarea>
+
+                <div class="actions">
+                    <button type="button" id="ue-run">변환</button>
+                    <button type="button" id="ue-swap" class="secondary">↔ 교체</button>
+                    <button type="button" id="ue-clear" class="secondary">지우기</button>
+                </div>
+                <p class="panel-help">쿼리 파라미터 값은 보통 <code class="mono">encodeURIComponent</code>가 안전해요. (Ctrl/⌘ + Enter로 실행)</p>
             </div>
 
-            <!-- 입출력 -->
-            <div class="ue-io">
-                <div class="ue-col">
-                    <div class="ue-label-row">
-                        <label for="ue-input">📝 입력</label>
-
-                        <div class="ue-examples" aria-label="예시">
-                            <span class="ue-ex-label">예시:</span>
-                            <button type="button" class="ue-chip" data-ex="korean">한글</button>
-                            <button type="button" class="ue-chip" data-ex="query">쿼리</button>
-                            <button type="button" class="ue-chip" data-ex="encoded">인코딩됨</button>
-                            <button type="button" class="ue-chip" data-ex="form">+공백</button>
-                        </div>
-                    </div>
-
-                    <textarea id="ue-input" class="ue-textarea" rows="7"
-                              placeholder="예) https://example.com/search?q=한글 검색어 & 테스트"></textarea>
-
-                    <div class="ue-actions">
-                        <button type="button" class="ue-btn ue-primary" id="ue-run">변환</button>
-                        <button type="button" class="ue-btn" id="ue-clear">지우기</button>
-                        <button type="button" class="ue-btn" id="ue-swap">↔ 교체</button>
-                    </div>
+            <div class="result-box">
+                <div class="panel-heading"><span class="step-number">02</span><h2>결과</h2>
+                    <button type="button" id="ue-copy" class="toolbar-btn copy-btn">복사</button>
                 </div>
 
-                <div class="ue-col">
-                    <div class="ue-label-row">
-                        <label for="ue-output">✅ 결과</label>
-                        <button type="button" class="ue-btn ue-small" id="ue-copy">복사</button>
-                    </div>
+                <textarea id="ue-output" spellcheck="false" readonly placeholder="결과가 여기에 표시됩니다."></textarea>
 
-                    <textarea id="ue-output" class="ue-textarea" rows="7" readonly
-                              placeholder="결과가 여기에 표시됩니다."></textarea>
-
-                    <div class="ue-msg">
-                        <span id="ue-status" class="ue-status" aria-live="polite"></span>
-                        <span id="ue-error" class="ue-error" aria-live="polite"></span>
-                    </div>
+                <div class="ue-msg">
+                    <span id="ue-status" class="ue-status" aria-live="polite"></span>
+                    <span id="ue-error" class="ue-error" aria-live="polite"></span>
                 </div>
             </div>
         </section>
 
-        <section class="info-section">
-            <h2>URL 인코더/디코더가 필요한 순간</h2>
-            <p>
-                URL에 한글/공백/특수문자가 포함되면 요청이 깨지거나 서버에서 파라미터가 잘못 해석될 수 있습니다.
-                이 도구로 인코딩/디코딩하여 링크 공유, API 테스트, 로그 해석 등에 활용하세요.
-            </p>
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>URL 인코더·디코더가 필요한 순간</h2><p>URL에 한글·공백·특수문자가 섞이면 요청이 깨지기 쉬워요.</p></div>
+        <div class="reference-grid">
+            <section class="info-section">
+                <h2>이럴 때 사용해 보세요</h2>
+                <p>URL에 한글·공백·특수문자가 포함되면 요청이 깨지거나 서버에서 파라미터가 잘못 해석될 수 있어요. 이 도구로 인코딩·디코딩해서 링크 공유, API 테스트, 로그 해석 등에 활용하세요.</p>
+                <ul class="info-list">
+                    <li>한글 검색어가 포함된 링크가 깨질 때</li>
+                    <li>API 테스트에서 쿼리스트링 값을 안전하게 만들고 싶을 때</li>
+                    <li>로그의 %ED%… 형태를 사람이 읽게 복원하고 싶을 때</li>
+                </ul>
+            </section>
+            <section class="info-section">
+                <h2>encodeURIComponent vs encodeURI</h2>
+                <p><strong>encodeURIComponent</strong>는 쿼리 파라미터 값처럼 URL의 "부분"을 인코딩할 때 안전해요. <code class="mono">&</code>, <code class="mono">=</code>, <code class="mono">?</code> 같은 예약 문자까지 전부 변환합니다.</p>
+                <p><strong>encodeURI</strong>는 전체 URL을 인코딩할 때 사용하며, URL 구조에 필요한 예약 문자는 그대로 유지해요.</p>
+                <p class="helper">이 페이지는 브라우저에서만 동작하며, 입력한 내용은 서버로 전송되지 않습니다.</p>
+            </section>
+        </div>
 
-            <ul class="info-list">
-                <li>한글 검색어가 포함된 링크가 깨질 때</li>
-                <li>API 테스트에서 쿼리스트링 값을 안전하게 만들고 싶을 때</li>
-                <li>로그의 %ED%… 형태를 사람이 읽게 복원하고 싶을 때</li>
-            </ul>
-        </section>
-
-        <section class="faq-section">
-            <h2>자주 묻는 질문 (FAQ)</h2>
-
-            <div class="faq-item">
-                <button class="faq-question">URL 인코딩은 왜 필요한가요?</button>
-                <div class="faq-answer"><p>URL에서 한글/공백/특수문자가 깨지지 않도록 %XX 형태로 변환하기 위해 필요합니다.</p></div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">encodeURIComponent와 encodeURI의 차이는?</button>
-                <div class="faq-answer"><p>encodeURIComponent는 파라미터 값 같은 “부분”에 안전하고, encodeURI는 전체 URL에서 예약 문자를 유지합니다.</p></div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">디코딩이 실패하면 어떻게 하나요?</button>
+        <!-- FAQ 섹션 -->
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>URL 인코더·디코더에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+            <details class="faq-item">
+                <summary>URL 인코딩은 왜 필요한가요?</summary>
+                <div class="faq-answer"><p>URL에서 한글·공백·특수문자가 깨지지 않도록 %XX 형태로 변환하기 위해 필요합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>encodeURIComponent와 encodeURI의 차이는?</summary>
+                <div class="faq-answer"><p>encodeURIComponent는 파라미터 값 같은 "부분"에 안전하고, encodeURI는 전체 URL에서 예약 문자를 유지합니다.</p></div>
+            </details>
+            <details class="faq-item">
+                <summary>디코딩이 실패하면 어떻게 하나요?</summary>
                 <div class="faq-answer"><p>% 형식이 깨져 있으면 오류가 날 수 있습니다. 입력값을 확인해 주세요.</p></div>
+            </details>
             </div>
         </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../base64/"><span>&lt;/&gt;</span><div><h3>Base64 인코더·디코더</h3><p>텍스트·파일을 Base64로 변환</p></div><span aria-hidden="true">↗</span></a><a href="../url-parser/"><span>&lt;/&gt;</span><div><h3>URL 파서</h3><p>URL을 구성 요소별로 분석</p></div><span aria-hidden="true">↗</span></a></div></section>
     </main>
 
-    <section class="footer-text">
+    <!-- 하단 공통 링크 -->
+    <footer class="home-footer">
+        <div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div>
         <p>
             <a href="../../privacy.html">개인정보 처리방침</a> ·
             <a href="../../terms.html">이용약관</a> ·
+            <a href="../../about.html">Toolify 소개</a> ·
             <a href="../../contact.html">Contact / 문의하기</a>
         </p>
-    </section>
+    </footer>
 </div>
 
-<script src="../../main.js"></script>
+<!-- 공통 네비 JS -->
+<script src="../../main.js?v=20260918-1"></script>
+<!-- 전용 JS -->
 <script src="./url-encoder.js"></script>
 </body>
 </html>

@@ -1,387 +1,94 @@
-/* URL 인코더/디코더 전용 스타일 */
-/* 공통 style.css 이후 로드 */
+/* URL 인코더·디코더: home palette shell + 원문/결과 두 패널 워크스페이스. */
+.ue-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.ue-intro{padding:16px 0 14px}
+.breadcrumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.intro-grid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding-top:10px}
+.intro-grid h1{font-size:25px;letter-spacing:-.8px;line-height:1.3;margin:6px 0 0;word-break:keep-all}
+.intro-grid h1 span{color:var(--green)}
+.intro-description{font-size:13px;color:var(--muted);line-height:1.6;word-break:keep-all;margin-top:6px}
+.formula-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#edf3e8;border:1px solid #dce6d5;border-radius:10px;max-width:460px}
+.ue-chip-hero{padding:4px 8px;border-radius:6px;background:#fff;border:1px solid #cfe0cc;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:11px;font-weight:700;color:#4a5c4d;font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.ue-chip-hero-result{color:var(--green)}
+.ue-op{font-size:12px;font-weight:700;color:#8ba28c;flex-shrink:0}
+.page-links{display:flex;gap:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:14px;flex-wrap:wrap}
+.page-links a{color:var(--muted);font-size:12px;text-decoration:none;font-weight:650}.page-links a:first-child{color:var(--green)}.page-links a:hover{text-decoration:underline;color:var(--green)}
 
-/* ---- 이 페이지 전용: 전역 button width/스타일 영향 차단 ---- */
-.ue-card button,
-.ue-card .ue-btn,
-.ue-card .ue-chip,
-.ue-card .ue-tab {
-    width: auto !important;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    max-width: 100%;
-    white-space: nowrap;
-}
+.calculator-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.input-panel,.result-box{border:1px solid var(--line);border-radius:14px;padding:18px 20px 20px;min-width:0;display:flex;flex-direction:column}
+.input-panel{background:white}.result-box{background:#eff4e9;border-color:#d8e3cf}
+.panel-heading{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.panel-heading h2{font-size:16px;letter-spacing:-.4px;margin:0}
+.panel-heading .copy-btn{margin-left:auto}
+.step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#edf3e8;color:var(--green);font-size:10px;font-weight:750;flex-shrink:0}
+.result-box .step-number{background:#dfead7}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
 
-/* ---- 카드 ---- */
-.ue-card {
-    padding: 18px;
-}
+/* 모드 탭 */
+.ue-mode{display:flex;gap:8px;margin-bottom:14px}
+.ue-tab{width:auto;flex:1;padding:10px 12px;border:1px solid var(--line);background:#fff;color:var(--muted);font-size:13px;font-weight:750;border-radius:9px}
+.ue-tab:hover{background:#f3f6ef}
+.ue-tab.is-active{border-color:var(--green);background:#e6efdd;color:#115f4c}
 
-.ue-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.ue-title {
-    margin: 0;
-}
-
-/* ---- 모드 탭 ---- */
-.ue-mode {
-    display: inline-flex;
-    gap: 8px;
-    background: #f3f4f6;
-    padding: 6px;
-    border-radius: 999px;
-}
-
-.ue-tab {
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    color: #111827;
-    padding: 8px 12px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.ue-tab.is-active {
-    background: #111827;
-    color: #fff;
-    border-color: #111827;
-}
-
-/* ---- 옵션 ---- */
-.ue-options {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
-}
-
-.ue-grid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    align-items: end;
-}
-
-.ue-field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-
-.ue-field select {
-    width: 100%;
-}
-
-.ue-check {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.ue-checkbox {
-    font-size: 13px;
-    color: #111827;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.ue-hint {
-    margin: 10px 0 0;
-    font-size: 13px;
-    color: #6b7280;
-    line-height: 1.5;
-}
-
-/* ---- IO ---- */
-.ue-io {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 14px;
-}
-
-.ue-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.ue-label-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.ue-label-row label {
-    font-size: 13px;
-    font-weight: 800;
-}
+/* 옵션 */
+.tool-grid{display:grid;gap:12px}
+.ue-options-grid{grid-template-columns:1.3fr 1fr;align-items:end;margin-bottom:14px}
+.field{min-width:0}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin:0 0 7px}
+.ue-page select,.ue-page textarea{margin:0;border:1px solid #cedace;border-radius:9px;color:var(--ink);background:#fff}
+.ue-page select{min-height:44px;font-size:13px;padding:9px 12px;width:100%;box-sizing:border-box}
+.ue-page select:focus{border-color:var(--green);box-shadow:0 0 0 3px #15776012;outline:2px solid transparent}
+.check-field{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);font-weight:650;min-height:44px}
+.check-field input{width:16px;height:16px;flex-shrink:0;accent-color:var(--green);margin:0}
 
 /* 예시 칩 */
-.ue-examples {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-}
+.sample-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.sample-row>span{font-size:12px;font-weight:750;color:var(--ink);white-space:nowrap}
+.ue-chip{width:auto;flex:0 0 auto;padding:7px 11px;border:1px solid var(--line);background:#fff;color:var(--green);font-size:11.5px;font-weight:700;border-radius:999px}
+.ue-chip:hover{background:#eaf1e4;border-color:#a7c1a3}
 
-.ue-ex-label {
-    font-size: 12px;
-    color: #6b7280;
-}
-
-.ue-chip {
-    border: 1px solid #dbeafe;
-    background: #eff6ff;
-    color: #1d4ed8;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.ue-chip:hover {
-    background: #dbeafe;
-}
-
-/* textarea */
-.ue-textarea {
-    width: 100%;
-    min-height: 180px;
-    resize: vertical;
-}
+/* 텍스트 영역 */
+.ue-page textarea{width:100%;flex:1;min-height:220px;padding:14px 16px;border-radius:9px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px;line-height:1.7;resize:vertical;background:#f8faf6;color:var(--ink);box-sizing:border-box}
+.ue-page textarea:focus{outline:2px solid transparent;border-color:var(--green);box-shadow:0 0 0 3px #15776012;background:#fff}
+.ue-page textarea::placeholder{color:#8a9a8d}
+.ue-page textarea[readonly]{background:#fff}
 
 /* 버튼 */
-.ue-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 2px;
-}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.actions button{padding:11px 15px;font-size:13px;min-height:42px;border-radius:9px}
+.actions button:not(.secondary){background:var(--green);color:#fff;border:0;flex:1}
+.actions button:not(.secondary):hover{background:#115f4c}
+.actions .secondary{width:auto;background:#fff;border:1px solid var(--line);color:var(--muted)}
+.actions .secondary:hover{background:#f3f6ef;color:var(--ink)}
+.toolbar-btn{width:auto;padding:7px 12px;border:1px solid var(--line);background:#fff;color:var(--green);font-size:11px;font-weight:700;border-radius:8px}
+.toolbar-btn:hover{background:#f3f6ef}
+.panel-help{font-size:10px;color:var(--muted);line-height:1.6;margin-top:8px;word-break:keep-all}
+.panel-help code.mono{background:#f0f3eb;border-radius:4px;padding:1px 5px;font-size:10px;color:#4a5c4d}
 
-.ue-btn {
-    border: 1px solid #e5e7eb;
-    background: #f9fafb;
-    color: #111827;
-    padding: 9px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-}
+.ue-msg{display:flex;flex-direction:column;gap:4px;margin-top:10px;min-height:18px}
+.ue-status{font-size:11.5px;color:var(--green);font-weight:700}
+.ue-error{font-size:11.5px;color:#c0392b;font-weight:700}
 
-.ue-btn:hover {
-    background: #eef2ff;
-}
+.reference-heading{margin:46px 0 22px}.reference-heading .eyebrow{margin-bottom:6px}.reference-heading h2{font-size:25px;letter-spacing:-.8px;margin-bottom:6px}.reference-heading>p:last-child{font-size:13px;color:var(--muted)}
+.reference-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:start}
+.info-section{border:1px solid var(--line);border-radius:13px;background:white;padding:25px;min-width:0}
+.info-section h2{font-size:18px;letter-spacing:-.4px;margin-bottom:12px}.info-section p{font-size:12px;color:var(--muted);line-height:1.9;word-break:keep-all;margin-bottom:8px}
+.info-section .helper{font-size:11px;margin-bottom:0}
+.info-section code.mono{background:#f0f3eb;border-radius:4px;padding:1px 5px;font-size:11px;color:#4a5c4d}
+.info-list{margin:8px 0 12px;padding-left:19px;font-size:12px;color:var(--muted);line-height:1.9}
+.info-list li{margin-bottom:6px}
 
-.ue-primary {
-    background: #111827;
-    border-color: #111827;
-    color: #fff;
-}
+.faq-section{display:grid;grid-template-columns:1fr 1.8fr;gap:40px;border-top:1px solid var(--line);padding-top:34px;margin-top:42px}
+.faq-heading h2{font-size:25px;letter-spacing:-.7px;margin-bottom:8px}.faq-heading p:last-child{font-size:12px;color:var(--muted)}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer;list-style:none;word-break:keep-all}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:'＋';color:var(--green);flex-shrink:0;font-weight:400;font-size:18px}.faq-item[open] summary::after{content:'−'}
+.faq-answer{padding:0 24px 18px 0;font-size:13px;line-height:1.9;color:var(--muted);word-break:keep-all}
+.related-section{border-top:1px solid var(--line);margin-top:38px;padding-top:30px}.related-section h2{font-size:22px;letter-spacing:-.6px;margin-bottom:20px}.related-section .eyebrow{margin-bottom:6px}
+.related-links{display:grid;grid-template-columns:1fr 1fr;gap:16px}.related-links>a{display:flex;align-items:center;gap:16px;padding:20px;text-decoration:none;border:1px solid var(--line);border-radius:11px;color:var(--ink);background:#f3f6ef}.related-links>a:hover{background:#eaf1e4;border-color:#a7c1a3}.related-links>a>span:first-child{font-size:22px;color:var(--green);font-weight:800}.related-links>a>span:last-child{margin-left:auto;color:var(--green)}.related-links h3{font-size:14px;margin-bottom:3px}.related-links p{font-size:11px;color:var(--muted)}
+.ue-page .home-footer{margin-top:42px}
 
-.ue-primary:hover {
-    background: #0b1220;
-}
-
-.ue-small {
-    padding: 7px 10px;
-    font-size: 12px;
-    border-radius: 999px;
-}
-
-/* 메시지 */
-.ue-msg {
-    min-height: 18px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.ue-status {
-    font-size: 12px;
-    color: #2563eb;
-}
-
-.ue-error {
-    font-size: 12px;
-    color: #b91c1c;
-}
-
-/* info/faq는 기존 너 스타일 유지용 */
-.info-section,
-.faq-section {
-    max-width: 720px;
-    margin: 40px auto 0;
-    padding: 0 16px;
-}
-
-.info-section h2,
-.faq-section h2 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 16px;
-}
-
-.info-section p {
-    margin-bottom: 12px;
-    line-height: 1.7;
-    color: #444;
-    font-size: 14px;
-}
-
-.info-list {
-    margin: 8px 0 14px;
-    padding-left: 18px;
-    font-size: 14px;
-    color: #444;
-}
-
-.info-list li { margin-bottom: 3px; }
-
-.faq-item {
-    border-bottom: 1px solid #e0e0e0;
-    padding: 6px 0;
-}
-
-.faq-question {
-    position: relative;
-    width: 100%;
-    background: #f9fafb;
-    border: none;
-    text-align: left;
-    padding: 10px 12px 10px 30px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    line-height: 1.4;
-    color: #111827;
-    border-radius: 8px;
-}
-
-.faq-question::before {
-    content: "▶";
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    color: #6b7280;
-}
-
-.faq-item.active .faq-question::before { content: "▼"; }
-.faq-question:hover { background: #eef2ff; }
-
-.faq-answer {
-    display: none;
-    padding: 6px 2px 12px;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.7;
-}
-.faq-item.active .faq-answer { display: block; }
-
-.page-wrapper .footer-text { margin-top: 28px; }
-
-@media (max-width: 820px) {
-    .ue-grid2 { grid-template-columns: 1fr; }
-    .ue-io { grid-template-columns: 1fr; }
-}
-
-/* ===== Mobile readability patch ===== */
-
-/* 입력/출력 영역을 더 "카드"처럼 분리 */
-.ue-col {
-    padding: 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    background: #ffffff;
-}
-
-/* 라벨 행을 더 진하게 + 구분감 */
-.ue-label-row {
-    padding-bottom: 8px;
-    border-bottom: 1px dashed #e5e7eb;
-    margin-bottom: 6px;
-}
-
-.ue-label-row label {
-    font-size: 14px;
-    font-weight: 900;
-}
-
-/* 라벨에 시각적 배지 느낌 */
-.ue-label-row label::before {
-    content: "●";
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 10px;
-    transform: translateY(-1px);
-    color: #111827;
-}
-
-/* 입력/결과 텍스트영역에 배경 차이를 줘서 구분 */
-#ue-input.ue-textarea {
-    background: #fff7ed;               /* 연한 주황 */
-    border: 1px solid #fed7aa;
-}
-
-#ue-output.ue-textarea {
-    background: #eff6ff;               /* 연한 파랑 */
-    border: 1px solid #bfdbfe;
-}
-
-/* textarea 기본 가독성 강화 */
-.ue-textarea {
-    font-size: 14px;
-    line-height: 1.6;
-    padding: 12px;
-    border-radius: 12px;
-}
-
-/* 버튼: 모바일에서는 2열 그리드로 정렬 */
-@media (max-width: 820px) {
-    .ue-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-
-    /* 변환 버튼은 2칸 차지 */
-    .ue-actions .ue-primary {
-        grid-column: 1 / -1;
-    }
-
-    /* 예시 칩은 너무 많아 보이니 줄바꿈 여유 */
-    .ue-examples {
-        gap: 6px;
-    }
-
-    /* 복사 버튼은 너무 커보이지 않게 */
-    .ue-small {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-}
-
-/* 모바일에서 상단 옵션 영역이 길어 보이면 줄이기 */
-@media (max-width: 820px) {
-    .ue-hint {
-        margin-top: 8px;
-        font-size: 12px;
-    }
-}
+@media(min-width:800px){.ue-page .header-actions{flex-direction:row-reverse;gap:20px}}
+@media(max-width:900px){.formula-card{display:none}.calculator-layout{gap:14px}.input-panel,.result-box{padding:16px 18px 18px}.reference-grid{gap:16px}.info-section{padding:20px}.faq-section{gap:25px}.ue-page textarea{min-height:200px}}
+@media(max-width:760px){.ue-options-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.intro-grid{grid-template-columns:1fr;gap:8px}.intro-grid h1{font-size:22px}.ue-intro{padding:14px 0 10px}.page-links{gap:0;justify-content:space-between;padding:10px 0}.page-links a{font-size:11px}.calculator-layout,.reference-grid{grid-template-columns:1fr}.ue-page textarea{min-height:180px}.reference-heading{margin-top:30px}.faq-section{grid-template-columns:1fr;gap:22px;margin-top:26px;padding-top:24px}.related-links{grid-template-columns:1fr;gap:10px}.related-links>a{padding:18px}.info-section{padding:21px}.ue-page .home-footer{margin-top:30px}}
+@media(max-width:380px){.ue-page .page-wrapper{padding-left:16px;padding-right:16px}.intro-grid h1{font-size:20px}.intro-description{font-size:12px}.input-panel,.result-box{padding:14px 14px 16px}.info-section{padding:18px 13px}}
+@media(prefers-reduced-motion:reduce){.ue-page *{scroll-behavior:auto!important;transition:none!important}}
