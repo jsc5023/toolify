@@ -1,241 +1,86 @@
-// 나이 계산기 전용 JS
+(function (root, factory) {
+    const api = factory();
+    if (typeof module === "object" && module.exports) module.exports = api;
+    if (root) root.AgeCalculator = api;
+    if (typeof document !== "undefined") api.init(document);
+})(typeof window !== "undefined" ? window : null, function () {
+    "use strict";
 
-const birthInput = document.getElementById("birth-date");
-const baseInput = document.getElementById("base-date");
-
-const todayBtn = document.getElementById("today-btn");
-const sampleBtn = document.getElementById("sample-btn");
-const clearBtn = document.getElementById("clear-btn");
-const calcBtn = document.getElementById("calc-btn");
-
-const resultSummaryEl = document.getElementById("result-summary");
-const ageManEl = document.getElementById("age-man");
-const ageManSubEl = document.getElementById("age-man-sub");
-const ageYearEl = document.getElementById("age-year");
-const ageKorEl = document.getElementById("age-kor");
-const nextBdayEl = document.getElementById("next-bday");
-const nextBdaySubEl = document.getElementById("next-bday-sub");
-const birthWeekdayEl = document.getElementById("birth-weekday");
-const livedEl = document.getElementById("lived");
-const livedSubEl = document.getElementById("lived-sub");
-
-const weekdaysKo = ["일", "월", "화", "수", "목", "금", "토"];
-
-function pad2(n) {
-    return String(n).padStart(2, "0");
-}
-
-// date input용 YYYY-MM-DD
-function formatYMD(d) {
-    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
-}
-
-// 시간/타임존 흔들림 줄이려고 "정오" 기준으로 Date 생성
-function safeDateFromYMD(ymd) {
-    const [y, m, d] = ymd.split("-").map(Number);
-    // 로컬 시간 기준 정오(12:00)로 생성
-    return new Date(y, m - 1, d, 12, 0, 0, 0);
-}
-
-function daysBetween(a, b) {
-    // a, b는 Date (정오)
-    const ms = b.getTime() - a.getTime();
-    return Math.floor(ms / (1000 * 60 * 60 * 24));
-}
-
-function isValidYMD(ymd) {
-    return /^\d{4}-\d{2}-\d{2}$/.test(ymd);
-}
-
-function setTodayToBase() {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0, 0);
-    baseInput.value = formatYMD(today);
-}
-
-function enableCalcIfReady() {
-    const ok = isValidYMD(birthInput.value) && isValidYMD(baseInput.value);
-    calcBtn.disabled = !ok;
-    if (!ok) {
-        resultSummaryEl.textContent = "생년월일을 입력하면 결과가 표시됩니다.";
+    const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
+    function pad2(value) { return String(value).padStart(2, "0"); }
+    function isLeapYear(year) { return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0); }
+    function daysInMonth(year, month) { return new Date(Date.UTC(year, month, 0)).getUTCDate(); }
+    function parseYMD(value) {
+        const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ""));
+        if (!match) return null;
+        const date = { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
+        return date.month >= 1 && date.month <= 12 && date.day >= 1 && date.day <= daysInMonth(date.year, date.month) ? date : null;
     }
-}
-
-// 만 나이 계산
-function calcManAge(birth, base) {
-    let age = base.getFullYear() - birth.getFullYear();
-
-    const baseMD = (base.getMonth() + 1) * 100 + base.getDate();
-    const birthMD = (birth.getMonth() + 1) * 100 + birth.getDate();
-
-    if (baseMD < birthMD) age -= 1;
-    return age;
-}
-
-// 전체 개월 + 남은 일수 (출생일부터 기준일까지)
-function calcMonthsAndDaysLived(birth, base) {
-    // base가 birth보다 과거면 0
-    if (base.getTime() < birth.getTime()) {
-        return { months: 0, days: 0 };
+    function formatYMD(date) { return `${date.year}-${pad2(date.month)}-${pad2(date.day)}`; }
+    function compareDates(first, second) { return Date.UTC(first.year, first.month - 1, first.day) - Date.UTC(second.year, second.month - 1, second.day); }
+    function daysBetween(first, second) { return Math.round((Date.UTC(second.year, second.month - 1, second.day) - Date.UTC(first.year, first.month - 1, first.day)) / 86400000); }
+    function weekday(date) { return WEEKDAYS[new Date(Date.UTC(date.year, date.month - 1, date.day)).getUTCDay()]; }
+    function birthdayInYear(birth, year) { return { year, month: birth.month, day: birth.month === 2 && birth.day === 29 && !isLeapYear(year) ? 28 : birth.day }; }
+    function addMonthsClamped(date, months) {
+        const index = date.year * 12 + date.month - 1 + months;
+        const year = Math.floor(index / 12); const month = index % 12 + 1;
+        return { year, month, day: Math.min(date.day, daysInMonth(year, month)) };
     }
-
-    let months =
-        (base.getFullYear() - birth.getFullYear()) * 12 +
-        (base.getMonth() - birth.getMonth());
-
-    // "기준일의 일(day)"이 birth의 일보다 작으면 아직 한 달 덜 채움
-    if (base.getDate() < birth.getDate()) {
-        months -= 1;
+    function livedMonthsAndDays(birth, base) {
+        let months = (base.year - birth.year) * 12 + base.month - birth.month;
+        let anchor = addMonthsClamped(birth, months);
+        if (compareDates(anchor, base) > 0) { months -= 1; anchor = addMonthsClamped(birth, months); }
+        return { months: Math.max(0, months), days: Math.max(0, daysBetween(anchor, base)) };
     }
-
-    // months를 birth에 더한 날짜를 anchor로 두고 남은 일수를 계산
-    const anchor = new Date(birth.getFullYear(), birth.getMonth() + months, birth.getDate(), 12, 0, 0, 0);
-
-    // anchor가 base보다 미래로 튀는 케이스(예: 1/31 + 1개월 = 3/3 같은 JS 보정) 방어
-    // 월 이동 후 일자가 밀리면, anchor를 그 달의 마지막 날로 보정
-    if (anchor.getMonth() !== (birth.getMonth() + months) % 12) {
-        // 보정: 해당 월의 마지막 날로
-        const y = birth.getFullYear() + Math.floor((birth.getMonth() + months) / 12);
-        const m = (birth.getMonth() + months) % 12;
-        const last = new Date(y, m + 1, 0, 12, 0, 0, 0);
-        anchor.setFullYear(last.getFullYear(), last.getMonth(), last.getDate());
+    function calculate(birthValue, baseValue) {
+        const birth = typeof birthValue === "string" ? parseYMD(birthValue) : birthValue;
+        const base = typeof baseValue === "string" ? parseYMD(baseValue) : baseValue;
+        if (!birth || !base) return { valid: false, error: "생년월일과 기준일을 모두 입력해 주세요." };
+        if (compareDates(base, birth) < 0) return { valid: false, error: "기준일이 생년월일보다 빠릅니다. 기준일을 다시 선택해 주세요." };
+        const birthday = birthdayInYear(birth, base.year);
+        const yearAge = base.year - birth.year;
+        const manAge = yearAge - (compareDates(base, birthday) < 0 ? 1 : 0);
+        const nextBirthday = compareDates(base, birthday) <= 0 ? birthday : birthdayInYear(birth, base.year + 1);
+        const lived = livedMonthsAndDays(birth, base);
+        return { valid: true, birth, base, manAge, yearAge, koreanAge: yearAge + 1, birthdayThisYear: birthday, nextBirthday, birthdayDday: daysBetween(base, nextBirthday), birthWeekday: weekday(birth), lived, livedDays: daysBetween(birth, base) };
     }
+    function todayYMD(now) { const date = now || new Date(); return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() }; }
 
-    const days = daysBetween(anchor, base);
-    return { months: Math.max(0, months), days: Math.max(0, days) };
-}
-
-// 다음 생일까지 D-day
-function calcNextBirthdayInfo(birth, base) {
-    const baseY = base.getFullYear();
-    let next = new Date(baseY, birth.getMonth(), birth.getDate(), 12, 0, 0, 0);
-
-    // 올해 생일이 이미 지났으면 내년
-    const baseMD = (base.getMonth() + 1) * 100 + base.getDate();
-    const birthMD = (birth.getMonth() + 1) * 100 + birth.getDate();
-    if (baseMD > birthMD) {
-        next = new Date(baseY + 1, birth.getMonth(), birth.getDate(), 12, 0, 0, 0);
-    } else if (baseMD === birthMD) {
-        // 오늘이 생일
-        next = new Date(baseY, birth.getMonth(), birth.getDate(), 12, 0, 0, 0);
+    function init(doc) {
+        const $ = (selector) => doc.querySelector(selector);
+        const birthInput = $("#birth-date"), baseInput = $("#base-date"), calcButton = $("#calc-btn");
+        function resetResult(message) {
+            $(".result-box").classList.remove("is-error"); $("#age-man").textContent = "-"; $("#age-man-sub").textContent = message; $("#age-year").textContent = "-"; $("#age-kor").textContent = "-"; $("#next-bday").textContent = "-"; $("#next-bday-sub").textContent = "-"; $("#birth-weekday").textContent = "-"; $("#lived").textContent = "-"; $("#lived-sub").textContent = "-"; $("#result-summary").textContent = message;
+        }
+        function render() {
+            const result = calculate(birthInput.value, baseInput.value);
+            if (!result.valid) {
+                const hasBothValues = birthInput.value && baseInput.value;
+                $(".result-box").classList.toggle("is-error", Boolean(hasBothValues));
+                resetResult(result.error);
+                $(".result-box").classList.toggle("is-error", Boolean(hasBothValues));
+                return false;
+            }
+            $(".result-box").classList.remove("is-error");
+            $("#age-man").textContent = `만 ${result.manAge}세`;
+            const birthdayStatus = result.birthdayDday === 0 ? "오늘이 생일입니다 🎉" : compareDates(result.base, result.birthdayThisYear) < 0 ? "올해 생일 전 기준" : "올해 생일 지난 기준";
+            $("#age-man-sub").textContent = birthdayStatus;
+            $("#age-year").textContent = `${result.yearAge}세`; $("#age-kor").textContent = `${result.koreanAge}세`;
+            $("#next-bday").textContent = result.birthdayDday === 0 ? "D-Day" : `D-${result.birthdayDday}`;
+            $("#next-bday-sub").textContent = result.birthdayDday === 0 ? "생일 축하합니다 🎂" : `다음 생일: ${formatYMD(result.nextBirthday)}`;
+            $("#birth-weekday").textContent = `${result.birthWeekday}요일`;
+            $("#lived").textContent = `${result.lived.months}개월 ${result.lived.days}일`;
+            $("#lived-sub").textContent = `총 ${result.livedDays.toLocaleString("ko-KR")}일째`;
+            $("#result-summary").textContent = `${formatYMD(result.base)} 기준 · 생년월일 ${formatYMD(result.birth)}`;
+            return true;
+        }
+        function update() { const ready = Boolean(parseYMD(birthInput.value) && parseYMD(baseInput.value)); calcButton.disabled = !ready; if (ready) render(); else resetResult("생년월일을 입력하면 결과가 표시됩니다."); }
+        function setBaseToday() { baseInput.value = formatYMD(todayYMD()); update(); }
+        birthInput.addEventListener("input", update); baseInput.addEventListener("input", update); calcButton.addEventListener("click", render);
+        $("#today-btn").addEventListener("click", setBaseToday);
+        $("#sample-btn").addEventListener("click", () => { birthInput.value = "1995-08-24"; baseInput.value = formatYMD(todayYMD()); update(); });
+        $("#clear-btn").addEventListener("click", () => { birthInput.value = ""; baseInput.value = formatYMD(todayYMD()); update(); birthInput.focus(); });
+        baseInput.value = formatYMD(todayYMD()); update();
     }
-
-    // D-day 계산 (오늘 생일이면 0)
-    const d = daysBetween(base, next);
-    return { nextDate: next, dday: d };
-}
-
-function renderResult(birth, base) {
-    if (base.getTime() < birth.getTime()) {
-        resultSummaryEl.textContent = "기준일이 생년월일보다 빠릅니다. 기준일을 다시 선택해 주세요.";
-        ageManEl.textContent = "-";
-        ageManSubEl.textContent = "-";
-        ageYearEl.textContent = "-";
-        ageKorEl.textContent = "-";
-        nextBdayEl.textContent = "-";
-        nextBdaySubEl.textContent = "-";
-        birthWeekdayEl.textContent = "-";
-        livedEl.textContent = "-";
-        livedSubEl.textContent = "-";
-        return;
-    }
-
-    // 만/연/세는 나이
-    const man = calcManAge(birth, base);
-    const yearAge = base.getFullYear() - birth.getFullYear();
-    const kor = yearAge + 1;
-
-    ageManEl.textContent = `${man}세`;
-    ageYearEl.textContent = `${yearAge}세`;
-    ageKorEl.textContent = `${kor}세`;
-
-    // 만 나이 보조 문구
-    const baseMD = (base.getMonth() + 1) * 100 + base.getDate();
-    const birthMD = (birth.getMonth() + 1) * 100 + birth.getDate();
-    if (baseMD === birthMD) {
-        ageManSubEl.textContent = "오늘이 생일입니다 🎉";
-    } else if (baseMD < birthMD) {
-        ageManSubEl.textContent = "올해 생일 전 기준";
-    } else {
-        ageManSubEl.textContent = "올해 생일 지난 기준";
-    }
-
-    // 다음 생일까지
-    const { nextDate, dday } = calcNextBirthdayInfo(birth, base);
-    if (dday === 0) {
-        nextBdayEl.textContent = "D-Day";
-        nextBdaySubEl.textContent = "생일 축하합니다 🎂";
-    } else {
-        nextBdayEl.textContent = `D-${dday}`;
-        nextBdaySubEl.textContent = `다음 생일: ${formatYMD(nextDate)}`;
-    }
-
-    // 태어난 요일
-    const w = weekdaysKo[birth.getDay()];
-    birthWeekdayEl.textContent = `${w}요일`;
-
-    // 살아온 개월/일수 + 총 일수
-    const livedDays = daysBetween(birth, base); // birth~base (기준일 포함 X)
-    const { months, days } = calcMonthsAndDaysLived(birth, base);
-    livedEl.textContent = `${months}개월 ${days}일`;
-    livedSubEl.textContent = `총 ${livedDays}일째 (기준일: ${formatYMD(base)})`;
-
-    // 요약
-    resultSummaryEl.textContent =
-        `${formatYMD(base)} 기준으로 계산했습니다. (생년월일: ${formatYMD(birth)})`;
-}
-
-function calculate() {
-    if (!isValidYMD(birthInput.value) || !isValidYMD(baseInput.value)) return;
-
-    const birth = safeDateFromYMD(birthInput.value);
-    const base = safeDateFromYMD(baseInput.value);
-
-    renderResult(birth, base);
-}
-
-todayBtn.addEventListener("click", () => {
-    setTodayToBase();
-    enableCalcIfReady();
-    calculate();
+    return { isLeapYear, daysInMonth, parseYMD, formatYMD, compareDates, daysBetween, weekday, birthdayInYear, addMonthsClamped, livedMonthsAndDays, calculate, todayYMD, init };
 });
-
-sampleBtn.addEventListener("click", () => {
-    birthInput.value = "1995-08-24";
-    setTodayToBase();
-    enableCalcIfReady();
-    calculate();
-});
-
-clearBtn.addEventListener("click", () => {
-    birthInput.value = "";
-    setTodayToBase();
-    enableCalcIfReady();
-    // 결과 초기화
-    resultSummaryEl.textContent = "생년월일을 입력하면 결과가 표시됩니다.";
-    ageManEl.textContent = "-";
-    ageManSubEl.textContent = "-";
-    ageYearEl.textContent = "-";
-    ageKorEl.textContent = "-";
-    nextBdayEl.textContent = "-";
-    nextBdaySubEl.textContent = "-";
-    birthWeekdayEl.textContent = "-";
-    livedEl.textContent = "-";
-    livedSubEl.textContent = "-";
-});
-
-calcBtn.addEventListener("click", () => {
-    calculate();
-});
-
-// 입력 변화 시 자동 계산(사용성 ↑)
-[birthInput, baseInput].forEach((el) => {
-    el.addEventListener("input", () => {
-        enableCalcIfReady();
-        if (!calcBtn.disabled) calculate();
-    });
-});
-
-// 초기 로드 시 기준일은 오늘로 세팅
-setTodayToBase();
-enableCalcIfReady();
