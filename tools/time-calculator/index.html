@@ -2,331 +2,113 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>무료 시간 계산기 - 시간 차이, N시간 후/전, 근무시간 계산</title>
-
-    <!-- AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904"
-            crossorigin="anonymous"></script>
-
+    <title>시간 계산기 | 시간 차이·더하기·근무시간 계산 - Toolify</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
     <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
     <link rel="icon" type="image/png" href="../../favicon.png" />
-
-    <meta
-            name="description"
-            content="두 시간(날짜+시간) 사이 차이 계산, N시간/분/초 후·전 계산, 근무시간(휴게 제외) 계산, 초·분·시간 변환까지 한 번에 가능한 무료 시간 계산기입니다."
-    />
+    <meta name="description" content="두 날짜와 시간의 차이, N시간 후·전, 휴게시간을 제외한 근무시간, 초·분·시간 단위 변환을 한 번에 계산하는 무료 시간 계산기입니다." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- 공통 스타일 -->
-    <link rel="stylesheet" href="../../style.css" />
-    <!-- 시간 계산기 전용 스타일 -->
-    <link rel="stylesheet" href="./time-calculator.css" />
-
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <link rel="stylesheet" href="./time-calculator.css?v=20260918-2" />
     <link rel="canonical" href="https://toolify.kr/tools/time-calculator/" />
-
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Toolify" />
-    <meta property="og:title" content="무료 시간 계산기 - 시간 차이, N시간 후/전, 근무시간 계산" />
-    <meta property="og:description" content="두 시간 사이 차이 계산, N시간/분/초 후·전 계산, 근무시간(휴게 제외) 계산, 초·분·시간 변환까지 지원하는 무료 시간 계산기입니다." />
+    <meta property="og:title" content="시간 계산기 - 시간 차이·더하기·근무시간 계산" />
+    <meta property="og:description" content="두 시간의 차이부터 N시간 후·전, 실 근무시간과 시간 단위 변환까지 빠르게 계산하세요." />
     <meta property="og:url" content="https://toolify.kr/tools/time-calculator/" />
-
-    <!-- 시간 계산기 FAQ 구조화 데이터 -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "시간 계산 결과가 서버에 저장되나요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "아니요. 모든 계산은 브라우저 안에서만 수행되며 입력 값은 서버로 전송하거나 저장하지 않습니다."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "자정(00:00)을 넘어가는 시간도 계산되나요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "네. 날짜+시간을 함께 입력하기 때문에 자정을 넘어가는 경우도 정확하게 계산됩니다."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "근무시간 계산에서 점심/휴게시간은 어떻게 반영되나요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "근무 시작~종료 시간의 총 시간에서 휴게시간(분)을 입력하면 자동으로 제외해 실 근무시간을 계산합니다."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "N시간 후/전 계산은 분/초도 지원하나요?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "네. 시간/분/초 단위를 선택해 더하기·빼기 계산을 할 수 있습니다."
-                    }
-                }
-            ]
-        }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"시간 계산 결과가 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 모든 계산은 브라우저 안에서만 수행되며 입력 값은 서버로 전송하거나 저장하지 않습니다."}},{"@type":"Question","name":"자정(00:00)을 넘어가는 시간도 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 날짜와 시간을 함께 입력하기 때문에 자정을 넘어가는 경우도 정확하게 계산됩니다."}},{"@type":"Question","name":"근무시간 계산에서 점심·휴게시간은 어떻게 반영되나요?","acceptedAnswer":{"@type":"Answer","text":"근무 시작부터 종료까지의 총 시간에서 입력한 휴게시간을 제외해 실 근무시간을 계산합니다."}},{"@type":"Question","name":"N시간 후·전 계산은 분과 초도 지원하나요?","acceptedAnswer":{"@type":"Answer","text":"네. 시간, 분, 초 단위를 선택해 더하기와 빼기 계산을 할 수 있습니다."}}]}</script>
 </head>
-
-<body>
-<!-- 공통 헤더 -->
+<body class="reading-page tc-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="../../" class="logo">Toolify</a>
-
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
         <div class="header-actions">
-            <!-- 툴 페이지에서는 홈 검색으로 보내기 -->
-            <button class="icon-btn" id="header-search-btn"
-                    type="button"
-                    aria-label="도구 검색(홈으로 이동)">
-                🔍
-            </button>
-
-            <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="../../">홈</a></li>
-                    <li><a href="../../#tools">전체 도구</a></li>
-                    <li><a href="../../#categories">카테고리</a></li>
-                    <li><a href="../../contact.html">문의</a></li>
-                </ul>
+            <button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button>
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="tc-nav" aria-expanded="false">☰</button>
+                <ul class="nav-links" id="tc-nav"><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../guides/">사용 가이드</a></li><li><a href="../../about.html">소개</a></li><li><a href="../../contact.html">문의</a></li></ul>
             </nav>
         </div>
     </div>
 </header>
 
 <div class="page-wrapper">
-    <header class="header-card">
-        <h1>⏰ 시간 계산기 (시간 차이 / N시간 후·전 / 근무시간)</h1>
-        <p class="subtitle">
-            두 시간(날짜+시간) 사이 차이 계산, N시간/분/초 후·전 계산, 근무시간(휴게 제외) 계산,
-            초·분·시간 변환까지 한 번에 할 수 있는 무료 시간 계산기입니다.
-        </p>
+    <header class="tc-intro">
+        <nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">계산 도구</a><span>/</span><span aria-current="page">시간 계산기</span></nav>
+        <div class="intro-grid">
+            <div><p class="eyebrow">TIME TOOL · 일정 · 근무시간 · 단위 변환</p><h1>⏱ 시간 <span>계산기</span></h1><p class="intro-description">시간 차이부터 N시간 후·전, 휴게시간을 뺀 실 근무시간까지 한곳에서 간편하게 계산해요.</p></div>
+            <aside class="formula-card" aria-label="계산 예시"><code class="tc-chip">09:00 → 18:00</code><span class="tc-op" aria-hidden="true">=</span><code class="tc-chip tc-chip-result">9시간</code></aside>
+        </div>
     </header>
 
     <main>
-        <!-- 메인 도구 영역 -->
-        <section class="tool-card">
-            <div class="tabs">
-                <button class="tab-button active" data-tab="diff">⏱️ 시간 차이</button>
-                <button class="tab-button" data-tab="addsub">➕ N시간 후·전</button>
-                <button class="tab-button" data-tab="work">🏢 근무시간</button>
-                <button class="tab-button" data-tab="convert">🔁 단위 변환</button>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">시간 계산</a><a href="#guide">활용 방법</a><a href="#faq">자주 묻는 질문</a></nav>
+        <section class="tc-workspace" id="calculator" aria-label="시간 계산기">
+            <div class="tc-mode-tabs" role="tablist" aria-label="계산 방식 선택">
+                <button type="button" class="tc-mode-tab active" id="tab-button-diff" role="tab" aria-selected="true" aria-controls="tab-diff" data-tab="diff"><span>01</span>시간 차이</button>
+                <button type="button" class="tc-mode-tab" id="tab-button-addsub" role="tab" aria-selected="false" aria-controls="tab-addsub" data-tab="addsub"><span>02</span>시간 더하기·빼기</button>
+                <button type="button" class="tc-mode-tab" id="tab-button-work" role="tab" aria-selected="false" aria-controls="tab-work" data-tab="work"><span>03</span>근무시간</button>
+                <button type="button" class="tc-mode-tab" id="tab-button-convert" role="tab" aria-selected="false" aria-controls="tab-convert" data-tab="convert"><span>04</span>단위 변환</button>
             </div>
-
-            <!-- 탭 1: 시간 차이 -->
-            <div class="tab-panel active" id="tab-diff">
-                <h2>두 시간 사이 차이</h2>
-                <p class="small mb-8">
-                    시작/종료를 날짜+시간으로 입력하면 자정을 넘어가는 경우도 정확하게 계산됩니다.
-                </p>
-
-                <div class="row">
-                    <div>
-                        <label for="diff-start">시작 (날짜+시간)</label>
-                        <input type="datetime-local" id="diff-start" />
-                    </div>
-                    <div>
-                        <label for="diff-end">종료 (날짜+시간)</label>
-                        <input type="datetime-local" id="diff-end" />
-                    </div>
+            <div class="calculator-layout">
+                <div class="input-panel">
+                    <section class="tab-panel active" id="tab-diff" role="tabpanel" aria-labelledby="tab-button-diff">
+                        <div class="panel-heading"><span class="step-number">01</span><div><h2>두 시간 사이 차이</h2><p>날짜를 함께 입력하면 자정을 넘어가도 계산할 수 있어요.</p></div></div>
+                        <div class="tool-grid"><div class="field"><label for="diff-start">시작 날짜·시간</label><input type="datetime-local" id="diff-start" /></div><div class="field"><label for="diff-end">종료 날짜·시간</label><input type="datetime-local" id="diff-end" /></div></div>
+                        <label class="checkbox-inline"><input type="checkbox" id="diff-include-start" /> 시작일을 포함해서 계산 <span class="checkbox-help">(계산 결과에 1일 추가)</span></label>
+                        <div class="actions"><button id="diff-btn" type="button">차이 계산하기</button><button id="diff-swap" class="secondary" type="button">시작·종료 바꾸기</button></div>
+                    </section>
+                    <section class="tab-panel" id="tab-addsub" role="tabpanel" aria-labelledby="tab-button-addsub" hidden>
+                        <div class="panel-heading"><span class="step-number">02</span><div><h2>N시간 후·전 계산</h2><p>기준 시각에 원하는 시간·분·초를 더하거나 빼요.</p></div></div>
+                        <div class="field"><label for="as-base">기준 날짜·시간</label><input type="datetime-local" id="as-base" /></div>
+                        <div class="tool-grid tc-offset-grid"><div class="field"><label for="as-value">계산할 값</label><input type="number" id="as-value" value="90" step="any" inputmode="decimal" /></div><div class="field"><label for="as-unit">단위</label><select id="as-unit"><option value="hours">시간</option><option value="minutes" selected>분</option><option value="seconds">초</option></select></div><div class="field"><label for="as-mode">연산</label><select id="as-mode"><option value="plus">더하기 (+)</option><option value="minus">빼기 (−)</option></select></div></div>
+                        <div class="actions"><button id="as-btn" type="button">결과 계산하기</button><button id="as-now" class="secondary" type="button">현재 시간 넣기</button></div>
+                    </section>
+                    <section class="tab-panel" id="tab-work" role="tabpanel" aria-labelledby="tab-button-work" hidden>
+                        <div class="panel-heading"><span class="step-number">03</span><div><h2>실 근무시간 계산</h2><p>출근부터 퇴근까지의 시간에서 점심·휴게시간을 제외해요.</p></div></div>
+                        <div class="tool-grid"><div class="field"><label for="work-start">근무 시작</label><input type="datetime-local" id="work-start" /></div><div class="field"><label for="work-end">근무 종료</label><input type="datetime-local" id="work-end" /></div></div>
+                        <div class="field tc-break-field"><label for="work-break">휴게시간</label><div class="input-with-unit"><input type="number" id="work-break" min="0" step="1" value="60" inputmode="numeric" /><span class="unit-badge">분</span></div></div>
+                        <label class="checkbox-inline"><input type="checkbox" id="work-clamp" checked /> 휴게시간이 총 근무시간보다 길면 0시간으로 표시</label>
+                        <div class="actions"><button id="work-btn" type="button">근무시간 계산하기</button><button id="work-sample" class="secondary" type="button">09시–18시 예시</button></div>
+                    </section>
+                    <section class="tab-panel" id="tab-convert" role="tabpanel" aria-labelledby="tab-button-convert" hidden>
+                        <div class="panel-heading"><span class="step-number">04</span><div><h2>초·분·시간 변환</h2><p>하나의 시간 단위를 다른 단위로 바로 바꿔요.</p></div></div>
+                        <div class="tool-grid tc-convert-grid"><div class="field"><label for="cv-value">입력 값</label><input type="number" id="cv-value" min="0" step="any" value="3600" inputmode="decimal" /></div><div class="field"><label for="cv-from">입력 단위</label><select id="cv-from"><option value="seconds" selected>초</option><option value="minutes">분</option><option value="hours">시간</option></select></div><span class="convert-arrow" aria-hidden="true">→</span><div class="field"><label for="cv-to">변환 단위</label><select id="cv-to"><option value="seconds">초</option><option value="minutes" selected>분</option><option value="hours">시간</option></select></div></div>
+                        <div class="actions"><button id="cv-btn" type="button">단위 변환하기</button><button id="cv-swap" class="secondary" type="button">단위 서로 바꾸기</button></div>
+                    </section>
+                    <p class="input-note">입력값은 이 브라우저에서만 계산되며 저장되지 않습니다.</p>
                 </div>
-
-                <div class="btn-row">
-                    <button id="diff-btn">차이 계산</button>
-                    <button id="diff-swap" class="btn-secondary">서로 바꾸기</button>
-                </div>
-
-                <div id="diff-result" class="result"></div>
-                <div id="diff-extra" class="small"></div>
-            </div>
-
-            <!-- 탭 2: N시간 후/전 -->
-            <div class="tab-panel" id="tab-addsub">
-                <h2>N시간/분/초 더하기 · 빼기</h2>
-
-                <label for="as-base">기준 시간 (날짜+시간)</label>
-                <input type="datetime-local" id="as-base" />
-
-                <div class="row">
-                    <div>
-                        <label for="as-value">값</label>
-                        <input type="number" id="as-value" placeholder="예: 90" />
-                    </div>
-                    <div>
-                        <label for="as-unit">단위</label>
-                        <select id="as-unit">
-                            <option value="hours">시간</option>
-                            <option value="minutes">분</option>
-                            <option value="seconds">초</option>
-                        </select>
-                    </div>
-                </div>
-
-                <label for="as-mode" class="mt-4">연산</label>
-                <select id="as-mode">
-                    <option value="plus">+ 더하기</option>
-                    <option value="minus">- 빼기</option>
-                </select>
-
-                <div class="btn-row">
-                    <button id="as-btn">계산하기</button>
-                    <button id="as-now" class="btn-secondary">현재 시간 넣기</button>
-                </div>
-
-                <div id="as-result" class="result"></div>
-                <div id="as-extra" class="small"></div>
-            </div>
-
-            <!-- 탭 3: 근무시간 -->
-            <div class="tab-panel" id="tab-work">
-                <h2>근무시간 계산 (휴게 제외)</h2>
-                <p class="small mb-8">
-                    근무 시작~종료의 총 시간에서 휴게시간(분)을 제외해 실 근무시간을 계산합니다.
-                </p>
-
-                <div class="row">
-                    <div>
-                        <label for="work-start">근무 시작</label>
-                        <input type="datetime-local" id="work-start" />
-                    </div>
-                    <div>
-                        <label for="work-end">근무 종료</label>
-                        <input type="datetime-local" id="work-end" />
-                    </div>
-                </div>
-
-                <label for="work-break" class="mt-4">휴게시간 (분)</label>
-                <input type="number" id="work-break" placeholder="예: 60" />
-
-                <label class="checkbox-inline mt-4">
-                    <input type="checkbox" id="work-clamp" checked />
-                    휴게시간이 총 근무시간보다 크면 0으로 처리
-                </label>
-
-                <div class="btn-row">
-                    <button id="work-btn">근무시간 계산하기</button>
-                    <button id="work-sample" class="btn-secondary">예시 넣기</button>
-                </div>
-
-                <div id="work-result" class="result"></div>
-                <div id="work-extra" class="small"></div>
-            </div>
-
-            <!-- 탭 4: 단위 변환 -->
-            <div class="tab-panel" id="tab-convert">
-                <h2>초 · 분 · 시간 변환</h2>
-
-                <div class="row">
-                    <div>
-                        <label for="cv-value">입력 값</label>
-                        <input type="number" id="cv-value" placeholder="예: 3600" />
-                    </div>
-                    <div>
-                        <label for="cv-from">입력 단위</label>
-                        <select id="cv-from">
-                            <option value="seconds">초</option>
-                            <option value="minutes">분</option>
-                            <option value="hours">시간</option>
-                        </select>
-                    </div>
-                </div>
-
-                <label for="cv-to" class="mt-4">변환 단위</label>
-                <select id="cv-to">
-                    <option value="seconds">초</option>
-                    <option value="minutes">분</option>
-                    <option value="hours">시간</option>
-                </select>
-
-                <div class="btn-row">
-                    <button id="cv-btn">변환하기</button>
-                    <button id="cv-swap" class="btn-secondary">단위 바꾸기</button>
-                </div>
-
-                <div id="cv-result" class="result"></div>
-                <div id="cv-extra" class="small"></div>
+                <aside class="result-box" role="status" aria-live="polite" aria-atomic="true">
+                    <div class="panel-heading"><span class="step-number">✓</span><h2 id="result-heading">계산 결과</h2></div>
+                    <div class="tc-result-hero"><span id="result-label">두 시간의 차이</span><strong id="result-value">9시간 0분</strong><p id="result-summary">오늘 09:00부터 18:00까지</p></div>
+                    <div class="tc-stat-grid"><div><span id="stat-one-label">총 분</span><strong id="stat-one-value">540분</strong></div><div><span id="stat-two-label">소수 시간</span><strong id="stat-two-value">9시간</strong></div></div>
+                    <p class="tc-result-note" id="result-note">시작과 종료가 같은 경우 0시간으로 계산해요.</p>
+                </aside>
             </div>
         </section>
 
-        <!-- UX + SEO 설명 섹션 -->
-        <section class="info-section">
-            <h2>시간 계산기가 필요한 순간</h2>
-            <p>
-                시간 계산기는 출퇴근 기록, 근무 시간 산정, 일정 사이 공백 확인, 프로젝트 작업 시간 측정처럼
-                일상과 업무에서 자주 쓰입니다. 날짜가 넘어가거나 휴게시간을 제외해야 하는 경우,
-                머리로 계산하면 실수하기 쉬워 계산기를 활용하면 편합니다.
-            </p>
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>시간 계산이 필요한 순간</h2><p>날짜가 바뀌거나 휴게시간이 섞여 있어도 순서대로 입력하면 돼요.</p></div>
+        <div class="reference-grid">
+            <section class="info-section"><h2>네 가지 계산을 한곳에서</h2><p>일정 사이의 간격 확인, 마감 시각 계산, 출퇴근 기록 정리처럼 자주 쓰는 시간 계산을 탭으로 모았습니다. 입력을 바꾸면 현재 탭의 결과가 바로 갱신돼요.</p><ul class="info-list"><li>날짜를 포함한 시작·종료 시각의 정확한 차이</li><li>기준 시각에서 N시간·분·초 후 또는 전</li><li>휴게시간을 제외한 실제 근무시간</li><li>초·분·시간 사이 빠른 단위 변환</li></ul></section>
+            <section class="info-section"><h2>자정을 넘는 시간 계산</h2><p>22:30부터 다음 날 01:15까지라면 종료 날짜를 다음 날로 선택해야 해요. 시간만 보고 종료가 더 이르다고 자동으로 다음 날을 가정하지 않으므로 날짜도 함께 확인해 주세요.</p><div class="tc-formula">다음 날 01:15 − 오늘 22:30 = 2시간 45분</div><p class="helper"><a href="../../guides/time-calculation.html">자정을 넘는 시간 계산 가이드 →</a></p></section>
+        </div>
 
-            <ul class="info-list">
-                <li>두 일정 사이의 시간 차이를 정확히 알고 싶을 때</li>
-                <li>지금부터 N시간/분/초 후(전)가 언제인지 확인할 때</li>
-                <li>근무시간에서 점심/휴게를 제외한 실 근무시간이 필요할 때</li>
-                <li>초·분·시간 단위를 빠르게 변환해야 할 때</li>
-            </ul>
-
-            <p>
-                이 페이지의 시간 계산기는 브라우저에서만 동작하며 입력 값은 저장되지 않습니다.
-            </p>
-        </section>
-
-        <!-- FAQ 섹션 -->
-        <section class="faq-section">
-            <h2>자주 묻는 질문 (FAQ)</h2>
-
-            <div class="faq-item">
-                <button class="faq-question">시간 계산 결과가 서버에 저장되나요?</button>
-                <div class="faq-answer">
-                    <p>아니요. 모든 계산은 브라우저 안에서만 수행되며 입력 값은 서버로 전송하거나 저장하지 않습니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">자정(00:00)을 넘어가는 시간도 계산되나요?</button>
-                <div class="faq-answer">
-                    <p>네. 날짜+시간을 함께 입력하기 때문에 자정을 넘어가는 경우도 정확하게 계산됩니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">근무시간 계산에서 휴게시간은 어떻게 반영되나요?</button>
-                <div class="faq-answer">
-                    <p>근무 시작~종료의 총 시간에서 휴게시간(분)을 입력하면 자동으로 제외해 실 근무시간을 계산합니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">N시간 후/전 계산은 분/초도 지원하나요?</button>
-                <div class="faq-answer">
-                    <p>네. 시간/분/초 단위를 선택해 더하기·빼기 계산을 할 수 있습니다.</p>
-                </div>
+        <section class="faq-section" id="faq">
+            <div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>시간 계산기에 대해 자주 묻는 질문을 모았어요.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary>시간 계산 결과가 서버에 저장되나요?</summary><div class="faq-answer"><p>아니요. 모든 계산은 현재 브라우저 안에서만 수행되며 입력 값은 서버로 전송하거나 저장하지 않습니다.</p></div></details>
+                <details class="faq-item"><summary>자정(00:00)을 넘어가는 시간도 계산되나요?</summary><div class="faq-answer"><p>네. 날짜와 시간을 함께 입력하므로 종료 날짜를 다음 날로 선택하면 자정을 넘어가는 시간도 정확하게 계산됩니다.</p></div></details>
+                <details class="faq-item"><summary>근무시간에서 점심·휴게시간은 어떻게 반영되나요?</summary><div class="faq-answer"><p>근무 시작부터 종료까지의 총 시간에서 입력한 휴게시간(분)을 제외해 실 근무시간을 계산합니다.</p></div></details>
+                <details class="faq-item"><summary>N시간 후·전 계산은 분과 초도 지원하나요?</summary><div class="faq-answer"><p>네. 시간, 분, 초 단위를 선택하고 더하기 또는 빼기를 고를 수 있습니다.</p></div></details>
             </div>
         </section>
-        <section class="editorial-section" aria-label="관련 사용 가이드">
-            <h2>계산 결과가 궁금하다면</h2>
-            <p>22:30부터 다음 날 01:15까지는 왜 2시간 45분일까요? 날짜 입력과 휴게시간 차감, 소수 시간 환산을 예제로 확인하세요.</p>
-            <a href="../../guides/time-calculation.html">자정을 넘는 시간 계산 가이드 →</a>
-        </section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 도구도 둘러보세요</h2></div><div class="related-links"><a href="../date-calculator/"><span>📅</span><div><h3>날짜 계산기</h3><p>두 날짜 차이와 D-Day 계산</p></div><span aria-hidden="true">↗</span></a><a href="../transfer-time/"><span>🚀</span><div><h3>파일 전송 시간 계산기</h3><p>용량과 속도로 전송 완료 시간 계산</p></div><span aria-hidden="true">↗</span></a></div></section>
     </main>
-
-    <!-- 하단 공통 링크 -->
-    <section class="footer-text">
-        <p>
-            <a href="../../privacy.html">개인정보 처리방침</a> ·
-            <a href="../../terms.html">이용약관</a> ·
-            <a href="../../contact.html">Contact / 문의하기</a>
-        </p>
-    </section>
+    <footer class="home-footer"><div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div><p><a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../about.html">Toolify 소개</a> · <a href="../../contact.html">Contact / 문의하기</a></p></footer>
 </div>
-
-<!-- 공통 네비 JS -->
-<script src="../../main.js"></script>
-<!-- 시간 계산기 전용 JS -->
-<script src="./time-calculator.js"></script>
+<script src="../../main.js?v=20260918-2"></script>
+<script src="./time-calculator.js?v=20260918-2"></script>
 </body>
 </html>

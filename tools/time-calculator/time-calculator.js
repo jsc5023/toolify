@@ -1,324 +1,238 @@
-/* ============================
-   시간 계산기 전용 JS
-   - 날짜 계산기와 동일한 탭 전환 방식
-   - 시간 차이 / N시간 후전 / 근무시간 / 단위 변환
-   - FAQ 아코디언
-   - 기본값 자동 세팅
-   ============================ */
+(function (root, factory) {
+    const api = factory();
+    if (typeof module === "object" && module.exports) module.exports = api;
+    if (root) root.TimeCalculator = api;
+    if (typeof document !== "undefined") api.init(document);
+})(typeof window !== "undefined" ? window : null, function () {
+    "use strict";
 
-const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+    const UNIT_SECONDS = { seconds: 1, minutes: 60, hours: 3600 };
+    const UNIT_LABELS = { seconds: "초", minutes: "분", hours: "시간" };
+    const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
-/* === 탭 전환 (date-calculator와 동일) === */
-const tabButtons = document.querySelectorAll(".tab-button");
-const tabPanels = document.querySelectorAll(".tab-panel");
+    function pad2(value) { return String(value).padStart(2, "0"); }
 
-tabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const target = btn.dataset.tab;
-        tabButtons.forEach((b) => b.classList.remove("active"));
-        tabPanels.forEach((p) => p.classList.remove("active"));
-        btn.classList.add("active");
-        document.getElementById("tab-" + target).classList.add("active");
-    });
-});
-
-/* ===== 유틸 ===== */
-function pad2(n) {
-    return String(n).padStart(2, "0");
-}
-
-function formatKoreanDateTime(d) {
-    const yyyy = d.getFullYear();
-    const mm = pad2(d.getMonth() + 1);
-    const dd = pad2(d.getDate());
-    const hh = pad2(d.getHours());
-    const mi = pad2(d.getMinutes());
-    const ss = pad2(d.getSeconds());
-    const wd = weekdays[d.getDay()];
-    return `${yyyy}-${mm}-${dd} (${wd}) ${hh}:${mi}:${ss}`;
-}
-
-function formatDateTimeLocal(d) {
-    // datetime-local: YYYY-MM-DDTHH:mm
-    const yyyy = d.getFullYear();
-    const mm = pad2(d.getMonth() + 1);
-    const dd = pad2(d.getDate());
-    const hh = pad2(d.getHours());
-    const mi = pad2(d.getMinutes());
-    return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
-}
-
-function parseDateTimeLocal(value) {
-    if (!value) return null;
-    const d = new Date(value);
-    if (isNaN(d.getTime())) return null;
-    return d;
-}
-
-function msToParts(msAbs) {
-    const totalSeconds = Math.floor(msAbs / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const rem1 = totalSeconds % 86400;
-    const hours = Math.floor(rem1 / 3600);
-    const rem2 = rem1 % 3600;
-    const minutes = Math.floor(rem2 / 60);
-    const seconds = rem2 % 60;
-    return { totalSeconds, days, hours, minutes, seconds };
-}
-
-function partsToPretty(p) {
-    const seg = [];
-    if (p.days) seg.push(`${p.days}일`);
-    seg.push(`${p.hours}시간`);
-    seg.push(`${p.minutes}분`);
-    seg.push(`${p.seconds}초`);
-    return seg.join(" ");
-}
-
-/* ============================================================
-   1) 시간 차이
-   ============================================================ */
-document.getElementById("diff-btn").addEventListener("click", () => {
-    const sVal = document.getElementById("diff-start").value;
-    const eVal = document.getElementById("diff-end").value;
-    const result = document.getElementById("diff-result");
-    const extra = document.getElementById("diff-extra");
-
-    const s = parseDateTimeLocal(sVal);
-    const e = parseDateTimeLocal(eVal);
-
-    if (!s || !e) {
-        result.textContent = "시작 시간과 종료 시간을 모두 입력해주세요.";
-        extra.textContent = "";
-        return;
+    function parseDateTime(value) {
+        if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : new Date(value.getTime());
+        if (!value) return null;
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? null : date;
     }
 
-    const delta = e.getTime() - s.getTime();
-    if (delta < 0) {
-        result.textContent = "종료 시간이 시작 시간보다 앞입니다.";
-        extra.textContent = "";
-        return;
+    function formatDateTimeLocal(date) {
+        return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}T${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
     }
 
-    const parts = msToParts(delta);
-    result.textContent = `총 ${partsToPretty(parts)} 입니다.`;
-    extra.textContent = `총 ${parts.totalSeconds.toLocaleString()}초 · 시작: ${formatKoreanDateTime(s)} · 종료: ${formatKoreanDateTime(e)}`;
-});
-
-document.getElementById("diff-swap").addEventListener("click", () => {
-    const s = document.getElementById("diff-start");
-    const e = document.getElementById("diff-end");
-    const tmp = s.value;
-    s.value = e.value;
-    e.value = tmp;
-});
-
-/* ============================================================
-   2) N시간 후/전
-   ============================================================ */
-function unitToMs(unit) {
-    if (unit === "hours") return 3600 * 1000;
-    if (unit === "minutes") return 60 * 1000;
-    return 1000; // seconds
-}
-
-document.getElementById("as-btn").addEventListener("click", () => {
-    const baseVal = document.getElementById("as-base").value;
-    const v = Number(document.getElementById("as-value").value);
-    const unit = document.getElementById("as-unit").value;
-    const mode = document.getElementById("as-mode").value;
-
-    const result = document.getElementById("as-result");
-    const extra = document.getElementById("as-extra");
-
-    const base = parseDateTimeLocal(baseVal);
-    if (!base) {
-        result.textContent = "기준 시간을 입력해주세요.";
-        extra.textContent = "";
-        return;
+    function formatKoreanDateTime(date) {
+        return `${date.getFullYear()}.${pad2(date.getMonth() + 1)}.${pad2(date.getDate())} (${WEEKDAYS[date.getDay()]}) ${pad2(date.getHours())}:${pad2(date.getMinutes())}${date.getSeconds() ? `:${pad2(date.getSeconds())}` : ""}`;
     }
 
-    if (isNaN(v)) {
-        result.textContent = "값을 숫자로 입력해주세요.";
-        extra.textContent = "";
-        return;
+    function durationParts(milliseconds) {
+        const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+        return {
+            totalSeconds,
+            days: Math.floor(totalSeconds / 86400),
+            hours: Math.floor((totalSeconds % 86400) / 3600),
+            minutes: Math.floor((totalSeconds % 3600) / 60),
+            seconds: totalSeconds % 60
+        };
     }
 
-    const offsetMs = v * unitToMs(unit) * (mode === "plus" ? 1 : -1);
-    const out = new Date(base.getTime() + offsetMs);
-
-    const unitLabel = unit === "hours" ? "시간" : unit === "minutes" ? "분" : "초";
-    const modeLabel = mode === "plus" ? "더한" : "뺀";
-
-    result.textContent = `결과 시간: ${formatKoreanDateTime(out)}`;
-    extra.textContent = `기준: ${formatKoreanDateTime(base)} · ${v}${unitLabel} ${modeLabel} 결과`;
-});
-
-document.getElementById("as-now").addEventListener("click", () => {
-    document.getElementById("as-base").value = formatDateTimeLocal(new Date());
-});
-
-/* ============================================================
-   3) 근무시간
-   ============================================================ */
-document.getElementById("work-btn").addEventListener("click", () => {
-    const sVal = document.getElementById("work-start").value;
-    const eVal = document.getElementById("work-end").value;
-    const breakMin = Number(document.getElementById("work-break").value);
-    const clamp = document.getElementById("work-clamp").checked;
-
-    const result = document.getElementById("work-result");
-    const extra = document.getElementById("work-extra");
-
-    const s = parseDateTimeLocal(sVal);
-    const e = parseDateTimeLocal(eVal);
-
-    if (!s || !e) {
-        result.textContent = "근무 시작과 종료 시간을 모두 입력해주세요.";
-        extra.textContent = "";
-        return;
+    function formatDuration(milliseconds) {
+        const part = durationParts(milliseconds);
+        if (part.totalSeconds === 0) return "0초";
+        const output = [];
+        if (part.days) output.push(`${part.days}일`);
+        if (part.days || part.hours) output.push(`${part.hours}시간`);
+        if (part.days || part.hours || part.minutes) output.push(`${part.minutes}분`);
+        if ((!part.days && !part.hours) || part.seconds) output.push(`${part.seconds}초`);
+        return output.join(" ");
     }
 
-    const totalMs = e.getTime() - s.getTime();
-    if (totalMs < 0) {
-        result.textContent = "근무 종료 시간이 시작 시간보다 앞입니다.";
-        extra.textContent = "";
-        return;
+    function calculateDifference(startValue, endValue, includeStartDate) {
+        const start = parseDateTime(startValue);
+        const end = parseDateTime(endValue);
+        if (!start || !end) return { valid: false, error: "시작 날짜와 종료 날짜를 모두 입력해 주세요." };
+        const elapsedMilliseconds = end.getTime() - start.getTime();
+        if (elapsedMilliseconds < 0) return { valid: false, error: "종료 시간이 시작 시간보다 앞서 있어요." };
+        const milliseconds = elapsedMilliseconds + (includeStartDate ? 86400000 : 0);
+        return { valid: true, start, end, includeStartDate: Boolean(includeStartDate), elapsedMilliseconds, milliseconds, ...durationParts(milliseconds) };
     }
 
-    if (isNaN(breakMin) || breakMin < 0) {
-        result.textContent = "휴게시간(분)을 0 이상의 숫자로 입력해주세요.";
-        extra.textContent = "";
-        return;
+    function addTime(baseValue, value, unit, mode) {
+        const base = parseDateTime(baseValue);
+        const amount = Number(value);
+        if (!base) return { valid: false, error: "기준 날짜와 시간을 입력해 주세요." };
+        if (!Number.isFinite(amount) || amount < 0) return { valid: false, error: "계산할 값을 0 이상의 숫자로 입력해 주세요." };
+        if (!UNIT_SECONDS[unit]) return { valid: false, error: "올바른 시간 단위를 선택해 주세요." };
+        const sign = mode === "minus" ? -1 : 1;
+        const offsetMilliseconds = amount * UNIT_SECONDS[unit] * 1000 * sign;
+        return { valid: true, base, result: new Date(base.getTime() + offsetMilliseconds), amount, unit, mode, offsetMilliseconds };
     }
 
-    const breakMs = breakMin * 60 * 1000;
-    let netMs = totalMs - breakMs;
+    function calculateWorkTime(startValue, endValue, breakMinutes, clamp) {
+        const difference = calculateDifference(startValue, endValue);
+        const rest = Number(breakMinutes);
+        if (!difference.valid) return difference;
+        if (!Number.isFinite(rest) || rest < 0) return { valid: false, error: "휴게시간을 0 이상의 숫자로 입력해 주세요." };
+        const breakMilliseconds = rest * 60000;
+        let netMilliseconds = difference.milliseconds - breakMilliseconds;
+        if (netMilliseconds < 0 && !clamp) return { valid: false, error: "휴게시간이 총 근무시간보다 길어요." };
+        netMilliseconds = Math.max(0, netMilliseconds);
+        return { valid: true, ...difference, breakMinutes: rest, netMilliseconds, net: durationParts(netMilliseconds) };
+    }
 
-    if (netMs < 0) {
-        if (clamp) netMs = 0;
-        else {
-            result.textContent = "휴게시간이 총 근무시간보다 큽니다. 휴게시간을 줄여주세요.";
-            extra.textContent = "";
-            return;
+    function convertTime(value, from, to) {
+        const amount = Number(value);
+        if (!Number.isFinite(amount) || amount < 0) return { valid: false, error: "입력 값을 0 이상의 숫자로 입력해 주세요." };
+        if (!UNIT_SECONDS[from] || !UNIT_SECONDS[to]) return { valid: false, error: "올바른 단위를 선택해 주세요." };
+        const seconds = amount * UNIT_SECONDS[from];
+        return { valid: true, input: amount, from, to, seconds, output: seconds / UNIT_SECONDS[to] };
+    }
+
+    function formatNumber(value, maximumFractionDigits) {
+        return new Intl.NumberFormat("ko-KR", { maximumFractionDigits: maximumFractionDigits == null ? 6 : maximumFractionDigits }).format(value);
+    }
+
+    function init(doc) {
+        const $ = (selector) => doc.querySelector(selector);
+        const tabs = Array.from(doc.querySelectorAll(".tc-mode-tab"));
+        const panels = Array.from(doc.querySelectorAll(".tab-panel"));
+        let activeMode = "diff";
+
+        function inputNumber(selector) {
+            const raw = $(selector).value.trim();
+            return raw === "" ? NaN : Number(raw);
         }
+
+        function setResult(view) {
+            const box = $(".result-box");
+            box.classList.toggle("is-error", Boolean(view.error));
+            $("#result-label").textContent = view.label || "입력값을 확인해 주세요";
+            $("#result-value").textContent = view.value;
+            $("#result-summary").textContent = view.summary || "";
+            $("#stat-one-label").textContent = view.statOneLabel || "—";
+            $("#stat-one-value").textContent = view.statOneValue || "—";
+            $("#stat-two-label").textContent = view.statTwoLabel || "—";
+            $("#stat-two-value").textContent = view.statTwoValue || "—";
+            $("#result-note").textContent = view.note || "";
+        }
+
+        function showError(message) {
+            setResult({ error: true, value: message, summary: "입력한 값을 다시 확인해 주세요.", note: "계산은 입력값이 올바르면 자동으로 다시 실행돼요." });
+        }
+
+        function renderDifference() {
+            const result = calculateDifference($("#diff-start").value, $("#diff-end").value, $("#diff-include-start").checked);
+            if (!result.valid) return showError(result.error);
+            setResult({
+                label: "두 시간의 차이",
+                value: formatDuration(result.milliseconds),
+                summary: `${formatKoreanDateTime(result.start)} → ${formatKoreanDateTime(result.end)}`,
+                statOneLabel: "총 분", statOneValue: `${formatNumber(result.totalSeconds / 60, 2)}분`,
+                statTwoLabel: "소수 시간", statTwoValue: `${formatNumber(result.totalSeconds / 3600, 2)}시간`,
+                note: result.includeStartDate ? "시작일 포함 옵션을 적용해 기본 시간 차이에 1일을 더했어요." : "기본값은 시작일을 포함하지 않아요. 필요하면 입력란 아래 옵션을 선택하세요."
+            });
+        }
+
+        function renderAddSubtract() {
+            const result = addTime($("#as-base").value, inputNumber("#as-value"), $("#as-unit").value, $("#as-mode").value);
+            if (!result.valid) return showError(result.error);
+            const unitLabel = UNIT_LABELS[result.unit];
+            const operation = result.mode === "minus" ? "빼기" : "더하기";
+            setResult({
+                label: `${formatNumber(result.amount)}${unitLabel} ${operation} 결과`,
+                value: formatKoreanDateTime(result.result),
+                summary: `기준 ${formatKoreanDateTime(result.base)}`,
+                statOneLabel: "이동 시간", statOneValue: formatDuration(Math.abs(result.offsetMilliseconds)),
+                statTwoLabel: "계산 방향", statTwoValue: result.mode === "minus" ? "이전 시각" : "이후 시각",
+                note: "초 단위를 사용하면 결과에 초까지 표시돼요."
+            });
+        }
+
+        function renderWorkTime() {
+            const result = calculateWorkTime($("#work-start").value, $("#work-end").value, inputNumber("#work-break"), $("#work-clamp").checked);
+            if (!result.valid) return showError(result.error);
+            setResult({
+                label: "휴게시간을 제외한 실 근무시간",
+                value: formatDuration(result.netMilliseconds),
+                summary: `${formatKoreanDateTime(result.start)} → ${formatKoreanDateTime(result.end)}`,
+                statOneLabel: "총 근무시간", statOneValue: formatDuration(result.milliseconds),
+                statTwoLabel: "제외한 휴게", statTwoValue: `${formatNumber(result.breakMinutes)}분`,
+                note: "급여·노무 산정 시에는 사업장의 취업규칙과 실제 근무 기록을 함께 확인하세요."
+            });
+        }
+
+        function renderConversion() {
+            const result = convertTime(inputNumber("#cv-value"), $("#cv-from").value, $("#cv-to").value);
+            if (!result.valid) return showError(result.error);
+            setResult({
+                label: `${UNIT_LABELS[result.from]} → ${UNIT_LABELS[result.to]} 변환`,
+                value: `${formatNumber(result.output)}${UNIT_LABELS[result.to]}`,
+                summary: `${formatNumber(result.input)}${UNIT_LABELS[result.from]} = ${formatNumber(result.output)}${UNIT_LABELS[result.to]}`,
+                statOneLabel: "초 기준", statOneValue: `${formatNumber(result.seconds)}초`,
+                statTwoLabel: "시간 기준", statTwoValue: `${formatNumber(result.seconds / 3600)}시간`,
+                note: "1시간은 60분, 1분은 60초를 기준으로 변환해요."
+            });
+        }
+
+        const renderers = { diff: renderDifference, addsub: renderAddSubtract, work: renderWorkTime, convert: renderConversion };
+        function render() { renderers[activeMode](); }
+
+        function activateTab(mode, focus) {
+            activeMode = mode;
+            tabs.forEach((tab) => {
+                const selected = tab.dataset.tab === mode;
+                tab.classList.toggle("active", selected);
+                tab.setAttribute("aria-selected", String(selected));
+                tab.tabIndex = selected ? 0 : -1;
+                if (selected && focus) tab.focus();
+            });
+            panels.forEach((panel) => {
+                const selected = panel.id === `tab-${mode}`;
+                panel.classList.toggle("active", selected);
+                panel.hidden = !selected;
+            });
+            render();
+        }
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", () => activateTab(tab.dataset.tab, false));
+            tab.addEventListener("keydown", (event) => {
+                if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+                event.preventDefault();
+                const offset = event.key === "ArrowRight" ? 1 : -1;
+                const next = tabs[(index + offset + tabs.length) % tabs.length];
+                activateTab(next.dataset.tab, true);
+            });
+        });
+
+        function setDefaults() {
+            const now = new Date();
+            const start = new Date(now); start.setHours(9, 0, 0, 0);
+            const end = new Date(now); end.setHours(18, 0, 0, 0);
+            ["#diff-start", "#work-start"].forEach((selector) => { if (!$(selector).value) $(selector).value = formatDateTimeLocal(start); });
+            ["#diff-end", "#work-end"].forEach((selector) => { if (!$(selector).value) $(selector).value = formatDateTimeLocal(end); });
+            if (!$("#as-base").value) $("#as-base").value = formatDateTimeLocal(now);
+        }
+
+        doc.querySelectorAll(".input-panel input, .input-panel select").forEach((element) => {
+            element.addEventListener("input", render);
+            element.addEventListener("change", render);
+        });
+        ["#diff-btn", "#as-btn", "#work-btn", "#cv-btn"].forEach((selector) => $(selector).addEventListener("click", render));
+        $("#diff-swap").addEventListener("click", () => { const start = $("#diff-start"); const end = $("#diff-end"); [start.value, end.value] = [end.value, start.value]; render(); });
+        $("#as-now").addEventListener("click", () => { $("#as-base").value = formatDateTimeLocal(new Date()); render(); });
+        $("#work-sample").addEventListener("click", () => {
+            const now = new Date(); const start = new Date(now); const end = new Date(now);
+            start.setHours(9, 0, 0, 0); end.setHours(18, 0, 0, 0);
+            $("#work-start").value = formatDateTimeLocal(start); $("#work-end").value = formatDateTimeLocal(end); $("#work-break").value = 60; render();
+        });
+        $("#cv-swap").addEventListener("click", () => { const from = $("#cv-from"); const to = $("#cv-to"); [from.value, to.value] = [to.value, from.value]; render(); });
+
+        setDefaults();
+        activateTab("diff", false);
     }
 
-    const totalParts = msToParts(totalMs);
-    const netParts = msToParts(netMs);
-
-    result.textContent = `실 근무시간: ${partsToPretty(netParts)} 입니다.`;
-    extra.textContent = `총 시간: ${partsToPretty(totalParts)} · 휴게: ${breakMin}분 제외 · 시작: ${formatKoreanDateTime(s)} · 종료: ${formatKoreanDateTime(e)}`;
-});
-
-document.getElementById("work-sample").addEventListener("click", () => {
-    const now = new Date();
-    const s = new Date(now);
-    s.setHours(9, 0, 0, 0);
-    const e = new Date(now);
-    e.setHours(18, 0, 0, 0);
-
-    document.getElementById("work-start").value = formatDateTimeLocal(s);
-    document.getElementById("work-end").value = formatDateTimeLocal(e);
-    document.getElementById("work-break").value = 60;
-});
-
-/* ============================================================
-   4) 단위 변환
-   ============================================================ */
-function toSeconds(value, unit) {
-    if (unit === "hours") return value * 3600;
-    if (unit === "minutes") return value * 60;
-    return value;
-}
-
-function fromSeconds(sec, unit) {
-    if (unit === "hours") return sec / 3600;
-    if (unit === "minutes") return sec / 60;
-    return sec;
-}
-
-function prettifyNumber(x) {
-    if (Number.isInteger(x)) return x.toString();
-    return x.toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
-}
-
-document.getElementById("cv-btn").addEventListener("click", () => {
-    const v = Number(document.getElementById("cv-value").value);
-    const from = document.getElementById("cv-from").value;
-    const to = document.getElementById("cv-to").value;
-
-    const result = document.getElementById("cv-result");
-    const extra = document.getElementById("cv-extra");
-
-    if (isNaN(v) || v < 0) {
-        result.textContent = "입력 값을 0 이상의 숫자로 입력해주세요.";
-        extra.textContent = "";
-        return;
-    }
-
-    const sec = toSeconds(v, from);
-    const out = fromSeconds(sec, to);
-
-    const fromLabel = from === "hours" ? "시간" : from === "minutes" ? "분" : "초";
-    const toLabel = to === "hours" ? "시간" : to === "minutes" ? "분" : "초";
-
-    result.textContent = `변환 값: ${prettifyNumber(out)} ${toLabel}`;
-    extra.textContent = `${v} ${fromLabel} = ${prettifyNumber(out)} ${toLabel}`;
-});
-
-document.getElementById("cv-swap").addEventListener("click", () => {
-    const fromEl = document.getElementById("cv-from");
-    const toEl = document.getElementById("cv-to");
-    const tmp = fromEl.value;
-    fromEl.value = toEl.value;
-    toEl.value = tmp;
-});
-
-/* ============================================================
-   ✅ 기본값 자동 설정 (datetime-local)
-   ============================================================ */
-function initDefaultDateTimes() {
-    const now = new Date();
-
-    // diff 기본: 오늘 09:00 ~ 18:00
-    const d1 = new Date(now);
-    d1.setHours(9, 0, 0, 0);
-    const d2 = new Date(now);
-    d2.setHours(18, 0, 0, 0);
-
-    const diffStart = document.getElementById("diff-start");
-    const diffEnd = document.getElementById("diff-end");
-    if (diffStart && !diffStart.value) diffStart.value = formatDateTimeLocal(d1);
-    if (diffEnd && !diffEnd.value) diffEnd.value = formatDateTimeLocal(d2);
-
-    // addsub 기본: 현재 시간
-    const asBase = document.getElementById("as-base");
-    if (asBase && !asBase.value) asBase.value = formatDateTimeLocal(now);
-
-    // work 기본: 오늘 09:00 ~ 18:00, 휴게 60
-    const workStart = document.getElementById("work-start");
-    const workEnd = document.getElementById("work-end");
-    const workBreak = document.getElementById("work-break");
-    if (workStart && !workStart.value) workStart.value = formatDateTimeLocal(d1);
-    if (workEnd && !workEnd.value) workEnd.value = formatDateTimeLocal(d2);
-    if (workBreak && !workBreak.value) workBreak.value = 60;
-
-    // convert 기본: 3600 초
-    const cvValue = document.getElementById("cv-value");
-    if (cvValue && !cvValue.value) cvValue.value = 3600;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    initDefaultDateTimes();
-});
-
-/* ============================================================
-   FAQ 아코디언 (date-calculator와 동일)
-   ============================================================ */
-document.querySelectorAll(".faq-item .faq-question").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const item = btn.closest(".faq-item");
-        item.classList.toggle("active");
-    });
+    return { parseDateTime, formatDateTimeLocal, formatKoreanDateTime, durationParts, formatDuration, calculateDifference, addTime, calculateWorkTime, convertTime, formatNumber, init };
 });
