@@ -58,7 +58,7 @@
             $("#timeline").innerHTML = points.map((year, index) => { const profit = profits[index]; const height = Math.max(4, Math.abs(profit) / maxAbs * 75); return `<div class="timeline-item"><strong>${profit >= 0 ? "+" : "−"}${won(profit)}</strong><i class="timeline-bar ${profit < 0 ? "negative" : ""}" style="height:${height}px"></i><span>${year}년</span></div>`; }).join("");
         }
         doc.querySelectorAll("input").forEach((input) => input.addEventListener("input", render));
-        doc.querySelectorAll("[data-preset]").forEach((button) => button.addEventListener("click", () => { const p = PRESETS[button.dataset.preset]; $("#old-name").value = p.oldName; $("#new-name").value = p.newName; $("#old-kwh").value = p.oldKwh; $("#new-kwh").value = p.newKwh; $("#price").value = p.price; $("#discount").value = p.discount; $("#resale").value = p.resale; $("#extra-cost").value = p.extra; render(); })); render();
+        doc.querySelectorAll("[data-preset]").forEach((button) => button.addEventListener("click", () => { const p = PRESETS[button.dataset.preset]; doc.querySelectorAll("[data-preset]").forEach((item) => { const active = item === button; item.classList.toggle("active", active); item.setAttribute("aria-pressed", String(active)); }); $("#old-name").value = p.oldName; $("#new-name").value = p.newName; $("#old-kwh").value = p.oldKwh; $("#new-kwh").value = p.newKwh; $("#price").value = p.price; $("#discount").value = p.discount; $("#resale").value = p.resale; $("#extra-cost").value = p.extra; render(); })); render();
     }
     return { calculateBill, annualBill, calculate, formatPeriod, init };
 });
