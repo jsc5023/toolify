@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>여러 날짜 간격 계산기 - 날짜별 일수·기간 한 번에 계산</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2957418210050904" crossorigin="anonymous"></script>
+    <meta name="naver-site-verification" content="2c50dd6f426ffd0f1fb2486049557cfa2f9255b5" />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <meta name="description" content="여러 날짜를 추가해 각 날짜 사이의 일수와 전체 기간을 한 번에 계산하세요. 평균 간격, 최장·최단 기간, 평일·주말까지 간편하게 확인할 수 있습니다." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../../style.css?v=20260909-1" />
+    <link rel="stylesheet" href="../../home.css?v=20260914-2" />
+    <link rel="stylesheet" href="./multiple-date-interval.css?v=20260919-8" />
+    <link rel="canonical" href="https://toolify.kr/tools/multiple-date-interval/" />
+    <meta property="og:type" content="article" /><meta property="og:site_name" content="Toolify" />
+    <meta property="og:title" content="여러 날짜 간격 계산기 - 날짜별 일수·기간 한 번에 계산" /><meta property="og:description" content="여러 날짜 사이의 개별 간격과 전체 기간, 평균·최장·최단 간격을 한 화면에서 계산하세요." /><meta property="og:url" content="https://toolify.kr/tools/multiple-date-interval/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"같은 날짜를 여러 번 입력하면 어떻게 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"같은 날짜도 각각 유지하며 기본 설정에서는 0일, 시작일 포함 설정에서는 1일로 계산합니다."}},{"@type":"Question","name":"시작일을 포함하면 결과가 어떻게 달라지나요?","acceptedAnswer":{"@type":"Answer","text":"각 구간과 전체 기간에서 시작 날짜를 하루로 포함합니다. 전체 기간은 구간 값을 합산하지 않고 첫 날짜와 마지막 날짜로 한 번만 계산합니다."}},{"@type":"Question","name":"평일·주말 보기에서 공휴일은 어떻게 처리되나요?","acceptedAnswer":{"@type":"Answer","text":"공휴일은 별도로 제외하지 않습니다. 월요일부터 금요일은 평일, 토·일요일은 주말로 나누어 계산하므로 월~금에 있는 공휴일도 평일에 포함될 수 있습니다."}},{"@type":"Question","name":"날짜 순서가 뒤바뀌어 있어도 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 입력 순서를 유지한 채 실제 차이를 계산하고, 앞 날짜보다 빠른 구간에는 역순 안내를 표시합니다."}}]}</script>
+</head>
+<body class="reading-page mdi-page">
+<a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
+<header class="site-header"><div class="site-header-inner"><a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a><div class="header-actions"><button class="icon-btn" id="header-search-btn" type="button" aria-label="도구 검색(홈으로 이동)">🔍</button><nav class="main-nav" aria-label="주 메뉴"><button class="nav-toggle" type="button" aria-label="메뉴 열기/닫기" aria-controls="mdi-nav" aria-expanded="false">☰</button><ul class="nav-links" id="mdi-nav"><li><a href="../../#tools">전체 도구</a></li><li><a href="../../#categories">카테고리</a></li><li><a href="../../guides/">사용 가이드</a></li><li><a href="../../about.html">소개</a></li><li><a href="../../contact.html">문의</a></li></ul></nav></div></div></header>
+
+<div class="page-wrapper">
+    <header class="mdi-intro"><nav class="breadcrumb" aria-label="현재 위치"><a href="../../">홈</a><span>/</span><a href="../../#categories">날짜·시간 도구</a><span>/</span><span aria-current="page">여러 날짜 간격 계산기</span></nav><div class="intro-grid"><div><p class="eyebrow">DATE TOOL · 여러 일정 · 구간별 일수</p><h1>📆 여러 날짜 <span>간격 계산기</span></h1><p class="intro-description">날짜를 필요한 만큼 추가해 인접한 일정 사이의 간격과 전체 기간을 한 번에 확인하세요.</p></div><aside class="formula-card" aria-label="계산 예시"><code class="mdi-chip">01.10 ~ 02.14</code><span class="mdi-op" aria-hidden="true">→</span><code class="mdi-chip mdi-chip-result">35일</code></aside></div></header>
+
+    <main>
+        <nav class="page-links" aria-label="페이지 내 이동"><a href="#calculator">간격 계산</a><a href="#guide">사용 방법</a><a href="#faq">자주 묻는 질문</a></nav>
+        <section class="calculator-layout" id="calculator" aria-label="여러 날짜 간격 계산">
+            <div class="input-panel">
+                <div class="panel-heading"><span class="step-number">01</span><div><h2>날짜 입력</h2><p>입력한 순서대로 인접한 날짜 사이의 간격을 계산해요.<span id="business-note" class="heading-note" hidden>월~금 / 토·일 기준 · 공휴일은 별도로 제외하지 않아요.</span></p></div></div>
+                <div id="date-list" class="date-list" role="list" aria-label="날짜 목록"></div>
+                <div class="list-footer"><button type="button" id="add-date-btn" class="add-date-button">＋ 날짜 추가</button><p id="limit-message" class="limit-message" aria-live="polite"></p></div>
+                <div class="quick-row" aria-label="계산 옵션"><span>계산 옵션</span><label class="chip-check" title="각 구간과 전체 기간에서 시작 날짜를 하루로 셉니다."><input type="checkbox" id="include-start" /><span class="opt-chip">시작일 포함</span></label><button type="button" id="sort-btn" class="opt-chip">날짜순 정렬</button><label class="chip-check" title="각 구간과 전체 기간의 평일·주말 일수를 함께 표시합니다."><input type="checkbox" id="business-days" /><span class="opt-chip">평일·주말 보기</span></label></div>
+                <div class="actions"><button type="button" id="copy-btn">결과 복사</button><button type="button" id="reset-btn" class="secondary">초기화</button><span id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></span></div>
+                <p class="input-note">입력한 날짜와 메모는 브라우저에서만 처리되며 서버로 전송되지 않습니다.</p>
+            </div>
+
+            <aside class="result-box" aria-live="polite">
+                <div class="panel-heading"><span class="step-number">02</span><h2>계산 요약</h2></div>
+                <div class="total-hero"><span>전체 기간</span><strong id="total-days">-</strong><p id="total-calendar">유효한 날짜를 2개 이상 입력하세요.</p><small id="total-range"></small></div>
+                <dl class="stat-list">
+                    <div class="stat-row"><dt>평균 간격</dt><dd id="average-gap">-</dd></div>
+                    <div class="stat-row"><dt>최단 간격</dt><dd id="shortest-gap">-</dd><dd class="stat-range" id="shortest-range"></dd></div>
+                    <div class="stat-row"><dt>최장 간격</dt><dd id="longest-gap">-</dd><dd class="stat-range" id="longest-range"></dd></div>
+                </dl>
+                <div id="business-summary" class="stat-list business-summary" hidden>
+                    <p class="stat-title">평일·주말</p>
+                    <dl>
+                        <div class="stat-row"><dt>평일</dt><dd id="total-weekdays">-</dd></div>
+                        <div class="stat-row"><dt>주말</dt><dd id="total-weekends">-</dd></div>
+                    </dl>
+                </div>
+                <p class="count-summary" id="count-summary">입력 날짜 0개 · 계산 구간 0개</p>
+                <p id="summary-notice" class="result-note">빈 날짜는 구간을 끊으며, 전체 기간은 화면상 첫 번째와 마지막 유효 날짜로 계산해요.</p>
+            </aside>
+        </section>
+
+        <template id="date-row-template"><div class="date-entry" role="listitem"><div class="date-row"><span class="row-number" aria-hidden="true"></span><div class="date-field"><input type="text" class="date-input" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="YYYY-MM-DD" /><button type="button" class="date-picker-btn" title="달력에서 선택"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.8v2.4M10.5 1.8v2.4"/></svg></button><input type="date" class="date-native" tabindex="-1" aria-hidden="true" min="0001-01-01" max="9999-12-31" /></div><button type="button" class="memo-toggle" aria-expanded="false"><span class="memo-label">+ 메모</span></button><div class="order-controls"><button type="button" class="move-up" title="위로 이동">↑</button><button type="button" class="move-down" title="아래로 이동">↓</button></div><button type="button" class="delete-row">삭제</button></div><div class="memo-row" hidden><input type="text" class="memo-input" maxlength="80" placeholder="메모 (예: 프로젝트 시작)" /></div><div class="interval-result"><span class="interval-arrow" aria-hidden="true">↓</span><strong>날짜를 입력하면 간격이 표시돼요</strong><small></small></div></div></template>
+
+        <div class="reference-heading" id="guide"><p class="eyebrow">HOW IT WORKS</p><h2>여러 날짜 간격 계산기란?</h2><p>두 날짜만 비교하는 대신 날짜를 계속 추가해 모든 인접 구간을 한 화면에서 비교하는 도구예요.</p></div>
+        <div class="reference-grid"><section class="info-section"><h2>사용 방법</h2><ol class="info-list numbered"><li>첫 번째 날짜와 다음 날짜를 입력합니다.</li><li>필요한 만큼 날짜를 추가하고 메모를 적습니다.</li><li>각 구간의 일수와 오른쪽 전체 결과를 확인합니다.</li><li>필요하면 시작일 포함·평일·주말 보기를 켭니다.</li></ol><p class="helper">날짜순 정렬은 버튼을 눌렀을 때만 실행되며, 같은 날짜는 기존 입력 순서를 유지해요.</p></section><section class="info-section"><h2>날짜 계산 기준</h2><p>기본값은 시작일을 제외한 달력 날짜의 차이입니다. 시작일 포함을 켜면 같은 날짜는 1일, 9월 1일부터 2일은 2일로 계산해요.</p><div class="mdi-formula">다음 날짜 − 이전 날짜 = 구간 간격</div><p>평일·주말 보기를 켜면 월요일부터 금요일은 평일, 토·일요일은 주말로 나누어 보여줍니다. 공휴일은 별도로 제외하지 않아요.</p></section></div>
+
+        <div class="reference-heading"><p class="eyebrow">USE CASES</p><h2>이럴 때 활용해 보세요</h2><p>반복되는 일정과 기록 사이의 간격을 빠르게 비교할 수 있어요.</p></div>
+        <section class="use-case-grid"><article><span>01</span><h3>프로젝트 일정</h3><p>착수·중간 배포·최종 배포 사이의 간격 확인</p></article><article><span>02</span><h3>시험·학습 계획</h3><p>시험일과 복습 일정 사이의 학습 기간 비교</p></article><article><span>03</span><h3>방문·운동 기록</h3><p>병원 방문이나 운동 기록의 주기 확인</p></article><article><span>04</span><h3>결제·갱신 일정</h3><p>정기 결제와 계약 갱신일 사이의 간격 확인</p></article></section>
+
+        <section class="faq-section" id="faq"><div class="faq-heading"><p class="eyebrow">GOOD TO KNOW</p><h2>궁금한 점이 있나요?</h2><p>여러 날짜를 계산할 때 자주 묻는 질문을 모았어요.</p></div><div class="faq-list"><details class="faq-item"><summary>같은 날짜를 입력하면 어떻게 계산되나요?</summary><div class="faq-answer"><p>같은 날짜도 삭제하지 않고 각각 유지합니다. 기본 설정에서는 0일, 시작일 포함 설정에서는 1일로 계산해요.</p></div></details><details class="faq-item"><summary>중간에 빈 날짜가 있으면 어떻게 되나요?</summary><div class="faq-answer"><p>빈 행은 구간을 끊는 경계가 됩니다. 빈 행 앞뒤의 날짜를 건너뛰어 새 구간으로 연결하지 않아요.</p></div></details><details class="faq-item"><summary>날짜 순서가 뒤바뀌어 있어도 계산되나요?</summary><div class="faq-answer"><p>네. 입력 순서를 그대로 유지하고 앞 날짜보다 빠른 날짜에는 며칠 빠른지 안내합니다. 평균·최장·최단 통계는 절대 간격을 사용해요.</p></div></details><details class="faq-item"><summary>평일·주말 보기에서 공휴일은 어떻게 처리되나요?</summary><div class="faq-answer"><p>공휴일 데이터를 사용하지 않고 월~금요일은 평일, 토·일요일은 주말로 나누어 계산합니다. 그래서 월~금에 있는 공휴일도 평일에 포함될 수 있어요.</p></div></details></div></section>
+        <section class="related-section" aria-labelledby="related-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-heading">다른 날짜 도구도 둘러보세요</h2></div><div class="related-links"><a href="../date-calculator/"><span>📅</span><div><h3>날짜 계산기</h3><p>두 날짜의 차이·D-Day·날짜 더하기</p></div><span aria-hidden="true">↗</span></a><a href="../age-calculator/"><span>🎂</span><div><h3>나이 계산기</h3><p>만 나이와 다음 생일까지 남은 기간</p></div><span aria-hidden="true">↗</span></a></div></section>
+    </main>
+    <footer class="home-footer"><div><a href="../../" class="footer-brand text-link">Toolify.</a><p>작은 작업을 줄이고, 일상에 여유를 더합니다.</p></div><p><a href="../../privacy.html">개인정보 처리방침</a> · <a href="../../terms.html">이용약관</a> · <a href="../../about.html">Toolify 소개</a> · <a href="../../contact.html">Contact / 문의하기</a></p></footer>
+</div>
+<script src="../../main.js?v=20260918-2"></script><script src="./multiple-date-interval.js?v=20260919-8"></script>
+</body>
+</html>
