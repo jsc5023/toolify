@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="../../style.css?v=20260909-1" />
     <link rel="stylesheet" href="../../home.css?v=20260914-2" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./star-rating-calculator.css?v=20260916-1" />
+<link rel="stylesheet" href="../new-layout-stability.css?v=20260921-cls-common-1" />
+<link rel="stylesheet" href="./star-rating-calculator.css?v=20260916-1" />
 
     <link rel="canonical" href="https://toolify.kr/tools/star-rating-calculator/" />
 
@@ -34,7 +35,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"별점 4.9에서 5.0으로 만들 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"이미 5점보다 낮은 리뷰가 하나라도 존재한다면, 정확한 평균 5.0은 유한한 수의 새 5점 리뷰만으로는 도달할 수 없습니다. 5점 리뷰를 아무리 많이 추가해도 평균은 5.0에 한없이 가까워질 뿐 정확히 5.0이 되지는 않습니다."}},{"@type":"Question","name":"리뷰 수가 많을수록 필요한 리뷰도 많나요?","acceptedAnswer":{"@type":"Answer","text":"네. 같은 현재 별점이라도 기존 리뷰 수가 많을수록 평균을 움직이는 데 더 많은 신규 리뷰가 필요합니다. 리뷰 1개가 전체 평균에 미치는 영향이 리뷰 수에 반비례해 작아지기 때문입니다."}},{"@type":"Question","name":"이 계산기는 모든 플랫폼에서 정확한가요?","acceptedAnswer":{"@type":"Answer","text":"이 계산기는 모든 리뷰 별점의 합을 리뷰 개수로 나누는 단순 산술평균 방식을 기준으로 계산합니다. 플랫폼에 따라 반올림 규칙이나 평점 표시 자릿수, 가중치 적용 여부가 다를 수 있어 실제 표시되는 값과 약간 차이가 날 수 있습니다."}},{"@type":"Question","name":"앞으로 들어올 리뷰 평균은 왜 조절할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"실제로는 모든 신규 리뷰가 5점만 들어오지 않는 경우가 많습니다. 앞으로 들어올 리뷰의 예상 평균을 직접 입력하면, 5점만 가정했을 때보다 더 현실적인 필요 리뷰 수를 확인할 수 있습니다."}}]}</script>
 </head>
 
-<body class="reading-page srs-page">
+<body data-toolify-layout="stable" class="reading-page srs-page">
 <a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
 <!-- 공통 헤더 -->
 <header class="site-header">

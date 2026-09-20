@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="../../style.css?v=20260909-1" />
     <link rel="stylesheet" href="../../home.css?v=20260914-2" />
     <!-- 전용 스타일 -->
-    <link rel="stylesheet" href="./url-encoder.css?v=20260919-2" />
+<link rel="stylesheet" href="../new-layout-stability.css?v=20260921-cls-common-1" />
+<link rel="stylesheet" href="./url-encoder.css?v=20260919-2" />
 
     <link rel="canonical" href="https://toolify.kr/tools/url-encoder/" />
 
@@ -35,7 +36,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"URL 인코딩은 왜 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"URL에서 한글·공백·특수문자가 깨지지 않도록 %XX 형태로 변환하기 위해 필요합니다."}},{"@type":"Question","name":"encodeURIComponent와 encodeURI의 차이는?","acceptedAnswer":{"@type":"Answer","text":"encodeURIComponent는 쿼리 파라미터 값 같은 '부분'에 안전하고, encodeURI는 전체 URL에서 예약 문자(:/?&= 등)를 그대로 유지합니다."}},{"@type":"Question","name":"디코딩이 실패하면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"% 형식이 깨져 있으면 오류가 날 수 있습니다. 입력값에 잘못된 % 인코딩이 섞여 있지 않은지 확인해 주세요."}}]}</script>
 </head>
 
-<body class="reading-page ue-page">
+<body data-toolify-layout="stable" class="reading-page ue-page">
 <a class="skip-link" href="#calculator">계산기로 건너뛰기</a>
 <!-- 공통 헤더 -->
 <header class="site-header">
