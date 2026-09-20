@@ -81,6 +81,13 @@
 .show-more{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:15px;border:1px dashed #b9cdbb;border-radius:11px;background:white;color:var(--green);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s}
 .show-more:hover{background:#eaf1e4;border-color:#8fb6a3}
 .show-more.hidden{display:none}
+/* Match the initial 12-card view before main.js arrives; keep all tools readable without JS. */
+@media(scripting:enabled){
+    .home-page #tool-list:not(.is-ready)>.tool-item:nth-child(n+13){display:none}
+    .home-page #show-more-tools:not(.is-ready){display:flex;visibility:hidden}
+}
+/* Reserve the exact space used by the favorite button inserted by main.js. */
+.home-page .tool-head:not(:has(.favorite-button))::after{content:"";flex:0 0 27px;height:27px}
 .show-more #show-more-count{font-weight:400;color:var(--muted);font-size:12px}
 .search-empty{text-align:center;padding:45px 20px;border:1px dashed var(--line);border-radius:12px;background:white}.search-empty p{color:var(--muted);margin:12px 0}.search-empty button{width:auto;background:var(--green);padding:10px 20px}
 .personal-drawer{margin-top:22px;border:1px solid var(--line);border-radius:10px;padding:16px 20px;background:#f3f6ef}.personal-drawer summary{cursor:pointer;font-weight:700;font-size:14px}.personal-drawer summary>span{font-weight:400;font-size:12px;color:var(--muted);margin-left:10px}.home-page .personal-panel{background:white}.home-page .personal-empty,.home-page .personal-heading span{color:var(--muted)}

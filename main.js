@@ -448,4 +448,7 @@ window.addEventListener("load", () => {
     });
 
     apply();
+    // Release initial CSS only after card visibility and the more button are synchronized.
+    toolList.classList.add("is-ready");
+    showMoreBtn?.classList.add("is-ready");
 })();
