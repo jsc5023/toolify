@@ -74,6 +74,17 @@ toolify/
 
 ---
 
+## 🎨 도구 페이지 초기 CSS 생성
+
+새 레이아웃 도구 페이지의 첫 paint CLS를 막기 위해 `style.css` → `home.css` → 각 도구 전용 CSS를 HTML의 생성 영역에 inline합니다. CSS 원본은 계속 각 CSS 파일이며, HTML 안의 블록은 직접 수정하지 않습니다.
+
+```bash
+node scripts/build-inline-tool-css.cjs
+node scripts/build-inline-tool-css.cjs --check
+```
+
+---
+
 ## 📝 개발 의도
 
 Toolify는 "가벼운 도구를 빠르게 제공하는 웹앱"을 목표로 개발되었습니다. 매번 검색해서 사용하는 계산기 도구들을 하나의 사이트에서 접근 가능하도록 통합하는것을 목표로 합니다.

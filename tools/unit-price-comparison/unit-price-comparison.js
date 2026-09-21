@@ -95,6 +95,19 @@
             addBtn.disabled = $$(".upc-card", listEl).length >= MAX_PRODUCTS;
         }
 
+        function bindCard(node) {
+            $$("input, select", node).forEach((el) => {
+                el.addEventListener("input", render);
+                el.addEventListener("change", render);
+            });
+
+            $(".upc-remove", node).addEventListener("click", () => {
+                node.remove();
+                relabelCards();
+                render();
+            });
+        }
+
         function addCard(defaults) {
             const cards = $$(".upc-card", listEl);
             if (cards.length >= MAX_PRODUCTS) return;
@@ -109,16 +122,7 @@
                 $(".upc-unit", node).value = defaults.unit;
             }
 
-            $$("input, select", node).forEach((el) => {
-                el.addEventListener("input", render);
-                el.addEventListener("change", render);
-            });
-
-            $(".upc-remove", node).addEventListener("click", () => {
-                node.remove();
-                relabelCards();
-                render();
-            });
+            bindCard(node);
 
             listEl.appendChild(node);
             relabelCards();
@@ -214,7 +218,13 @@
             }
         }
 
-        DEFAULTS.forEach((d) => addCard(d));
+        const existingCards = $$(".upc-card", listEl);
+        if (existingCards.length) {
+            existingCards.forEach(bindCard);
+        } else {
+            DEFAULTS.forEach((d) => addCard(d));
+        }
+        relabelCards();
         render();
     }
 

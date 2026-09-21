@@ -45,12 +45,13 @@ function installObserver() {
 }
 
 async function inspect(browser, baseUrl, tool, scenario) {
-  const context = await browser.newContext({ viewport: { width: 1350, height: 940 }, deviceScaleFactor: 1, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36 Chrome-Lighthouse', locale: 'ko-KR', timezoneId: 'Asia/Seoul' });
+  const mobile = process.env.CLS_AUDIT_MOBILE === '1';
+  const context = await browser.newContext(mobile ? { viewport: { width: 412, height: 823 }, deviceScaleFactor: 1.75, isMobile: true, hasTouch: true, userAgent: 'Mozilla/5.0 (Linux; Android 11; moto g power (2021)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse', locale: 'ko-KR', timezoneId: 'Asia/Seoul' } : { viewport: { width: 1350, height: 940 }, deviceScaleFactor: 1, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36 Chrome-Lighthouse', locale: 'ko-KR', timezoneId: 'Asia/Seoul' });
   const page = await context.newPage();
   const cdp = await context.newCDPSession(page);
   await cdp.send('Network.enable');
-  await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 40, downloadThroughput: 10240 * 1024 / 8, uploadThroughput: 10240 * 1024 / 8 });
-  await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+  await cdp.send('Network.emulateNetworkConditions', mobile ? { offline: false, latency: 150, downloadThroughput: 1638 * 1024 / 8, uploadThroughput: 768 * 1024 / 8 } : { offline: false, latency: 40, downloadThroughput: 10240 * 1024 / 8, uploadThroughput: 10240 * 1024 / 8 });
+  await cdp.send('Emulation.setCPUThrottlingRate', { rate: mobile ? 4 : 1 });
   await page.addInitScript(installObserver);
   await page.route('**/*', async route => {
     const url = route.request().url();
