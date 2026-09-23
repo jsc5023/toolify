@@ -13,6 +13,7 @@ const liveEl = $("live");
 
 const modeHelpEl = $("mode-help");
 const modeRadios = Array.from(document.querySelectorAll('input[name="mode"]'));
+const sampleBtns = Array.from(document.querySelectorAll(".pm-sample"));
 
 /* Options */
 const keepNonSensitiveEl = $("keep-non-sensitive");
@@ -88,15 +89,54 @@ function renderModeHelp(mode) {
     };
     modeHelpEl.textContent = help[mode] || help.auto;
 
-    // 커스텀 옵션 표시
-    if (mode === "custom") customBoxEl.style.display = "block";
-    else customBoxEl.style.display = "none";
+    // 커스텀에서만 필요한 설정은 선택 직후 설명 아래에 표시합니다.
+    customBoxEl.hidden = mode !== "custom";
 }
 
 modeRadios.forEach((r) => {
     r.addEventListener("change", () => {
         renderModeHelp(getMode());
         run();
+    });
+});
+
+const samples = {
+    phone: {
+        mode: "phone",
+        text: "담당자 연락처는 010-1234-5678입니다."
+    },
+    rrn: {
+        mode: "rrn",
+        text: "주민번호: 900101-1234567"
+    },
+    email: {
+        mode: "email",
+        text: "이메일: abcde@example.com"
+    },
+    card: {
+        mode: "card",
+        text: "카드: 1234 5678 9012 3456"
+    },
+    mixed: {
+        mode: "auto",
+        text: "연락처: 010-1234-5678\n이메일: abcde@example.com\n주민번호: 900101-1234567\n카드: 1234 5678 9012 3456"
+    },
+    account: {
+        mode: "account",
+        text: "계좌: 123-456-7890123"
+    }
+};
+
+sampleBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+        const sample = samples[button.dataset.sample];
+        if (!sample) return;
+        const radio = modeRadios.find((item) => item.value === sample.mode);
+        if (radio) radio.checked = true;
+        inputEl.value = sample.text;
+        renderModeHelp(getMode());
+        run();
+        inputEl.focus();
     });
 });
 
