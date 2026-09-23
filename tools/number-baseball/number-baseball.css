@@ -1,5 +1,5 @@
 :root{
-    --nb-header-h: 64px;
+    --nb-header-h: 84px;
     --nb-bg: url("./stadium.png");
 }
 
@@ -13,7 +13,7 @@
 
 /* ✅ 페이지 자체 스크롤 제거 + 풀폭 */
 html, body { height: 100%; }
-body { overflow: hidden; }
+body.nb-page { overflow-x: hidden; overflow-y: auto; }
 
 /* 헤더 아래 영역만 사용 */
 .nb-wrap{
@@ -598,4 +598,193 @@ body { overflow: hidden; }
         margin-left: 0;
         text-align: right;
     }
+}
+
+/* 홈페이지와 같은 브랜드 헤더. 게임 화면은 아래부터 기존 배경을 그대로 사용합니다. */
+.nb-page .site-header{
+    background:#fbfcf8;
+    border-bottom:1px solid #dce5df;
+}
+.nb-page .site-header-inner{
+    max-width:1200px;
+    min-height:84px;
+    margin:0 auto;
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    box-sizing:border-box;
+}
+.nb-page .logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#183b35;
+    font-size:26px;
+    font-weight:800;
+    letter-spacing:-1px;
+    text-decoration:none;
+}
+.nb-page .brand-mark{
+    display:inline-grid;
+    place-items:center;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#157760;
+    color:#fff;
+    font-size:26px;
+    line-height:1;
+}
+.nb-page .brand-dot{ color:#157760; margin-left:-9px; }
+.nb-page .header-actions{ display:flex; align-items:center; gap:10px; }
+.nb-page .icon-btn{
+    width:38px;
+    height:38px;
+    border:1px solid #dce5df;
+    border-radius:999px;
+    background:transparent;
+    color:#183b35;
+    cursor:pointer;
+    font-size:16px;
+}
+.nb-page .main-nav{ position:relative; }
+.nb-page .nav-toggle{
+    width:38px;
+    height:38px;
+    border:1px solid #4b5563;
+    border-radius:999px;
+    background:#183b35;
+    color:#e5e7eb;
+    cursor:pointer;
+    font-size:18px;
+}
+.nb-page .nav-links{
+    position:absolute;
+    z-index:20;
+    top:44px;
+    right:0;
+    display:none;
+    min-width:160px;
+    margin:0;
+    padding:6px 8px;
+    border-radius:12px;
+    background:#020617;
+    box-shadow:0 10px 25px rgba(0,0,0,.4);
+    list-style:none;
+}
+.nb-page .nav-links.open{ display:block; }
+.nb-page .nav-links li + li{ margin-top:4px; }
+.nb-page .nav-links a{
+    display:block;
+    padding:7px 10px;
+    border-radius:10px;
+    color:#e5e7eb;
+    font-size:13px;
+    text-decoration:none;
+}
+.nb-page .nav-links a:hover{ background:rgba(255,255,255,.1); }
+
+/* 첫 화면 게임을 건드리지 않고, 아래에서만 규칙·예시를 보완합니다. */
+.nb-afterplay{
+    background:#fbfcf8;
+    border-top:1px solid #dce5df;
+    color:#183b35;
+}
+.nb-afterplay-inner{
+    width:min(1020px, calc(100% - 40px));
+    margin:0 auto;
+    padding:62px 0 68px;
+}
+.nb-afterplay-heading p{
+    margin:0 0 8px;
+    color:#157760;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+.nb-afterplay-heading h2{
+    margin:0;
+    font-size:27px;
+    letter-spacing:-1px;
+    word-break:keep-all;
+}
+.nb-afterplay-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:16px;
+    margin-top:28px;
+}
+.nb-afterplay-grid article{
+    padding:21px;
+    border:1px solid #dce5df;
+    border-radius:14px;
+    background:#fff;
+}
+.nb-afterplay-grid h3{
+    margin:0;
+    font-size:16px;
+    letter-spacing:-.4px;
+}
+.nb-afterplay-grid p,
+.nb-afterplay-faq p{
+    margin:11px 0 0;
+    color:#62716d;
+    font-size:13px;
+    line-height:1.75;
+    word-break:keep-all;
+}
+.nb-afterplay-grid p + p{ margin-top:8px; }
+.nb-afterplay code{
+    border-radius:4px;
+    background:#eef3ef;
+    padding:1px 4px;
+    color:#245b50;
+    font-family:ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.nb-afterplay strong{ color:#157760; }
+.nb-empty{
+    margin:0;
+    padding:16px 10px;
+    color:rgba(17,24,39,.55);
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+}
+.nb-afterplay-faq{
+    margin-top:16px;
+    border-top:1px solid #dce5df;
+    border-bottom:1px solid #dce5df;
+    padding:18px 0;
+}
+.nb-afterplay-faq summary{
+    cursor:pointer;
+    font-size:14px;
+    font-weight:800;
+}
+
+@media (min-width:800px){
+    .nb-page .nav-toggle{ display:none; }
+    .nb-page .nav-links{
+        position:static;
+        display:flex;
+        gap:10px;
+        min-width:0;
+        padding:0;
+        background:transparent;
+        box-shadow:none;
+    }
+    .nb-page .nav-links li + li{ margin:0; }
+    .nb-page .nav-links a{ color:#62716d; padding:8px; }
+    .nb-page .header-actions{ flex-direction:row-reverse; gap:20px; }
+}
+@media (max-width:799px){
+    :root{ --nb-header-h:70px; }
+    .nb-page .site-header-inner{ min-height:70px; padding:14px 20px; }
+}
+@media (max-width:720px){
+    .nb-afterplay-inner{ width:min(100% - 32px, 1020px); padding:44px 0 50px; }
+    .nb-afterplay-heading h2{ font-size:23px; }
+    .nb-afterplay-grid{ grid-template-columns:1fr; gap:10px; margin-top:22px; }
 }

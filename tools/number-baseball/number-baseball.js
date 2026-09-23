@@ -1,28 +1,16 @@
 const $ = (id) => document.getElementById(id);
 
-/* 화면 */
 const lobbyEl = $("lobby");
 const gameEl = $("game");
-
-/* 로비 */
 const segBtns = Array.from(document.querySelectorAll(".nb-seg-btn"));
 const optDupEl = $("opt-dup");
-const optTimerEl = $("opt-timer"); // 기본 OFF(HTML에서 unchecked)
+const optTimerEl = $("opt-timer");
 const startBtn = $("start-btn");
 const ruleBtn = $("rule-btn");
-
-/* 모달 */
-const ruleModal = $("rule-modal");
-const ruleDim = $("rule-dim");
-const ruleClose = $("rule-close");
-const ruleOk = $("rule-ok");
-
-/* 게임 */
 const guessEl = $("guess");
 const submitBtn = $("submit");
 const newGameBtn = $("new-game");
 const backLobbyBtn = $("back-lobby");
-
 const triesEl = $("tries");
 const timerEl = $("timer");
 const historyEl = $("history");
@@ -30,307 +18,276 @@ const toastEl = $("toast");
 const confettiEl = $("confetti");
 const badgeEl = $("game-badge");
 const bestEl = $("best");
+const ruleModal = $("rule-modal");
+const ruleDim = $("rule-dim");
+const ruleClose = $("rule-close");
+const ruleOk = $("rule-ok");
 
-/* 상태 */
-let len = 3;          // ✅ 로비 기본 3자리(HTML is-active에 맞춤)
+let len = 3;
 let secret = "";
 let tries = 0;
-
-let timerOn = true;  // ✅ 기본 ON
+let timerOn = true;
 let startedAt = null;
 let timerT = null;
-
 let gameOver = false;
 
-function pad2(n){ return String(n).padStart(2, "0"); }
+function pad2(n) {
+    return String(n).padStart(2, "0");
+}
 
-function toast(msg){
-    toastEl.textContent = msg;
+function toast(message) {
+    toastEl.textContent = message;
     toastEl.classList.add("show");
-    setTimeout(() => toastEl.classList.remove("show"), 900);
+    window.setTimeout(() => toastEl.classList.remove("show"), 1500);
 }
 
-/* ===== 최고기록(localStorage) =====
-   - len/dup/timer 조합별로 저장
-   - 기준: (시도 적은게 우선) -> (시간 짧은게 우선)
-*/
-function bestKey(){
-    return `nb_best_v2_len${len}_dup${optDupEl.checked ? 1 : 0}_timer${timerOn ? 1 : 0}`;
-}
-function loadBest(){
-    try{
-        const raw = localStorage.getItem(bestKey());
-        if (!raw) return null;
-        return JSON.parse(raw);
-    }catch{
-        return null;
+function randomDigit() {
+    if (window.crypto?.getRandomValues) {
+        const values = new Uint32Array(1);
+        window.crypto.getRandomValues(values);
+        return values[0] % 10;
     }
+    return Math.floor(Math.random() * 10);
 }
-function saveBest(best){
-    localStorage.setItem(bestKey(), JSON.stringify(best));
-}
-function renderBest(){
-    const b = loadBest();
-    if (!b) {
-        bestEl.textContent = "최고기록: -";
-        return;
+
+function makeSecret() {
+    if (optDupEl.checked) {
+        return Array.from({ length: len }, () => String(randomDigit())).join("");
     }
-    const timeTxt = (timerOn ? `${pad2(b.mm)}:${pad2(b.ss)}` : "타이머 OFF");
-    bestEl.textContent = `최고기록: ${b.tries}회 · ${timeTxt}`;
-}
-function considerBest(){
-    const sec = elapsedSec();
-    const mm = Math.floor(sec/60);
-    const ss = sec%60;
 
-    const cur = { tries, sec, mm, ss };
-    const prev = loadBest();
-
-    const better =
-        !prev ||
-        (cur.tries < prev.tries) ||
-        (cur.tries === prev.tries && cur.sec < prev.sec);
-
-    if (better){
-        saveBest(cur);
-        renderBest();
-        toast("🎉 최고기록 갱신!");
-    }
-}
-
-/* ===== UI ===== */
-function setDifficulty(newLen){
-    len = newLen;
-    segBtns.forEach(b => {
-        const active = Number(b.dataset.len) === len;
-        b.classList.toggle("is-active", active);
-        b.setAttribute("aria-selected", active ? "true" : "false");
-    });
-}
-
-function makeSecret(){
-    const allowDup = optDupEl.checked;
-    if (allowDup) {
-        let s = "";
-        for (let i=0; i<len; i++) s += String(Math.floor(Math.random()*10));
-        return s;
-    }
     const digits = [];
     while (digits.length < len) {
-        const d = Math.floor(Math.random() * 10);
-        if (!digits.includes(d)) digits.push(d);
+        const digit = String(randomDigit());
+        if (!digits.includes(digit)) digits.push(digit);
     }
     return digits.join("");
 }
 
-/* ===== 타이머 ===== */
-function startTimer(){
+function bestKey() {
+    return `nb_best_v3_len${len}_dup${optDupEl.checked ? 1 : 0}_timer${timerOn ? 1 : 0}`;
+}
+
+function loadBest() {
+    try {
+        const raw = localStorage.getItem(bestKey());
+        return raw ? JSON.parse(raw) : null;
+    } catch {
+        return null;
+    }
+}
+
+function renderBest() {
+    const best = loadBest();
+    if (!best) {
+        bestEl.textContent = "최고기록: -";
+        return;
+    }
+    bestEl.textContent = timerOn ? `최고기록: ${best.tries}회 · ${pad2(best.mm)}:${pad2(best.ss)}` : `최고기록: ${best.tries}회`;
+}
+
+function elapsedSec() {
+    return timerOn && startedAt ? Math.floor((Date.now() - startedAt) / 1000) : 0;
+}
+
+function considerBest() {
+    const sec = elapsedSec();
+    const current = { tries, sec, mm: Math.floor(sec / 60), ss: sec % 60 };
+    const previous = loadBest();
+    const isBetter = !previous || current.tries < previous.tries || (current.tries === previous.tries && current.sec < previous.sec);
+
+    if (isBetter) {
+        try {
+            localStorage.setItem(bestKey(), JSON.stringify(current));
+            renderBest();
+            toast("🎉 최고기록을 갱신했어요!");
+        } catch {
+            toast("정답! 이 브라우저에서는 기록을 저장할 수 없어요.");
+        }
+    }
+}
+
+function setDifficulty(newLength) {
+    len = newLength;
+    segBtns.forEach((button) => {
+        const isActive = Number(button.dataset.len) === len;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+    });
+}
+
+function startTimer() {
+    window.clearInterval(timerT);
     if (!timerOn) {
         timerEl.textContent = "--:--";
         startedAt = null;
         return;
     }
+
     startedAt = Date.now();
-    clearInterval(timerT);
-    timerT = setInterval(() => {
-        const sec = Math.floor((Date.now() - startedAt) / 1000);
-        const mm = Math.floor(sec / 60);
-        const ss = sec % 60;
-        timerEl.textContent = `${pad2(mm)}:${pad2(ss)}`;
+    timerEl.textContent = "00:00";
+    timerT = window.setInterval(() => {
+        const seconds = elapsedSec();
+        timerEl.textContent = `${pad2(Math.floor(seconds / 60))}:${pad2(seconds % 60)}`;
     }, 250);
 }
-function stopTimer(){
-    clearInterval(timerT);
+
+function stopTimer() {
+    window.clearInterval(timerT);
     timerT = null;
 }
-function elapsedSec(){
-    if (!timerOn || !startedAt) return 0;
-    return Math.floor((Date.now() - startedAt) / 1000);
+
+function resetGameUI() {
+    tries = 0;
+    gameOver = false;
+    triesEl.textContent = "0";
+    historyEl.innerHTML = '<p class="nb-empty">아직 시도한 숫자가 없어요.</p>';
+    guessEl.value = "";
+    guessEl.maxLength = len;
+    guessEl.placeholder = `${len}자리 숫자`;
+    guessEl.disabled = false;
+    submitBtn.disabled = false;
+    badgeEl.textContent = `${len}자리`;
+    renderBest();
 }
 
-/* ===== 화면 전환 ===== */
-function goGame(){
+function newGame() {
+    timerOn = optTimerEl.checked;
+    secret = makeSecret();
+    resetGameUI();
+    startTimer();
+    guessEl.focus();
+}
+
+function validateGuess(guess) {
+    if (!/^\d+$/.test(guess)) return "숫자만 입력해 주세요.";
+    if (guess.length !== len) return `${len}자리로 입력해 주세요.`;
+    if (!optDupEl.checked && new Set(guess).size !== guess.length) return "중복 없는 숫자로 입력해 주세요.";
+    return null;
+}
+
+function judge(guess) {
+    let strikes = 0;
+    const secretRest = [];
+    const guessRest = [];
+
+    for (let index = 0; index < len; index += 1) {
+        if (guess[index] === secret[index]) strikes += 1;
+        else {
+            secretRest.push(secret[index]);
+            guessRest.push(guess[index]);
+        }
+    }
+
+    // 중복 허용 모드에서도 남은 숫자의 실제 교집합만 볼로 계산합니다.
+    const remaining = new Map();
+    secretRest.forEach((digit) => remaining.set(digit, (remaining.get(digit) || 0) + 1));
+    let balls = 0;
+    guessRest.forEach((digit) => {
+        const count = remaining.get(digit) || 0;
+        if (count > 0) {
+            balls += 1;
+            remaining.set(digit, count - 1);
+        }
+    });
+
+    return { strikes, balls };
+}
+
+function addHistoryRow(guess, strikes, balls) {
+    historyEl.querySelector(".nb-empty")?.remove();
+    const resultClass = strikes === len ? "ok" : strikes || balls ? "mid" : "bad";
+    const row = document.createElement("div");
+    row.className = "nb-row-item";
+    row.innerHTML = `
+        <div class="nb-left"><span class="nb-g">${guess}</span><span class="nb-r ${resultClass}">${strikes}S ${balls}B</span></div>
+        <span class="nb-idx">#${tries}</span>`;
+    historyEl.prepend(row);
+}
+
+function confetti() {
+    confettiEl.innerHTML = "";
+    const colors = ["#2865d9", "#e74c3c", "#f0af18", "#21a56c", "#8d62d8"];
+    for (let index = 0; index < 20; index += 1) {
+        const piece = document.createElement("span");
+        piece.className = "p";
+        piece.style.left = `${8 + randomDigit() * 9}%`;
+        piece.style.backgroundColor = colors[randomDigit() % colors.length];
+        piece.style.animationDelay = `${randomDigit() * 30}ms`;
+        confettiEl.appendChild(piece);
+    }
+    window.setTimeout(() => { confettiEl.innerHTML = ""; }, 1100);
+}
+
+function win() {
+    stopTimer();
+    gameOver = true;
+    guessEl.disabled = true;
+    submitBtn.disabled = true;
+    const seconds = elapsedSec();
+    confetti();
+    considerBest();
+    const time = timerOn ? ` · ${pad2(Math.floor(seconds / 60))}:${pad2(seconds % 60)}` : "";
+    toast(`정답! ${tries}회${time}`);
+}
+
+function submit() {
+    if (gameOver) return;
+    const guess = guessEl.value.trim();
+    const error = validateGuess(guess);
+    if (error) {
+        toast(error);
+        return;
+    }
+
+    tries += 1;
+    triesEl.textContent = String(tries);
+    const { strikes, balls } = judge(guess);
+    addHistoryRow(guess, strikes, balls);
+    guessEl.value = "";
+    if (strikes === len) win();
+}
+
+function showGame() {
     lobbyEl.classList.add("is-hidden");
     gameEl.classList.remove("is-hidden");
-    requestAnimationFrame(() => guessEl.focus());
+    newGame();
 }
-function goLobby(){
+
+function showLobby() {
+    stopTimer();
     gameEl.classList.add("is-hidden");
     lobbyEl.classList.remove("is-hidden");
 }
 
-/* ===== 게임 초기화 ===== */
-function resetGameUI(){
-    tries = 0;
-    triesEl.textContent = "0";
-    historyEl.innerHTML = "";
-
-    guessEl.value = "";
-    guessEl.maxLength = len;
-    guessEl.placeholder = `${len}자리 숫자 입력 후 Enter`;
-
-    badgeEl.textContent = `${len}자리`;
-
-    gameOver = false;
-    guessEl.disabled = false;
-    submitBtn.disabled = false;
-
-    renderBest();
-
-    // ✅ 기록은 최신이 위(스크롤 0)
-    historyEl.scrollTop = 0;
+function openRules() {
+    ruleModal.classList.remove("is-hidden");
+    ruleClose.focus();
 }
 
-function newGame(){
-    secret = makeSecret();
-    resetGameUI();
-    startTimer();
-    toast("새 게임 시작!");
-    // console.log("secret:", secret);
+function closeRules() {
+    ruleModal.classList.add("is-hidden");
+    ruleBtn.focus();
 }
 
-/* ===== 검증/판정 ===== */
-function validateGuess(g){
-    if (!/^\d+$/.test(g)) return "숫자만 입력해줘!";
-    if (g.length !== len) return `${len}자리로 입력해줘!`;
-    if (!optDupEl.checked) {
-        const set = new Set(g.split(""));
-        if (set.size !== g.length) return "중복 없는 숫자로 입력해줘!";
-    }
-    return null;
-}
-
-function judge(g){
-    let s = 0, b = 0;
-    for (let i=0; i<len; i++){
-        if (g[i] === secret[i]) s++;
-        else if (secret.includes(g[i])) b++;
-    }
-    return { s, b };
-}
-
-function rowEl(g, s, b, idx){
-    const cls = (s === len) ? "ok" : (s > 0 || b > 0) ? "mid" : "bad";
-    const el = document.createElement("div");
-    el.className = "nb-row-item";
-    el.innerHTML = `
-    <div class="nb-left">
-      <span class="nb-g">${g}</span>
-      <span class="nb-r ${cls}">${s}S ${b}B</span>
-    </div>
-    <div class="nb-idx">#${idx}</div>
-  `;
-    if (s === 0 && b === 0) el.classList.add("shake"); // ✅ 0S0B만 흔들림
-    return el;
-}
-
-/* ===== 컨페티 ===== */
-function confetti(){
-    confettiEl.innerHTML = "";
-    const colors = ["#60a5fa", "#34d399", "#fbbf24", "#f472b6", "#a78bfa"];
-    const count = 18;
-    for (let i=0; i<count; i++){
-        const p = document.createElement("div");
-        p.className = "p";
-        p.style.left = `${10 + Math.random()*80}%`;
-        p.style.animationDelay = `${Math.random()*120}ms`;
-        p.style.background = colors[Math.floor(Math.random()*colors.length)];
-        p.style.transform = `translateY(0) rotate(${Math.random()*180}deg)`;
-        confettiEl.appendChild(p);
-    }
-    setTimeout(() => (confettiEl.innerHTML = ""), 1100);
-}
-
-function onWin(){
-    stopTimer();
-    gameOver = true;
-
-    guessEl.disabled = true;
-    submitBtn.disabled = true;
-    guessEl.placeholder = "정답! 새 게임을 눌러주세요.";
-
-    confetti();
-    considerBest();
-
-    const sec = elapsedSec();
-    const mm = Math.floor(sec/60);
-    const ss = sec%60;
-    const timeTxt = timerOn ? `${pad2(mm)}:${pad2(ss)}` : "타이머 OFF";
-    toast(`정답! ${tries}회 · ${timeTxt}`);
-}
-
-/* ===== 제출 ===== */
-function submit(){
-    if (gameOver) return toast("게임이 끝났어요! 새 게임을 눌러주세요.");
-
-    const g = (guessEl.value || "").trim();
-    const err = validateGuess(g);
-    if (err) { toast(err); return; }
-
-    tries++;
-    triesEl.textContent = String(tries);
-
-    const { s, b } = judge(g);
-
-    // ✅ 최신이 위로 쌓이게
-    const item = rowEl(g, s, b, tries);
-    historyEl.prepend(item);
-    historyEl.scrollTop = 0;
-
-    guessEl.value = "";
-
-    if (s === len) onWin();
-}
-
-/* ===== 규칙 모달 ===== */
-function openRule(){ ruleModal.classList.remove("is-hidden"); }
-function closeRule(){ ruleModal.classList.add("is-hidden"); }
-
-/* ===== 이벤트 ===== */
-segBtns.forEach(btn => {
-    btn.addEventListener("click", () => setDifficulty(Number(btn.dataset.len)));
-});
-
-optTimerEl.addEventListener("change", () => {
-    timerOn = optTimerEl.checked;
-    if (!timerOn) stopTimer();
-    renderBest(); // 키가 바뀜
-});
-
-startBtn.addEventListener("click", () => {
-    timerOn = optTimerEl.checked;
-    goGame();
-    newGame();
-});
-
+segBtns.forEach((button) => button.addEventListener("click", () => setDifficulty(Number(button.dataset.len))));
+startBtn.addEventListener("click", showGame);
 submitBtn.addEventListener("click", submit);
-
-guessEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        e.preventDefault();
+newGameBtn.addEventListener("click", newGame);
+backLobbyBtn.addEventListener("click", showLobby);
+guessEl.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
         submit();
     }
 });
-
-newGameBtn.addEventListener("click", newGame);
-
-backLobbyBtn.addEventListener("click", () => {
-    stopTimer();
-    goLobby();
+ruleBtn.addEventListener("click", openRules);
+ruleDim.addEventListener("click", closeRules);
+ruleClose.addEventListener("click", closeRules);
+ruleOk.addEventListener("click", closeRules);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !ruleModal.classList.contains("is-hidden")) closeRules();
 });
+window.addEventListener("beforeunload", stopTimer);
 
-/* 규칙 버튼(로비) */
-ruleBtn.addEventListener("click", openRule);
-ruleDim.addEventListener("click", closeRule);
-ruleClose.addEventListener("click", closeRule);
-ruleOk.addEventListener("click", closeRule);
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !ruleModal.classList.contains("is-hidden")) closeRule();
-});
-
-/* 초기값 */
 setDifficulty(3);
-timerOn = true;
 renderBest();
-timerEl.textContent = "--:--";

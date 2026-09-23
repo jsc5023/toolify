@@ -29,10 +29,10 @@
     <meta property="og:url" content="https://toolify.kr/tools/number-baseball/" />
 </head>
 
-<body>
+<body class="nb-page">
 <header class="site-header">
     <div class="site-header-inner">
-        <a href="../../" class="logo">Toolify</a>
+        <a href="../../" class="logo"><span class="brand-mark" aria-hidden="true">t.</span> Toolify<span class="brand-dot">.</span></a>
 
         <div class="header-actions">
             <button class="icon-btn" id="header-search-btn"
@@ -41,12 +41,13 @@
                 🔍
             </button>
 
-            <nav class="main-nav">
-                <button class="nav-toggle" aria-label="메뉴 열기/닫기">☰</button>
-                <ul class="nav-links">
-                    <li><a href="../../">홈</a></li>
+            <nav class="main-nav" aria-label="주 메뉴">
+                <button class="nav-toggle" aria-label="메뉴 열기/닫기" aria-expanded="false" aria-controls="tool-nav">☰</button>
+                <ul class="nav-links" id="tool-nav">
                     <li><a href="../../#tools">전체 도구</a></li>
                     <li><a href="../../#categories">카테고리</a></li>
+                    <li><a href="../../guides/">사용 가이드</a></li>
+                    <li><a href="../../about.html">소개</a></li>
                     <li><a href="../../contact.html">문의</a></li>
                 </ul>
             </nav>
@@ -170,7 +171,7 @@
                         <li>각 자리의 숫자와 <b>자리까지</b> 맞으면 <b>스트라이크(S)</b></li>
                         <li>숫자는 맞지만 <b>자리가 다르면</b> <b>볼(B)</b></li>
                         <li>예: 정답 4271 / 입력 4721 → 2S 2B</li>
-                        <li>중복 허용 ON이면 같은 숫자가 여러 번 나올 수 있어요.</li>
+                        <li>중복 허용 ON이면 같은 숫자가 여러 번 나올 수 있어요. 이때 볼은 실제로 남아 있는 숫자만 셉니다.</li>
                     </ul>
                     <div class="nb-modal-tip">팁: 0도 포함될 수 있어요.</div>
                 </div>
@@ -180,8 +181,36 @@
             </div>
         </div>
 
-    </main>
+</main>
 </div>
+
+<section class="nb-afterplay" aria-labelledby="afterplay-title">
+    <div class="nb-afterplay-inner">
+        <div class="nb-afterplay-heading">
+            <p>HOW TO PLAY</p>
+            <h2 id="afterplay-title">게임은 바로 시작하고, 규칙은 필요할 때만 확인하세요.</h2>
+        </div>
+        <div class="nb-afterplay-grid">
+            <article>
+                <h3>정답이 <code>4271</code>이라면</h3>
+                <p><code>4721</code>은 <strong>2S 2B</strong>입니다. 2와 1은 자리까지 맞고, 4와 7은 숫자만 맞아 자리가 바뀌었어요.</p>
+                <p><code>9358</code>은 <strong>0S 0B</strong>입니다. 네 숫자 모두 정답에 없다는 뜻입니다.</p>
+            </article>
+            <article>
+                <h3>중복 허용은 언제 쓰나요?</h3>
+                <p>같은 숫자가 여러 번 들어가는 더 어려운 게임을 하고 싶을 때 켜세요. 예를 들어 정답 <code>112</code>, 입력 <code>111</code>은 앞의 두 자리만 맞으므로 <strong>2S 0B</strong>입니다.</p>
+            </article>
+            <article>
+                <h3>기록과 개인정보</h3>
+                <p>최고기록은 현재 브라우저의 localStorage에만 저장됩니다. 자리 수·중복 허용·타이머 설정별로 기록하며 서버로 전송하지 않습니다.</p>
+            </article>
+        </div>
+        <details class="nb-afterplay-faq">
+            <summary>처음에는 어떤 설정으로 하는 게 좋나요?</summary>
+            <p>3자리·중복 없음으로 시작하면 숫자 후보를 하나씩 제외하는 흐름을 익히기 좋습니다. 익숙해지면 4자리, 5자리 또는 중복 허용 모드로 올려 보세요. 0은 첫 자리에도 나올 수 있습니다.</p>
+        </details>
+    </div>
+</section>
 
 <script src="../../main.js"></script>
 <script src="./number-baseball.js"></script>
