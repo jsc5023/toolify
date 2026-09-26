@@ -1,0 +1,263 @@
+/* 전화번호 추출·정리 */
+.pe-page .icon-btn{background:transparent;border-color:var(--line);color:var(--ink);width:38px;height:38px}
+.pe-intro{padding:16px 0 14px}
+.pe-intro h1{font-size:28px;letter-spacing:-1px;margin:7px 0 0}
+.pe-intro h1 span{color:var(--green)}
+.pe-description{margin-top:7px;font-size:13px;line-height:1.7;color:var(--muted);word-break:keep-all}
+
+.pe-tabs{display:flex;align-items:center;gap:26px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:14px 0}
+.pe-tabs a{font-size:12px;color:var(--muted);font-weight:700;text-decoration:none}
+.pe-tabs a:first-child{color:var(--green)}
+
+.pe-mode-tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:14px}
+.pe-mode-tab{display:flex;align-items:center;justify-content:center;min-height:44px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pe-mode-tab:hover{background:#f3f6ef;color:var(--ink)}
+.pe-mode-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+.pe-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);gap:14px;align-items:start}
+.pe-table-mode{display:grid;gap:14px}
+.pe-layout[hidden],.pe-table-mode[hidden]{display:none}
+.pe-panel{border:1px solid var(--line);border-radius:14px;background:#fff;padding:20px;min-width:0}
+.pe-result-panel{position:sticky;top:16px}
+
+.pe-heading{display:flex;gap:10px;align-items:start;margin-bottom:14px}
+.pe-step{display:grid;place-items:center;flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:#edf3e8;color:var(--green);font-size:10px;font-weight:800}
+.pe-heading h2{font-size:17px;margin:0}
+.pe-heading p{font-size:12px;color:var(--muted);margin:3px 0 0}
+
+.pe-samples{margin-bottom:14px}
+.pe-label{display:flex;align-items:center;justify-content:space-between;margin:0 0 7px;color:var(--ink);font-size:12px;font-weight:800}
+.pe-label span{color:var(--muted);font-size:10px;font-weight:500}
+.pe-textarea{box-sizing:border-box;width:100%;min-height:300px;resize:vertical;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:12px;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+.pe-textarea:focus{outline:2px solid #c7dfd3;border-color:var(--green)}
+.pe-output{min-height:220px;background:#fbfcfa}
+
+.pe-local-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.6}
+.pe-warning-note{margin-top:6px;font-size:11px;color:#9a5b00;line-height:1.6}
+
+.pe-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:11px}
+.pe-live{margin-left:auto;color:var(--muted);font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px}
+.pe-live input{accent-color:var(--green)}
+
+.pe-primary,.pe-secondary,.pe-plain{width:auto;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.pe-primary{border:0;background:var(--green);color:#fff}
+.pe-secondary{border:1px solid var(--line);background:#fff;color:var(--ink)}
+.pe-plain{border:0;background:transparent;color:var(--muted)}
+
+.pe-summary{margin:0 0 12px;font-size:12px;color:var(--muted)}
+
+.pe-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pe-filter{width:auto;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.pe-filter span{color:var(--muted);font-size:10px;font-weight:800}
+.pe-filter.is-active{border-color:var(--green);background:#eef6ef;color:var(--green)}
+.pe-filter.is-active span{color:var(--green)}
+.pe-filter-warn.is-active{border-color:#e6c179;background:#fffaf0;color:#8b6213}
+.pe-filter-warn.is-active span{color:#8b6213}
+
+.pe-empty-note{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.6}
+
+.pe-result-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:12px}
+.pe-result-controls label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted)}
+.pe-result-controls select{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:6px 8px;font-size:11px}
+.pe-dedup{margin-left:auto}
+.pe-dedup input{accent-color:var(--green)}
+
+.pe-options{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.pe-options summary{cursor:pointer;color:var(--ink);font-size:12px;font-weight:800}
+.pe-options-grid{margin-top:10px;display:flex;gap:12px;flex-wrap:wrap}
+.pe-options-grid label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted)}
+.pe-options-grid select{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:6px 8px;font-size:11px}
+
+.pe-result-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+.pe-copy-feedback{font-size:11px;color:var(--green);font-weight:700}
+
+.pe-privacy-box{display:grid;gap:3px;margin-top:14px;padding:12px;border-radius:9px;background:#edf5ee;color:#315f4f;font-size:11px;line-height:1.55}
+.pe-privacy-box strong{font-size:11px}
+
+/* 표 모드 */
+.pe-table-note{margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6}
+
+/* paste box는 긴 글을 쓰는 textarea가 아니라 Ctrl+V 전용 drop zone이므로,
+   Excel 붙여넣기·빈 표 만들기·샘플 표 세 가지가 스크롤 없이 한 화면에 들어오도록 적당히 낮춘다. */
+.pe-paste-box{box-sizing:border-box;width:100%;min-height:150px;resize:vertical;border:1px dashed #a7c1a3;border-radius:10px;background:#fbfcfa;color:var(--ink);padding:16px;text-align:center;font:14px/1.9 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.pe-paste-box:focus{outline:2px solid #c7dfd3;border-color:var(--green);background:#fff}
+.pe-paste-box::placeholder{color:var(--muted);white-space:pre-line}
+
+/* Excel이 없어도 "빈 표를 직접 만들 수 있다"와 "샘플로 먼저 확인할 수 있다"를 첫 화면에서
+   동시에 바로 알 수 있도록, 구분선 다음 같은 action group에 두 버튼을 나란히 둔다.
+   빈 표 만들기가 실제 작업용이라 조금 더 굵게, 샘플은 한 단계 가벼운 secondary로 둔다. */
+.pe-paste-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--muted);font-size:11px;font-weight:700}
+.pe-paste-divider::before,.pe-paste-divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.pe-start-actions{display:flex;gap:8px}
+.pe-start-actions button{flex:1;min-height:44px;font-size:13px}
+.pe-blank-btn{font-weight:800;border-color:#b9cdbb;color:#1f4d3a}
+.pe-blank-btn:hover{background:#eef6ef}
+.pe-sample-btn{font-weight:700;color:var(--muted)}
+.pe-sample-btn:hover{background:#f3f6ef;color:var(--ink)}
+
+/* 표 위 짧은 paste 안내: multi-cell paste는 이미 동작하는 기능이므로 새로 만들지 않고
+   여기서 "발견"만 시켜준다. 표보다 눈에 띄지 않게 옅은 배경의 한 줄로 유지한다. */
+.pe-paste-tip{margin:0 0 10px;padding:9px 12px;border-radius:8px;background:#f3f6ef;color:#3d5245;font-size:11px;line-height:1.6}
+.pe-paste-tip strong{color:var(--ink)}
+.pe-paste-tip-sub{display:block;margin-top:2px;color:#7c8c81;font-size:10px}
+
+.pe-status-col-toggle{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;font-weight:700;color:var(--muted)}
+.pe-status-col-toggle input{accent-color:var(--green)}
+
+.pe-table-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-bottom:6px}
+/* label 텍스트에 white-space:nowrap을 줘서(=좁은 width를 강제하지 않고) "전화번호 열"이
+   두 줄로 꺾이지 않게 한다. 폭이 부족하면 텍스트가 아니라 toolbar 항목 자체가 다음 줄로 넘어간다. */
+.pe-table-toolbar label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+.pe-table-toolbar select{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:6px 8px;font-size:11px}
+.pe-header-toggle input,.pe-table-toolbar .pe-dedup input{accent-color:var(--green)}
+.pe-table-toolbar .pe-dedup{margin-left:auto}
+/* desktop: 두 select label을 감싼 래퍼를 레이아웃에서 없애 toolbar와 같은 한 줄 흐름에
+   자연스럽게 섞이게 한다(모바일에서만 아래 media query로 실제 grid로 바꾼다). */
+.pe-toolbar-selects{display:contents}
+
+/* "새 표 붙여넣기"는 실수로 누르기 쉬운 위치가 아니면서도 눈에 띄어야 하므로
+   toolbar 맨 끝에 명확한 secondary 버튼으로 둔다(예전엔 작은 텍스트 링크였음). */
+.pe-repaste-btn{font-weight:800;border-color:#b9cdbb;color:#1f4d3a}
+.pe-repaste-btn:hover{background:#eef6ef}
+
+/* 새 표 붙여넣기 / 빈 표 새로 만들기 / 다중 셀 덮어쓰기에서 공용으로 쓰는 확인 dialog.
+   네이티브 <dialog>를 사용해 Escape·backdrop·focus 관리를 브라우저가 기본 처리하게 한다.
+   평소에는 [open] 속성이 없어 완전히 화면에서 사라져 있다. */
+.pe-confirm-dialog{max-width:360px;width:calc(100% - 40px);margin:auto;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 24px 48px rgba(24,59,53,.2)}
+.pe-confirm-dialog::backdrop{background:rgba(24,59,53,.28)}
+.pe-confirm-dialog h2{margin:0 0 8px;font-size:15px;color:var(--ink)}
+.pe-confirm-dialog p{margin:0 0 18px;font-size:12px;line-height:1.7;color:var(--muted)}
+.pe-confirm-actions{display:flex;justify-content:flex-end;gap:8px}
+.pe-confirm-actions .pe-plain,.pe-confirm-actions .pe-primary{padding:9px 14px;font-size:12px}
+
+.pe-dup-detail{margin:12px 0;border-top:1px solid var(--line);padding-top:10px}
+.pe-dup-detail summary{cursor:pointer;color:var(--ink);font-size:12px;font-weight:800}
+.pe-dup-list{margin-top:10px;display:grid;gap:6px;max-height:180px;overflow:auto}
+.pe-dup-list div{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted);border-bottom:1px dashed var(--line);padding-bottom:5px}
+.pe-dup-list strong{color:var(--ink);font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
+
+.pe-table-preview-wrap{margin-top:10px;border:1px solid var(--line);border-radius:9px;overflow:auto;max-height:560px}
+.pe-table-preview{border-collapse:collapse;min-width:100%;font-size:11px;white-space:nowrap}
+.pe-table-preview th,.pe-table-preview td{padding:0;border-bottom:1px solid #edf0eb;text-align:left}
+.pe-table-preview th{position:sticky;top:0;background:#f3f6ef;color:#4a5c4d;font-weight:800;padding:4px 4px 4px 10px;white-space:nowrap}
+.pe-table-preview th.pe-phone-col{background:#eaf3e8;color:#2f5f45}
+.pe-table-preview th.pe-status-th{padding:7px 10px}
+.pe-th-row{display:flex;align-items:center;gap:2px}
+.pe-col-label{padding:7px 0}
+.pe-header-input{box-sizing:border-box;flex:1;min-width:80px;border:1px solid transparent;background:transparent;color:inherit;padding:7px 4px;font-size:11px;font-weight:800;font-family:inherit}
+.pe-header-input:hover{border-color:#c7d5c9}
+.pe-header-input:focus{outline:none;border-color:var(--green);background:#fff;box-shadow:inset 0 0 0 1px var(--green)}
+/* 평소에도 존재를 알아볼 수 있으면서(회색 원형 배경 + 진한 아이콘) danger red를 과하게
+   쓰지 않도록, hover/focus 때만 옅은 빨강으로 강조한다. 클릭 영역은 26px 이상. */
+.pe-col-remove,.pe-row-remove{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid #d7dfd8;border-radius:7px;background:#eef1ee;color:#5a6b60;font-size:12px;font-weight:700;line-height:1;cursor:pointer}
+.pe-col-remove:hover,.pe-row-remove:hover{background:#fdecec;border-color:#f0c4bb;color:#a44735}
+.pe-col-remove:focus-visible,.pe-row-remove:focus-visible{outline:2px solid var(--green);outline-offset:1px;background:#fdecec;border-color:#f0c4bb;color:#a44735}
+.pe-table-preview td.pe-status-cell{white-space:nowrap;padding:4px 10px}
+.pe-status-inner{display:flex;align-items:center;gap:6px}
+.pe-table-editable .pe-cell-input{box-sizing:border-box;width:100%;min-width:100px;max-width:220px;border:1px solid transparent;background:transparent;color:var(--ink);padding:7px 10px;font-size:11px;font-family:inherit}
+.pe-table-editable .pe-cell-input:hover{border-color:var(--line)}
+.pe-table-editable .pe-cell-input:focus{outline:none;border-color:var(--green);background:#fff;box-shadow:inset 0 0 0 1px var(--green)}
+.pe-table-editable td.pe-phone-col{background:#f6faf5}
+.pe-table-editable td.pe-phone-col .pe-cell-input{font-weight:700;color:#1f4d3a}
+.pe-badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:800;background:#eef6ef;color:var(--green)}
+.pe-badge-dup{background:#fffaf0;color:#8b6213}
+.pe-badge-confirm{background:#fdecec;color:#a44735}
+.pe-badge-empty{background:#f1f2f0;color:var(--muted)}
+.pe-badge-multi{background:#eaf1fb;color:#2f5f8a}
+
+.pe-table-copy-buttons{display:flex;gap:8px}
+
+.pe-table-actions{display:flex;gap:8px;margin-top:8px}
+.pe-add-btn{width:auto;border:1px dashed #b9cdbb;border-radius:8px;background:#fbfcfa;color:var(--green);padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.pe-add-btn:hover{background:#eef6ef;border-color:var(--green)}
+
+.pe-reference-heading{max-width:700px;margin:44px auto 18px;text-align:center}
+.pe-reference-heading h2{margin:5px 0;font-size:23px;letter-spacing:-.9px;color:var(--ink)}
+.pe-reference-heading p:last-child{margin:0;font-size:13px;color:var(--muted);word-break:keep-all}
+.pe-reference-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pe-reference-grid article{padding:16px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.pe-reference-grid h3{margin:0;font-size:14px;color:var(--ink)}
+.pe-reference-grid code{display:inline-block;margin-top:8px;border-radius:5px;background:#edf3ed;padding:3px 5px;color:#4a5c4d;font:10px ui-monospace,SFMono-Regular,Consolas,monospace}
+.pe-reference-grid p{margin:9px 0 0;font-size:11px;line-height:1.7;color:var(--muted);word-break:keep-all}
+
+.pe-guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.pe-guide-card h2{font-size:15px;margin-bottom:9px;color:var(--ink)}
+.pe-guide-card p{font-size:12px;line-height:1.8;color:var(--muted)}
+.pe-guide-card code{background:#edf3ed;border-radius:4px;padding:1px 4px;font-size:11px;color:#4a5c4d}
+
+.pe-example{margin-top:34px}
+.pe-example>h2{font-size:17px;margin-bottom:12px;color:var(--ink)}
+.pe-example-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pe-example-label{display:block;margin-bottom:6px;font-size:11px;font-weight:800;color:var(--muted)}
+.pe-example-table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:9px;overflow:hidden;font-size:11px}
+.pe-example-table th,.pe-example-table td{padding:7px 9px;border-bottom:1px solid #edf0eb;text-align:left}
+.pe-example-table th{background:#f3f6ef;color:#4a5c4d;font-weight:800}
+.pe-example-table tr:last-child td{border-bottom:0}
+
+.pe-faq{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;border-top:1px solid var(--line);padding-top:30px;margin-top:38px}
+.pe-faq h2{font-size:23px;color:var(--ink)}
+.pe-faq>div>p{font-size:12px;color:var(--muted)}
+.pe-faq-item{border-bottom:1px solid var(--line)}
+.pe-faq-item:first-child{border-top:1px solid var(--line)}
+.pe-faq-item summary{padding:15px 0;font-size:13px;font-weight:750;cursor:pointer;color:var(--ink);list-style:none}
+.pe-answer{padding:0 0 15px;font-size:12px;line-height:1.8;color:var(--muted)}
+
+.related-section{display:grid;grid-template-columns:.75fr 1.25fr;gap:28px;align-items:center;margin-top:44px;padding:25px 0;border-top:1px solid var(--line)}
+.related-section h2{margin:0;color:var(--ink);font-size:21px;letter-spacing:-.8px}
+.related-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.related-links a{display:grid;grid-template-columns:28px 1fr 16px;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;background:#fff;padding:13px;color:var(--ink);text-decoration:none}
+.related-links a>span:first-child{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#edf3ed;color:var(--green);font-size:10px;font-weight:800}
+.related-links h3{margin:0;font-size:13px}
+.related-links p{margin:3px 0 0;color:var(--muted);font-size:10px;line-height:1.45}
+
+.pe-page .home-footer{margin-top:38px}
+
+@media(max-width:850px){
+    .pe-layout{grid-template-columns:1fr}
+    .pe-result-panel{position:static}
+    .pe-reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .related-section{grid-template-columns:1fr}
+}
+
+@media(max-width:760px){
+    .pe-intro{padding-bottom:10px}
+    .pe-tabs{justify-content:space-between;gap:0}
+    .pe-panel{padding:16px}
+    .pe-guide-grid,.pe-faq{grid-template-columns:1fr}
+    .pe-faq{gap:20px}
+    .pe-example-grid{grid-template-columns:1fr}
+    .pe-textarea{min-height:220px}
+    .pe-output{min-height:200px}
+    .pe-dedup{margin-left:0}
+    .pe-result-bottom{flex-direction:column;align-items:flex-start}
+    .pe-result-bottom .pe-primary{width:100%}
+    .pe-page .home-footer{margin-top:28px}
+    .pe-table-toolbar .pe-dedup{margin-left:0}
+    .pe-table-toolbar{flex-direction:column;align-items:stretch;gap:10px}
+    /* 두 select는 나란히 2열로(각 칸 안에서는 label을 select 위에 쌓아 좁은 폭에서도 읽기 쉽게),
+       체크박스·버튼은 각각 한 줄씩 그대로 아래로 쌓는다. */
+    .pe-toolbar-selects{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+    .pe-toolbar-field{flex-direction:column;align-items:flex-start;white-space:normal;gap:4px}
+    .pe-toolbar-field select{width:100%}
+    .pe-repaste-btn{width:100%}
+    .pe-table-copy-buttons{width:100%;flex-wrap:wrap}
+    .pe-table-copy-buttons .pe-primary{width:100%}
+    .pe-table-copy-buttons .pe-secondary{flex:1}
+    .pe-table-actions{flex-wrap:wrap}
+    .pe-add-btn{flex:1;min-height:40px}
+    .pe-paste-box{min-height:150px}
+    .pe-confirm-dialog{width:calc(100% - 32px);padding:18px}
+    .pe-confirm-actions{flex-direction:column-reverse}
+    .pe-confirm-actions .pe-plain,.pe-confirm-actions .pe-primary{width:100%;min-height:40px}
+}
+
+@media(max-width:600px){
+    .pe-intro h1{font-size:24px}
+    .pe-reference-grid{grid-template-columns:1fr}
+    .pe-start-actions{flex-direction:column}
+}
+
+@media(max-width:360px){
+    /* 아주 좁은 화면에서는 2열마저 select가 답답해지므로 1열로 전환한다. */
+    .pe-toolbar-selects{grid-template-columns:1fr}
+}

@@ -95,6 +95,7 @@ window.addEventListener("load", () => {
         "https://toolify.kr/tools/anju-roulette/",
         "https://toolify.kr/tools/night-snack-roulette/",
         "https://toolify.kr/tools/activity-roulette/",
+        "https://toolify.kr/tools/phone-extractor/",
         "https://toolify.kr/tools/star-rating-calculator/",
         "https://toolify.kr/tools/lecture-speed-calculator/",
         "https://toolify.kr/tools/battery-runtime/",
